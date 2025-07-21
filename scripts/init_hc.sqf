@@ -1,4 +1,4 @@
-
+//function not working properly
 waitUntil {!isNil "Headless Client"};
 if (!isServer) exitWith {};
 _HC = owner "Headless Client"; //<string> denotes the name of the HC entity/unit in-game

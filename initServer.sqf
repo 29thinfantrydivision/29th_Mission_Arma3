@@ -4,7 +4,7 @@ Executed only on server when mission is started.
 diag_log text format ["|=============================   %1: initServer.sqf Running   =============================|", missionName];
 
 INDEPENDENT setFriend [WEST, 0];
-
+/*
 if (count (entities "HeadlessClient_F") > 0) then {
 	systemChat "Headless Client is online. Spawned units will be transferred to the HC.";
 	hc_online = true;
@@ -15,7 +15,7 @@ if (count (entities "HeadlessClient_F") > 0) then {
 	hc_online = false;
 	publicVariable "hc_online";
 };
-
+*/
 _autoSpectate = "autoSpectate" call BIS_fnc_getParamValue;
 if (_autoSpectate == 1) then {
 	autoSpectate = true;

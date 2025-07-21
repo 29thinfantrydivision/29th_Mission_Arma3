@@ -29,7 +29,7 @@ if (isClass (configFile >> "CfgPatches" >> "ace_main")) then {
 		}];
 	} forEach allCurators;
 };
-
+/*
 if (isNil "hc_online") then {
   [] spawn {
     waitUntil {!isNil "hc_online"};
@@ -96,7 +96,7 @@ if (isNil "hc_online") then {
     } forEach allCurators;
   };
 };
-
+*/
 if (isNil "disabledTI") then {
   [] spawn {
     waitUntil {!isNil "disabledTI"};
