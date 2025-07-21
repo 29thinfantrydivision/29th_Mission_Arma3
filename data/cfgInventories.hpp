@@ -11,8 +11,8 @@
 		magazines[] = {
 			"rhsgref_8Rnd_762x63_Tracer_M1T_M1rifle",
 			"rhsgref_8Rnd_762x63_Tracer_M1T_M1rifle",
-      "rhsgref_8Rnd_762x63_Tracer_M1T_M1rifle",
-      "rhsgref_8Rnd_762x63_Tracer_M1T_M1rifle"
+			"rhsgref_8Rnd_762x63_Tracer_M1T_M1rifle",
+			"rhsgref_8Rnd_762x63_Tracer_M1T_M1rifle"
 		};
 		items[] = {
 			"ACE_EarPlugs",
@@ -28,8 +28,8 @@
 			"ItemCompass",
 		//	"ItemWatch",
 		//	"ItemRadio",
-			"tf_microdagr",
-			"tf_anprc152"
+		//	"TFAR_microdagr",
+			"TFAR_anprc152"
 		};
 		uniformClass = "29th_rhs_combat_uniform_ocp_retex"; //"rhs_uniform_cu_ocp"
 		backpack = "";
@@ -64,7 +64,7 @@
 			"ItemCompass",
 		//	"ItemWatch",
 		//	"ItemRadio",
-			"tf_fadak"
+			"TFAR_fadak"
 		};
 		uniformClass = "rhs_uniform_m88_patchless";
 		backpack = "";
@@ -99,7 +99,7 @@
 			"ItemCompass",
 		//	"ItemWatch",
 		//	"ItemRadio"
-			"tf_anprc148jem"
+			"TFAR_anprc148jem"
 		};
 		uniformClass = "U_BG_Guerrilla_6_1";
 		backpack = "";
