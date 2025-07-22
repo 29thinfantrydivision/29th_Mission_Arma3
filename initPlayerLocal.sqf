@@ -15,20 +15,18 @@ enableSentences false;
 enableEnvironment [false, true];
 
 [] spawn {
-  if (isNil "artilleryComputer") then {
-    waitUntil {!isNil "artilleryComputer"};
-    if (artilleryComputer == 0) then {
-      enableEngineArtillery false;
-    };
+  waitUntil {!isNil "artilleryComputer"};
+  if (artilleryComputer == 0) then {
+    enableEngineArtillery false;
   };
-//restrict thermals
-  if (isNil "disabledTI") then {
-    waitUntil {!isNil "disabledTI"};
-    if (disabledTI == 0) then {
-      ["visionMode", {
-        [_this] spawn Hill_fnc_noThermals;
-      }] call CBA_fnc_addPlayerEventHandler;
-    };
+};
+
+[] spawn {
+  waitUntil {!isNil "disabledTI"};
+  if (disabledTI == 0) then {
+    ["visionMode", {
+      [_this] spawn Hill_fnc_noThermals;
+    }] call CBA_fnc_addPlayerEventHandler;
   };
 };
 
