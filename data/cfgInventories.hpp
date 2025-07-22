@@ -2,7 +2,7 @@
   {
 		displayName = "Parade"; // Name visible in the menu
 		icon = "\A3\Ui_f\data\IGUI\Cfg\Actions\gear_ca.paa"; // Icon displayed next to the name
-		role = "PARADE_WEST";
+		role = "PARADE";
  
 		// Loadout definition, uses same entries as CfgVehicles classes
 		weapons[] = {
@@ -40,7 +40,7 @@
   {
 		displayName = "Parade"; // Name visible in the menu
 		icon = "\A3\Ui_f\data\IGUI\Cfg\Actions\gear_ca.paa"; // Icon displayed next to the name
-		role = "PARADE_EAST";
+		role = "PARADE";
  
 		// Loadout definition, uses same entries as CfgVehicles classes
 		weapons[] = {
@@ -75,7 +75,7 @@
   {
 		displayName = "Parade"; // Name visible in the menu
 		icon = "\A3\Ui_f\data\IGUI\Cfg\Actions\gear_ca.paa"; // Icon displayed next to the name
-		role = "PARADE_INDEPENDENT";
+		role = "PARADE";
  
 		// Loadout definition, uses same entries as CfgVehicles classes
 		weapons[] = {
