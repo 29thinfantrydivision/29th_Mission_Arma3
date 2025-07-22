@@ -35,5 +35,5 @@ publicVariable "artilleryComputer";
 //publicVariable "removeRadiosFromDead";
 
 execVM "scripts\excludeObjFromZeus.sqf";
-execVM "scripts\checkCuratorAssignment.sqf";
+//execVM "scripts\checkCuratorAssignment.sqf";
 execVM "scripts\timerCheck.sqf";
