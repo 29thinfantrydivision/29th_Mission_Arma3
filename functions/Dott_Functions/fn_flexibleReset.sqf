@@ -1,7 +1,7 @@
 /*
  * Name:	fnc_flexibleReset
  * Date:	3/4/2024
- * Version: 1.0
+ * Version: 1.1
  * Author:  Dott [29th ID]
  *
  * Description:
@@ -9,7 +9,7 @@
  * Must be spawned on client
  *
  * Parameter(s) (All Optional): 
- * _inventory (String): Intended inventory to load (default: "")
+ * _inventory (Array): Unit Loadout Array (default: empty array)
  * _heal (Bool): True if players should be healed (default: false)
  * _point (Array): Point to be returned to, if empty array then doesn't teleport (Position ASL) (default: [])
  * _pointRad (Number): Will skip teleport if player is within specified distance of point (default: 50)
@@ -27,7 +27,7 @@
 
 params 
 [
-	["_inventory", "", [""]],
+	["_inventory", [], [[]]],
 	["_heal", false, [false]],
 	["_point", [],[[]]],
 	["_pointRad", 50,[0]],
@@ -38,14 +38,21 @@ params
 
 if (!hasInterface) exitWith {}; //client only
 
-//if inventory string isn't blank, load specified inventory
-if (_inventory isNotEqualTo "") then
+//if inventory array isn't empty, load specified inventory
+private _resetInventory = false;
+
+if (count _inventory != 0) then
 {	
-	[player, [missionNamespace, _inventory]] call BIS_fnc_loadInventory;
-	//set to true for switch below
-	_inventory = true;
-}
-else { _inventory = false; }; //set to false for switch below
+	player call DOTT_fnc_removeWeaponMags; //prevent inaudible weapon bug
+
+	//setUnitLoadout will fail if called during weapon switch	
+	//also give time for empty mags to sync to server
+	waitUntil {sleep .5; !isSwitchingWeapon player};	
+
+	player setUnitLoadout [_inventory, true];
+	
+	_resetInventory = true; //set to true for switch below
+};
 
 if (_heal) then 
 {
@@ -120,12 +127,12 @@ if (_msgClass isEqualTo "") exitWith //if no msgClass, use defaults below
 {
 	switch (true) do
 	{
-		case (_inventory && !_heal && !_teleport): { ["Reset", ["Rearmed","Player is Rearmed!"]] call BIS_fnc_showNotification; };
-		case (_inventory && _heal && !_teleport): { ["Reset", ["Reset","Rearmed and Healed!"]] call BIS_fnc_showNotification; };
-		case (_inventory && _heal && _teleport): { ["Reset", ["Full Reset","Rearmed, healed, and teleported!"]] call BIS_fnc_showNotification; };
-		case (!_inventory && _heal && _teleport): { ["Document", ["Debrief","Teleported for debrief!"]] call BIS_fnc_showNotification; };
-		case (!_inventory && !_heal && _teleport): { ["Document", ["Teleported","Player teleported!"]] call BIS_fnc_showNotification; };
-		case (!_inventory && _heal && !_teleport): { ["Health", ["Healed","Player is healed!"]] call BIS_fnc_showNotification; };
+		case (_resetInventory && !_heal && !_teleport): { ["Reset", ["Rearmed","Player is Rearmed!"]] call BIS_fnc_showNotification; };
+		case (_resetInventory && _heal && !_teleport): { ["Reset", ["Reset","Rearmed and Healed!"]] call BIS_fnc_showNotification; };
+		case (_resetInventory && _heal && _teleport): { ["Reset", ["Full Reset","Rearmed, healed, and teleported!"]] call BIS_fnc_showNotification; };
+		case (!_resetInventory && _heal && _teleport): { ["Document", ["Debrief","Teleported for debrief!"]] call BIS_fnc_showNotification; };
+		case (!_resetInventory && !_heal && _teleport): { ["Document", ["Teleported","Player teleported!"]] call BIS_fnc_showNotification; };
+		case (!_resetInventory && _heal && !_teleport): { ["Health", ["Healed","Player is healed!"]] call BIS_fnc_showNotification; };
 	};
 };
 

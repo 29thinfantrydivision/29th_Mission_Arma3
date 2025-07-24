@@ -8,5 +8,6 @@ class Dott_Functions
 		class ticketAdd {};
 		class ticketCount {};
 		class flexibleReset {};
+		class removeWeaponMags {};
 	};
 };
