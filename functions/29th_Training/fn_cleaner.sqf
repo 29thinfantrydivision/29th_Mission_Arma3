@@ -1,7 +1,7 @@
 /*
  * Name:	fnc_cleaner
- * Date:	9/6/2016
- * Version: 1.0
+ * Date:	7/26/2025
+ * Version: 1.1
  * Author:  Rellikplug	AKA: Hill [29th ID]
  *
  * Description:
@@ -28,9 +28,12 @@ _posRed = getPosATL red_garbage;
 _posGreen = getPosATL green_garbage;
 _all_garbages = [_posBlu,_posRed,_posGreen];
 
-	//  get nearest objs around each object
-_near_objects =  { nearestObjects [_x,["WeaponHolder","GroundWeaponHolder"],250]; } forEach _all_garbages;
-	//  count the strings in each array
+	//  get items around trash cans
+_near_objects =  [];
+{
+    _near_objects append (nearestObjects [_x, ["WeaponHolder", "GroundWeaponHolder"], 250]);
+} forEach _all_garbages;
+
 _countObjects = count _near_objects;
 _countDead = count _dead;
 _countAllNear = _countObjects + _countDead;
