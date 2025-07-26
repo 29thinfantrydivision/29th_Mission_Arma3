@@ -11,26 +11,33 @@
  * _unit
  *
  * Returns:
- * n/a
+ * false if !hasInterface, true otherwise
  *
  * Example:
  * player call DOTT_fn_removeWeaponMags;
  * 
  */
+if(!hasInterface) exitWith {false};
 params["_unit"];
+
 //Find all magazines currently loaded in weapons, group with corresponding removal function
-private _removeTasks = 
+private _removeTasks =
 [
-    [primaryWeaponMagazine _unit, { _unit removePrimaryWeaponItem _x }],
-    [secondaryWeaponMagazine _unit, { _unit removeSecondaryWeaponItem _x }],
-    [handgunMagazine _unit, { _unit removeHandgunItem _x }],
-    [binocularMagazine _unit, { _unit removeBinocularItem _x }]
+    [primaryWeaponMagazine _unit,    { _unit removePrimaryWeaponItem _this }],
+    [secondaryWeaponMagazine _unit,  { _unit removeSecondaryWeaponItem _this }],
+    [handgunMagazine _unit,          { _unit removeHandgunItem _this }],
+    [binocularMagazine _unit,        { _unit removeBinocularItem _this }]
 ];
-//For every magazine in weapons, call corresponding removal function
+
+// Iterate through each weapon type and remove its magazines
 {
-    private _magArray = _x select 0;
-    private _removeFunc = _x select 1;
+    private _magazines = _x#0;
+    private _remover = _x#1;
+
     {
-        [_x] call _removeFunc;
-    } forEach _magArray;
-} forEach _removeTasks;	
+        _x call _remover;
+    } forEach _magazines;
+
+} forEach _removeTasks;
+
+true
