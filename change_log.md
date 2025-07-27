@@ -48,7 +48,10 @@ v4.2.0
   - fn_handleInitalInventory.sqf fixed, but also no longer called due to redundancy.
 
 * Improved loadout and arsenal handling
-	- Added "functions\Dott_Functions\fn_removeWeaponMags.sqf" and "functions\Dott_Functions\fn_safeSetUnitLoadout.sqf" to hopefully prevent inaudible weapon bug
+  - Replaced calls to BIS_fnc_loadInventory to prevent inaudible weapon bug
+	- Replaced with "functions\Dott_Functions\fn_safeSetUnitLoadout.sqf", which uses setUnitLoadout to prevent the issue
+    where the server thinks your weapon is "Put". Function calls "functions\Dott_Functions\fn_removeWeaponMags.sqf" beforehand
+    as a precautionary measure, although it may not be needed.
 	- fn_arsenalClosed and fn_flexibleReset now use safeSetUnitLoadout, modified fn_flexibleReset params to accomodate.
 
 * Legacy cleanup
