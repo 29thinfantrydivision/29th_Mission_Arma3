@@ -21,23 +21,25 @@ if(!hasInterface) exitWith {false};
 params["_unit"];
 
 //Find all magazines currently loaded in weapons, group with corresponding removal function
-private _removeTasks =
-[
-    [primaryWeaponMagazine _unit,    { _unit removePrimaryWeaponItem _this }],
-    [secondaryWeaponMagazine _unit,  { _unit removeSecondaryWeaponItem _this }],
-    [handgunMagazine _unit,          { _unit removeHandgunItem _this }],
-    [binocularMagazine _unit,        { _unit removeBinocularItem _this }]
-];
+private _primaryMags   = primaryWeaponMagazine _unit;
+private _secondaryMags = secondaryWeaponMagazine _unit;
+private _handgunMags   = handgunMagazine _unit;
+private _binocMags     = binocularMagazine _unit;
 
-// Iterate through each weapon type and remove its magazines
 {
-    private _magazines = _x#0;
-    private _remover = _x#1;
+    _unit removePrimaryWeaponItem _x;
+} forEach _primaryMags;
 
-    {
-        _x call _remover;
-    } forEach _magazines;
+{
+    _unit removeSecondaryWeaponItem _x;
+} forEach _secondaryMags;
 
-} forEach _removeTasks;
+{
+    _unit removeHandgunItem _x;
+} forEach _handgunMags;
+
+{
+    _unit removeBinocularItem _x;
+} forEach _binocMags;
 
 true
