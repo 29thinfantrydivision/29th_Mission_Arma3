@@ -72,6 +72,8 @@ v4.2.0
     init_hc is no longer called from initServer and has been marked as non-working.
     Headless Client-related code in init_curators has been commented out.
   - Deleted spectator.sqf from script folder, left over file after it was "moved" to fn_spectator.sqf in 29th_Training.
+  - Removed functions\curator folder and files inside, removed include in description.ext
+    Functions meant to make sure all placed zeus units are shared between all curators no longer called. ACE Zeus setting on server takes over this functionality.
 
 * Tweaked "fn_flexibleReset.sqf"
   - Teleport now waits up to 30 seconds for a dead player to respawn before attempting teleport to reduce need for manual teleporting in these situations.
