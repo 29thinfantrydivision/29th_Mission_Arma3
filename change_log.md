@@ -71,6 +71,7 @@ v4.2.0
   - Disabled most Headless Client "functionality" due to nonfunctional behavior.
     init_hc is no longer called from initServer and has been marked as non-working.
     Headless Client-related code in init_curators has been commented out.
+  - Deleted spectator.sqf from script folder, left over file after it was "moved" to fn_spectator.sqf in 29th_Training.
 
 * Tweaked "fn_flexibleReset.sqf"
   - Teleport now waits up to 30 seconds for a dead player to respawn before attempting teleport to reduce need for manual teleporting in these situations.
