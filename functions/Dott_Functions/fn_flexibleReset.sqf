@@ -43,7 +43,7 @@ private _resetInventory = false;
 
 if (count _inventory != 0) then
 {	
-	[player, _inventory, true] spawn DOTT_fnc_safeSetUnitLoadout;
+	[player, _inventory, true] spawn DOTT_fnc_fullSetUnitLoadout;
 	_resetInventory = true; //set to true for switch below
 };
 

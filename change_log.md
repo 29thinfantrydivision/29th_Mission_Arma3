@@ -49,10 +49,11 @@ v4.2.0
 
 * Improved loadout and arsenal handling
   - Replaced calls to BIS_fnc_loadInventory to prevent inaudible weapon bug
-	- Replaced with "functions\Dott_Functions\fn_safeSetUnitLoadout.sqf", which uses setUnitLoadout to prevent the issue
-    where the server thinks your weapon is "Put". Function calls "functions\Dott_Functions\fn_removeWeaponMags.sqf" beforehand
-    as a precautionary measure, although it may not be needed.
-	- fn_arsenalClosed and fn_flexibleReset now use safeSetUnitLoadout, modified fn_flexibleReset params to accomodate.
+	- Replaced with "functions\Dott_Functions\fn_fullSetUnitLoadout.sqf", which uses setUnitLoadout to prevent the issue
+    where the server thinks your weapon is "Put". 
+  - Function "functions\Dott_Functions\fn_removeWeaponMags.sqf" was created in case a (slightly related but) different desync
+    caused similar issues, but left unused for now as no gameplay issues have been found related to it.
+	- fn_arsenalClosed and fn_flexibleReset now use fullSetUnitLoadout, modified fn_flexibleReset params to accomodate.
 
 * Added ACE Spectator as additional option at spectate terminal
   - Mostly copy and pasted over fn_spectator into fn_ace_spectator, edited baseObjectInit to add to terminal.
@@ -67,7 +68,7 @@ v4.2.0
   - fn_noThermals cleaned up with descriptions, defines, param change
   - fn_removeRadio now has description, moved _removeRadiosFromDead check to onPlayerKilled
   - fn_setInsignia rewritten with hashmap instead of switch case, different standard for non-combat kits. 
-    Cleaned up call to it from onPlayerRespawn and removed it from arsenal_handlers as it is included in safeSetUnitLoadout.
+    Cleaned up call to it from onPlayerRespawn.
   - Unused functions randomizeRadioHz and removeAllRespawnInventories moved to archives folder and calls (TFAR_eventHandlers and init_curators respectively) commented out.
   - dateAndWeather function greatly simplified, moved completely server side. Call moved from init.sqf to initServer.sqf. 
     Numeric values moved from script to initServer, now passed as params.

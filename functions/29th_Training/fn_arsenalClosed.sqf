@@ -3,13 +3,14 @@ if (!hasInterface) exitWith {};
 [player, ["missionNamespace:Current Inventory"]] call BIS_fnc_setRespawnInventory;
 
 resetLoadout = getUnitLoadout player;
-
+/*
 //prevent inaudible weapon bug
 [] spawn {
 	sleep 1;
-	[player, resetLoadout, true] call DOTT_fnc_safeSetUnitLoadout;	
+	[player, resetLoadout, true] call DOTT_fnc_fullSetUnitLoadout;	
 };
-
+*/
+_unit spawn Hill_fnc_setInsignia;
 if (!(weaponLowered player)) then {
 	player action ["WeaponOnBack", player];
 };

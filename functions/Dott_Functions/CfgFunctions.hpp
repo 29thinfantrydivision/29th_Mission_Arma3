@@ -9,7 +9,7 @@ class Dott_Functions
 		class ticketCount {};
 		class flexibleReset {};
 		class removeWeaponMags {};
-		class safeSetUnitLoadout {};
+		class fullSetUnitLoadout {};
 		class ace_spectator {};
 	};
 };
