@@ -45,25 +45,25 @@ v4.2.0
 * Parade loadout
 	- Combined PARADE_WEST, PARADE_EAST, and PARADE_INDEPENDENT roles into a single PARADE role in cfgRoles and cfgInventories
   - Deprecated radios in loadout swapped.
-  - fn_handleInitalInventory.sqf fixed, but also no longer called due to redundancy.
+  - fn_handleInitalInventory.sqf fixed, but also no longer called due to redundancy. First time players should now join with parade
+    and not naked.
 
 * Improved loadout and arsenal handling
-  - Replaced calls to BIS_fnc_loadInventory to prevent inaudible weapon bug
-	- Replaced with "functions\Dott_Functions\fn_fullSetUnitLoadout.sqf", which uses setUnitLoadout to prevent the issue
+  - Replaced calls to BIS_fnc_loadInventory to prevent one source of inaudible weapon bug
+	  with "functions\Dott_Functions\fn_fullSetUnitLoadout.sqf", which uses setUnitLoadout to prevent the issue
     where the server thinks your weapon is "Put". 
   - Function "functions\Dott_Functions\fn_removeWeaponMags.sqf" was created in case a (slightly related but) different desync
     caused similar issues, but left unused for now as no gameplay issues have been found related to it.
-	- fn_arsenalClosed and fn_flexibleReset now use fullSetUnitLoadout, modified fn_flexibleReset params to accomodate.
+	- fn_flexibleReset now use fullSetUnitLoadout, modified fn_flexibleReset params to accomodate.
 
 * Legacy cleanup
 	- fn_addRadio deprecated radios swapped.
-  - fn_assignCurator, checkCuratorAssignment rewritten, checkCuratorAssignment call moved to initPlayerLocal from initServer
+  - fn_assignCurator, checkCuratorAssignment rewritten, checkCuratorAssignment call moved to initPlayerLocal from initServer (might revisit this later)
     Now properly lets JIP Zeus slots access it without respawn.
   - fn_cleaner now properly cleans up items in base, added description, returns boolean
   - fn_noThermals cleaned up with descriptions, defines, param change
   - fn_removeRadio now has description, moved _removeRadiosFromDead check to onPlayerKilled
-  - fn_setInsignia rewritten with hashmap instead of switch case, different standard for non-combat kits. 
-    Cleaned up call to it from onPlayerRespawn.
+  - fn_setInsignia rewritten with hashmap instead of switch case, different standard for non-combat kits. Cleaned up call to it from onPlayerRespawn.
   - fn_spectator separated into fn_enter_spectator and fn_exit_spectator. Player no longer sits down but will lower weapon upon exiting spectator (prevent accidental discharge).
   - scripts/baseObjectsInit.sqf call moved from init.sqf to initPlayerLocal.sqf
   - Parade loadout setup moved from init.sqf to initServer.sqf
@@ -85,8 +85,8 @@ v4.2.0
   - Heal now also resets ACE Hearing deafness.
 
 * Fixed mission parameters
-  - artilleryComputer now properly disables artillery computers. 
-  - disabledTI now properly spawns Hill_fnc_noThermals via EH. Infantry NVGs and launchers can no longer use thermals.
+  - artilleryComputer now properly disables artillery computers. Server side ACE option to block it must be disabled for this param to take full effect. 
+  - disabledTI now properly spawns Hill_fnc_noThermals via EH. Infantry NVGs and launchers can no longer use thermals (important for Javelin).
 
 ---
 v4.1.1
