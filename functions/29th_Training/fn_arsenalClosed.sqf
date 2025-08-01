@@ -10,7 +10,7 @@ resetLoadout = getUnitLoadout player;
 	[player, resetLoadout, true] call DOTT_fnc_fullSetUnitLoadout;	
 };
 */
-_unit spawn Hill_fnc_setInsignia;
+player spawn Hill_fnc_setInsignia;
 if (!(weaponLowered player)) then {
 	player action ["WeaponOnBack", player];
 };
