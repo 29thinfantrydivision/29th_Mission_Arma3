@@ -38,7 +38,7 @@ TBD
 
 ---
 v4.2.0  
-27 JUL 2025
+5 AUG 2025
 
 ---
 
@@ -53,8 +53,10 @@ v4.2.0
 	  with "functions\Dott_Functions\fn_fullSetUnitLoadout.sqf", which uses setUnitLoadout to prevent the issue
     where the server thinks your weapon is "Put". 
   - Function "functions\Dott_Functions\fn_removeWeaponMags.sqf" was created in case a (slightly related but) different desync
-    caused similar issues, but left unused for now as no gameplay issues have been found related to it.
+    caused similar issues, but found use in prevent one cause of bug above.
 	- fn_flexibleReset now use fullSetUnitLoadout, modified fn_flexibleReset params to accomodate.
+  - fn_checkPlayerWeaponState added to check if player weapon state has desynced. Currently checks when leaving ACE Arsenal, after !reset, and on respawn.
+    Notifies all players when player in game has incorrect weapon state.
 
 * Legacy cleanup
 	- fn_addRadio deprecated radios swapped.

@@ -10,6 +10,13 @@ resetLoadout = getUnitLoadout player;
 	[player, resetLoadout, true] call DOTT_fnc_fullSetUnitLoadout;	
 };
 */
+
+[] spawn 
+{
+	sleep 2;
+	[player] remoteExec ["DOTT_fnc_checkPlayerWeaponState", 2];	
+};
+
 player spawn Hill_fnc_setInsignia;
 if (!(weaponLowered player)) then {
 	player action ["WeaponOnBack", player];

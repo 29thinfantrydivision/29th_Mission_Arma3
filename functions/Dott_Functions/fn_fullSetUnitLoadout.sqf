@@ -30,15 +30,15 @@ params
 //setUnitLoadout as of 2.20 temporarily does not work non-local
 if (!local _unit) exitWith {["Unit %1 must be local.", _unit] call BIS_fnc_error; false;};
 
-/*
-//prevent desync of ammo in magazine server side
-//said desync has no known effects on gameplay, but keeping this for now
+//prevents incorrect weapon state when called on unit that respawned
+//but did not set a loadout in arsenal in current life
 _unit call DOTT_fnc_removeWeaponMags; 
-*/
 
 //setUnitLoadout will fail if called during weapon switch	
 waitUntil {sleep .1; !isSwitchingWeapon _unit};	
 
 _unit setUnitLoadout [_loadout, _fullMagazines];
 _unit spawn Hill_fnc_setInsignia;
+sleep 3;
+[_unit] remoteExec ["DOTT_fnc_checkPlayerWeaponState", 2];	
 true
