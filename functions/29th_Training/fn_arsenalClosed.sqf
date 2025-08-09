@@ -6,7 +6,7 @@ resetLoadout = getUnitLoadout player;
 
 [] spawn 
 {
-	sleep 2;
+	sleep 1;
 	[player, true] spawn DOTT_fnc_checkPlayerWeaponState;	
 	sleep 2;
 	private _weaponStateMsg = format [
@@ -20,7 +20,8 @@ resetLoadout = getUnitLoadout player;
 
 player spawn Hill_fnc_setInsignia;
 
-if (!(weaponLowered player)) then {
+if (!(weaponLowered player)) then 
+{
 	player action ["WeaponOnBack", player];
 };
 

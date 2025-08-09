@@ -27,7 +27,8 @@ player allowDammage true; // Make player vulnerable again
 player switchCamera "internal"; // Make sure the camera is returned to the player
 player enableSimulation true;
 ["exitSpectator", "onEachFrame"] call BIS_fnc_removeStackedEventHandler; //  Remove the stackedEventHandler as we no longer need it
-if (!(weaponLowered player)) then {
+if (!(weaponLowered player)) then 
+{
 	player action ["WeaponOnBack", player];
 };
 true
