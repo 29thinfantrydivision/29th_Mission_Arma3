@@ -49,7 +49,7 @@ hintSilent "SPECTATOR\n----------\nPress RELOAD to exit";  // Tell player they a
 	};
 };
 
-[player, true] remoteExec ["hideObjectGlobal", 0];
+player hideObjectGlobal true;
 player enableSimulation false;
 
 ["Initialize", [player, [], false]] call BIS_fnc_EGSpectator;  // Start Spectator

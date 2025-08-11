@@ -28,7 +28,7 @@ blu_ammo addAction [
     true, 
     "", 
     "serverCommandAvailable '#lock'", 
-    75
+    2
 ];
 
 {
