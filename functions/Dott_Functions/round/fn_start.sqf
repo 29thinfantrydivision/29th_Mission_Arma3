@@ -24,7 +24,11 @@ params[["_roundLength", timerLength, [0]]]; // Length of the round in seconds
 if (call DOTT_round_fnc_isRoundActive) exitWith {false};
 
 [_roundLength] call BIS_fnc_countdown;
-["<t color='#ffffff' size='4'>LIVE LIVE LIVE</t><br/>%1 Minute Time Limit","PLAIN",0.5, true, _roundLength/60] remoteExec ["DOTT_fnc_displayMsg"];
+["<t color='#ffffff' size='4'>LIVE LIVE LIVE</t><br/>%1 Minute Time Limit","PLAIN",0.5, true, _roundLength/60] remoteExecCall ["DOTT_fnc_displayMsg"];
+
+[{
+[{(call DOTT_round_fnc_getTime) <= 0}, { call DOTT_round_fnc_end }, []] call CBA_fnc_waitUntilAndExecute;
+}] remoteExecCall ["call", 2];
 
 bluReady = false;
 opfReady = false;

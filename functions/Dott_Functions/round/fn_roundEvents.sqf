@@ -51,8 +51,4 @@ roundEventsScript = [] spawn
 		};
 		uiSleep 1; 
 	};
-
-	if (!isServer) exitWith {}; //only on server to prevent duplicate calls
-	waitUntil {uiSleep 0.5; (call DOTT_round_fnc_getTime == 0)};
-	[] call DOTT_round_fnc_end;
 };
