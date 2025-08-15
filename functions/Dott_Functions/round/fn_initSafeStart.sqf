@@ -40,11 +40,9 @@ private _safeStartTime = 10; // time between all sides ready and automatic live 
 		};
 
 		// launch the timer dependent on timerLength defined elsewhere
-		if (_allSidesReady) then 
-		{
-			call DOTT_round_fnc_start;
-		};
-	}, [], _safeStartTime
+		call DOTT_round_fnc_start;
+	}, 
+	[], _safeStartTime
 ] call CBA_fnc_waitAndExecute;
 
 true
