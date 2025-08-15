@@ -65,6 +65,7 @@ v4.2.0
   - fn_removeRadio now has description, moved _removeRadiosFromDead check to onPlayerKilled
   - fn_setInsignia rewritten with hashmap instead of switch case, different standard for non-combat kits. Cleaned up call to it from onPlayerRespawn.
   - fn_spectator separated into fn_enter_spectator and fn_exit_spectator. Player no longer sits down but will lower weapon upon exiting spectator (prevent accidental discharge).
+    Players will also be forced out when manually teleported.
   - scripts/baseObjectsInit.sqf call moved from init.sqf to initPlayerLocal.sqf
   - Parade loadout setup moved from init.sqf to initServer.sqf
   - Unused functions randomizeRadioHz and removeAllRespawnInventories moved to archives folder and calls (TFAR_eventHandlers and init_curators respectively) commented out.

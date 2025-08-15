@@ -42,8 +42,11 @@ Then look up the IDC of the spectate button and add from there
 if (isDedicated || !hasInterface) exitWith {["Player must be not be dedicated server or HC."] call BIS_fnc_error; false};
 
 hintSilent "SPECTATOR\n----------\nPress RELOAD to exit";  // Tell player they are spectating
-[] spawn {
-	while {!isNil {missionNamespace getVariable "BIS_EGSpectator_initialized"}} do { // While spectator is active show messages
+
+[] spawn 
+{
+	while {!isNil {missionNamespace getVariable "BIS_EGSpectator_initialized"}} do 
+	{ // While spectator is active show messages
 		cutText ["SPECTATOR\n----------\nPress RELOAD to exit","PLAIN DOWN"];
 		sleep 30; // Show message every 30 seconds			
 	};
@@ -54,10 +57,18 @@ player enableSimulation false;
 
 ["Initialize", [player, [], false]] call BIS_fnc_EGSpectator;  // Start Spectator
 
-["exitSpectator", "onEachFrame", {
-	if (inputAction "ReloadMagazine" > 0) exitWith { // Check if "Reload" key is pressed
+private _startPos = getPosATL player;
+["exitSpectator", "onEachFrame", 
+{
+	params ["_startPos"];
+	if (inputAction "ReloadMagazine" > 0) exitWith 
+	{ // Check if "Reload" key is pressed
 		call Hill_fnc_exit_spectator;
 	};
-}] call BIS_fnc_addStackedEventHandler;
+	if ((player distanceSqr _startPos ) > (5 * 5)) exitWith 
+	{
+		call Hill_fnc_exit_spectator;
+	};
+}, [_startPos]] call BIS_fnc_addStackedEventHandler;
 
 true

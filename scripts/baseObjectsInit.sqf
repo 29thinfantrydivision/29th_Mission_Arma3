@@ -20,13 +20,14 @@ for "_i" from 0 to ((count _ammo_boxes) - 1) do
     params ["_p1", "_p2"];
     private _center = [ (_p1#0 + _p2#0) / 2, (_p1#1 + _p2#1) / 2];
     private _radius = 75;
+    private _radiusSquared = _radius*_radius;
     private _actionId = -1;
     private _insideZone = false;
 
     while {true} do 
     {
-      private _dist = player distance2D _center;
-      if (_dist <= _radius) then 
+      private _distSquared = player distanceSqr _center;
+      if (_distSquared <= _radiusSquared) then 
       {
           if (!_insideZone) then 
           {
