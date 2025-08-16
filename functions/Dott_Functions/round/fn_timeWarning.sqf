@@ -18,12 +18,23 @@
  * 
  */
 
-private _minutesLeft = round ((call DOTT_round_fnc_getTime) / 60);
-if(_minutesLeft == 0) then 
-{
-	["TimeWarning", ["Less than 1 minute remaining!"]] call BIS_fnc_showNotification;
-} else 
-{
-	["TimeWarning", [format ["%1 minutes remaining!", _minutesLeft]]] call BIS_fnc_showNotification;
-};
+private _secondsLeft = call DOTT_round_fnc_getTime; 
+
+private _minutes = ceil(_secondsLeft / 60); 
+private _actualMinutes = _secondsLeft / 60;
+
+private _prefix = if ((_minutes - _actualMinutes) > 0.25) then {"Less than "} else {""};
+private _plural = if (_minutes != 1) then {"s"} else {""};
+
+private _message = format 
+[
+	"%1%2 minute%3 remaining!", 
+    _prefix, 
+    _minutes, 
+	_plural
+];
+
+["TimeWarning", [_message]] call BIS_fnc_showNotification;
+
+
 

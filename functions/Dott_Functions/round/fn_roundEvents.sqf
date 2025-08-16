@@ -45,7 +45,7 @@ while {_timeLeft > 0} do {
 
 		//avoid overlapping due to addTime and skip events before starting time
 		//but do at least one time notification unless end was called
-		if(_eventTime - _timeLeft < 10 || (_eventIndex == count _events - 1 && _timeLeft > 0)) then 
+		if(_eventTime - _timeLeft < 30 || (_eventIndex == count _events - 1 && _timeLeft > 0)) then 
 		{
 			_params call _fn;
 		};
