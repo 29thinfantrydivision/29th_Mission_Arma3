@@ -37,6 +37,8 @@ publicVariable "disabledTI";
 artilleryComputer = "artilleryComputer" call BIS_fnc_getParamValue;
 publicVariable "artilleryComputer";
 
+removeDefaultVehicleInventories = "removeDefaultVehicleInventories" call BIS_fnc_getParamValue;
+
 //set-up default date and weather
 private _forcedDate     = [2018, 3, 30, 12, 0]; 
 private _forcedOvercast = 0.1;

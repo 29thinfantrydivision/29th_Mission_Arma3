@@ -43,3 +43,33 @@ if (isClass (configFile >> "CfgPatches" >> "ace_main")) then
 	};
 };
 
+// --- Remove vehicle inventories ---
+[] spawn 
+{
+	waitUntil {!isNil "removeDefaultVehicleInventories"};
+
+	if (removeDefaultVehicleInventories == 1) then 
+	{
+		addMissionEventHandler ["EntityCreated", 
+		{
+			private _objectCreated = _this;
+			if (_objectCreated isKindOf "AllVehicles" && !(_objectCreated isKindOf "Man")) then 
+			{
+				clearWeaponCargoGlobal _objectCreated;
+				clearMagazineCargoGlobal _objectCreated;
+				clearItemCargoGlobal _objectCreated;
+				clearBackpackCargoGlobal _objectCreated;
+			};
+		}];
+
+		{
+			if !(_x isKindOf "Man") then 
+			{
+				clearWeaponCargoGlobal _x;
+				clearMagazineCargoGlobal _x;
+				clearItemCargoGlobal _x;
+				clearBackpackCargoGlobal _x;
+			};
+		} forEach allMissionObjects "AllVehicles";
+	};
+};
