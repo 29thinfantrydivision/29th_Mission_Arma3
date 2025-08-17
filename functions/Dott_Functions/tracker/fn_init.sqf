@@ -19,6 +19,15 @@ if (isServer) then
 		} 
 	] call CBA_fnc_addEventHandler;
 
+	// --- Vehicle Kill --- //	
+	addMissionEventHandler ["EntityKilled", 
+	{
+		params ["_unit", "_killer", "_instigator"];
+		if (_unit isKindOf "Man") exitWith {};
+		[_unit, _killer, _instigator] call DOTT_tracker_fnc_recordKill;
+	}];
+
+	// --- Tracker Diary --- //
 	[
 		"DOTT_round_ended",
 		{
@@ -57,7 +66,12 @@ if (isServer) then
 
 if (hasInterface) then 
 {
-	// --- Kill --- //	
+	// --- JIP --- //	
+	DOTT_tracker_trackedEvents = nil;
+	DOTT_tracker_names = nil;
+	DOTT_tracker_sides = nil;
+
+	// --- Infantry Kill --- //	
 	player addEventHandler ["Killed", 
 	{
 		params ["_unit", "_killer", "_instigator"];
@@ -70,9 +84,6 @@ if (hasInterface) then
 		{ _this call DOTT_tracker_fnc_recordACEConscious; }
 	]
 	call CBA_fnc_addEventHandler;	
-
-	// --- Tracker Diary --- //
-	DOTT_tracker_diary_subject = player createDiarySubject ["RoundEventLog","Round Event Log"];
 };
 
 

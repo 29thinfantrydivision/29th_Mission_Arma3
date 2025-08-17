@@ -55,5 +55,6 @@ class Dott_Tracker
 		class nameToNum {};
 		class createDiaryEntry {};
 		class colorNameWithSide {};
+		class getCurrentSide {};
 	};
 };

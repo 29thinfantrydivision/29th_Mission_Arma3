@@ -1,6 +1,11 @@
 if (!hasInterface) exitWith {};
 waitUntil {sleep 1; !isNil {DOTT_tracker_trackedEvents} && !isNil {DOTT_tracker_names} && !isNil {DOTT_tracker_sides}};
 
+if !(player diarySubjectExists "RoundEventLog") then 
+{
+    DOTT_tracker_diary_subject = player createDiarySubject ["RoundEventLog","Round Event Log"];	
+};
+	
 private _lines = [];
 
 for "_i" from ((count DOTT_tracker_trackedEvents) - 1) to 0 step -1 do 

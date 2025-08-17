@@ -14,13 +14,15 @@ switch (_eventType) do
 {
 	case KILL_NUM: 
 	{
-		private _unitName = DOTT_tracker_names select (_eventInfo select 0);
-		private _unitSide = DOTT_tracker_sides select (_eventInfo select 0);
+		private _unitIndex = _eventInfo select 0;
+		private _unitName = DOTT_tracker_names select _unitIndex;
+		private _unitSide = [_unitIndex, _eventTime] call DOTT_tracker_fnc_getCurrentSide;
 		_unitName = [_unitName, _unitSide] call DOTT_tracker_fnc_colorNameWithSide;
 		if(count _eventInfo > 1) then 
 		{
-			private _instigatorName = DOTT_tracker_names select (_eventInfo select 1);
-			private _instigatorSide = DOTT_tracker_sides select (_eventInfo select 1);
+			private _instigatorIndex = _eventInfo select 1;
+			private _instigatorName = DOTT_tracker_names select (_instigatorIndex);
+			private _instigatorSide = [_instigatorIndex, _eventTime] call DOTT_tracker_fnc_getCurrentSide;
 			_instigatorName = [_instigatorName, _instigatorSide] call DOTT_tracker_fnc_colorNameWithSide;			
 			private _distance = _eventInfo select 2;	
 			_eventString = format["%1:%2 - %3 killed by %4 from %5 meters.", _minutes, _secondStr, _unitName, _instigatorName, _distance];
@@ -42,16 +44,18 @@ switch (_eventType) do
 
 	case ACE_CONSCIOUSNESS_NUM: 
 	{
-		private _unitName = DOTT_tracker_names select (_eventInfo select 0);
-		private _unitSide = DOTT_tracker_sides select (_eventInfo select 0);
+		private _unitIndex = _eventInfo select 0;
+		private _unitName = DOTT_tracker_names select _unitIndex;
+		private _unitSide = [_unitIndex, _eventTime] call DOTT_tracker_fnc_getCurrentSide;
 		_unitName = [_unitName, _unitSide] call DOTT_tracker_fnc_colorNameWithSide;
 		private _state = _eventInfo select 1;
 		if (_state) then 
 		{
 			if(count _eventInfo > 2) then 
 			{ 
-				private _instigatorName = DOTT_tracker_names select (_eventInfo select 2);
-				private _instigatorSide = DOTT_tracker_sides select (_eventInfo select 2);
+				private _instigatorIndex = _eventInfo select 2;
+				private _instigatorName = DOTT_tracker_names select (_instigatorIndex);
+				private _instigatorSide = [_instigatorIndex, _eventTime] call DOTT_tracker_fnc_getCurrentSide;
 				_instigatorName = [_instigatorName, _instigatorSide] call DOTT_tracker_fnc_colorNameWithSide;
 				private _distance = _eventInfo select 3;
 				_eventString = format ["%1:%2 - %3 knocked unconscious by %4 from %5 meters.", _minutes, _secondStr, _unitName, _instigatorName, _distance];			

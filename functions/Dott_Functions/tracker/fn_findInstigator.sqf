@@ -3,9 +3,9 @@
 
 params["_killer", "_unit", "_instigator"];
 //find last damage source that isn't player if they manually respawned or bled out
-if (_killer == _unit) then 
+if (_killer == _unit && _unit isKindOf "Man") then 
 {
-	_killer = _unit getVariable ["ace_medical_lastDamageSource", _killer];
+	_killer = _unit getVariable ["ace_medical_lastDamageSource", _killer]; //this needs to be local
 };
 
 //check if the instigator is a UAV
