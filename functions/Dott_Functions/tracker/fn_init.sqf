@@ -1,9 +1,29 @@
+/*
+ * Name:	fnc_init
+ * Date:	8/18/2025
+ * Version: 1.0
+ * Author:  Bae [29th ID]
+ *
+ * Description:
+ * Initalizes tracker system both server and client side.
+ *
+ * Parameter(s): 
+ * None
+ *
+ * Returns:
+ * Nothing
+ *
+ * Example:
+ * call DOTT_tracker_fnc_init;
+ * 
+ */
+
 if (isServer) then
 {
-	DOTT_tracker_trackedEvents = [];
+	DOTT_tracker_events = [];
 	DOTT_tracker_names = [];
 	DOTT_tracker_sides = [];	
-	DOTT_tracker_currentRound = 0;
+	DOTT_tracker_currentRound = 1;
 
 	DOTT_tracker_startTime = -1;	
 	publicVariable "DOTT_tracker_startTime";
@@ -13,7 +33,7 @@ if (isServer) then
 			DOTT_tracker_startTime = serverTime;
 			publicVariable "DOTT_tracker_startTime";	
 
-			DOTT_tracker_trackedEvents = [];
+			DOTT_tracker_events = [];
 			DOTT_tracker_names = [];	
 			DOTT_tracker_sides = [];							
 		} 
@@ -32,15 +52,16 @@ if (isServer) then
 		"DOTT_round_ended",
 		{
 			DOTT_tracker_startTime = -1;
-			DOTT_tracker_currentRound = DOTT_tracker_currentRound + 1;
 			publicVariable "DOTT_tracker_startTime";
-			publicVariable "DOTT_tracker_currentRound";
 
-			publicVariable "DOTT_tracker_trackedEvents";
-			publicVariable "DOTT_tracker_names";
-			publicVariable "DOTT_tracker_sides";
+			[
+				DOTT_tracker_events,
+				DOTT_tracker_names,
+				DOTT_tracker_sides,	
+				DOTT_tracker_currentRound
+			] remoteExec ["DOTT_tracker_fnc_createDiaryEntry"];
 
-			[] remoteExec ["DOTT_tracker_fnc_createDiaryEntry"];
+			DOTT_tracker_currentRound = DOTT_tracker_currentRound + 1;			
 		} 
 	] call CBA_fnc_addEventHandler;
 
@@ -66,11 +87,6 @@ if (isServer) then
 
 if (hasInterface) then 
 {
-	// --- JIP --- //	
-	DOTT_tracker_trackedEvents = nil;
-	DOTT_tracker_names = nil;
-	DOTT_tracker_sides = nil;
-
 	// --- Infantry Kill --- //	
 	player addEventHandler ["Killed", 
 	{

@@ -1,5 +1,27 @@
+/*
+ * Name:	fnc_eventToString
+ * Date:	8/18/2025
+ * Version: 1.0
+ * Author:  Bae [29th ID]
+ *
+ * Description:
+ * Converts array info into string for diary.
+ *
+ * Parameter(s): 
+ * _event (Array): Event to make string.
+ * _names (Array): Name references for event.
+ * _sides (Array): Side references for event.
+ *
+ * Returns:
+ * String of event
+ *
+ * Example:
+ * [_events select 0, _names, _sides] call DOTT_tracker_fnc_eventToString;
+ * 
+ */
+
 #include "eventNumbers.hpp"
-params["_event"];
+params["_event", "_names", "_sides"];
 private _eventType = _event select 0;
 private _eventTime = _event select 1;
 private _eventInfo = _event select 2;
@@ -15,14 +37,14 @@ switch (_eventType) do
 	case KILL_NUM: 
 	{
 		private _unitIndex = _eventInfo select 0;
-		private _unitName = DOTT_tracker_names select _unitIndex;
-		private _unitSide = [_unitIndex, _eventTime] call DOTT_tracker_fnc_getCurrentSide;
+		private _unitName = _names select _unitIndex;
+		private _unitSide = [_unitIndex, _eventTime, _sides] call DOTT_tracker_fnc_getCurrentSide;
 		_unitName = [_unitName, _unitSide] call DOTT_tracker_fnc_colorNameWithSide;
 		if(count _eventInfo > 1) then 
 		{
 			private _instigatorIndex = _eventInfo select 1;
-			private _instigatorName = DOTT_tracker_names select (_instigatorIndex);
-			private _instigatorSide = [_instigatorIndex, _eventTime] call DOTT_tracker_fnc_getCurrentSide;
+			private _instigatorName = _names select (_instigatorIndex);
+			private _instigatorSide = [_instigatorIndex, _eventTime, _sides] call DOTT_tracker_fnc_getCurrentSide;
 			_instigatorName = [_instigatorName, _instigatorSide] call DOTT_tracker_fnc_colorNameWithSide;			
 			private _distance = _eventInfo select 2;	
 			_eventString = format["%1:%2 - %3 killed by %4 from %5 meters.", _minutes, _secondStr, _unitName, _instigatorName, _distance];
@@ -45,8 +67,8 @@ switch (_eventType) do
 	case ACE_CONSCIOUSNESS_NUM: 
 	{
 		private _unitIndex = _eventInfo select 0;
-		private _unitName = DOTT_tracker_names select _unitIndex;
-		private _unitSide = [_unitIndex, _eventTime] call DOTT_tracker_fnc_getCurrentSide;
+		private _unitName = _names select _unitIndex;
+		private _unitSide = [_unitIndex, _eventTime, _sides] call DOTT_tracker_fnc_getCurrentSide;
 		_unitName = [_unitName, _unitSide] call DOTT_tracker_fnc_colorNameWithSide;
 		private _state = _eventInfo select 1;
 		if (_state) then 
@@ -54,8 +76,8 @@ switch (_eventType) do
 			if(count _eventInfo > 2) then 
 			{ 
 				private _instigatorIndex = _eventInfo select 2;
-				private _instigatorName = DOTT_tracker_names select (_instigatorIndex);
-				private _instigatorSide = [_instigatorIndex, _eventTime] call DOTT_tracker_fnc_getCurrentSide;
+				private _instigatorName = _names select (_instigatorIndex);
+				private _instigatorSide = [_instigatorIndex, _eventTime, _sides] call DOTT_tracker_fnc_getCurrentSide;
 				_instigatorName = [_instigatorName, _instigatorSide] call DOTT_tracker_fnc_colorNameWithSide;
 				private _distance = _eventInfo select 3;
 				_eventString = format ["%1:%2 - %3 knocked unconscious by %4 from %5 meters.", _minutes, _secondStr, _unitName, _instigatorName, _distance];			

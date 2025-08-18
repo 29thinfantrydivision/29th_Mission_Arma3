@@ -1,7 +1,26 @@
-//finding real instigator logic commented and adapted from
-//https://github.com/Zealot111/OCAP/blob/27c2dd43147ac51dcd41921cda400fae4f967eb7/addons/ocap/functions/fn_eh_killed.sqf#L11
+/*
+ * Name:	fnc_findInstigator
+ * Date:	8/18/2025
+ * Version: 1.0
+ * Author:  Bae [29th ID]
+ *
+ * Description:
+ * Attempts to find the underlying "Man" that killed _unit. 
+ * Referenced note under https://community.bistudio.com/wiki/Arma_3:_Mission_Event_Handlers#EntityKilled
+ * and https://github.com/Zealot111/OCAP/blob/27c2dd43147ac51dcd41921cda400fae4f967eb7/addons/ocap/functions/fn_eh_killed.sqf#L11
+ *
+ * Parameter(s): 
+ * [_unit, _killer, _instigator] reference Killed/EntityKilled events.
+ *
+ * Returns:
+ * Best guess of the underlying "Man" that killed _unit. 
+ *
+ * Example:
+ * [_unit, _killer, _instigator] call DOTT_tracker_fnc_findInstigator;
+ * 
+ */
 
-params["_killer", "_unit", "_instigator"];
+params["_unit", "_killer", "_instigator"];
 //find last damage source that isn't player if they manually respawned or bled out
 if (_killer == _unit && _unit isKindOf "Man") then 
 {

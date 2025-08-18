@@ -47,7 +47,7 @@ class Dott_Tracker
 		file = "functions\Dott_Functions\tracker";
 		class init {};
 		class recordKill {};
-		class sendEvent {};
+		class saveEvent {};
 		class recordSectorCapture {};
 		class eventToString {};
 		class recordACEConscious {};
