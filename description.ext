@@ -3,7 +3,7 @@ dev = "Rellikplug/29th Engineers";
 class Header {
   gameType = SANDBOX;
   minPlayers = 1;
-  maxPlayers = 180; //Total number of playable units placed in the editor including virtual entities
+  maxPlayers = 182; //Total number of playable units placed in the editor including virtual entities
 };
 
 OnLoadName = "29th Training V4.2.0";
