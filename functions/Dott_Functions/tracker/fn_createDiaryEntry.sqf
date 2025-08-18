@@ -14,7 +14,7 @@
  * _roundNum (Number): Round number to put in diary
  *
  * Returns:
- * Diary Record
+ * true
  *
  * Example:
  * 	  [
@@ -40,6 +40,10 @@ for "_i" from ((count _events) - 1) to 0 step -1 do
     private _line = ([_events select _i, _names, _sides] call DOTT_tracker_fnc_eventToString);
     _lines pushBack _line;
 };
+private _copyButton = format["<execute expression='%1 call DOTT_tracker_fnc_copyRoundToClipboard;'>Copy to Clipboard</execute>",_roundNum];
+_lines pushBack _copyButton;
 
 private _text = _lines joinString "<br />";
-player createDiaryRecord ["RoundEventLog", [format["Round %1", _roundNum], _text]];	
+player createDiaryRecord ["RoundEventLog", [format["Round %1", _roundNum], _text]];
+
+true

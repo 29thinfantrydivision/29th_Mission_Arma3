@@ -56,5 +56,7 @@ class Dott_Tracker
 		class createDiaryEntry {};
 		class colorNameWithSide {};
 		class getCurrentSide {};
+		class copyToClipboard {};
+		class copyRoundToClipboard {};		
 	};
 };
