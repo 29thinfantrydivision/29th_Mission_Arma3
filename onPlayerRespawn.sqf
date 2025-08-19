@@ -9,21 +9,23 @@ params ["_newUnit", "_oldUnit"];
 _newUnit spawn Hill_fnc_setInsignia;
 
 
-if (!isNull _oldUnit) then { //was '!(isNull _oldUnit)' Not sure why, changed it - Dott
-  //diag_log text format ["|RESPAWN|  OLD UNIT POS:  %1, OLD UNIT IS HIDDEN?: %2, OLD UNIT SIMULATION?:  %3",position _oldUnit,isObjectHidden _oldUnit,simulationEnabled _oldUnit];
-  //diag_log text format ["|RESPAWN 01|  NEW UNIT POS 01:  %1, NEW UNIT IS HIDDEN?: %2, NEW UNIT SIMULATION?:  %3",position _newUnit,isObjectHidden _newUnit,simulationEnabled _newUnit];
-  //_resPos = getPos player; //BROKEN - Arma 3 V2.18 seems to have broken this. Commented out any pos related stuff
-  titleText ["", "BLACK FADED", 5];
-  player hideobject true;
-  player enablesimulation false;
-  //player setpos [10,10,10];
-  //diag_log text format ["|RESPAWN 02|  NEW UNIT POS 02:  %1, NEW UNIT IS HIDDEN?: %2, NEW UNIT SIMULATION?:  %3",position _newUnit,isObjectHidden _newUnit,simulationEnabled _newUnit];
-  uiSleep 1.5;
-  //player setPos _resPos;
-  player hideobject false;
-  player enablesimulation true;
-  titleText ["", "BLACK IN", 2];
-  //diag_log text format ["|RESPAWN 03|  NEW UNIT POS 02:  %1, NEW UNIT IS HIDDEN?: %2, NEW UNIT SIMULATION?:  %3",position _newUnit,isObjectHidden _newUnit,simulationEnabled _newUnit];
+if (!isNull _oldUnit) then {
+/* Prevent respawn showing on old body (Untested) */ 
+  _newUnit hideObjectGlobal true;
+  _newUnit allowDamage false;
+  private _oldPos = getPosATL _oldUnit;
+  private _time = time;
+  [
+    {
+      params["_newUnit", "_oldPos", "_time"];
+     ((getPosATL _newUnit) distanceSqr _oldPos) > 1*1 || (time - _time) > 2 
+    },
+    {
+      params["_newUnit"];
+      _newUnit hideObjectGlobal false;
+      _newUnit allowDamage true;  
+    },[_newUnit, _oldPos, _time]] call CBA_fnc_waitUntilAndExecute;
+/* ------------------------------------------------- */
 
 	if ( missionNamespace getVariable [ "menuRespawn", true ] ) then {
 		if (autoSpectate) then {
