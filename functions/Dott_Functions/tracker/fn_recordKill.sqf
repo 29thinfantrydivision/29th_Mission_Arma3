@@ -12,7 +12,7 @@
  * [_unit, _killer, _instigator] reference Killed/EntityKilled events.
  * 
  * Returns:
- * true
+ * true if saved, false otherwise
  *
  * Example:
  * [_unit, _killer, _instigator] call DOTT_tracker_fnc_recordKill;

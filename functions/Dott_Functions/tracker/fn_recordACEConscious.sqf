@@ -15,7 +15,7 @@
  * Reference "ace_unconscious" event in ACE3.
  * 
  * Returns:
- * true
+ * true if saved, false otherwise
  *
  * Example:
  * [_unit, false] call DOTT_tracker_fnc_recordACEConscious;
@@ -25,6 +25,7 @@
 #include "eventNumbers.hpp"
 params["_unit", "_state"];
 if (DOTT_tracker_startTime == -1) exitWith { false };
+if (!isPlayer _unit) exitWith { false }; //when AI is local to player (ex. Zeus spawned)
 private _timeStamp = round(serverTime - DOTT_tracker_startTime);
 //need group since ACE3? sets unconscious men to CIV but not the group
 private _eventInfo = [[name _unit, side (group _unit)], _state];

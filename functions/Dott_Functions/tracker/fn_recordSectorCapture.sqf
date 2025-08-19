@@ -11,7 +11,7 @@
  * [_sector, _owner, _ownerOld] reference "ownerChanged" Scripted Event under _sector namespace.
  * 
  * Returns:
- * true
+ * true if saved, false otherwise
  *
  * Example:
  * [_sector, _owner, _ownerOld] call DOTT_tracker_fnc_recordSectorCapture;
@@ -20,6 +20,7 @@
 
 #include "eventNumbers.hpp"
 params ["_sector", "_owner", "_ownerOld"];
+//sideUnknown check to prevent logging when sector is placed down
 if (DOTT_tracker_startTime == -1 || _owner == sideUnknown) exitWith { false };
 private _timeStamp = round(serverTime - DOTT_tracker_startTime);
 private _sectorName = _sector getVariable ["name", "sector"];
