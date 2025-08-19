@@ -32,7 +32,8 @@ private _targets = _allPlayers select
 
     if !([_target] call DOTT_fnc_checkNonCombatLoadout) then 
 	{
-        [_target, {
+        [_target, 
+        {
             params ["_unit"];
             [_unit, missionConfigFile >> "CfgRespawnInventory" >> "29TH_PARADE_WEST"] call BIS_fnc_loadInventory;
             _unit spawn Hill_fnc_setInsignia;

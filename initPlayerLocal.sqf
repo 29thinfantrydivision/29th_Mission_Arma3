@@ -17,7 +17,8 @@ enableEnvironment [false, true];
 [] spawn 
 {
   waitUntil {!isNil "artilleryComputer"};
-  if (artilleryComputer == 0) then {
+  if (artilleryComputer == 0) then 
+  {
     enableEngineArtillery false;
   };
 };
@@ -25,8 +26,10 @@ enableEnvironment [false, true];
 [] spawn 
 {
   waitUntil {!isNil "disabledTI"};
-  if (disabledTI == 0) then {
-    ["visionMode", {
+  if (disabledTI == 0) then 
+  {
+    ["visionMode", 
+    {
       [] spawn Hill_fnc_noThermals;
     }] call CBA_fnc_addPlayerEventHandler;
   };
@@ -49,10 +52,13 @@ if(_didJIP) then
 _theClient addEventHandler ["HandleRating", {0}];
 
 //If the respawn menu button is active
-if (!isNumber (missionConfigFile >> "respawnButton") || {getNumber (missionConfigFile >> "respawnButton") > 0}) then {
-  _respawnMenu = [] spawn {
+if (!isNumber (missionConfigFile >> "respawnButton") || {getNumber (missionConfigFile >> "respawnButton") > 0}) then 
+{
+  _respawnMenu = [] spawn 
+  {
     waitUntil {!isNull (uiNamespace getVariable ["RscDisplayMPInterrupt", displayNull])};
-    uiNamespace getVariable "RscDisplayMPInterrupt" displayCtrl 1010 ctrlAddEventHandler ["ButtonClick", {
+    uiNamespace getVariable "RscDisplayMPInterrupt" displayCtrl 1010 ctrlAddEventHandler ["ButtonClick", 
+    {
       missionNamespace setVariable ["menuRespawn", true];
 		}];
 	};
@@ -69,19 +75,16 @@ _theClient call BIS_fnc_drawCuratorDeaths;
 // Runs the in-game VOIP restriction script
 _null = [] execVM "scripts\voice_control\voiceControl.sqf";
 
-//Works with curatorObjectPlaced EH in scripts\init_curators.sqf
-
-[_theClient] spawn {
+[_theClient] spawn 
+{
   private ["_theMan"];
   _theMan = _this select 0;
   waitUntil {currentWeapon _theMan != ""};
-  sleep 3;
-  if (!(weaponLowered _theMan)) then {
+  if (!(weaponLowered _theMan)) then 
+  {
     _theMan action ["WeaponOnBack", _theMan];
-   };
- };
+  };
+};
 
 //Run Curator (Zeus) Setup
 execVM "scripts\init_curators.sqf";
-
-//[_theClient] execVM "scripts\TFAR_eventHandlers.sqf";

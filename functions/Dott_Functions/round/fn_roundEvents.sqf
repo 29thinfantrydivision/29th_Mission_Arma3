@@ -23,21 +23,25 @@
  */
 
 DOTT_round_timeAdded = false;
-private _events = [
+private _events = 
+[
 	[5*60, DOTT_round_fnc_timeWarning, []],   
 	[1*60, DOTT_round_fnc_timeWarning, []]
 ];
 private _timeLeft = call DOTT_round_fnc_getTime; 
 private _eventIndex = 0;
 
-while {_timeLeft > 0} do {
+while {_timeLeft > 0} do 
+{
 	//handle addTime increasing time
-	if(DOTT_round_timeAdded) then {
+	if(DOTT_round_timeAdded) then 
+	{
 		_eventIndex = 0;
 		DOTT_round_timeAdded = false;
 	};
 
-	while {(_eventIndex < count _events) && ((_events select _eventIndex) select 0 >= _timeLeft)} do {
+	while {(_eventIndex < count _events) && ((_events select _eventIndex) select 0 >= _timeLeft)} do 
+	{
 		private _nextEvent = _events select _eventIndex;
 		private _eventTime = _nextEvent select 0;
 		private _fn = _nextEvent select 1;

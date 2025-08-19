@@ -36,12 +36,14 @@ switch (_side) do
 if(_isReady) then
 {
 	_readyStr = _readyStr + " ready!";
-} else {
+} else 
+{
 	_readyStr = _readyStr + " not ready!";
 };
 _readyStr remoteExec ["hint"];
 
-if(call DOTT_round_fnc_checkAllSidesReady) then {
+if(call DOTT_round_fnc_checkAllSidesReady) then 
+{
 	call DOTT_round_fnc_initSafeStart;
 };
 

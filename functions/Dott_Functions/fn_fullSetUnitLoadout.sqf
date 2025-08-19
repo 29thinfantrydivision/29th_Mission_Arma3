@@ -20,12 +20,7 @@
  * 
  */
 
-params
-[
-    "_unit",
-    "_loadout",
-    "_fullMagazines"
-];
+params["_unit", "_loadout", "_fullMagazines"];
 
 //setUnitLoadout as of 2.20 temporarily does not work non-local
 if (!local _unit) exitWith {["Unit %1 must be local.", _unit] call BIS_fnc_error; false;};

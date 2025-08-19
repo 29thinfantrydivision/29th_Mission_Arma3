@@ -4,18 +4,6 @@ Executed only on server when mission is started.
 diag_log text format ["|=============================   %1: initServer.sqf Running   =============================|", missionName];
 
 INDEPENDENT setFriend [WEST, 0];
-/*
-if (count (entities "HeadlessClient_F") > 0) then {
-	systemChat "Headless Client is online. Spawned units will be transferred to the HC.";
-	hc_online = true;
-	publicVariable "hc_online";
-	execVM "scripts\init_hc.sqf";
-} else {
-	systemChat "Headless Client is offline. Spawned units will be transferred to the server.";
-	hc_online = false;
-	publicVariable "hc_online";
-};
-*/
 
 //set-up Parade Inventories
 [WEST, "29TH_PARADE_WEST"] call BIS_fnc_addRespawnInventory;
@@ -23,7 +11,8 @@ if (count (entities "HeadlessClient_F") > 0) then {
 [INDEPENDENT, "29TH_PARADE_INDEPENDENT"] call BIS_fnc_addRespawnInventory;
 
 _autoSpectate = "autoSpectate" call BIS_fnc_getParamValue;
-if (_autoSpectate == 1) then {
+if (_autoSpectate == 1) then 
+{
 	autoSpectate = true;
 	publicVariable "autoSpectate";
 } else {

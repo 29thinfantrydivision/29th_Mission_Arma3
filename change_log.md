@@ -2,9 +2,14 @@
 Overall Future Goals
 ---
 * Stats system reintroduction
-	- System surrounding round stats, mostly kills, not persistent accuracy or other 'fluff' (Progress made in 4.2.0)
+	- System surrounding round stats, mostly kills, not persistent accuracy or other 'fluff' 
+      Progress made in 4.2.0, number of kills can be seen after end of round in map diary.
 	- Allows scoreboard to be disabled, but look up the information it provides using an addaction in spawn
+      Note: Assuming the scoreboard is on, access can be limited with showScoretable in the middle of the game.
+      Personal stats could still be metagamed with the Statistics tab in the Map Diary.
+      Since we cannot edit the stats itself, only way to prevent this is to delete the tab, but this is non-reversible.
 	- Specifically kill stats (player names you've killed). Could also track your killers?
+      Progress made in 4.2.0, kills/killed by can be tracked in events after end of round in map diary.
 * "Citadel" game mode
 	- Instead of regular cap zone, instead proximity to center adds more weight
 	- Not really for training... but events
@@ -70,12 +75,13 @@ v4.2.0
   - scripts/baseObjectsInit.sqf call moved from init.sqf to initPlayerLocal.sqf
   - Parade loadout setup moved from init.sqf to initServer.sqf
   - Unused functions randomizeRadioHz and removeAllRespawnInventories moved to archives folder and calls (TFAR_eventHandlers and init_curators respectively) commented out.
+    Now unused file scripts/TFAR_eventHandlers.sqf deleted.
   - dateAndWeather function greatly simplified, moved completely server side. Call moved from init.sqf to initServer.sqf. 
     Numeric values moved from script to initServer, now passed as params.
   - excludeObjFromZeus now uses a flag to check for removal instead of comparing against all listed editor placed objects.
     initPlayerServer will now not add player to curator editable objects if they are a headless client.
   - Disabled most Headless Client "functionality" due to nonfunctional behavior.
-    init_hc is no longer called from initServer and has been marked as non-working.
+    init_hc deleted.
     Headless Client-related code in init_curators has been commented out.
   - Deleted spectator.sqf from script folder, left over file after it was "moved" to fn_spectator.sqf in 29th_Training.
   - Removed functions\curator folder and files inside, removed include in description.ext

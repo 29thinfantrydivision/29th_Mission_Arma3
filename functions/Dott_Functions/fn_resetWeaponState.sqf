@@ -23,14 +23,16 @@ params["_unit"];
 
 private _bino = binocular _unit;
 
-if (_bino == "") then {
+if (_bino == "") then 
+{
 	private _defaultBino = "Binocular"; 
 	
 	_unit addWeapon _defaultBino;
 	uiSleep 0.05;
 	
 	_unit removeWeapon _defaultBino;
-} else {
+} else 
+{
 	private _attachments = binocularItems _unit;
 	private _binoMags = binocularMagazine _unit;
 

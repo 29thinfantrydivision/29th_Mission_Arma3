@@ -27,8 +27,10 @@ if (!isNull _oldUnit) then {
     },[_newUnit, _oldPos, _time]] call CBA_fnc_waitUntilAndExecute;
 /* ------------------------------------------------- */
 
-	if ( missionNamespace getVariable [ "menuRespawn", true ] ) then {
-		if (autoSpectate) then {
+	if (missionNamespace getVariable ["menuRespawn", true]) then 
+  {
+		if (autoSpectate) then 
+    {
 			systemChat "AutoSpectate is ON.";
 			[_newUnit] spawn Hill_fnc_enter_spectator;
 		};

@@ -5,7 +5,8 @@
 } forEach allCurators;
 
 {
-  curatorEnteredLog = _x addEventHandler ["CuratorObjectRegistered", {
+  curatorEnteredLog = _x addEventHandler ["CuratorObjectRegistered", 
+  {
     params ["_curator"];
     private _curatorObj = getAssignedCuratorUnit _curator;
     private _curatorName = name _curatorObj;
