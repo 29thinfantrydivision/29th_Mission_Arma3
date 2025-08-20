@@ -31,7 +31,12 @@ params["_events", "_names", "_sides", "_roundNum"];
 
 if !(player diarySubjectExists "RoundEventLog") then 
 {
-    player createDiarySubject ["RoundEventLog", "Round Event Log"];	
+    player createDiarySubject ["RoundEventLog", "Round Event Log"];
+    private _infoLines = ["All Events show every recorded event for each round."];
+    _infoLines pushBack "Personal Events shows events relevant to you, including if the people you knock unconscious regain consciousness or are killed.";
+    _infoLines pushBack "Information is updated at the end of the round and is lost when aborting/disconnecting.";
+    private _infoText = _infoLines joinString "<br />";
+    player createDiaryRecord ["RoundEventLog", ["Information", _infoText]];    	
 };
 
 //generate all event strings and store from last to first occurance
@@ -76,6 +81,11 @@ player createDiaryRecord ["RoundEventLog", [_title, _text]];
 if !(player diarySubjectExists "RoundScoreboard") then 
 {
     DOTT_tracker_diary_subject = player createDiarySubject ["RoundScoreboard", "Round Scoreboard"];	
+    private _infoLines = ["Lists how many infantry kills (no vehicles) each player got during the round, from highest to lowest."];
+    _infoLines pushBack "Any players who remain unconscious at the end of the round are credited as kills for the player who incapacitated them.";
+    _infoLines pushBack "Information is updated at the end of the round and is lost when aborting/disconnecting.";    
+    private _infoText = _infoLines joinString "<br />";    
+    player createDiaryRecord ["RoundScoreboard", ["Information", _infoText]]; 
 };
 
 private _killCounts = [_events, _sides] call DOTT_tracker_fnc_getKillCounts;
