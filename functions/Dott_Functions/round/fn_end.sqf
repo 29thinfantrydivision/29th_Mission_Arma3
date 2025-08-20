@@ -26,7 +26,9 @@ if (overtimeEnabled && !_force) then
 	[overtimePeriod] call BIS_fnc_countdown;
 	overtimeEnabled = false; //Prevents overtime from repeating forever
 	publicVariable "overtimeEnabled";
-	[] remoteExec ["DOTT_round_fnc_roundEvents"]; 	
+	DOTT_round_timeAdded = true;
+	publicVariable "DOTT_round_timeAdded";
+	[{(call DOTT_round_fnc_getTime) <= 0}, { call DOTT_round_fnc_end }, []] call CBA_fnc_waitUntilAndExecute;
 } else
 {	
 	//let waituntilandexecute in fn_start call end
