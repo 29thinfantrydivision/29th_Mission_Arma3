@@ -20,10 +20,10 @@
 if (isNil {missionNamespace getVariable "BIS_EGSpectator_initialized"}) exitWith { false }; 
 
 ["Terminate"] call BIS_fnc_EGSpectator; //  End Spectator
-player hideObjectGlobal false;
+[player, false] remoteExecCall ["hideObjectGlobal", 0];
 cutText ["","PLAIN DOWN"]; // Clear cutText
 hintSilent ""; // Clear Hint
-player allowDammage true; // Make player vulnerable again
+player allowDamage true; // Make player vulnerable again
 player switchCamera "internal"; // Make sure the camera is returned to the player
 player enableSimulation true;
 ["exitSpectator", "onEachFrame"] call BIS_fnc_removeStackedEventHandler; //  Remove the stackedEventHandler as we no longer need it

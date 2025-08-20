@@ -25,7 +25,7 @@
 #include "eventNumbers.hpp"
 params["_unit", "_state"];
 if (DOTT_tracker_startTime == -1) exitWith { false };
-if (!isPlayer _unit) exitWith { false }; //when AI is local to player (ex. Zeus spawned)
+if (player != _unit) exitWith { false }; //we want this to run local to the unit
 private _timeStamp = round(serverTime - DOTT_tracker_startTime);
 //need group since ACE3? sets unconscious men to CIV but not the group
 private _eventInfo = [[name _unit, side (group _unit)], _state];

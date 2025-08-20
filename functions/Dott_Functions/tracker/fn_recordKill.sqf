@@ -44,9 +44,21 @@ if (_unit isKindOf "Man") then
 private _unitSide = side (group _unit); //need group since ACE3? sets dead men to CIV but not the group
 
 private _killInfo = [[_unitName, _unitSide]]; 
+
 if !(isNull _instigator) then 
 {
-	_killInfo pushBack [name _instigator, side (group _instigator)];
+	private _instigatorName = "";
+	//if unit is not man then name does not work properly
+	if (_instigator isKindOf "Man") then 
+	{
+		_instigatorName = name _instigator;
+	} else 
+	{
+		_instigatorName = getText (configFile >> "CfgVehicles" >> typeOf _instigator >> "displayName");
+		if (_instigatorName == "") then {_instigatorName = "Vehicle"}; 
+	};	
+
+	_killInfo pushBack [_instigatorName, side (group _instigator)];
 	private _distance = round (_unit distance _instigator);
 	_killInfo pushBack _distance;
 };

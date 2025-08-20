@@ -10,23 +10,6 @@ _newUnit spawn Hill_fnc_setInsignia;
 
 
 if (!isNull _oldUnit) then {
-/* Prevent respawn showing on old body (Untested) */ 
-  _newUnit hideObjectGlobal true;
-  _newUnit allowDamage false;
-  private _oldPos = getPosATL _oldUnit;
-  private _time = time;
-  [
-    {
-      params["_newUnit", "_oldPos", "_time"];
-     ((getPosATL _newUnit) distanceSqr _oldPos) > 1*1 || (time - _time) > 2 
-    },
-    {
-      params["_newUnit"];
-      _newUnit hideObjectGlobal false;
-      _newUnit allowDamage true;  
-    },[_newUnit, _oldPos, _time]] call CBA_fnc_waitUntilAndExecute;
-/* ------------------------------------------------- */
-
 	if (missionNamespace getVariable ["menuRespawn", true]) then 
   {
 		if (autoSpectate) then 
