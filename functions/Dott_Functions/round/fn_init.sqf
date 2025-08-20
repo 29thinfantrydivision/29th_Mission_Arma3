@@ -48,6 +48,22 @@ if (hasInterface) then
 		removeMissionEventHandler ["PreloadFinished", _thisEventHandler];
 	}];
 
+	//prevent scoreboard in respawn menu (hacky)
+	[] spawn 
+	{
+		waitUntil {!isNull player};
+		player addEventHandler ["Killed", 
+		{		
+			disableRespawnScoreboard = addMissionEventHandler 
+			[
+				"Draw2D", 
+				{
+					if(visibleScoretable && call DOTT_round_fnc_isRoundActive) then { showScoretable 0 };
+				}
+			];
+		}];
+	};
+
 	//needs to be readded every life
 	[] spawn 
 	{
@@ -56,12 +72,14 @@ if (hasInterface) then
 		{
 			if (call DOTT_round_fnc_isRoundActive) then 
 			{	
-			[] spawn 
-			{
-				waitUntil {shownScoreTable == -1};
-				showScoreTable 0;
+				[] spawn 
+				{
+					waitUntil {shownScoreTable == -1};
+					showScoreTable 0;
+				};
 			};
-			};
+
+			removeMissionEventHandler["Draw2D", disableRespawnScoreboard];
 		}];
 	};
 
