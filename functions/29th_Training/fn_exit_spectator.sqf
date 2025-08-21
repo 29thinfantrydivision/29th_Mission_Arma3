@@ -20,7 +20,7 @@
 if (isNil {missionNamespace getVariable "BIS_EGSpectator_initialized"}) exitWith { false }; 
 
 ["Terminate"] call BIS_fnc_EGSpectator; //  End Spectator
-[player, false] remoteExecCall ["hideObjectGlobal", 0];
+[player, false] remoteExecCall ["hideObjectGlobal", 2];
 cutText ["","PLAIN DOWN"]; // Clear cutText
 hintSilent ""; // Clear Hint
 player allowDamage true; // Make player vulnerable again

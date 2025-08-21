@@ -41,7 +41,6 @@ if (hasInterface) then
 	//For JIP players
 	//showScoreTable silently fails if called too early
 	addMissionEventHandler ["PreloadFinished", {
-
 		if (call DOTT_round_fnc_isRoundActive) then {
 			showScoreTable 0;
 		};

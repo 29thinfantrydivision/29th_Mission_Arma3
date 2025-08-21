@@ -16,34 +16,34 @@ enableEnvironment [false, true];
 // ==============================================================================
 [] spawn 
 {
-  waitUntil {!isNil "artilleryComputer"};
-  if (artilleryComputer == 0) then 
-  {
-    enableEngineArtillery false;
-  };
+	waitUntil {!isNil "artilleryComputer"};
+	if (artilleryComputer == 0) then 
+	{
+		enableEngineArtillery false;
+	};
 };
 
 [] spawn 
 {
-  waitUntil {!isNil "disabledTI"};
-  if (disabledTI == 0) then 
-  {
-    ["visionMode", 
-    {
-      [] spawn Hill_fnc_noThermals;
-    }] call CBA_fnc_addPlayerEventHandler;
-  };
+	waitUntil {!isNil "disabledTI"};
+	if (disabledTI == 0) then 
+	{
+		["visionMode", 
+		{
+			[] spawn Hill_fnc_noThermals;
+		}] call CBA_fnc_addPlayerEventHandler;
+	};
 };
 
 // ==============================================================================
 if(_didJIP) then 
 {
-  [_theClient] spawn 
-  {
-    params ["_theClient"];
-    waitUntil { sleep 1; !isNull _theClient }; //most reliable way to call script early without it breaking
-    [_theClient] execVM "scripts\checkCuratorAssignment.sqf";
-  };
+	[_theClient] spawn 
+	{
+		params ["_theClient"];
+		waitUntil { sleep 1; !isNull _theClient }; //most reliable way to call script early without it breaking
+		[_theClient] execVM "scripts\checkCuratorAssignment.sqf";
+	};
 };
 
 [_theClient] execVM "scripts\player_arsenal_handlers.sqf";
@@ -54,12 +54,12 @@ _theClient addEventHandler ["HandleRating", {0}];
 //If the respawn menu button is active
 if (!isNumber (missionConfigFile >> "respawnButton") || {getNumber (missionConfigFile >> "respawnButton") > 0}) then 
 {
-  _respawnMenu = [] spawn 
-  {
-    waitUntil {!isNull (uiNamespace getVariable ["RscDisplayMPInterrupt", displayNull])};
-    uiNamespace getVariable "RscDisplayMPInterrupt" displayCtrl 1010 ctrlAddEventHandler ["ButtonClick", 
-    {
-      missionNamespace setVariable ["menuRespawn", true];
+	_respawnMenu = [] spawn 
+	{
+		waitUntil {!isNull (uiNamespace getVariable ["RscDisplayMPInterrupt", displayNull])};
+		uiNamespace getVariable "RscDisplayMPInterrupt" displayCtrl 1010 ctrlAddEventHandler ["ButtonClick", 
+		{
+			missionNamespace setVariable ["menuRespawn", true];
 		}];
 	};
 };
@@ -77,13 +77,13 @@ _null = [] execVM "scripts\voice_control\voiceControl.sqf";
 
 [_theClient] spawn 
 {
-  private ["_theMan"];
-  _theMan = _this select 0;
-  waitUntil {currentWeapon _theMan != ""};
-  if (!(weaponLowered _theMan)) then 
-  {
-    _theMan action ["WeaponOnBack", _theMan];
-  };
+	private ["_theMan"];
+	_theMan = _this select 0;
+	waitUntil {currentWeapon _theMan != ""};
+	if (!(weaponLowered _theMan)) then 
+	{
+		_theMan action ["WeaponOnBack", _theMan];
+	};
 };
 
 //Run Curator (Zeus) Setup

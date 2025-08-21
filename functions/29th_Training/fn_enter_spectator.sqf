@@ -52,7 +52,7 @@ hintSilent "SPECTATOR\n----------\nPress RELOAD to exit";  // Tell player they a
 	};
 };
 
-[player, true] remoteExecCall ["hideObjectGlobal", 0];
+[player, true] remoteExecCall ["hideObjectGlobal", 2];
 player enableSimulation false;
 player allowDamage false;
 

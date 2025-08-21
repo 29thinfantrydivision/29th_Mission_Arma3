@@ -14,6 +14,7 @@ class Dott_Functions
 		class forceParade {};
 		class initDefaultLoadouts {};
 		class diag_log {};
+		class addDiaryRecord {};
 	};
 };
 

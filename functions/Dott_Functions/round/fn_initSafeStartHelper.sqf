@@ -28,7 +28,7 @@ if (!_allSidesReady) exitWith
 };
 if (_countdown > 0)	then
 {
-	[{call DOTT_round_fnc_initSafeStartHelper}, [_countdown - 1], 1] call CBA_fnc_waitAndExecute;
+	[{[_this select 0] call DOTT_round_fnc_initSafeStartHelper}, [_countdown - 1], 1] call CBA_fnc_waitAndExecute;
 } else 
 {
 	[] call DOTT_round_fnc_start;

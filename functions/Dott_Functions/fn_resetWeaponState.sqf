@@ -41,10 +41,10 @@ if (_bino == "") then
 	_unit addWeapon _bino;
 
 	{
-		_unit addMagazine _x;
+		_unit addBinocularItem _x;
 	} forEach _binoMags;
 
 	{
-		_unit addWeaponItem [_bino, _x];
+		_unit addBinocularItem _x;
 	} forEach _attachments;
 };

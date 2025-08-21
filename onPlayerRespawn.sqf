@@ -11,9 +11,9 @@ _newUnit spawn Hill_fnc_setInsignia;
 
 if (!isNull _oldUnit) then {
 	if (missionNamespace getVariable ["menuRespawn", true]) then 
-  {
-		if (autoSpectate) then 
     {
+		if (autoSpectate) then 
+    	{
 			systemChat "AutoSpectate is ON.";
 			[_newUnit] spawn Hill_fnc_enter_spectator;
 		};

@@ -38,7 +38,7 @@ TBD
 
 ---
 v4.2.0  
-19 AUG 2025
+21 AUG 2025
 
 ---
 
@@ -60,6 +60,7 @@ v4.2.0
 	- fn_addRadio deprecated radios swapped.
   - fn_assignCurator, checkCuratorAssignment rewritten, checkCuratorAssignment call moved to initPlayerLocal from initServer (might revisit this later)
     Now properly lets JIP Zeus slots access it without respawn.
+    Known issue NOT related to this change: If mission is started without an admin, #adminLogged zeus module does not properly give zeus to admin when they log in after.
   - fn_cleaner now properly cleans up items in base, added description, returns boolean
   - fn_noThermals cleaned up with descriptions, defines, param change
   - fn_removeRadio now has description, moved _removeRadiosFromDead check to onPlayerKilled
@@ -92,7 +93,6 @@ v4.2.0
     Now also will delete initial vehicle inventories (besides rope) if new mission param removeDefaultVehicleInventories == 1 (which is default).
   - description.ext
     showMap now equals 1
-    respawnDelay now 5 from 15
 
 * Tweaked "fn_flexibleReset.sqf"
   - Teleport now waits up to 30 seconds for a dead player to respawn before attempting teleport to reduce need for manual teleporting in these situations.
@@ -116,8 +116,7 @@ v4.2.0
   - Move was done to simplify possible future GUIing of round system
   - Replaced timerCheck with roundEvents, which is spawned on demand as needed and also handles time warning notifications.
   - Checking scoreboard is now disabled during round (unless in spectator or zeus). 
-      Metagaming still possible with Statistics in Map, might revisit that later.
-  - Moved publicVariable variables to fn_init (called by server)
+  - Moved publicVariable variables to fn_init
 
 * Tracker system (Round Event Logging)
   - Tracks deaths (and if possible the killer), unconciousness (if possible who caused it) and sector capture (by team) changes during a round.
@@ -125,6 +124,7 @@ v4.2.0
   - Round scoreboard system that tracks (only) player kills and also credits unconscious as kills when possible.
   - Automatically sends the events to players into their map diary at round end. Will not persist across rejoins and player will only have records for rounds they
     were present at the end of.
+  - Tracker init.sqf also removes Statistics in Map permanently, could not get it to be shown only between rounds.    
   - Can be disabled if problems arise in params.
   - Focus has been put on ACE 3 Medical Compatibility, minimizing network load when sending to players, and properly handling players switching side mid round.
   - When fighting AI, will not record AI infantry unconscious/deaths due to performance/technical considerations.
@@ -133,6 +133,7 @@ v4.2.0
 
 * Commands & Logging
   - Commands executed by players (except !commands and !help) as defined in pvpfw_chatIntercept_noLogCommands in commands.sqf are now logged server side.
+  - Also logged client side under Log in Map Diary.
   - Modified commands.sqf, init.sqf, and executeCommand.sqf in module_chatIntercept folder.
   = Added fn_diag_log.sqf in Dott_Functions, which is also used to log who entered zeus.
   - Moved chatIntercept init call from init.sqf to initPlayerLocal.sqf

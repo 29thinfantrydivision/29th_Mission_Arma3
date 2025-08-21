@@ -17,6 +17,7 @@
  * call DOTT_round_fnc_timeWarning;
  * 
  */
+if (!serverCommandAvailable "#lock") exitWith {}; //make time warnings admin only for the time being
 
 private _secondsLeft = call DOTT_round_fnc_getTime; 
 

@@ -103,7 +103,13 @@ if (hasInterface) then
 		"ace_unconscious", 
 		{ _this call DOTT_tracker_fnc_recordACEConscious; }
 	]
-	call CBA_fnc_addEventHandler;	
+	call CBA_fnc_addEventHandler;
+
+	// --- Remove Statistics from Map --- //	
+	addMissionEventHandler ["PreloadFinished", {
+		player removeDiarySubject "Statistics";
+		removeMissionEventHandler ["PreloadFinished", _thisEventHandler];
+	}];
 };
 
 

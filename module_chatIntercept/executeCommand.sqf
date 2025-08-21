@@ -42,6 +42,7 @@ _argument = toString _argument;
 		{
 			private _msg = format ["%1 executed command !%2 %3", name player, _command, _argument];
 			_msg remoteExec ["DOTT_fnc_diag_log",2];
+			["Log", ["Commands", _msg]] remoteExec ["DOTT_fnc_addDiaryRecord"];
 		};		
 	};
 } forEach pvpfw_chatIntercept_allCommands;

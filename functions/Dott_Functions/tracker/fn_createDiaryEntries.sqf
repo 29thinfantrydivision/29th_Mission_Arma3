@@ -83,6 +83,7 @@ if !(player diarySubjectExists "RoundScoreboard") then
     DOTT_tracker_diary_subject = player createDiarySubject ["RoundScoreboard", "Round Scoreboard"];	
     private _infoLines = ["Lists how many infantry kills (no vehicles) each player got during the round, from highest to lowest."];
     _infoLines pushBack "Any players who remain unconscious at the end of the round are credited as kills for the player who incapacitated them.";
+    _infoLines pushBack "AI Infantry kills will not be tracked.";    
     _infoLines pushBack "Information is updated at the end of the round and is lost when aborting/disconnecting.";    
     private _infoText = _infoLines joinString "<br />";    
     player createDiaryRecord ["RoundScoreboard", ["Information", _infoText]]; 
