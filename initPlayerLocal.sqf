@@ -89,4 +89,7 @@ _null = [] execVM "scripts\voice_control\voiceControl.sqf";
 //Run Curator (Zeus) Setup
 execVM "scripts\init_curators.sqf";
 
+//Init chat command system
+[] execVM "module_chatIntercept\init.sqf";
+
 [] spawn DOTT_fnc_initDefaultLoadouts;

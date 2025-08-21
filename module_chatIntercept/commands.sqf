@@ -4,6 +4,10 @@
 // E.G. !commands, !COMMANDS, and !CoMmAnDs will all work, but '!help !COMMANDS' will not (unless argument is 'toLower' before hand is the command code)
 // systemChat is the best way to give feedback to the local player executing commands
 
+pvpfw_chatIntercept_noLogCommands = ["commands", "help"];
+//remember to change !help if you edit this
+pvpfw_chatIntercept_adminCommands = ["arsenal", "heal", "rearm", "reset", "debrief", "goto", "measure", "tickets", "parade"];
+
 pvpfw_chatIntercept_allCommands = [
 	[
 		"commands",
@@ -154,11 +158,6 @@ pvpfw_chatIntercept_allCommands = [
 	[
 		"tickets",
 		{
-			if (!serverCommandAvailable "#lock") exitWith //admin only
-			{
-				systemChat "You must get the logged in admin to do that!";
-			};
-			
 			_argument = _this select 0;
 			_argument = toLower _argument;
 			
@@ -211,11 +210,6 @@ pvpfw_chatIntercept_allCommands = [
 	[
 		"arsenal",
 		{
-			if (!serverCommandAvailable "#lock") exitWith
-			{
-				systemChat "You must be the logged in admin to do that!";
-			};
-			
 			//arsenal object array (Fun!)
 			private _arsenalArr = ["Land_ToiletBox_F", "Land_FieldToilet_F"];
 			//select object
@@ -246,10 +240,6 @@ pvpfw_chatIntercept_allCommands = [
 	[
 		"heal",
 		{
-			if (!serverCommandAvailable "#lock") exitWith
-			{
-				systemChat "You must be the logged in admin to do that!";
-			};
 			_argument = _this select 0;
 			if (_argument isEqualTo "") exitWith //empty arg means heal all players
 			{
@@ -269,10 +259,6 @@ pvpfw_chatIntercept_allCommands = [
 		[
 		"rearm",
 		{
-			if (!serverCommandAvailable "#lock") exitWith
-			{
-				systemChat "You must be the logged in admin to do that!";
-			};
 			_argument = _this select 0;
 			if (_argument isEqualTo "") exitWith
 			{
@@ -292,10 +278,6 @@ pvpfw_chatIntercept_allCommands = [
 	[
 		"reset",
 		{
-			if (!serverCommandAvailable "#lock") exitWith
-			{
-				systemChat "You must be the logged in admin to do that!";
-			};
 			_argument = _this select 0;
 			//blank argument means reset and teleport everybody
 			if (_argument isEqualTo "") exitWith
@@ -344,10 +326,6 @@ pvpfw_chatIntercept_allCommands = [
 	[
 		"debrief",
 		{
-			if (!serverCommandAvailable "#lock") exitWith
-			{
-				systemChat "You must be the logged in admin to do that!";
-			};
 			_argument = _this select 0;
 			//blank argument means debrief in blufor base
 			if (_argument isEqualTo "") then
@@ -373,10 +351,6 @@ pvpfw_chatIntercept_allCommands = [
 	[
 		"goto", //teleport admin only to specified spawn
 		{
-			if (!serverCommandAvailable "#lock") exitWith
-			{
-				systemChat "You must be the logged in admin to do that!";
-			};
 			_argument = _this select 0;
 			_argument = toLower _argument;
 			switch (_argument) do
@@ -391,11 +365,6 @@ pvpfw_chatIntercept_allCommands = [
 	[
 		"measure",
 		{
-			if (!serverCommandAvailable "#lock") exitWith
-			{
-				systemChat "You must be the logged in admin to do that!";
-			};
-			
 			_argument = _this select 0;
 			if (_argument == "") then //blank argument for actual measurement
 			{
@@ -427,10 +396,6 @@ pvpfw_chatIntercept_allCommands = [
 	[
 		"parade",
 		{
-			if (!serverCommandAvailable "#lock") exitWith //admin only
-			{
-				systemChat "You must get the logged in admin to do that!";
-			};
 			[player, 125] spawn DOTT_fnc_forceParade;
 		}
 	]

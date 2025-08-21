@@ -10,7 +10,7 @@
     params ["_curator"];
     private _curatorObj = getAssignedCuratorUnit _curator;
     private _curatorName = name _curatorObj;
-    private _msg = format ["CURATOR INTERFACE OPENED:  %1",_curatorName];
-    _msg remoteExec ["diag_log",2];
+    private _msg = format ["CURATOR INTERFACE OPENED: %1", _curatorName];
+    _msg remoteExec ["DOTT_fnc_diag_log",2];
   }];
 } forEach allCurators;

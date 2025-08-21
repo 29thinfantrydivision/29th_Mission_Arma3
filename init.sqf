@@ -1,8 +1,5 @@
 diag_log text format ["|=============================   %1: init.sqf Running   =============================|", missionName];
 
-//Init chat command system
-[] execVM "module_chatIntercept\init.sqf";
-
 //Prevent tickets/countdown from ending mission
 BIS_fnc_endMission = compileFinal "";
 

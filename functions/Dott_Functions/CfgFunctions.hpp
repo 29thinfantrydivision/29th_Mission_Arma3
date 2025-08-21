@@ -13,6 +13,7 @@ class Dott_Functions
 		class checkNonCombatLoadout {};
 		class forceParade {};
 		class initDefaultLoadouts {};
+		class diag_log {};
 	};
 };
 

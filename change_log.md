@@ -24,7 +24,6 @@ Overall Future Goals
 		- Player profile string reading for Cpl, Sgt, etc?
 	- Wave system for team leaders to call in player waves
 		- Could also use timer
-	- ! chat command printing to logs
 	- Deploy area. Allow a side to deploy within or outside of a designated circle.
 
 ---
@@ -131,6 +130,13 @@ v4.2.0
   - When fighting AI, will not record AI infantry unconscious/deaths due to performance/technical considerations.
   - Possibly move out of diary in the future to have more features.
   - All files created in functions/Dott_Functions/tracker, and system initiated by calling tracker init file in init.sqf.
+
+* Commands & Logging
+  - Commands executed by players (except !commands and !help) as defined in pvpfw_chatIntercept_noLogCommands in commands.sqf are now logged server side.
+  - Modified commands.sqf, init.sqf, and executeCommand.sqf in module_chatIntercept folder.
+  = Added fn_diag_log.sqf in Dott_Functions, which is also used to log who entered zeus.
+  - Moved chatIntercept init call from init.sqf to initPlayerLocal.sqf
+  - Moved admin check to executeCommand.sqf, which checks if a command is admin restricted from pvpfw_chatIntercept_adminCommands in commands.sqf
 
 ---
 v4.1.1
