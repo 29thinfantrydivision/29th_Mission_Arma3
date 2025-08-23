@@ -37,6 +37,14 @@ TBD
 	- Included new class "FlagReturned"
 
 ---
+v4.2.1  
+23 AUG 2025
+
+---
+
+- Insignia now only overwritten for Clerk or Sniper if they don't have one
+
+---
 v4.2.0  
 21 AUG 2025
 

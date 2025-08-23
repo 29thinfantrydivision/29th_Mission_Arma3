@@ -56,13 +56,14 @@ if(!isClass (configFile >> "CfgPatches" >> "29th_Insignias")) exitWith
 
 waitUntil {sleep .5; !isNull _target && _target == _target && alive _target};
 
-private ["_sqdParams", "_targetSquad", "_foundInsignias", "_targetInsignia", "_curInsignia"];
+private ["_sqdParams", "_targetRole", "_targetSquad", "_foundInsignias", "_targetInsignia", "_curInsignia"];
 
 _sqdParams = squadParams _target;
 if (count _sqdParams == 0) exitWith 
 {
 	["squad.xml info not found."] call BIS_fnc_error; false;
 };
+
 // get squad string stored in membericq
 _targetSquad = ((_sqdParams select 1) select 4);
 _foundInsignias = _insigniaMap getOrDefault [_targetSquad,[]];
@@ -86,6 +87,13 @@ if (count _foundInsignias == 2) then
 };
 
 _curInsignia = _target call BIS_fnc_getUnitInsignia;
+
+//don't replace Clerk or Sniper Insignia if they already have one, so they can use their squad insignia
+_targetRole = ((_sqdParams select 1) select 5);
+if (_targetRole find "Clerk" != -1 || _targetRole find "Sniper" != -1) then {
+	if (_curInsignia != "") exitWith {}; 
+};
+
 if(_curInsignia != _targetInsignia && _curInsignia != "") then 
 {
 	systemChat ("Insignia swapped to " + _targetInsignia + ".");
