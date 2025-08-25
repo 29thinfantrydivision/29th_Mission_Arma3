@@ -53,18 +53,21 @@ if (isServer) then
 		{
 			DOTT_tracker_startTime = -1;
 			publicVariable "DOTT_tracker_startTime";
+			[] spawn {
+				uiSleep 3; //wait for last events to arrive
+				
+				//can be out of order due to delaying ACE Unconsious send or due to latency
+				DOTT_tracker_events = [DOTT_tracker_events, [], {_x select 1}] call BIS_fnc_sortBy;
 
-			//can be out of order due to delaying ACE Unconsious send or due to latency
-			DOTT_tracker_events = [DOTT_tracker_events, [], {_x select 1}] call BIS_fnc_sortBy;
+				[
+					DOTT_tracker_events,
+					DOTT_tracker_names,
+					DOTT_tracker_sides,	
+					DOTT_tracker_currentRound
+				] remoteExec ["DOTT_tracker_fnc_createDiaryEntries"];
 
-			[
-				DOTT_tracker_events,
-				DOTT_tracker_names,
-				DOTT_tracker_sides,	
-				DOTT_tracker_currentRound
-			] remoteExec ["DOTT_tracker_fnc_createDiaryEntries"];
-
-			DOTT_tracker_currentRound = DOTT_tracker_currentRound + 1;			
+				DOTT_tracker_currentRound = DOTT_tracker_currentRound + 1;	
+			}
 		} 
 	] call CBA_fnc_addEventHandler;
 
