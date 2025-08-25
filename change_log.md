@@ -48,6 +48,7 @@ v4.2.1
 - Fix kill not being credited if the instigator died before the unit finally died (typically from bleeding out or respawning).
 - Team scores should no longer show up on UI. (Independent side start with -9999 score now).
 - Fix initial joiners sometimes not spawning in with parade kit. (Return of handleInitialInventory from archives)
+- Unconscious events close to death events will no longer be reported.
 
 ---
 v4.2.0  

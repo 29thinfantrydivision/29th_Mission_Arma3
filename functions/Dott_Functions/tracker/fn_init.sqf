@@ -54,6 +54,9 @@ if (isServer) then
 			DOTT_tracker_startTime = -1;
 			publicVariable "DOTT_tracker_startTime";
 
+			//can be out of order due to delaying ACE Unconsious send or due to latency
+			[DOTT_tracker_events, [], {_x select 1}] call BIS_fnc_sortBy;
+
 			[
 				DOTT_tracker_events,
 				DOTT_tracker_names,
@@ -110,6 +113,10 @@ if (hasInterface) then
 		player removeDiarySubject "Statistics";
 		removeMissionEventHandler ["PreloadFinished", _thisEventHandler];
 	}];
+
+	// --- //
+	//Used in kill logging
+	DOTT_tracker_backupInstigatorName = "Unknown";
 };
 
 

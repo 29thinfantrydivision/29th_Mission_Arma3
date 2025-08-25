@@ -27,6 +27,8 @@ _instigator = [_unit, _killer, _instigator] call DOTT_tracker_fnc_findInstigator
 
 private _timeStamp = round(serverTime - DOTT_tracker_startTime);
 
+DOTT_tracker_deathCloseToUnconscious = true;
+
 private _eventType = if (_unit isKindOf "Man") then {INFANTRY_KILL_NUM} else {VEHICLE_KILL_NUM};
 private _event = [_eventType, _timeStamp];
 
@@ -54,7 +56,7 @@ if !(isNull _instigator) then
 		_instigatorName = name _instigator;
 
 		//if name fails due to instigator being dead too long, pull out backup
-		if (_instigatorName == "" && !(isNull DOTT_tracker_backupInstigatorName)) then 
+		if (_instigatorName == "") then 
 		{
 			_instigatorName = DOTT_tracker_backupInstigatorName;
 		};

@@ -43,6 +43,15 @@ if (_state) then
 };
 
 private _event = [ACE_CONSCIOUSNESS_NUM, _timeStamp, _eventInfo];
-[_event] remoteExec ["DOTT_tracker_fnc_saveEvent", 2]; 
+
+//don't report unconscious close to death to reduce events
+DOTT_tracker_deathCloseToUnconscious = false;
+[_event] spawn {
+	params["_event"];
+	uisleep 2;
+	if (DOTT_tracker_deathCloseToUnconscious) exitWith {}; 
+	[_event] remoteExec ["DOTT_tracker_fnc_saveEvent", 2]; 
+};
+
 
 true
