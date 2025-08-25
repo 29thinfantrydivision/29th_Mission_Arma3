@@ -117,6 +117,16 @@ if (hasInterface) then
 	// --- //
 	//Used in kill logging
 	DOTT_tracker_backupInstigatorName = "Unknown";
+
+	[] spawn 
+	{
+		waitUntil {!isNull player};
+		player addEventHandler ["HandleDamage", 
+		{
+			private _instigator = _this select 6;
+			if (!isNull _instigator) then { DOTT_tracker_lastNonNullDamage = _instigator };	
+		}];
+	};	
 };
 
 
