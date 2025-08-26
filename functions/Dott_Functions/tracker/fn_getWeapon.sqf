@@ -10,11 +10,25 @@ if (vehicle _instigator isEqualTo _instigator) then
 		//ace fragmentation can come from many sources, so default to last known weapon
 		//if ((_projectile find "ace_frag") == 0) exitWith { DOTT_tracker_lastInstigatorWeapon };
 		if (count (getArray (_cfg >> "ace_grenades_pullPinSound")) > 0) then { "Grenade" }
-		else { getText (configFile >> "CfgWeapons" >> currentWeapon _instigator >> "displayName") + " (GL)" }
+		else 
+		{ 
+			private _weaponText = getText (configFile >> "CfgWeapons" >> currentWeapon _instigator >> "displayName");
+			{
+				if (_weaponText find _x != -1) exitWith {_weaponText = _x};
+			}
+			forEach DOTT_tracker_attachedGLs;
+
+			_weaponText = _weaponText + " GL";
+			_weaponText
+		}
 	} else 
 	{
 		//return weapon in hand (best guess)
-		getText (configFile >> "CfgWeapons" >> currentWeapon _instigator >> "displayName")
+		//shorten weapon name by removing eveything in parenthesis
+		private _weaponText = getText (configFile >> "CfgWeapons" >> currentWeapon _instigator >> "displayName");
+		private _pos = _weaponText find " (";
+		if (_pos != -1) then { _weaponText = _weaponText select [0, _pos] };
+		_weaponText;
 	};
 } else
 {

@@ -140,6 +140,9 @@ if (hasInterface) then
 		player removeDiarySubject "Statistics";
 		removeMissionEventHandler ["PreloadFinished", _thisEventHandler];
 	}];
+
+	//SOP Grenade Launchers
+	DOTT_tracker_attachedGLs = ["M203", "M320", "GP-25", "PBG", "AG36", "VHS-BG"];
 };
 
 
