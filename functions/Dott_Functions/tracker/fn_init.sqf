@@ -22,7 +22,8 @@ if (isServer) then
 {
 	DOTT_tracker_events = [];
 	DOTT_tracker_names = [];
-	DOTT_tracker_sides = [];	
+	DOTT_tracker_sides = [];
+	DOTT_tracker_weapons = [];	
 	DOTT_tracker_currentRound = 1;
 
 	DOTT_tracker_startTime = -1;	
@@ -35,7 +36,8 @@ if (isServer) then
 
 			DOTT_tracker_events = [];
 			DOTT_tracker_names = [];	
-			DOTT_tracker_sides = [];							
+			DOTT_tracker_sides = [];
+			DOTT_tracker_weapons = [];								
 		} 
 	] call CBA_fnc_addEventHandler;
 
@@ -55,7 +57,7 @@ if (isServer) then
 			publicVariable "DOTT_tracker_startTime";
 			[] spawn {
 				uiSleep 3; //wait for last events to arrive
-				
+
 				//can be out of order due to delaying ACE Unconsious send or due to latency
 				DOTT_tracker_events = [DOTT_tracker_events, [], {_x select 1}] call BIS_fnc_sortBy;
 
@@ -63,6 +65,7 @@ if (isServer) then
 					DOTT_tracker_events,
 					DOTT_tracker_names,
 					DOTT_tracker_sides,	
+					DOTT_tracker_weapons,
 					DOTT_tracker_currentRound
 				] remoteExec ["DOTT_tracker_fnc_createDiaryEntries"];
 
@@ -95,7 +98,8 @@ if (hasInterface) then
 {
 	// --- Infantry Kill --- //	
 	DOTT_tracker_backupInstigatorName = "Unknown";
-	DOTT_tracker_lastNonNullDamage = nil;
+	DOTT_tracker_lastNonNullInstigator = nil;
+	DOTT_tracker_lastInstigatorWeapon = "Unknown";
 
 	[] spawn 
 	{
@@ -108,12 +112,18 @@ if (hasInterface) then
 		player addEventHandler ["Respawn", 
 		{
 			DOTT_tracker_backupInstigatorName = "Unknown";
-			DOTT_tracker_lastNonNullDamage = nil;
+			DOTT_tracker_lastNonNullInstigator = nil;	
+			DOTT_tracker_lastInstigatorWeapon = "Unknown";					
 		}];	
 		player addEventHandler ["HandleDamage", 
 		{
+			private _projectile = _this select 4;
 			private _instigator = _this select 6;
-			if (!isNull _instigator) then { DOTT_tracker_lastNonNullDamage = _instigator };	
+			if (!isNull _instigator) then 
+			{ 
+				DOTT_tracker_lastNonNullInstigator =  _instigator;
+				DOTT_tracker_lastInstigatorWeapon = [_projectile, _instigator] call DOTT_tracker_fnc_getWeapon;
+			};	
 		}];		
 
 	};

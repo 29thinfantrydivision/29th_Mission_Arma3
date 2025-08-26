@@ -24,7 +24,7 @@ params["_unit", "_killer", "_instigator"];
 //find last damage source that isn't player if they manually respawned or bled out
 if (_killer == _unit && _unit isKindOf "Man") then 
 {
-	_killer = missionNamespace getVariable ["DOTT_tracker_lastNonNullDamage", _killer]; //this needs to be local
+	_killer = missionNamespace getVariable ["DOTT_tracker_lastNonNullInstigator", _killer]; //this needs to be local
 };
 
 //check if the instigator is a UAV

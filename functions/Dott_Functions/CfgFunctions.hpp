@@ -57,6 +57,7 @@ class Dott_Tracker
 		class recordACEConscious {};
 		class findInstigator {};
 		class nameToNum {};
+		class weaponToNum {};
 		class createDiaryEntries {};
 		class colorNameWithSide {};
 		class getSideAtTime {};
@@ -64,5 +65,6 @@ class Dott_Tracker
 		class copyRecordToClipboard {};	
 		class getKillCounts {};	
 		class findPlayerEvents {};
+		class getWeapon {};
 	};
 };

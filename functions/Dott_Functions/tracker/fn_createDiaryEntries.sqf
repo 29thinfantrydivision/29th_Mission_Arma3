@@ -27,7 +27,7 @@
  */
 #include "eventNumbers.hpp"
 if (!hasInterface) exitWith {};
-params["_events", "_names", "_sides", "_roundNum"];
+params["_events", "_names", "_sides", "_weapons", "_roundNum"];
 
 if !(player diarySubjectExists "RoundEventLog") then 
 {
@@ -46,7 +46,7 @@ private _eventStrings = [];
 for "_i" from (_numEvents - 1) to 0 step -1 do 
 {
     private _event = _events select _i;
-    private _eventString = ([_event, _names, _sides] call DOTT_tracker_fnc_eventToString);
+    private _eventString = ([_event, _names, _sides, _weapons] call DOTT_tracker_fnc_eventToString);
     _eventStrings pushBack _eventString;
 };
 
