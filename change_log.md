@@ -43,6 +43,7 @@ v4.2.1
 ---
 
 - Insignia now only overwritten for Clerk or Sniper if they don't have one
+- Fixed incorrect xml check for Company and Battalion unit.
 - Javelin can now lock on without thermal if thermals are disabled.
 - Some changes to wording in Tracker Diary Records.
 - Fix kill not being credited if the instigator died before the unit finally died (typically from bleeding out or respawning).

@@ -22,16 +22,16 @@
 // === Insignia Map ===
 //alternate non-combat version as second element in value 
 private _insigniaMap = createHashMapFromArray [
-    ["Bn. HQ",   ["BnHQ"]],
-    ["C HQ",     ["CoHQdrab", "CoHQ"]],
-    ["CP1 HQ",   ["CP1drab", "CP1"]],
-    ["CP2 HQ",   ["CP2drab", "CP2"]],
-    ["CP1S1",    ["CP1S1"]],
-    ["CP1S2",    ["CP1S2", "CP1S2colour"]],
-    ["CP1S3",    ["CP1S3"]],
-    ["CP2S1",    ["CP2S1"]],
-    ["CP2S2",    ["CP2S2drab", "CP2S2"]],
-    ["CP2S3",    ["CP2S3"]]
+    ["1st Bn. HQ",     ["BnHQ"]],
+    ["Charlie Co. HQ", ["CoHQdrab", "CoHQ"]],
+    ["CP1 HQ",         ["CP1drab", "CP1"]],
+    ["CP2 HQ",         ["CP2drab", "CP2"]],
+    ["CP1S1",          ["CP1S1"]],
+    ["CP1S2",          ["CP1S2", "CP1S2colour"]],
+    ["CP1S3",          ["CP1S3"]],
+    ["CP2S1",          ["CP2S1"]],
+    ["CP2S2",          ["CP2S2drab", "CP2S2"]],
+    ["CP2S3",          ["CP2S3"]]
 ];
 
 params[["_target", objNull, [objNull]]];
@@ -70,7 +70,7 @@ _foundInsignias = _insigniaMap getOrDefault [_targetSquad,[]];
 
 if (count _foundInsignias == 0) exitWith
 {
-    ["Insignia matching %1 not found", _targetSquad] call BIS_fnc_error;
+    //["Insignia matching %1 not found", _targetSquad] call BIS_fnc_error; //Can be from other company, don't throw error
     false;
 };
 //default to only/combat variant
