@@ -54,6 +54,7 @@ v4.2.1
 - New method to find out last damage source. Should help credit explosive uncon/kills better.
 - Round histories are no longer lost when going back to lobby/disconnecting. Adds fn_sendAll.
 - Fixed bug where !rearm would apply admin loadout to all players.
+- Fix for countdown timer not showing up until a sector has been placed down.
 
 ---
 v4.2.0  

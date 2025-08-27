@@ -36,7 +36,22 @@ if (isServer) then
 	publicVariable "overtimePeriod";
 	
 	//prevent scores showing up on right side UI, least used faction used
-	independent addScoreSide -9999; 
+	independent addScoreSide -9999;
+
+	
+	// --- Fix to have countdown ui always show up --- //
+	[] spawn {
+		private _moduleGroup = createGroup sideLogic; 
+		private _sector =  _moduleGroup createUnit [ "ModuleSector_F",
+			[0,0,0], [], 0, "NONE" ];
+		[_sector] call BIS_fnc_moduleSector;
+		_sector setVariable ["sides", [west, east, resistance], true];
+		["BIS_fnc_moduleSector_nameID",-1] call bis_fnc_counter; 
+		waituntil {!isnil "bis_fnc_init"};
+		sleep 2;
+		deleteVehicle _sector;
+		deleteGroup _moduleGroup;
+	}; 
 };
 
 if (hasInterface) then
