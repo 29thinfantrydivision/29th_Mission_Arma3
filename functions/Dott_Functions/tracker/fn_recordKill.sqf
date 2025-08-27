@@ -50,8 +50,8 @@ private _killInfo = [[_unitName, _unitSide]];
 
 if !(isNull _instigator) then 
 {
-	private _instigatorName = _unit getVariable ["DOTT_tracker_backupInstigatorName", nil];
-	if (!isNil {_instigatorName}) then 
+	private _instigatorName = _unit getVariable ["DOTT_tracker_backupInstigatorName", name _instigator];
+	if (_instigatorName != "") then 
 	{
 		_killInfo pushBack [_instigatorName, side (group _instigator)];
 		private _distance = _unit getVariable ["DOTT_tracker_lastDistance", 0];

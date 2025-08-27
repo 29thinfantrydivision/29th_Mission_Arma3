@@ -6,6 +6,7 @@
  *
  * Description:
  * Attempts to find the weapon/vehicle that was used by the instigator.
+ * Requires ACE 3.
  *
  * Parameter(s): 
  * [_unit, _projectile, _instigator] reference HandleDamage event.
@@ -21,38 +22,93 @@
 params["_unit", "_projectile", "_instigator"];
 if (_projectile == "") exitWith { _unit getVariable "DOTT_tracker_lastInstigatorWeapon" };
 //not in vehicle
-if (vehicle _instigator isEqualTo _instigator) then 
+if (!isNull _instigator && !((vehicle _instigator) isEqualTo _instigator)) exitWith
 {
-	//Check if damage was done by handheld frag grenade
-	private _cfg = configFile >> "CfgAmmo" >> _projectile; 
-	private _damageType = getText(_cfg >> "ACE_damageType");  
-	if(_damageType == "grenade") then {
+	private _vicText = getText(configFile >> "CfgVehicles" >> typeOf (vehicle _instigator) >> "displayName");
+	if (_vicText == "") then {_vicText = typeOf (vehicle _instigator)};
+	_vicText
+};
+
+//Check if damage was done by handheld frag grenade
+private _cfg = configFile >> "CfgAmmo" >> _projectile; 
+private _damageType = getText(_cfg >> "ACE_damageType"); 
+private _weaponText = "";
+switch (_damageType) do 
+{
+	case "grenade":
+	{
 		//ace fragmentation can come from many sources, so default to last known weapon
-		//if ((_projectile find "ace_frag") == 0) exitWith { DOTT_tracker_lastInstigatorWeapon };
+		if ((_projectile find "ace_frag") == 0) exitWith { _weaponText = _unit getVariable "DOTT_tracker_lastInstigatorWeapon" };
+
 		if (count (getArray (_cfg >> "ace_grenades_pullPinSound")) > 0) then { "Grenade" }
 		else 
 		{ 
-			private _weaponText = getText (configFile >> "CfgWeapons" >> currentWeapon _instigator >> "displayName");
+			_weaponText = getText (configFile >> "CfgWeapons" >> currentWeapon _instigator >> "displayName");
 			{
 				if (_weaponText find _x != -1) exitWith {_weaponText = _x};
 			}
 			forEach DOTT_tracker_attachedGLs;
 
 			_weaponText = _weaponText + " GL";
-			_weaponText
 		}
-	} else 
+	};
+	case "explosive":
 	{
+		isChildOf = { 
+			params ["_class", "_base"]; 
+		
+			private _cfg = configFile >> "CfgAmmo" >> _class; 
+			if (!isClass _cfg) exitWith {false}; 
+		
+			while {true} do { 
+				private _parent = inheritsFrom _cfg; 
+				if (isNull _parent) exitWith {false};              
+				private _pName = configName _parent; 
+				if (_pName == _base) exitWith {true};               
+				_cfg = _parent;                                    
+			}; 
+		};
+
+		switch (true) do {
+			case (count (getArray (_cfg >> "ace_grenades_pullPinSound")) > 0):
+			{
+				_weaponText = "Thrown Explosive";
+
+				switch (_projectile) do 
+				{
+					case "ACE_DemoCharge_Remote_Ammo_Thrown": { _weaponText = "Thrown Demo" };
+					case "ACE_SatchelCharge_Remote_Ammo_Thrown": { _weaponText = "Thrown Satchel" };
+				};
+			};
+			case ([_projectile, "TimeBombCore"] call isChildOf):
+			{
+				_weaponText = "Placed Explosive";
+				switch (_projectile) do 
+				{
+					case "DemoCharge_Remote_Ammo": { _weaponText = "Placed Demo" };
+					case "SatchelCharge_Remote_Ammo": { _weaponText = "Placed Satchel" };
+				};				
+			};
+			default
+			{
+				if (isNull _instigator) exitWith { _weaponText = _unit getVariable "DOTT_tracker_lastInstigatorWeapon" };
+				//return weapon in hand (best guess)
+				//shorten weapon name by removing eveything in parenthesis
+				_weaponText = getText (configFile >> "CfgWeapons" >> currentWeapon _instigator >> "displayName");
+				private _pos = _weaponText find " (";
+				if (_pos != -1) then { _weaponText = _weaponText select [0, _pos] };
+			};				
+		}
+	};		
+	default
+	{
+		if (isNull _instigator) exitWith { _weaponText = _unit getVariable "DOTT_tracker_lastInstigatorWeapon" };		
 		//return weapon in hand (best guess)
 		//shorten weapon name by removing eveything in parenthesis
-		private _weaponText = getText (configFile >> "CfgWeapons" >> currentWeapon _instigator >> "displayName");
+		_weaponText = getText (configFile >> "CfgWeapons" >> currentWeapon _instigator >> "displayName");
 		private _pos = _weaponText find " (";
 		if (_pos != -1) then { _weaponText = _weaponText select [0, _pos] };
-		_weaponText;
 	};
-} else
-{
-	private _vicText = getText(configFile >> "CfgVehicles" >> typeOf (vehicle _instigator) >> "displayName");
-	if (_vicText == "") then {_vicText = typeOf (vehicle _instigator)};
-	_vicText
 };
+
+_weaponText

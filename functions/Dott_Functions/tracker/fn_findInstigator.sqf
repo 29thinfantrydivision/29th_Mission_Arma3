@@ -34,7 +34,7 @@ if (isNull _instigator) then
 };
 
 //If we can't figure out, just default to _killer before vehicle check
-if ((isNull _instigator) || (_instigator == _unit)) then 
+if ((isNull _instigator) || (_instigator == _unit && !isNull _killer)) then 
 {
 	_instigator = _killer
 };

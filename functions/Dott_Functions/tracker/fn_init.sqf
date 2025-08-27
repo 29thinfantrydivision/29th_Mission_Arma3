@@ -120,6 +120,7 @@ if (hasInterface) then
 		player addEventHandler ["HandleDamage", 
 		{
 			private _unit = _this select 0;
+			private _source = _this select 3;
 			private _projectile = _this select 4;
 			private _instigator = _this select 6;
 
@@ -128,7 +129,7 @@ if (hasInterface) then
 				_unit removeEventHandler ["HandleDamage", _thisEventHandler];
 				nil
 			}; 
-
+			_instigator = [_unit, _source, _instigator] call DOTT_tracker_fnc_findInstigator;
 			if (!isNull _instigator) then 
 			{
 				private _instigatorName = "";
@@ -143,9 +144,9 @@ if (hasInterface) then
 				};
 				_unit setVariable ["DOTT_tracker_backupInstigatorName", _instigatorName];					 
 				_unit setVariable ["DOTT_tracker_lastNonNullInstigator", _instigator];
-				_unit setVariable ["DOTT_tracker_lastInstigatorWeapon", [_unit, _projectile, _instigator] call DOTT_tracker_fnc_getWeapon];
 				_unit setVariable ["DOTT_tracker_lastDistance", round (_unit distance _instigator)];
 			};	
+			_unit setVariable ["DOTT_tracker_lastInstigatorWeapon", [_unit, _projectile, _instigator] call DOTT_tracker_fnc_getWeapon];
 
 			nil
 		}];		
@@ -190,6 +191,7 @@ addMissionEventHandler ["EntityCreated",
 		_entity addEventHandler ["HandleDamage", 
 		{
 			private _unit = _this select 0;
+			private _source = _this select 3;			
 			private _projectile = _this select 4;
 			private _instigator = _this select 6;
 
@@ -199,6 +201,7 @@ addMissionEventHandler ["EntityCreated",
 				nil
 			}; 
 
+			_instigator = [_unit, _source, _instigator] call DOTT_tracker_fnc_findInstigator;
 			if (!isNull _instigator) then 
 			{
 				private _instigatorName = "";
@@ -213,9 +216,10 @@ addMissionEventHandler ["EntityCreated",
 				};
 				_unit setVariable ["DOTT_tracker_backupInstigatorName", _instigatorName];					 
 				_unit setVariable ["DOTT_tracker_lastNonNullInstigator", _instigator];
-				_unit setVariable ["DOTT_tracker_lastInstigatorWeapon", [_unit, _projectile, _instigator] call DOTT_tracker_fnc_getWeapon];
 				_unit setVariable ["DOTT_tracker_lastDistance", round (_unit distance _instigator)];				
-			};		
+			};
+			_unit setVariable ["DOTT_tracker_lastInstigatorWeapon", [_unit, _projectile, _instigator] call DOTT_tracker_fnc_getWeapon];
+
 			nil
 		}];	
 		_entity addEventHandler ["Local", {
@@ -255,6 +259,7 @@ addMissionEventHandler ["EntityCreated",
 		_x addEventHandler ["HandleDamage", 
 		{
 			private _unit = _this select 0;
+			private _source = _this select 3;			
 			private _projectile = _this select 4;
 			private _instigator = _this select 6;
 
@@ -264,6 +269,7 @@ addMissionEventHandler ["EntityCreated",
 				nil
 			}; 
 
+			_instigator = [_unit, _source, _instigator] call DOTT_tracker_fnc_findInstigator;
 			if (!isNull _instigator) then 
 			{
 				private _instigatorName = "";
@@ -278,9 +284,10 @@ addMissionEventHandler ["EntityCreated",
 				};
 				_unit setVariable ["DOTT_tracker_backupInstigatorName", _instigatorName];					 
 				_unit setVariable ["DOTT_tracker_lastNonNullInstigator", _instigator];
-				_unit setVariable ["DOTT_tracker_lastInstigatorWeapon", [_unit, _projectile, _instigator] call DOTT_tracker_fnc_getWeapon];
 				_unit setVariable ["DOTT_tracker_lastDistance", round (_unit distance _instigator)];
-			};	
+			};
+			_unit setVariable ["DOTT_tracker_lastInstigatorWeapon", [_unit, _projectile, _instigator] call DOTT_tracker_fnc_getWeapon];			
+
 			nil
 		}];		
 		_x addEventHandler ["Local", {
