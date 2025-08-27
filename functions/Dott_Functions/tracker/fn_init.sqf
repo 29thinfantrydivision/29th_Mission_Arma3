@@ -99,7 +99,7 @@ if (isServer) then
 if (hasInterface) then 
 {
 	DOTT_tracker_last_round_Recorded = 0;
-	
+
 	// --- Infantry Kill --- //	
 	[] spawn 
 	{
@@ -161,6 +161,7 @@ if (hasInterface) then
 
 	// --- Remove Statistics from Map, Send All Round Histories --- //	
 	addMissionEventHandler ["PreloadFinished", {
+		waitUntil { alive player }; //if for some reason player dies loading in stats wont delete
 		player removeDiarySubject "Statistics";
 		[player] remoteExec ["DOTT_tracker_fnc_sendAll", 2];
 		removeMissionEventHandler ["PreloadFinished", _thisEventHandler];

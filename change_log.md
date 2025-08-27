@@ -55,6 +55,7 @@ v4.2.1
 - Round histories are no longer lost when going back to lobby/disconnecting. Adds fn_sendAll.
 - Fixed bug where !rearm would apply admin loadout to all players.
 - Fix for countdown timer not showing up until a sector has been placed down.
+- Fix weapon being pulled out after leaving arsenal after delay. (For the officers)
 
 ---
 v4.2.0  
