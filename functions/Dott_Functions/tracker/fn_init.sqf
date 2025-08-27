@@ -98,6 +98,8 @@ if (isServer) then
 
 if (hasInterface) then 
 {
+	DOTT_tracker_last_round_Recorded = 0;
+	
 	// --- Infantry Kill --- //	
 	[] spawn 
 	{
