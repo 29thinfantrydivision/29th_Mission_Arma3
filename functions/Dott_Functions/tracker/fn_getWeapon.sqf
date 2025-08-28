@@ -89,6 +89,24 @@ switch (_damageType) do
 					case "SatchelCharge_Remote_Ammo": { _weaponText = "Placed Satchel" };
 				};				
 			};
+			case ([_projectile, "RocketBase"] call isChildOf):
+			{
+				_weaponText = "Rocket Launcher";
+				private _launcher = secondaryWeapon _instigator;
+
+				if (_launcher != "") then {
+					_weaponText = getText (configFile >> "CfgWeapons" >> _launcher >> "displayName");
+				};						
+			};	
+			case ([_projectile, "MissileBase"] call isChildOf):
+			{
+				_weaponText = "Missile Launcher";
+				private _launcher = secondaryWeapon _instigator;
+
+				if (_launcher != "") then {
+					_weaponText = getText (configFile >> "CfgWeapons" >> _launcher >> "displayName");
+				};						
+			};						
 			default
 			{
 				if (isNull _instigator) exitWith { _weaponText = _unit getVariable "DOTT_tracker_lastInstigatorWeapon" };
