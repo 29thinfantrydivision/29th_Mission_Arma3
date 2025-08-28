@@ -12,6 +12,7 @@ class Dott_Functions
 		class resetWeaponState {};
 		class checkNonCombatLoadout {};
 		class forceParade {};
+		class forceParadeAll {};
 		class initDefaultLoadouts {};
 		class diag_log {};
 		class addDiaryRecord {};

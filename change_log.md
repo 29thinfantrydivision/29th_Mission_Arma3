@@ -57,6 +57,8 @@ v4.2.1
 - Fix for countdown timer not showing up until a sector has been placed down.
 - Fix weapon being pulled out after leaving arsenal after delay. (For the officers)
 - To prevent things breaking, player now invincible until fully loaded in when joining.
+- Custom parade loadouts (mainly for officers) can be saved under ACE Arsenal as "Forced Parade". 
+  Player will load into this when joining instead and when Force Parade is used. Adds fn_forceParadeAll.
 
 ---
 v4.2.0  

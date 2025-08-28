@@ -47,8 +47,8 @@ if(_didJIP) then
 	};
 };
 
-//sometimes parade respawn loadout not set fast enough for initial join
-if(!_didJIP) then { [_theClient] spawn Hill_fnc_handleInitialInventory };
+
+[_theClient] spawn Hill_fnc_handleInitialInventory;
 
 [_theClient] execVM "scripts\player_arsenal_handlers.sqf";
 
