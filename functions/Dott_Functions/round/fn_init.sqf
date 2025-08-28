@@ -35,10 +35,6 @@ if (isServer) then
 	publicVariable "overtimeEnabled";
 	publicVariable "overtimePeriod";
 	
-	//prevent scores showing up on right side UI, least used faction used
-	independent addScoreSide -9999;
-
-	
 	// --- Fix to have countdown ui always show up --- //
 	[] spawn {
 		private _moduleGroup = createGroup sideLogic; 
@@ -52,6 +48,25 @@ if (isServer) then
 		deleteVehicle _sector;
 		deleteGroup _moduleGroup;
 	}; 
+
+	//prevent scores showing up on right side UI
+	[
+		"DOTT_round_started",
+		{
+			west addScoreSide -9999;
+			east addScoreSide -9999;
+			independent addScoreSide -9999;							
+		} 
+	] call CBA_fnc_addEventHandler;	
+
+	[
+		"DOTT_round_ended",
+		{
+			west addScoreSide 9999;
+			east addScoreSide 9999;
+			independent addScoreSide 9999;							
+		} 
+	] call CBA_fnc_addEventHandler;	
 };
 
 if (hasInterface) then

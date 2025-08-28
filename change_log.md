@@ -45,7 +45,7 @@ v4.2.1
   Player will load into this when joining instead and when Force Parade is used. Adds fn_forceParadeAll.
 - Weapon/vehicle used will now show up in Event Log. Names may be simplified and SOP GLs are explicitly shown as weapons.
   Adds fn_getWeapon and fn_weaponToNum. 
-- Team scores should no longer show up on UI. (Independent side start with -9999 score now).
+- Team scores should no longer show up on UI during round. (All sides have -9999 score added at beginning of round, reverted at end).
 - Round histories are no longer lost when going back to lobby/disconnecting. Adds fn_sendAll.   
 - Javelin can now lock on without thermal if thermals are disabled.
 - Unconscious events close to death events will no longer be reported.
