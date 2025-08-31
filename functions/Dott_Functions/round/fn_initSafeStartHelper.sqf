@@ -21,6 +21,7 @@
 
 params["_countdown"];
 private _allSidesReady = call DOTT_round_fnc_checkAllSidesReady;
+if (call DOTT_round_fnc_isRoundActive) exitWith { true };
 if (!_allSidesReady) exitWith 
 {
 	// Display aborted message if someone unready mid-countdown			

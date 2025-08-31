@@ -30,7 +30,7 @@ _unit spawn Hill_fnc_setInsignia;
 
 //prevents incorrect weapon state when called on unit that respawned
 //but did not set a loadout in arsenal in current life
-sleep 3;
+sleep 2; //previously 3
 [_unit] spawn DOTT_fnc_resetWeaponState;
 
 true

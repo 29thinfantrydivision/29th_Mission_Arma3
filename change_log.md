@@ -44,12 +44,15 @@ v4.2.2
   - Kills from vehicle weapon now have the weapon used alongside the vehicle.
   - Kills from infantry weapons that use explosives now have the round used as well.
   - Manual player respawns without taking known damage will no longer be recorded. 
-  - AI killing players will no longer be properly recorded.
+  - AI killing players will no longer be recorded.
   - Removes findInstigator, handleDamage, renames getInstigatorName to getName
 
 * Fixes for things that broke between 4.2.0 and 4.2.1
   - Fix insignia not applying on join
   - Fix manual respawning not crediting last attacker with kill 
+
+- Fix for when manually calling live during safe start countdown (when all teams are ready) 
+  caused Timer Aborted to appear on screen.
 
 TODO:
 - Use that mission event handler to give zues back after logging out
