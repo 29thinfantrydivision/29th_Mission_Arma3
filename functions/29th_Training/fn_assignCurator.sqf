@@ -19,7 +19,7 @@
 
 params ["_unit","_logic"];
 
-if (!isServer) 	exitWith 
+if (!isServer) exitWith 
 {
 	[_unit, _logic] remoteExec ["Hill_fnc_assignCurator", 2];
 };

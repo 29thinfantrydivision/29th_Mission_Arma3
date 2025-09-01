@@ -12,8 +12,6 @@ class 29th_Training {
     class removeRadio {};
     class assignCurator {};
     class handleInitialInventory {}; 
-    class checkCuratorAssignment {};   
-    //class randomizeRadioHz {};
-    //class removeAllRespawnInventory {};    
+    class checkCuratorAssignment {};    
   };
 };

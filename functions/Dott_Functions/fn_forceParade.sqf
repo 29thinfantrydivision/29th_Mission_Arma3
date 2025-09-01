@@ -27,6 +27,6 @@ if (_customParadeIdx == -1) then
     private _customParade = (_savedLoadouts select _customParadeIdx) select 1;
     [player, _customParade, true] call CBA_fnc_setLoadout;
 };
-    player spawn Hill_fnc_setInsignia;
+player spawn Hill_fnc_setInsignia;
     
 true
