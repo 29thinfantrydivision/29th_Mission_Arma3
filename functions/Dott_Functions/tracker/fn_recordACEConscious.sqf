@@ -31,7 +31,7 @@ private _timeStamp = round(serverTime - DOTT_tracker_startTime);
 private _eventInfo = [[name _unit, side (group _unit)], _state];
 if (_state) then 
 {
-	//roadkill uncon not checked here, probably not worth the effort
+	//try to find roadkill, blame any vehicle nearby
 	//[name, side, pos, weapon];	
 	private _instigatorInfo = _unit getVariable "DOTT_lastHit";
 	if !(isNil "_instigatorInfo") then 
@@ -40,6 +40,18 @@ if (_state) then
 		private _distance = round (_unit distance (_instigatorInfo select 2));		
 		_eventInfo pushBack _distance;
 		_eventInfo pushBack (_instigatorInfo select 3);
+	} else
+	{
+		private _nearbyVehicles = _unit nearEntities ["LandVehicle", 7];
+		if (count _nearbyVehicles == 0) exitWith {}; 
+		private _vehicle = _nearbyVehicles select 0;
+		private _instigator = driver _vehicle;
+		if (isNull _instigator) then { _instigator = (UAVControl _vehicle) select 0 };
+		if (_vehicle isKindOf "StaticWeapon" || isNull _instigator) exitWith {};
+		_eventInfo pushBack [name _instigator, side (group _instigator)];
+		private _distance = round (_unit distance _instigator);		
+		_eventInfo pushBack _distance;
+		_eventInfo pushBack ([_vehicle] call DOTT_tracker_fnc_getName) + " - Roadkill";		
 	};
 };
 

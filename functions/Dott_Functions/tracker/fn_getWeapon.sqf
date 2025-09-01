@@ -30,7 +30,6 @@ if (_weapon == "Throw") exitWith
 
 	if (_shortName isEqualTo "") exitWith { _fullName };
 	[_fullName, _shortName] select (count _shortName < count _fullName);
-
 };
 
 private _weaponCfg = configFile >> "CfgWeapons" >> _weapon;
@@ -39,10 +38,7 @@ _weaponCfg = [_weaponCfg, _weaponCfg >> _muzzle] select (_weapon != _muzzle);
 _weaponName = getText(_weaponCfg >> "displayName");
 
 //RHS disposable launcher case
-if (getNumber(_weaponCfg >> "rhs_disposable") == 1) exitWith
-{
-	_weaponName
-};
+if (getNumber(_weaponCfg >> "rhs_disposable") == 1) exitWith { _weaponName };
 
 
 //strip unneeded/misleading text if infantry weapon
@@ -57,7 +53,7 @@ if (isNull _vehicle && _weapon == _muzzle) then
 //if used explosive ammo also add that (ex. GL, AT)
 //or if vehicle weapon has multiple ammo choices
 if (getNumber (configFile >> "CfgAmmo" >> _ammo >> "explosive") > 0 ||
-	count getArray(_weaponCfg >> "magazineWell") > 1) then 
+	(!isNull _vehicle && count getArray(_weaponCfg >> "magazineWell") > 1)) then 
 {
 	private _shortName = getText (configFile >> "CfgMagazines" >> _magazine >> "displayNameShort");
 	private _longName = getText (configFile >> "CfgMagazines" >> _magazine >> "displayName");

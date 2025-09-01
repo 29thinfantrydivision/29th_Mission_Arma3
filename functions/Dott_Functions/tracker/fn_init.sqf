@@ -140,11 +140,11 @@ if (isServer) then
 if (hasInterface) then 
 {
 	// --- Attacker Info --- //	
-	[] spawn 
+	addMissionEventHandler ["PreloadFinished", 
 	{
-		waitUntil {!isNull player};
 		[player] remoteExec ["DOTT_tracker_fnc_addEventHandlersUnit", 2];
-	};
+		removeMissionEventHandler ["PreloadFinished", _thisEventHandler];
+	}];
 
 	
 	// --- Remove Statistics from Map, Send All Round Histories --- //	

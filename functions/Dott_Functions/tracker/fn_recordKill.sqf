@@ -49,14 +49,14 @@ if !(isNil "_instigatorInfo") then
 } else 
 {
 	//Road kill check
-	if (isNull _instigator) then { _instigator = UAVControl objectParent _killer select 0 }; 
+	if (isNull _instigator) then { _instigator = (UAVControl (vehicle _killer)) select 0 }; 
 	if (isNull _instigator) then { _instigator = _killer }; 
 	if (_instigator isKindOf "AllVehicles") then 
 	{
 		_instigator = [_instigator] call 
 		{
 			params["_instigator"];
-			if(alive (driver _instigator)) exitWith { driver _instigator };
+			if(!isNull (driver _instigator)) exitWith { driver _instigator };
 			effectiveCommander _instigator //if not in vehicle returns player unit
 		};
 	};
@@ -65,7 +65,7 @@ if !(isNil "_instigatorInfo") then
 		_killInfo pushBack [name _instigator, side (group _instigator)];
 		private _distance = round (_unit distance _instigator);		
 		_killInfo pushBack _distance;
-		_killInfo pushBack "Roadkill";
+		_killInfo pushBack ([objectParent _instigator] call DOTT_tracker_fnc_getName) + " - Roadkill";
 	};
 };
 
