@@ -57,6 +57,7 @@ v4.2.2
 - Fix for when logging out of admin removed zeus even when in zeus slot. 
   Moves checkCuratorAssignment from scripts folder to 29th_Training.
 - Fix for admin login not properly granting Zeus if mission started without an admin.
+- Leaving arsenal/getting reset by admin to a loadout with no primary will now put weapon away. (Officers no longer have to put pistol away manually)
 - Removed all remaining archive files.
 
 ---

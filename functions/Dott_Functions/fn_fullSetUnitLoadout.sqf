@@ -26,6 +26,11 @@ params["_unit", "_loadout", "_fullMagazines"];
 if (!local _unit) exitWith {["Unit %1 must be local.", _unit] call BIS_fnc_error; false;};
 
 _unit setUnitLoadout [_loadout, _fullMagazines];
+//don't pull out weapon if no primary 
+if (primaryWeapon player == "") then 
+{
+	player action ["SwitchWeapon", player, player, -1] 
+};
 _unit spawn Hill_fnc_setInsignia;
 
 //prevents incorrect weapon state when called on unit that respawned
