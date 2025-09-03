@@ -32,7 +32,17 @@ enableEnvironment [false, true];
 		{
 			[] spawn Hill_fnc_noThermals;
 		}] call CBA_fnc_addPlayerEventHandler;
+
 		ace_javelin_ignoreVisionMode = true;
+		
+		[] spawn 
+		{
+			waitUntil { !isNull player };
+			player addEventHandler ["GetInMan", {
+				//some delay is necessary or PiP won't shut off
+				[{ call DOTT_fnc_disablePIPThermals }, [] , 0.1] call CBA_fnc_waitAndExecute;
+			}];
+		};
 	};
 };
 

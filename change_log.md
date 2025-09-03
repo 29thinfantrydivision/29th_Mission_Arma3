@@ -56,6 +56,9 @@ v4.2.2
   - Fix insignia not applying on join
   - Fix manual respawning not crediting last attacker with kill 
 
+- EXPERIMENTAL: PiP Thermal Cameras should now be disabled (nothing renders). Sometimes PiP Gunner cameras that normally would have thermals 
+  (but don't with thermals disabled) will be disabled as well as a side effect. Message will appear in chat if any cameras are disabled.
+
 - Fix for when manually calling live during safe start countdown (when all teams are ready) caused Timer Aborted to appear on screen.
 - Fix for when logging out of admin removed zeus even when in zeus slot. 
   Moves checkCuratorAssignment from scripts folder to 29th_Training.

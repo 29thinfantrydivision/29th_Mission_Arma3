@@ -16,6 +16,7 @@ class Dott_Functions
 		class initDefaultLoadouts {};
 		class diag_log {};
 		class addDiaryRecord {};
+		class disablePIPThermals {};
 	};
 };
 
