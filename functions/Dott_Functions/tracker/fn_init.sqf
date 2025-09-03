@@ -124,7 +124,10 @@ if (isServer) then
 if (hasInterface) then 
 {
 	// --- Attacker Info --- //	
-	[] spawn DOTT_tracker_fnc_addEventHandlersClient;	
+	[] spawn {
+		waitUntil { !isNull player };
+		call DOTT_tracker_fnc_addEventHandlersClient;
+	};
 
 	// --- Remove Statistics from Map, Send All Round Histories --- //	
 	DOTT_tracker_last_round_Recorded = 0;

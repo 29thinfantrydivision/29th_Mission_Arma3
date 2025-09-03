@@ -19,11 +19,9 @@
  * 
  */
 
-//need to use firedPlayer instead of firedMan for ace advanced thrown grenades to count
-["ace_firedPlayer", 
+player addEventHandler ["FiredMan", 
 {
-	params ["_unit", "_weapon", "_muzzle", "_mode", "_ammo", "_magazine", "_projectile"];
-	private _vehicle = objNull;
+	params ["_unit", "_weapon", "_muzzle", "_mode", "_ammo", "_magazine", "_projectile", "_vehicle"];
 	private _realWeapon = call DOTT_tracker_fnc_getWeapon;	
 	private _data = [name _unit, side (group _unit), getPosATL _unit, _realWeapon];
 	_projectile setVariable ["DOTT_instigatorInfo", _data];
@@ -35,12 +33,13 @@
 		_submunitionProjectile setVariable ["DOTT_instigatorInfo", _projectile getVariable "DOTT_instigatorInfo"];		
 		_submunitionProjectile addEventHandler ["HitExplosion", { call DOTT_tracker_fnc_hitExplosion }];						
 	}];					
-}] call CBA_fnc_addEventHandler;
+}];
 
-["ace_firedPlayerVehicle", 
+["ace_advanced_throwing_throwFiredXEH", 
 {
-	params ["_vehicle", "_weapon", "_muzzle", "_mode", "_ammo", "_magazine", "_projectile"];
-	private _unit = player;
+	params ["_unit", "_weapon", "_muzzle", "_mode", "_ammo", "_magazine", "_projectile"];
+	if (!local _unit) exitWith {}; //this EH is global so only execute on client who placed
+	private _vehicle = objNull;
 	private _realWeapon = call DOTT_tracker_fnc_getWeapon;
 	private _data = [name _unit, side (group _unit), getPosATL _unit, _realWeapon];
 	_projectile setVariable ["DOTT_instigatorInfo", _data];
