@@ -64,7 +64,6 @@ if (isServer) then
 	call CBA_fnc_addEventHandler;
 
 	// --- Attacker Info --- //	
-	[] spawn DOTT_tracker_fnc_addEventHandlersServer;
 	addMissionEventHandler ["EntityRespawned", 
 	{
 		params ["_entity"];

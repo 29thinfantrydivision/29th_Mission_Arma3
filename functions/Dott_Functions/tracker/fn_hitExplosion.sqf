@@ -8,7 +8,6 @@
  * Function to be used in "HitExplosion" projectile event for tracker system.
  * Transfers weapon/killer info from the projectile to the unit hit if conditions are met.
  * Should only be run client side.
- * Notably differs from DOTT_tracker_hitPart in that the setVariable sends to server.
  *
  * NOTE: There is no check to ensure that the information is transferred to server fast enough before kill/uncon 
  * events are processed there, it is assumed it will be (which may be wrong).

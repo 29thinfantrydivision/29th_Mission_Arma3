@@ -42,8 +42,8 @@ v4.2.2
 
 ---
 * Reworked Tracker System
-  - More server side, and should accurately get weapon names without hardcoding needed.
-    Except for explosions, which are client side. No check for info reaching the server in time and therefore may not be recorded properly.
+  - Should accurately get weapon names without hardcoding needed.
+  - Theoretical network load increase when units are hit, hope its not significant.
   - Kills from vehicle weapon now have the weapon used alongside the vehicle.
     Also will have the ammo used if certain conditions are met.
   - Kills from infantry weapons that use explosives now have the round used as well. (Except RHS disposables)

@@ -70,7 +70,6 @@ class Dott_Tracker
 		class getWeapon {};
 		class sendAll {};
 		class addEventHandlersClient {};
-		class addEventHandlersServer {};		
 		class hitPart {};
 		class hitExplosion {};
 	};

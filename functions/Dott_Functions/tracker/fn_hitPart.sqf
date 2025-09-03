@@ -7,6 +7,10 @@
  * Description:
  * Function to be used in "HitPart" projectile event for tracker system.
  * Transfers weapon/killer info from the projectile to the unit hit if conditions are met.
+ * Should only be run client side.
+ *
+ * NOTE: There is no check to ensure that the information is transferred to server fast enough before kill/uncon 
+ * events are processed there, it is assumed it will be (which may be wrong).
  *
  * Parameter(s): 
  * [_projectile, _hitEntity] reference "HitPart" projectile event.
@@ -19,18 +23,17 @@
  * 
  */
 params ["_projectile", "_hitEntity"];
-
 if !(alive _hitEntity) exitWith {};
 private _instigatorInfo = _projectile getVariable "DOTT_instigatorInfo";
 
-if (_hitEntity isKindOf "Man") exitWith { _hitEntity setVariable ["DOTT_lastHit", _instigatorInfo] };
+if (_hitEntity isKindOf "Man") exitWith { _hitEntity setVariable ["DOTT_lastHit", _instigatorInfo, 2] };
 
 //if vehicle is already going to blow up don't record any more damage so the kill is hopefully credited properly
 private _hitHull = _hitEntity getHitPointDamage "hitHull";
 if ((_hitEntity isKindOf "Car") && _hitHull >= 1) exitWith {};
 if (_hitHull >= .889) exitWith {};
 
-{ if (alive _x) then { _x setVariable ["DOTT_lastHit", _instigatorInfo] } }
+{ if (alive _x) then { _x setVariable ["DOTT_lastHit", _instigatorInfo, 2] } }
 forEach (crew _hitEntity);
 
-_hitEntity setVariable ["DOTT_lastHit", _instigatorInfo];
+_hitEntity setVariable ["DOTT_lastHit", _instigatorInfo, 2];
