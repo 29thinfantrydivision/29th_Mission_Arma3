@@ -1,5 +1,5 @@
 /*
- * Name:	fnc_assignCurator
+ * Name:	Hill_fnc_assignCurator
  * Date:	7/23/2025
  * Version: 1.0
  * Author:  Bae [29th ID]

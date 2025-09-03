@@ -38,17 +38,19 @@ TBD
 
 ---
 v4.2.2  
-29 AUG 2025
+02 SEP 2025
+
+---
 * Reworked Tracker System
   - More server side, and should accurately get weapon names without hardcoding needed.
     Except for explosions, which are client side. No check for info reaching the server in time and therefore may not be recorded properly.
   - Kills from vehicle weapon now have the weapon used alongside the vehicle.
-    Also will have the ammo used if multiple available.
+    Also will have the ammo used if certain conditions are met.
   - Kills from infantry weapons that use explosives now have the round used as well. (Except RHS disposables)
   - Manual player respawns without taking known damage will no longer be recorded. 
   - AI killing players will no longer be recorded.
   - Removes findInstigator, handleDamage, renames getInstigatorName to getName
-  - Adds addEventHandlersUnit and projectileHit functions
+  - Adds addEventHandlersClient, addEventHandlersServer, hitExplosion and hitPart functions
 
 * Fixes for things that broke between 4.2.0 and 4.2.1
   - Fix insignia not applying on join

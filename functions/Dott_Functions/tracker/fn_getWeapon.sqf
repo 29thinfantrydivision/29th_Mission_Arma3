@@ -1,7 +1,7 @@
 /*
- * Name:	fnc_getWeapon
- * Date:	8/26/2025
- * Version: 1.0
+ * Name:	DOTT_tracker_fnc_getWeapon
+ * Date:	9/2/2025
+ * Version: 1.1
  * Author:  Bae [29th ID]
  *
  * Description:

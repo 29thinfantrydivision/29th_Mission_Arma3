@@ -1,5 +1,5 @@
 /*
- * Name:	fnc_colorNameWithSide
+ * Name:	DOTT_tracker_fnc_colorNameWithSide
  * Date:	8/18/2025
  * Version: 1.0
  * Author:  Bae [29th ID]

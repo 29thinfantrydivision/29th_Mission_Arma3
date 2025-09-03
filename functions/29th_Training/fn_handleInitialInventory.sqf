@@ -1,3 +1,22 @@
+/*
+ * Name:	Hill_fnc_handleInitialInventory
+ * Date:	8/30/2025
+ * Version: 1.1
+ * Author:  Hill [29th ID]
+ *
+ * Description:
+ * Ensures joining player has correct loadout on joining the server, using custom parade if available on BLUFOR.
+ *
+ * Parameter(s): 
+ * _theClient: unit to handle initial inventory
+ *
+ * Returns:
+ * n/a
+ *
+ * Example:
+ * [player] spawn Hill_fnc_handleInitialInventory
+ */
+
 if (!hasInterface) exitWith {};
 
 private _theClient = _this select 0;

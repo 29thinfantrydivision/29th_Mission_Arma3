@@ -1,3 +1,23 @@
+/*
+ * Name:	DOTT_tracker_fnc_hitPart
+ * Date:	9/2/2025
+ * Version: 1.0
+ * Author:  Bae [29th ID]
+ *
+ * Description:
+ * Function to be used in "HitPart" projectile event for tracker system.
+ * Transfers weapon/killer info from the projectile to the unit hit if conditions are met.
+ *
+ * Parameter(s): 
+ * [_projectile, _hitEntity] reference "HitPart" projectile event.
+ *
+ * Returns:
+ * true
+ *
+ * Example:
+ * player call DOTT_tracker_fnc_hitPart;
+ * 
+ */
 params ["_projectile", "_hitEntity"];
 
 if !(alive _hitEntity) exitWith {};

@@ -1,3 +1,29 @@
+/*
+ * Name:	DOTT_tracker_fnc_hitExplosion
+ * Date:	9/2/2025
+ * Version: 1.0
+ * Author:  Bae [29th ID]
+ *
+ * Description:
+ * Function to be used in "HitExplosion" projectile event for tracker system.
+ * Transfers weapon/killer info from the projectile to the unit hit if conditions are met.
+ * Should only be run client side.
+ * Notably differs from DOTT_tracker_hitPart in that the setVariable sends to server.
+ *
+ * NOTE: There is no check to ensure that the information is transferred to server fast enough before kill/uncon 
+ * events are processed there, it is assumed it will be (which may be wrong).
+ *
+ * Parameter(s): 
+ * [_projectile, _hitEntity] reference "HitExplosion" projectile event.
+ *
+ * Returns:
+ * true
+ *
+ * Example:
+ * player call DOTT_tracker_fnc_hitExplosion;
+ * 
+ */
+
 params ["_projectile", "_hitEntity"];
 if !(alive _hitEntity) exitWith {};
 private _instigatorInfo = _projectile getVariable "DOTT_instigatorInfo";
@@ -12,6 +38,4 @@ forEach (crew _hitEntity);
 
 _hitEntity setVariable ["DOTT_lastHit", _instigatorInfo, 2];
 
-//hitEntity in hitExplosion is null when not called from local
-//sends info from client to server
-//no guarantee it gets there before the uncon/kill is processed
+true

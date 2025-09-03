@@ -1,4 +1,24 @@
-params ["_entity"];
+/*
+ * Name:	DOTT_tracker_fnc_addEventHandlersClient
+ * Date:	9/2/2025
+ * Version: 1.0
+ * Author:  Bae [29th ID]
+ *
+ * Description:
+ * Adds event handlers client side for tracker system.
+ * HitExplosion event handler does not return entity properly server side, so must be done client.
+ *
+ * Parameter(s): 
+ * None
+ *
+ * Returns:
+ * true
+ *
+ * Example:
+ * call DOTT_tracker_fnc_addEventHandlersClient;
+ * 
+ */
+
 //need to use firedPlayer instead of firedMan for ace advanced thrown grenades to count
 ["ace_firedPlayer", 
 {
@@ -51,3 +71,5 @@ params ["_entity"];
 		_submunitionProjectile addEventHandler ["HitExplosion", { _this call DOTT_tracker_fnc_hitExplosion }];						
 	}];		
 }] call CBA_fnc_addEventHandler;
+
+true

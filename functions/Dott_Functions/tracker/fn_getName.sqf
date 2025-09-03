@@ -1,3 +1,24 @@
+/*
+ * Name:	DOTT_tracker_fnc_getName
+ * Date:	9/1/2025
+ * Version: 1.0
+ * Author:  Bae [29th ID]
+ *
+ * Description:
+ * Returns name of infantry or of vehicle.
+ * Infantry name may return empty string if dead too long.
+ *
+ * Parameter(s): 
+ * _unit (Object): Player/Vehicle to find name of
+ *
+ * Returns:
+ * String
+ *
+ * Example:
+ * player call DOTT_tracker_fnc_getName;
+ * 
+ */
+
 params["_unit"];
 private _name = "";
 if (isNull _unit) exitWith { _name };

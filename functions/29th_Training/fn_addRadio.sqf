@@ -1,3 +1,22 @@
+/*
+ * Name:	Hill_fnc_addRadio
+ * Date:	8/13/2025
+ * Version: 1.1
+ * Author:  Hill [29th ID]
+ *
+ * Description:
+ * Assigns faction SR radio to player if none in linked slot.
+ *
+ * Parameter(s): 
+ * None
+ *
+ * Returns:
+ * true
+ *
+ * Example:
+ * call Hill_fnc_addRadio;
+ */
+
 if (!hasInterface) exitWith {};
 
 if (isClass (configfile >> "CfgPatches" >> "task_force_radio_items")) then 

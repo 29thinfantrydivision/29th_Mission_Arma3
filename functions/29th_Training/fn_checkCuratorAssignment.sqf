@@ -1,4 +1,22 @@
-//spawn Hill_fnc_assignCurator with the right parameters determined by the player joining
+/*
+ * Name:	Hill_fnc_checkCuratorAssignment
+ * Date:	7/23/2025
+ * Version: 1.0
+ * Author:  Bae [29th ID]
+ *
+ * Description:
+ * Finds correct zeus module (if it exists) of player slot and calls fn_assignCurator on it.
+ *
+ * Parameter(s): 
+ * _unit: Player to find zeus module of
+ *
+ * Returns:
+ * n/a
+ *
+ * Example:
+ * [player] spawn Hill_fnc_checkCuratorAssignment
+ */
+
 private _unitName = str (_this select 0);
 
 private _curatorMap = createHashMapFromArray [

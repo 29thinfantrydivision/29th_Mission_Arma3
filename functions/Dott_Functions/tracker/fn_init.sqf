@@ -1,17 +1,22 @@
 /*
- * Name:	fnc_init
+ * Name:	DOTT_tracker_fnc_init
  * Date:	8/30/2025
  * Version: 1.2
  * Author:  Bae [29th ID]
  *
  * Description:
  * Initalizes tracker system both server and client side.
+ * 
+ * Overview of System: Projectiles created by players have the weapon/player info saved onto the projectile, 
+ * which is then transferred to any alive player/vehicle it hits. On unconscious/death (player/vehicle only) events, 
+ * this information on the unit is used to record the event server side, which is released to clients in a Map Diary 
+ * at the end of rounds.
  *
  * Parameter(s): 
  * None
  *
  * Returns:
- * Nothing
+ * true
  *
  * Example:
  * call DOTT_tracker_fnc_init;
@@ -132,7 +137,7 @@ if (hasInterface) then
 	}];
 };
 
-
+true
 
 
 

@@ -1,3 +1,23 @@
+/*
+ * Name:	DOTT_tracker_fnc_addEventHandlersServer
+ * Date:	9/2/2025
+ * Version: 1.0
+ * Author:  Bae [29th ID]
+ *
+ * Description:
+ * Adds event handlers server side for tracker system.
+ *
+ * Parameter(s): 
+ * None
+ *
+ * Returns:
+ * true
+ *
+ * Example:
+ * call DOTT_tracker_fnc_addEventHandlersServer;
+ * 
+ */
+
 //only relevant on client hosted
 ["ace_firedPlayer", 
 {
@@ -67,3 +87,5 @@
 		_submunitionProjectile addEventHandler ["HitPart", { call DOTT_tracker_fnc_hitPart }];						
 	}];					
 }] call CBA_fnc_addEventHandler;
+
+true
