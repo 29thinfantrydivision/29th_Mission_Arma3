@@ -1,5 +1,5 @@
 /*
- * Name:	fnc_checkNonCombatLoadout
+ * Name:	DOTT_fnc_checkNonCombatLoadout
  * Date:	8/8/2025
  * Version: 1.0
  * Author:  Bae [29th ID]

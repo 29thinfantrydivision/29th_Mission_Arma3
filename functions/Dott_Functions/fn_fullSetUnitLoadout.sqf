@@ -1,5 +1,5 @@
 /*
- * Name:	fnc_fullSetUnitLoadout
+ * Name:	DOTT_fnc_fullSetUnitLoadout
  * Date:	7/24/2025
  * Version: 1.0
  * Author:  Bae [29th ID]

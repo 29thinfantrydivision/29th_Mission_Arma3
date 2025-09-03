@@ -1,5 +1,5 @@
 /*
- * Name:	fnc_resetWeaponState
+ * Name:	DOTT_fnc_resetWeaponState
  * Date:	8/10/2025
  * Version: 1.0
  * Author:  Bae [29th ID]
@@ -15,7 +15,7 @@
  * true
  *
  * Example:
- * [_unit] spawn resetWeaponState;
+ * [_unit] spawn DOTT_fnc_resetWeaponState;
  * 
  */
 

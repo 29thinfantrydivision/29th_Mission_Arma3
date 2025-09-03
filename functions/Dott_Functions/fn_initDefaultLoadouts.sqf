@@ -1,5 +1,5 @@
 /*
- * Name:	fnc_initDefaultLoadouts
+ * Name:	DOTT_fnc_initDefaultLoadouts
  * Date:	8/19/2025
  * Version: 1.0
  * Author:  Bae [29th ID]
