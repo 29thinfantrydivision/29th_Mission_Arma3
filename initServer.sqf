@@ -39,3 +39,24 @@ private _forcedFog      = [0.1, 0.01, 0];
 
 execVM "scripts\excludeObjFromZeus.sqf";
 execVM "scripts\init_vehicle_settings.sqf";
+
+addMissionEventHandler ["OnUserAdminStateChanged", {
+	params ["_networkId", "_loggedIn"];
+	private _unit = (getUserInfo _networkId) select 10;	
+	if (isNil "_unit") exitWith {};
+	if (_loggedIn) exitWith 
+	{
+		if (isNull getAssignedCuratorLogic _unit) then 
+		{ 
+			_unit assignCurator zeus_admin; 
+		};
+	};
+	[_unit] spawn {
+		params ["_unit"];
+		if (getAssignedCuratorLogic _unit == zeus_admin) then
+		{
+			waitUntil { isNull (getAssignedCuratorLogic _unit) };
+		};  
+		[_unit] spawn Hill_fnc_checkCuratorAssignment;
+	}
+}];

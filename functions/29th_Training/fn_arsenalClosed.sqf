@@ -1,3 +1,22 @@
+/*
+ * Name:	Hill_fnc_arsenalClosed
+ * Date:	8/13/2025
+ * Version: 1.1
+ * Author:  Hill [29th ID]
+ *
+ * Description:
+ * Various things to do when arsenal closed.
+ *
+ * Parameter(s): 
+ * None
+ *
+ * Returns:
+ * true
+ *
+ * Example:
+ * call Hill_fnc_arsenalClosed;
+ */
+
 if (!hasInterface) exitWith {};
 [player, [missionNamespace, "Current Inventory"]] call BIS_fnc_saveInventory;
 [player, ["missionNamespace:Current Inventory"]] call BIS_fnc_setRespawnInventory;
@@ -15,6 +34,12 @@ player spawn Hill_fnc_setInsignia;
 if (!(weaponLowered player)) then 
 {
 	player action ["WeaponOnBack", player];
+};
+
+//don't pull out weapon if no primary
+if (primaryWeapon player == "") then 
+{
+	player action ["SwitchWeapon", player, player, -1] 
 };
 
 systemChat "Your gear has been saved.";

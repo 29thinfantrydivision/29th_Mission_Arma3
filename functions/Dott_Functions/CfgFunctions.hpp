@@ -16,6 +16,7 @@ class Dott_Functions
 		class initDefaultLoadouts {};
 		class diag_log {};
 		class addDiaryRecord {};
+		class disablePIPThermals {};
 	};
 };
 
@@ -56,7 +57,7 @@ class Dott_Tracker
 		class eventToString {};
 		class killCountsToString {};
 		class recordACEConscious {};
-		class findInstigator {};
+		class getName {};
 		class nameToNum {};
 		class weaponToNum {};
 		class createDiaryEntries {};
@@ -67,6 +68,10 @@ class Dott_Tracker
 		class getKillCounts {};	
 		class findPlayerEvents {};
 		class getWeapon {};
+		class getWeaponVehicle {};
 		class sendAll {};
+		class addEventHandlersClient {};
+		class hitPart {};
+		class hitExplosion {};
 	};
 };

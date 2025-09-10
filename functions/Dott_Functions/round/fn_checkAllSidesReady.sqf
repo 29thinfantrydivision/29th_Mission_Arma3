@@ -1,5 +1,5 @@
 /*
- * Name:	fnc_checkAllSidesReady
+ * Name:	DOTT_round_fnc_checkAllSidesReady
  * Date:	8/14/2025
  * Version: 1.0
  * Author:  Bae [29th ID] 

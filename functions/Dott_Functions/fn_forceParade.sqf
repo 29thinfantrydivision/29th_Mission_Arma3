@@ -1,5 +1,5 @@
 /*
- * Name:	fnc_forceParade
+ * Name:	DOTT_fnc_forceParade
  * Date:	8/27/2025
  * Version: 1.0
  * Author:  Bae [29th ID]
@@ -26,7 +26,12 @@ if (_customParadeIdx == -1) then
 {
     private _customParade = (_savedLoadouts select _customParadeIdx) select 1;
     [player, _customParade, true] call CBA_fnc_setLoadout;
-    player spawn Hill_fnc_setInsignia;    
+    //don't pull out weapon if no primary 
+    if (primaryWeapon player == "") then 
+    {
+        player action ["SwitchWeapon", player, player, -1] 
+    };
 };
-
+player spawn Hill_fnc_setInsignia;
+    
 true

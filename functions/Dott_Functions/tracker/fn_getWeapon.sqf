@@ -1,136 +1,60 @@
 /*
- * Name:	fnc_getWeapon
- * Date:	8/26/2025
- * Version: 1.0
+ * Name:	DOTT_tracker_fnc_getWeapon
+ * Date:	9/2/2025
+ * Version: 1.1
  * Author:  Bae [29th ID]
  *
  * Description:
- * Attempts to find the weapon/vehicle that was used by the instigator.
- * Requires ACE 3.
+ * Returns string best describing the weapon used for infantry.
  *
  * Parameter(s): 
- * [_unit, _projectile, _instigator] reference HandleDamage event.
+ * [_weapon, _muzzle, _magazine, _ammo, _vehicle] reference FiredMan event.
+ * NOTE: For optimization, these are assumed to be assigned by the caller (assumed FiredMan event).
  *
  * Returns:
- * (String) Best guess of the weapon/vehicle that was used by the instigator. 
+ * String
  *
  * Example:
- * [_unit, _projectile, _instigator] call DOTT_tracker_fnc_getWeapon;
+ * call DOTT_tracker_fnc_getWeapon;
  * 
  */
 
-params["_unit", "_projectile", "_instigator"];
-if (_projectile == "") exitWith { _unit getVariable "DOTT_tracker_lastInstigatorWeapon" };
-//not in vehicle
-if (!isNull _instigator && !((vehicle _instigator) isEqualTo _instigator)) exitWith
+//Hand grenade case
+if (_weapon == "Throw") exitWith 
 {
-	private _vicText = getText(configFile >> "CfgVehicles" >> typeOf (vehicle _instigator) >> "displayName");
-	if (_vicText == "") then {_vicText = typeOf (vehicle _instigator)};
-	_vicText
+	//sometimes short is longer than non-short
+	private _fullName = getText (configFile >> "CfgMagazines" >> _magazine >> "displayName");
+	private _shortName = getText (configFile >> "CfgMagazines" >> _magazine >> "displayNameShort");
+
+	if (_shortName isEqualTo "") exitWith { _fullName };
+	[_fullName, _shortName] select (count _shortName < count _fullName);
 };
 
-//Check if damage was done by handheld frag grenade
-private _cfg = configFile >> "CfgAmmo" >> _projectile; 
-private _damageType = getText(_cfg >> "ACE_damageType"); 
-private _weaponText = "";
-switch (_damageType) do 
+private _weaponCfg = configFile >> "CfgWeapons" >> _weapon;
+
+_weaponCfg = [_weaponCfg, _weaponCfg >> _muzzle] select (_weapon != _muzzle);
+private _weaponName = getText(_weaponCfg >> "displayName");
+
+//RHS disposable launcher case
+if (getNumber(_weaponCfg >> "rhs_disposable") == 1) exitWith { _weaponName };
+
+//strip unneeded/misleading text if infantry weapon
+if (_weapon == _muzzle) then 
 {
-	case "grenade":
-	{
-		//ace fragmentation can come from many sources, so default to last known weapon
-		if ((_projectile find "ace_frag") == 0) exitWith { _weaponText = _unit getVariable "DOTT_tracker_lastInstigatorWeapon" };
+	private _pos = _weaponName find " (";
+	if (_pos != -1) then { _weaponName = _weaponName select [0, _pos] };
+	_pos = _weaponName find " GL";
+	if (_pos != -1) then { _weaponName = _weaponName select [0, _pos] };
+};
+private _strs = [_weaponName];
 
-		if (count (getArray (_cfg >> "ace_grenades_pullPinSound")) > 0) then { _weaponText = "Grenade" }
-		else 
-		{ 
-			_weaponText = getText (configFile >> "CfgWeapons" >> currentWeapon _instigator >> "displayName");
-			{
-				if (_weaponText find _x != -1) exitWith {_weaponText = _x};
-			}
-			forEach DOTT_tracker_attachedGLs;
-
-			if (_weaponText find "GL" == -1) then {_weaponText = _weaponText + " GL"};
-		}
-	};
-	case "explosive":
-	{
-		isChildOf = { 
-			params ["_class", "_base"]; 
-		
-			private _cfg = configFile >> "CfgAmmo" >> _class; 
-			if (!isClass _cfg) exitWith {false}; 
-		
-			while {true} do { 
-				private _parent = inheritsFrom _cfg; 
-				if (isNull _parent) exitWith {false};              
-				private _pName = configName _parent; 
-				if (_pName == _base) exitWith {true};               
-				_cfg = _parent;                                    
-			}; 
-		};
-
-		switch (true) do {
-			case (count (getArray (_cfg >> "ace_grenades_pullPinSound")) > 0):
-			{
-				_weaponText = "Thrown Explosive";
-
-				switch (_projectile) do 
-				{
-					case "ACE_DemoCharge_Remote_Ammo_Thrown": { _weaponText = "Thrown Demo" };
-					case "ACE_SatchelCharge_Remote_Ammo_Thrown": { _weaponText = "Thrown Satchel" };
-				};
-			};
-			case ([_projectile, "TimeBombCore"] call isChildOf):
-			{
-				_weaponText = "Placed Explosive";
-				switch (_projectile) do 
-				{
-					case "DemoCharge_Remote_Ammo": { _weaponText = "Placed Demo" };
-					case "SatchelCharge_Remote_Ammo": { _weaponText = "Placed Satchel" };
-				};				
-			};
-			case ([_projectile, "RocketBase"] call isChildOf):
-			{
-				_weaponText = "Rocket Launcher";
-				private _launcher = secondaryWeapon _instigator;
-
-				if (_launcher != "") then {
-					_weaponText = getText (configFile >> "CfgWeapons" >> _launcher >> "displayName");
-				};						
-			};	
-			case ([_projectile, "MissileBase"] call isChildOf):
-			{
-				_weaponText = "Missile Launcher";
-				private _launcher = secondaryWeapon _instigator;
-
-				if (_launcher != "") then {
-					_weaponText = getText (configFile >> "CfgWeapons" >> _launcher >> "displayName");
-				};						
-			};						
-			default
-			{
-				if (isNull _instigator) exitWith { _weaponText = _unit getVariable "DOTT_tracker_lastInstigatorWeapon" };
-				//return weapon in hand (best guess)
-				//shorten weapon name by removing eveything in parenthesis
-				_weaponText = getText (configFile >> "CfgWeapons" >> currentWeapon _instigator >> "displayName");
-				private _pos = _weaponText find " (";
-				if (_pos != -1) then { _weaponText = _weaponText select [0, _pos] };
-				_pos = _weaponText find " GL";
-				if (_pos != -1) then { _weaponText = _weaponText select [0, _pos] };				
-			};				
-		}
-	};		
-	default
-	{
-		if (isNull _instigator) exitWith { _weaponText = _unit getVariable "DOTT_tracker_lastInstigatorWeapon" };		
-		//return weapon in hand (best guess)
-		//shorten weapon name by removing eveything in parenthesis
-		_weaponText = getText (configFile >> "CfgWeapons" >> currentWeapon _instigator >> "displayName");
-		private _pos = _weaponText find " (";
-		if (_pos != -1) then { _weaponText = _weaponText select [0, _pos] };
-		_pos = _weaponText find " GL";
-		if (_pos != -1) then { _weaponText = _weaponText select [0, _pos] };		
-	};
+if (getNumber (configFile >> "CfgAmmo" >> _ammo >> "explosive") > 0) then 
+{
+	private _shortName = getText (configFile >> "CfgMagazines" >> _magazine >> "displayNameShort");
+	private _longName = getText (configFile >> "CfgMagazines" >> _magazine >> "displayName");
+	private _ammoName = [_shortName, _longName] select (_shortName == "");	
+	_strs pushBack _ammoName; 
 };
 
-_weaponText
+_strs joinString " - ";
+

@@ -1,5 +1,5 @@
 /*
- * Name:	fnc_initSafeStartHelper
+ * Name:	DOTT_round_fnc_initSafeStartHelper
  * Date:	8/15/2025
  * Version: 1.0
  * Author:  Bae [29th ID] 
@@ -21,6 +21,7 @@
 
 params["_countdown"];
 private _allSidesReady = call DOTT_round_fnc_checkAllSidesReady;
+if (call DOTT_round_fnc_isRoundActive) exitWith { true };
 if (!_allSidesReady) exitWith 
 {
 	// Display aborted message if someone unready mid-countdown			

@@ -1,5 +1,5 @@
 /*
- * Name:	fnc_assignCurator
+ * Name:	Hill_fnc_assignCurator
  * Date:	7/23/2025
  * Version: 1.0
  * Author:  Bae [29th ID]
@@ -14,12 +14,12 @@
  * n/a
  *
  * Example:
- * [blu_co, zeus_co] call Hill_fnc_assignCurator
+ * [blu_co, zeus_co] spawn Hill_fnc_assignCurator
  */
 
 params ["_unit","_logic"];
 
-if (!isServer) 	exitWith 
+if (!isServer) exitWith 
 {
 	[_unit, _logic] remoteExec ["Hill_fnc_assignCurator", 2];
 };
@@ -27,6 +27,6 @@ if (!isServer) 	exitWith
 if (isNull (getAssignedCuratorLogic _unit)) then 
 {
 	unassignCurator _logic;
-	sleep 1;
+	sleep .1;
 	_unit assignCurator _logic;
 };

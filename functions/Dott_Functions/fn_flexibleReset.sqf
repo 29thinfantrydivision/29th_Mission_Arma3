@@ -1,5 +1,5 @@
 /*
- * Name:	fnc_flexibleReset
+ * Name:	DOTT_fnc_flexibleReset
  * Date:	3/4/2024
  * Version: 1.1
  * Author:  Dott [29th ID]

@@ -37,6 +37,39 @@ TBD
 	- Included new class "FlagReturned"
 
 ---
+v4.2.2  
+02 SEP 2025
+
+---
+* Reworked Tracker System
+  - Should accurately get weapon names without hardcoding needed. (Except ACE Fragments still.)
+  - Theoretical network load increase when units are hit, hope its not significant.
+  - Kills from vehicle weapon now have the weapon used alongside the vehicle.
+    Also will have the ammo used if certain conditions are met. Tries to always have it if multiple ammo options for weapon and at least 1 is explosive.
+  - Kills from infantry weapons that use explosives now have the round used as well. (Except RHS disposables)
+  - Manual player respawns without taking known damage will no longer be recorded. 
+  - AI killing players will no longer be recorded.
+  - Removes findInstigator, handleDamage, renames getInstigatorName to getName
+  - Splits getWeapon into itself and getWeaponVehicle.
+  - Adds addEventHandlersClient, addEventHandlersServer, hitExplosion and hitPart functions
+
+* Fixes for things that broke between 4.2.0 and 4.2.1
+  - Fix insignia not applying on join
+  - Fix manual respawning not crediting last attacker with kill 
+
+* EXPERIMENTAL: PIP Thermal Cameras should now be disabled (nothing renders). 
+  Added exceptions to cameras that could have thermal that follow gunner sights but shouldn't since the gunner thermals are disabled.
+  Keep an eye out false positives and negatives, although the only other alternative may be to remove that exception above (more false positives for less (zero?) false negatives).
+  Notable Vehicles: US MRAPs w/ DVE Monitor (Driver), Humvee w/ LRAS, Stryker (Driver and LRAS), Speedboat
+
+- Fix for when manually calling live during safe start countdown (when all teams are ready) caused Timer Aborted to appear on screen.
+- Fix for when logging out of admin removed zeus even when in zeus slot. 
+  Moves checkCuratorAssignment from scripts folder to 29th_Training.
+- Fix for admin login not properly granting Zeus if mission started without an admin.
+- Leaving arsenal/getting reset by admin to a loadout with no primary will now put weapon away. (Officers no longer have to put pistol away manually)
+- Removed all remaining archive files.
+
+---
 v4.2.1  
 26 AUG 2025
 

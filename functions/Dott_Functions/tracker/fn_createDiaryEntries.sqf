@@ -1,5 +1,5 @@
 /*
- * Name:	fnc_createDiaryEntries
+ * Name:	DOTT_tracker_fnc_createDiaryEntries
  * Date:	8/26/2025
  * Version: 1.1
  * Author:  Bae [29th ID]

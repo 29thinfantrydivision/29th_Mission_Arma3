@@ -1,5 +1,5 @@
 /*
- * Name:	fnc_removeRadio
+ * Name:	Hill_fnc_removeRadio
  * Date:	9/10/2018
  * Version: 1.0
  * Author: Rellikplug	AKA: Hill [29th ID]

@@ -1,5 +1,5 @@
 /*
- * Name:	fnc_fullSetUnitLoadout
+ * Name:	DOTT_fnc_fullSetUnitLoadout
  * Date:	7/24/2025
  * Version: 1.0
  * Author:  Bae [29th ID]
@@ -26,11 +26,16 @@ params["_unit", "_loadout", "_fullMagazines"];
 if (!local _unit) exitWith {["Unit %1 must be local.", _unit] call BIS_fnc_error; false;};
 
 _unit setUnitLoadout [_loadout, _fullMagazines];
+//don't pull out weapon if no primary 
+if (primaryWeapon player == "") then 
+{
+	player action ["SwitchWeapon", player, player, -1] 
+};
 _unit spawn Hill_fnc_setInsignia;
 
 //prevents incorrect weapon state when called on unit that respawned
 //but did not set a loadout in arsenal in current life
-sleep 3;
+sleep 2; //previously 3
 [_unit] spawn DOTT_fnc_resetWeaponState;
 
 true
