@@ -25,7 +25,7 @@ waitUntil {!isNull player};
 
 if (side (group _theClient) == WEST) then {
 	addMissionEventHandler ["PreloadFinished", {
-		call DOTT_fnc_forceParade;
+		[true] call DOTT_fnc_loadParade;
 		removeMissionEventHandler ["PreloadFinished", _thisEventHandler];
 	}];
 };

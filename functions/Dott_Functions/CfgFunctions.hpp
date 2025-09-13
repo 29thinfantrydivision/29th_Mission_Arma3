@@ -11,7 +11,7 @@ class Dott_Functions
 		class fullSetUnitLoadout {};
 		class resetWeaponState {};
 		class checkNonCombatLoadout {};
-		class forceParade {};
+		class loadParade {};
 		class forceParadeAll {};
 		class initDefaultLoadouts {};
 		class diag_log {};

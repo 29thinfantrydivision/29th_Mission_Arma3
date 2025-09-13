@@ -28,12 +28,7 @@ private _targets = _allPlayers select
 };
 
 {
-    private _target = _x;
-
-    if !([_target] call DOTT_fnc_checkNonCombatLoadout) then 
-	{
-        [{call DOTT_fnc_forceParade; systemChat "Parade loadout applied."}] remoteExec ["call", _target];
-    };
+    [] remoteExec ["DOTT_fnc_loadParade", _x];
 } forEach _targets;
 
 true

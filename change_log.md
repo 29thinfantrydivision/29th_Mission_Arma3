@@ -42,7 +42,12 @@ v4.2.3
 
 ---
 - Leaving arsenal with a loadout with no primary will no longer put weapon away. (Partial revert change from 4.2.2)
+  Modifies fn_arsenalClosed.sqf
 - !debrief now causes the Force Parade action at BLUFOR ammo box to be selectable from 50 meters away for 10 seconds.
+  Modifies commands.sqf and baseObjectsInit.sqf
+- Now kicks players out of arsenal if force parade is done on them
+  Modifies handleInitialInventory, forceParadeAll, forceParade is now loadParade.
+  
 TODO:
 Fix radio resetting on reset (Med)
 Cache weapon info in tracker for performance gains (Very Low - optional)
@@ -50,7 +55,7 @@ Consolidate files hitExplosion/hitPart and getWeapon/getWeaponVehicle (Very Low 
 If player respawned after taking damage/bled out, state it so those deaths are not misleading in tracker. (Low - Med)
 Fix height from ground being used for tracker distance calc instead of absolute (Low)
 Maybe change timer show sector workaround so it doesnt show up in init map briefing (Very Low)
-Kick players out of arsenal if force parade is done on them (Low)
+
 ---
 v4.2.2  
 02 SEP 2025
