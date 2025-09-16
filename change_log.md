@@ -52,9 +52,10 @@ v4.2.3
 - When loadout reset or when respawning, if player did not save their SW radio settings by revisiting ACE Arsenal, frequencies on newly 
   given radio will be the same as right before reset/death. LR radios unaffected.
   Modifies fullSetunitLoadout, onPlayerKilled, onPlayerRespawn, adds copyOldSwSettings.
-- Consolidated hitExplosion and hitPart files into one hit file in tracker.
+- Consolidated hitExplosion and hitPart files into one hit file in tracker. Consolidated getWeaponVehicle back into getWeapon again.
+- Weapon string for tracker is now cached for future retrieval instead of repeatedly generating the same string (4x faster, but not much absolute cost anyways).
+
 TODO:
-Cache weapon info in tracker for performance gains (Very Low - optional)
 If player respawned after taking damage/bled out, state it so those deaths are not misleading in tracker. (Low - Med)
 Fix height from ground being used for tracker distance calc instead of absolute (Low)
 Maybe change timer show sector workaround so it doesnt show up in init map briefing (Very Low)

@@ -22,9 +22,7 @@
 player addEventHandler ["FiredMan", 
 {
 	params ["_unit", "_weapon", "_muzzle", "_mode", "_ammo", "_magazine", "_projectile", "_vehicle"];
-	private _realWeapon = "";
-	if (isNull _vehicle) then { _realWeapon = call DOTT_tracker_fnc_getWeapon }
-	else { _realWeapon = call DOTT_tracker_fnc_getWeaponVehicle };
+	private _realWeapon = DOTT_weaponNameCache getOrDefaultCall [[_weapon, _muzzle, _magazine, _ammo, _vehicle], {call DOTT_tracker_fnc_getWeapon}, true];
 	
 	private _data = [name _unit, side (group _unit), getPosATL _unit, _realWeapon];
 	_projectile setVariable ["DOTT_instigatorInfo", _data];

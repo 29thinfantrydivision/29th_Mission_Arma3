@@ -127,6 +127,7 @@ if (hasInterface) then
 		call DOTT_tracker_fnc_addEventHandlersClient;
 	};
 
+	DOTT_weaponNameCache = createHashMap;
 	// --- Remove Statistics from Map, Send All Round Histories --- //	
 	DOTT_tracker_last_round_Recorded = 0;
 
