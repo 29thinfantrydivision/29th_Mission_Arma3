@@ -7,6 +7,7 @@
  * Description:
  * Sets up the initial state of the round management system.
  * Sets up scoreboard blocking mid round.
+ * Sets up final checks for player invulnerability and silent weapon bug.
  *
  * Parameter(s): 
  * None
@@ -173,5 +174,38 @@ if (hasInterface) then
 	] call CBA_fnc_addEventHandler;	
 };
 
+/*---------- Final Checks ---------- */
+if (isServer) then 
+{
+	//check if any player has the silent weapon bug and fix
+	[
+		"DOTT_round_started",
+		{	
+			private _players = allPlayers - entities "HeadlessClient_F";
+			_players = _players select { alive _x }; //only get alive players, probably not needed however
+			{
+				if !(currentWeapon _x == "Throw" || currentWeapon _x == "Put") exitWith {};
+				[_x] remoteExec ["DOTT_fnc_resetWeaponState", _x];
+				private _msg = format ["FIXED: %1 had silent weapon, now fixed.", name _x];
+				[_msg] remoteExec ["systemChat"];
+			}
+			forEach _players;
+		} 
+	] call CBA_fnc_addEventHandler;
+};
+
+if (hasInterface) then 
+{
+	[
+		"DOTT_round_started",
+		{	
+			//the player should not be invulnerable if they are not in spectator
+			if !(!isDamageAllowed player && isNil {missionNamespace getVariable "BIS_EGSpectator_initialized"}) exitWith {};
+			player allowDamage true;
+			private _msg = format ["FIXED: %1 was invulnerable, can now take damage.", name player];
+			[_msg] remoteExec ["systemChat"];
+		} 
+	] call CBA_fnc_addEventHandler;
+};
 
 true

@@ -109,6 +109,7 @@ execVM "scripts\init_curators.sqf";
 [] spawn DOTT_fnc_initDefaultLoadouts;
 
 //things break if player dies before load in finished
+//NOTE: This might be breaking in very rare occasions but unsure, added check in round init to catch failures.
 player allowDamage false;
 addMissionEventHandler ["PreloadFinished", {
 	player allowDamage true;
