@@ -40,7 +40,7 @@ if (isServer) then
 	[] spawn {
 		private _moduleGroup = createGroup sideLogic; 
 		private _sector =  _moduleGroup createUnit [ "ModuleSector_F",
-			[0,0,0], [], 0, "NONE" ];
+			[99999,99999,0], [], 0, "NONE" ];
 		[_sector] call BIS_fnc_moduleSector;
 		_sector setVariable ["sides", [west, east, resistance], true];
 		["BIS_fnc_moduleSector_nameID",-1] call bis_fnc_counter; 

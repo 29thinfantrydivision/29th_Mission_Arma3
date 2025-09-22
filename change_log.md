@@ -38,33 +38,32 @@ TBD
 
 ---
 v4.2.3  
-09 SEP 2025
+22 SEP 2025
 
 ---
 - Leaving arsenal with a loadout with no primary will no longer put weapon away. (Partial revert change from 4.2.2)
   Modifies fn_arsenalClosed.sqf
-- !debrief now causes the Force Parade action at BLUFOR ammo box to be selectable from 50 meters away for 10 seconds.
-  Modifies commands.sqf and baseObjectsInit.sqf
-- Now kicks players out of arsenal if force parade is done on them
-  Modifies handleInitialInventory, forceParadeAll, forceParade is now loadParade.
+* Force Parade Changes
+  - !debrief now causes the Force Parade action at BLUFOR ammo box to be selectable from 50 meters away for 10 seconds.
+    Modifies commands.sqf and baseObjectsInit.sqf
+  - Now kicks players out of arsenal if force parade is done on them
+    Modifies handleInitialInventory, forceParadeAll, forceParade is now loadParade.
 - Replaced setUnitLoadout with CBA_fnc_setLoadout, getUnitLoadout with CBA_fnc_getLoadout for resetLoadout/fullSetUnitLoadout.
   Gets rid of an error related to setInsignia.
-- When loadout reset or when respawning, if player did not save their radio settings by revisiting ACE Arsenal, 
+* When loadout reset or when respawning, if player did not save their radio settings by revisiting ACE Arsenal, 
   frequencies on newly given radio will be the same as right before reset/death.
-  Fixed likely cause of radios not working when swapping between faction different radios in arsenal. 
-  Fixed vehicle LR having wrong encrpytion code if player with wrong side backpack LR entered first.
-  Adds fn_initTransferRadioSettings.sqf.
+  - Fixed likely cause of radios not working when swapping between faction different radios in arsenal. 
+  - Fixed vehicle LR having wrong encrpytion code if player with wrong side backpack LR entered first.
+  - Adds fn_initTransferRadioSettings.sqf.
 - Consolidated hitExplosion and hitPart files into one hit file in tracker. Consolidated getWeaponVehicle back into getWeapon again.
 - Weapon string for tracker is now cached for future retrieval instead of repeatedly generating the same string (4x faster, but not much absolute cost anyways).
-- Added last line of defense checks for player invulnerability and silent weapon bug at beginning of round. 
-  If detected, a message will appear for all players and it will automatically (hopefully) fix the problem. 
-  This "shouldn't" be triggered at all if current checks or code are adequate/correct, so displaying a message might be useful to find and remove causes in the future. 
-- Kills/unconscious 10 seconds after getting hit now show the last time the player was hit.
-  Kind of a patch job, but don't really see the internals being expanded in the future so should be fine.
+* Added last line of defense checks for player invulnerability and silent weapon bug at beginning of round. 
+  - If detected, a message will appear for all players and it will automatically (hopefully) fix the problem. 
+  - This "shouldn't" be triggered at all if current checks or code are adequate/correct, so displaying a message might be useful to find and remove causes in the future. 
+* Kills/unconscious 10 seconds after getting hit now show the last time the player was hit.
+  - Kind of a patch job, but don't really see the internals being expanded in the future so should be fine.
 - Fixed height from ground being used for tracker distance calculation instead of absolute (from sea level)
-
-TODO:
-Maybe change timer show sector workaround so it doesnt show up in init map briefing (Very Low)
+- Sector no longer shows up at the bottom left when starting mission
 
 ---
 v4.2.2  
