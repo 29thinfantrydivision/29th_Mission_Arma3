@@ -36,13 +36,10 @@ if (_state) then
 
 	if !(isNil "_lastHit") then 
 	{
-		//[name, side, pos, weapon];	
-		private _instigatorInfo = _lastHit select 0;
-		private _hitTime = _lastHit select 1;		
-		_eventInfo pushBack [_instigatorInfo select 0, _instigatorInfo select 1];
-		private _distance = round ((getPosASL _unit) distance (_instigatorInfo select 2));
-		_eventInfo pushBack _distance;
-		_eventInfo pushBack (_instigatorInfo select 3);
+		_lastHit append ((_unit getVariable "DOTT_hitMap") get _lastHit);
+		//[name, side, distance, weapon, time];	
+		private _hitTime = _lastHit select 4;		
+		_eventInfo append [[_lastHit select 0, _lastHit select 1], round ((getPosASL _unit) distance (_lastHit select 2)), _lastHit select 3];
 		if (_timeStamp - _hitTime > DELAY_TIME) then 
 		{ 
 			_eventType = DELAY_ACE_CONSCIOUSNESS_NUM;

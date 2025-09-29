@@ -20,8 +20,14 @@
  * 
  */
 
-params ["_unit", "_hitInfo"];
-
+params ["_unit", "_instigatorInfo"];
 if !(alive _unit) exitWith {};
 
-_unit setVariable ["DOTT_lastHit", _hitInfo];
+private _key = [_instigatorInfo select 0, _instigatorInfo select 1]; //name, side
+private _value = [_instigatorInfo select 2, _instigatorInfo select 3, _instigatorInfo select 4]; //firing pos, weapon, time
+
+private _hitMap = _unit getVariable ["DOTT_hitMap", createHashMap];
+_hitMap set [_key, _value];
+
+_unit setVariable ["DOTT_lastHit", _key];
+_unit setVariable ["DOTT_hitMap", _hitMap];

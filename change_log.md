@@ -55,17 +55,19 @@ v4.2.3
   - Fixed likely cause of radios not working when swapping between faction different radios in arsenal. 
   - Fixed vehicle LR having wrong encrpytion code if player with wrong side backpack LR entered first.
   - Adds fn_initTransferRadioSettings.sqf.
-- Consolidated hitExplosion and hitPart files into one hit file in tracker. Consolidated getWeaponVehicle back into getWeapon again.
-- Weapon string for tracker is now cached for future retrieval instead of repeatedly generating the same string (4x faster, but not much absolute cost anyways).
 * Added last line of defense checks for player invulnerability and silent weapon bug at beginning of round. 
   - If detected, a message will appear for all players and it will automatically (hopefully) fix the problem. 
   - This "shouldn't" be triggered at all if current checks or code are adequate/correct, so displaying a message might be useful to find and remove causes in the future. 
-* Kills/unconscious 10 seconds after getting hit now show the last time the player was hit.
-  - Kind of a patch job, but don't really see the internals being expanded in the future so should be fine.
-- Fixed height from ground being used for tracker distance calculation instead of absolute (from sea level)
+* Tracker Changes
+  - Kills/unconscious 10 seconds after getting hit now show the last time the player was hit.
+     Kind of a patch job, but don't really see the internals being expanded in the future so should be fine.
+  - Fixed height from ground being used for tracker distance calculation instead of absolute (from sea level)
+  - Now stores last hits from each player instead of just the last hit, and uses the killed event handler information if viable to determine killer.
+    Now checks alive state server side as well and discards any hits on dead units.
+    Hopefully fixes cases where tracker kills are credited incorrectly due to dying entity being alive on client but dead server side.
+  - Consolidated hitExplosion and hitPart files into one hit file in tracker. Consolidated getWeaponVehicle back into getWeapon again.
+  - Weapon string for tracker is now cached for future retrieval instead of repeatedly generating the same string (4x faster, but not much absolute cost anyways).
 - Sector no longer shows up at the bottom left when starting mission
-- Fix (hopefully) cases where tracker kills are credited incorrectly due to dying entity being alive on client but dead server side.
-  Now checks alive state server side as well and discards any hits on dead units.
 
 ---
 v4.2.2  

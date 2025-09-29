@@ -28,16 +28,17 @@ params ["_projectile", "_hitEntity"];
 //if they go through server will get spammed with errors 
 if !(alive _hitEntity && _hitEntity isKindOf "AllVehicles") exitWith {}; 
 private _instigatorInfo = _projectile getVariable "DOTT_instigatorInfo";
-private _lastHit = [_instigatorInfo, round(serverTime - DOTT_tracker_startTime)];
-if (_hitEntity isKindOf "Man") exitWith { [_hitEntity, _lastHit] remoteExecCall ["DOTT_tracker_fnc_sendHit", 2] };
+_instigatorInfo pushBack round(serverTime - DOTT_tracker_startTime);
+
+if (_hitEntity isKindOf "Man") exitWith { [_hitEntity, _instigatorInfo] remoteExecCall ["DOTT_tracker_fnc_sendHit", 2] };
+
 //if vehicle is already going to blow up don't record any more damage so the kill is hopefully credited properly
 private _hitHull = _hitEntity getHitPointDamage "hitHull";
-if ((_hitEntity isKindOf "Car") && _hitHull >= 1) exitWith {};
-if (_hitHull >= .889) exitWith {};
+if (_hitHull >= 1) exitWith {};
 
-{ if (alive _x) then { [_x, _lastHit] remoteExecCall ["DOTT_tracker_fnc_sendHit", 2] } }
+{ if (alive _x) then { [_x, _instigatorInfo] remoteExecCall ["DOTT_tracker_fnc_sendHit", 2] } }
 forEach (crew _hitEntity);
 
-[_hitEntity, _lastHit] remoteExecCall ["DOTT_tracker_fnc_sendHit", 2];
+[_hitEntity, _instigatorInfo] remoteExecCall ["DOTT_tracker_fnc_sendHit", 2];
 
 true

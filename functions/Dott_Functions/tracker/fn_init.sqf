@@ -43,7 +43,16 @@ if (isServer) then
 			DOTT_tracker_events = [];
 			DOTT_tracker_names = [];	
 			DOTT_tracker_sides = [];
-			DOTT_tracker_weapons = [];								
+			DOTT_tracker_weapons = [];			
+
+			//reset all hit info on players at start of round		
+			private _players = allPlayers - entities "HeadlessClient_F";
+			{
+				_x setVariable ["DOTT_lastHit", nil];		
+				_x setVariable ["DOTT_hitMap", createHashMap];
+			}
+			forEach _players;			
+
 		} 
 	] call CBA_fnc_addEventHandler;
 
@@ -52,7 +61,13 @@ if (isServer) then
 	{
 		params ["_unit", "_killer", "_instigator"];
 		if !(isPlayer _unit || (!(_unit isKindOf "Man") && _unit isKindOf "AllVehicles")) exitWith {};
+		if (_unit isKindOf "Man") then 
+		{ 
+			_unit setVariable ["DOTT_name", name _unit]; //store name as it gets deleted automatically later
+		};
 		[_unit, _killer, _instigator] call DOTT_tracker_fnc_recordKill;
+		_unit setVariable ["DOTT_lastHit", nil]; 
+		_unit setVariable ["DOTT_hitMap", nil]; 		
 	}];
 
 	// --- Consciousness --- //	

@@ -34,48 +34,57 @@ private _unitSide = side (group _unit); //need group since ACE3? sets dead men t
 private _killInfo = [[_unitName, _unitSide]]; 
 
 private _lastHit = _unit getVariable "DOTT_lastHit";
+if !(isNil "_lastHit") then {
+	_lastHit append ((_unit getVariable "DOTT_hitMap") get _lastHit);
+};
 
 //Player manual respawned without taking known damage
 if (isNil "_lastHit" && _killer == _unit && isNull _instigator) exitWith { false }; 
 
-if !(isNil "_lastHit") then 
+if !(isNull _instigator) then 
 {
-	//[name, side, pos, weapon];
-	private _instigatorInfo = _lastHit select 0;
-	private _hitTime = _lastHit select 1;	
-	_killInfo pushBack [_instigatorInfo select 0, _instigatorInfo select 1];
-	private _distance = round ((getPosASL _unit) distance (_instigatorInfo select 2));		
-	_killInfo pushBack _distance;
-	_killInfo pushBack (_instigatorInfo select 3);
-
-	//Player respawns after taking damage or bleeds out
-	if ((_timeStamp - _hitTime > DELAY_TIME) && _eventType == INFANTRY_KILL_NUM) then
+	//"check" for roadkill by assuming conditions that are unlikely to be met otherwise
+	//ACE Medical seems to be good at having instigator non-null for roadkill unlike in vanilla
+	if (_unit isKindOf "Man" && !isNull (objectParent _instigator) && {(driver _killer) == _instigator} && {(_unit distance _instigator) < 10}) then
 	{
-		_eventType = DELAY_KILL_NUM;
-		_timeStamp = [_timeStamp, _hitTime];
+		_killInfo pushBack [_instigator call DOTT_tracker_fnc_getName, side (group _instigator)];
+		private _distance = round ((getPosASL _unit) distance _instigator);
+		_killInfo pushBack _distance;
+		_killInfo pushBack ([objectParent _instigator] call DOTT_tracker_fnc_getName) + " - Roadkill";
+	} else
+	{
+		if !(isNil "_lastHit") then {
+			_lastHit = [_instigator call DOTT_tracker_fnc_getName, side (group _instigator)];
+			_lastHit append ((_unit getVariable "DOTT_hitMap") get _lastHit);
+			//[name, side, distance, weapon];
+			private _hitTime = _lastHit select 4;	
+			private _distance = round ((getPosASL _unit) distance (_lastHit select 2));
+			_killInfo append [[_lastHit select 0, _lastHit select 1], _distance, _lastHit select 3];
+
+			//Player respawns after taking damage or bleeds out
+			if ((_timeStamp - _hitTime > DELAY_TIME) && _eventType == INFANTRY_KILL_NUM) then
+			{
+				_eventType = DELAY_KILL_NUM;
+				_timeStamp = [_timeStamp, _hitTime];
+			};			
+		};
 	};
 } else 
 {
-	//Road kill check
-	if !(_unit isKindOf "Man") exitWith {}; 
-	if (isNull _instigator) then { _instigator = (UAVControl (vehicle _killer)) select 0 }; 
-	if (isNull _instigator) then { _instigator = _killer }; 
-	if (_instigator isKindOf "AllVehicles") then 
-	{
-		_instigator = [_instigator] call 
+	//died to fall damage, burn, ace fragmentation
+	//give kill credit to last projectile hit if exists
+	if !(isNil "_lastHit") then {
+		private _hitTime = _lastHit select 4;	
+		private _distance = round ((getPosASL _unit) distance (_lastHit select 2));		
+		_killInfo append [[_lastHit select 0, _lastHit select 1], _distance, _lastHit select 3];
+
+		//Player respawns after taking damage or bleeds out
+		if ((_timeStamp - _hitTime > DELAY_TIME) && _eventType == INFANTRY_KILL_NUM) then
 		{
-			params["_instigator"];
-			if(!isNull (driver _instigator)) exitWith { driver _instigator };
-			effectiveCommander _instigator //if not in vehicle returns player unit
-		};
-	};
-	if (isPlayer [_instigator] && _unit != _instigator && !isNull (objectParent _instigator)) then
-	{
-		_killInfo pushBack [name _instigator, side (group _instigator)];
-		private _distance = round ((getPosASL _unit) distance _instigator);		
-		_killInfo pushBack _distance;
-		_killInfo pushBack ([objectParent _instigator] call DOTT_tracker_fnc_getName) + " - Roadkill";
-	};
+			_eventType = DELAY_KILL_NUM;
+			_timeStamp = [_timeStamp, _hitTime];
+		};	
+	};	
 };
 private _event = [_eventType, _timeStamp, _killInfo];
 
