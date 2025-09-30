@@ -58,6 +58,7 @@ v4.2.3
 * Added last line of defense checks for player invulnerability and silent weapon bug at beginning of round. 
   - If detected, a message will appear for all players and it will automatically (hopefully) fix the problem. 
   - This "shouldn't" be triggered at all if current checks or code are adequate/correct, so displaying a message might be useful to find and remove causes in the future. 
+  - Commented out setting player invulnerable when they load in, seems more trouble than its worth
 * Tracker Changes
   - Kills/unconscious 10 seconds after getting hit now show the last time the player was hit.
      Kind of a patch job, but don't really see the internals being expanded in the future so should be fine.
