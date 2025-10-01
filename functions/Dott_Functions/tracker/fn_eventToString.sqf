@@ -1,7 +1,7 @@
 /*
  * Name:	DOTT_tracker_fnc_eventToString
- * Date:	8/26/2025
- * Version: 1.1
+ * Date:	9/30/2025
+ * Version: 1.2
  * Author:  Bae [29th ID]
  *
  * Description:
@@ -26,10 +26,17 @@ private _eventType = _event select 0;
 private _eventTime = _event select 1;
 private _eventInfo = _event select 2;
 
+private _fn_formatTime = {
+	params["_time"];
+	private _minutes = floor (_time / 60);
+	private _seconds = _time % 60;
+	private _secondStr = if (_seconds < 10) then { "0" + str _seconds } else { _seconds };
+	[_minutes, _secondStr];
+};
+
+
 private _time = if (_eventTime isEqualType []) then {_eventTime select 0} else {_eventTime};
-private _minutes = floor (_time / 60);
-private _seconds = _time % 60;
-private _secondStr = if (_seconds < 10) then { "0" + str _seconds } else { _seconds };
+(_time call _fn_formatTime) params ["_minutes", "_secondStr"];
 
 private _eventString = "";
 
@@ -71,9 +78,7 @@ switch (_eventType) do
 		private _weapon = _weapons select (_eventInfo select 3);	
 
 		private _time2 = _eventTime select 1;
-		private _minutes2 = floor (_time2 / 60);
-		private _seconds2 = _time2 % 60;
-		private _secondStr2 = if (_seconds2 < 10) then { "0" + str _seconds2 } else { _seconds2 };		
+		(_time2 call _fn_formatTime) params ["_minutes2", "_secondStr2"];		
 		_eventString = format["%1:%2 - %3 finally killed by %4 [%5] (%6:%7) from %8 meters. ", _minutes, _secondStr, _unitName, _instigatorName, _weapon, _minutes2, _secondStr2, _distance];
 	};	
 	//same as infantry
@@ -152,9 +157,7 @@ switch (_eventType) do
 		private _weapon = _weapons select (_eventInfo select 4);
 
 		private _time2 = _eventTime select 1;
-		private _minutes2 = floor (_time2 / 60);
-		private _seconds2 = _time2 % 60;
-		private _secondStr2 = if (_seconds2 < 10) then { "0" + str _seconds2 } else { _seconds2 };			
+		(_time2 call _fn_formatTime) params ["_minutes2", "_secondStr2"];		
 		_eventString = format ["%1:%2 - %3 finally unconscious by %4 [%5] (%6:%7) from %8 meters. ", _minutes, _secondStr, _unitName, _instigatorName, _weapon, _minutes2, _secondStr2, _distance];
 	};	
 };

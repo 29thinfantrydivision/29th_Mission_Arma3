@@ -1,7 +1,7 @@
 /*
  * Name:	DOTT_tracker_fnc_addEventHandlersClient
- * Date:	9/2/2025
- * Version: 1.0
+ * Date:	9/30/2025
+ * Version: 1.1
  * Author:  Bae [29th ID]
  *
  * Description:
@@ -80,9 +80,12 @@ player addEventHandler ["FiredMan",
 	}];		
 }] call CBA_fnc_addEventHandler;
 
+//Easiest way to detect roadkill event
+//Will arrive on server later than projectile hit events however
+//Could potentially use this to also check for burn, but since it doesn't have instigator no point for now
 ["ace_medical_woundReceived", 
 	{
-		params ["_unit", "_allDamages", "_instigator", "_ammo"];
+		params ["_unit", "", "_instigator", "_ammo"];
 		if (_ammo == "collision") then 
 		{
 			private _driver = driver _instigator;

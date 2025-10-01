@@ -1,7 +1,7 @@
 /*
  * Name:	DOTT_tracker_fnc_init
- * Date:	8/30/2025
- * Version: 1.2
+ * Date:	9/30/2025
+ * Version: 1.3
  * Author:  Bae [29th ID]
  *
  * Description:
@@ -67,10 +67,9 @@ if (isServer) then
 		};
 		[
 			{
-				params ["_unit", "_killer", "_instigator"];
-				[_unit, _killer, _instigator] call DOTT_tracker_fnc_recordKill;
+				_this call DOTT_tracker_fnc_recordKill;
 			},
-			_this, 2
+			_this, 5 //2 was good enough, but 5 to be safe
 		] call CBA_fnc_execAfterNFrames; //remoteExecCall for sending info occurs 1 frame later so wait
 		
 	}];
@@ -87,7 +86,7 @@ if (isServer) then
 		"ace_unconscious", 
 		{
 			//remoteExecCall for sending info occurs 1 frame later so wait
-			[{_this call DOTT_tracker_fnc_recordACEConscious}, _this, 2] call CBA_fnc_execAfterNFrames; 
+			[{_this call DOTT_tracker_fnc_recordACEConscious}, _this, 5] call CBA_fnc_execAfterNFrames; 
 		}
 	]
 	call CBA_fnc_addEventHandler;
@@ -99,7 +98,7 @@ if (isServer) then
 			DOTT_tracker_startTime = -1;
 			[] spawn 
 			{
-				sleep 1; //wait for any last second events from the netwrok
+				sleep 1; //wait for any last second events from the network
 				publicVariable "DOTT_tracker_startTime";
 				[
 					DOTT_tracker_events,

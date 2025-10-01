@@ -1,7 +1,7 @@
 /*
  * Name:	DOTT_fnc_forceParadeAll
- * Date:	8/27/2025
- * Version: 1.1
+ * Date:	9/30/2025
+ * Version: 1.2
  * Author:  Bae [29th ID]
  *
  * Description:

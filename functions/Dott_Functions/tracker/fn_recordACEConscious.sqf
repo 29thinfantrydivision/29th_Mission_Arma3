@@ -1,7 +1,7 @@
 /*
  * Name:	DOTT_tracker_fnc_recordACEConscious
- * Date:	8/30/2025
- * Version: 1.2
+ * Date:	9/30/2025
+ * Version: 1.3
  * Author:  Bae [29th ID]
  *
  * Description:
@@ -49,6 +49,6 @@ if (_state) then
 };
 
 private _event = [_eventType, _timeStamp, _eventInfo];
-[_event] spawn DOTT_tracker_fnc_saveEvent;
+[_event] call DOTT_tracker_fnc_saveEvent;
 
 true

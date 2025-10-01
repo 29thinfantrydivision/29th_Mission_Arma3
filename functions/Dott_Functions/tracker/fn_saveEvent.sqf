@@ -1,7 +1,7 @@
 /*
  * Name:	DOTT_tracker_fnc_saveEvent
- * Date:	8/30/2025
- * Version: 1.1
+ * Date:	9/30/2025
+ * Version: 1.2
  * Author:  Bae [29th ID]
  *
  * Description:
@@ -28,6 +28,7 @@ private _eventInfo = _event select 2;
 
 switch (_eventType) do 
 {
+	//Note: sometimes this can be out of order from death (come after) in bad network conditions, too rare to bother fix.
 	case ACE_CONSCIOUSNESS_NUM: 
 	{
 		private _unit = _eventInfo select 0;		

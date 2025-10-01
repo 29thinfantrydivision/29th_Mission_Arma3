@@ -1,7 +1,7 @@
 /*
  * Name:	DOTT_tracker_fnc_hit
- * Date:	9/2/2025
- * Version: 1.0
+ * Date:	9/30/2025
+ * Version: 1.1
  * Author:  Bae [29th ID]
  *
  * Description:

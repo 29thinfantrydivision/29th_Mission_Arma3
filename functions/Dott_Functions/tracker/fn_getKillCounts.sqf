@@ -1,7 +1,7 @@
 /*
  * Name:	DOTT_tracker_fnc_getKillCounts
- * Date:	8/18/2025
- * Version: 1.0
+ * Date:	9/30/2025
+ * Version: 1.1
  * Author:  Bae [29th ID]
  *
  * Description:
@@ -92,18 +92,10 @@ private _killCounts = createHashMap;
         case DELAY_ACE_CONSCIOUSNESS_NUM: {
             private _unitIndex = _eventInfo select 0;
             private _unitSide = [_unitIndex, _eventTime select 0, _sides] call DOTT_tracker_fnc_getSideAtTime;
-            private _state = _eventInfo select 1;
-            if (_state && (count _eventInfo) > 2) then 
-            {
-                private _instigatorIndex = _eventInfo select 2;
-                private _instigatorSide = [_instigatorIndex, _eventTime select 1, _sides] call DOTT_tracker_fnc_getSideAtTime;
-                _unconsciousAtEnd pushBack [[_unitIndex, _unitSide], [_instigatorIndex, _instigatorSide]];
 
-            } else
-            {
-                private _findUnconIdx = _unconsciousAtEnd findIf {(_x select 0) isEqualTo [_unitIndex, _unitSide]};
-                if(_findUnconIdx != -1) then {_unconsciousAtEnd deleteAt _findUnconIdx};
-            };
+            private _instigatorIndex = _eventInfo select 2;
+            private _instigatorSide = [_instigatorIndex, _eventTime select 1, _sides] call DOTT_tracker_fnc_getSideAtTime;
+            _unconsciousAtEnd pushBack [[_unitIndex, _unitSide], [_instigatorIndex, _instigatorSide]];
         };       
     };
 }

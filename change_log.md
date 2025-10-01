@@ -38,7 +38,7 @@ TBD
 
 ---
 v4.2.3  
-22 SEP 2025
+30 SEP 2025
 
 ---
 - Leaving arsenal with a loadout with no primary will no longer put weapon away. (Partial revert change from 4.2.2)
@@ -64,10 +64,10 @@ v4.2.3
      Kind of a patch job, but don't really see the internals being expanded in the future so should be fine.
   - Fixed height from ground being used for tracker distance calculation instead of absolute (from sea level)
   - Now stores last hits from each player instead of just the last hit, and uses the killed event handler information if viable to determine killer.
-    Now checks alive state server side as well and discards any hits on dead units.
     Hopefully fixes cases where tracker kills are credited incorrectly due to dying entity being alive on client but dead server side.
   - Consolidated hitExplosion and hitPart files into one hit file in tracker. Consolidated getWeaponVehicle back into getWeapon again.
   - Weapon string for tracker is now cached for future retrieval instead of repeatedly generating the same string (4x faster, but not much absolute cost anyways).
+  - Better support for detecting roadkill uncon/kills.
 - Sector no longer shows up at the bottom left when starting mission
 - Fixed critical bug where having spectator box be above water (certain maps) caused the spectator function to break.
 

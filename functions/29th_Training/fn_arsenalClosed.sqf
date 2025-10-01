@@ -1,7 +1,7 @@
 /*
  * Name:	Hill_fnc_arsenalClosed
- * Date:	8/13/2025
- * Version: 1.1
+ * Date:	9/30/2025
+ * Version: 1.2
  * Author:  Hill [29th ID]
  *
  * Description:
