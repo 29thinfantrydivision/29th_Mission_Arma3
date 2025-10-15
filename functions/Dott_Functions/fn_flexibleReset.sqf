@@ -41,7 +41,7 @@ if (!hasInterface) exitWith {}; //client only
 //if inventory array isn't empty, load specified inventory
 private _resetInventory = false;
 
-if (_inventory == true && !isNil "resetLoadout") then { _inventory = resetLoadout } else {_inventory = []};
+if (_inventory isEqualTo true) then { _inventory = missionNamespace getVariable ["resetLoadout", []] };
 
 if (count _inventory != 0) then
 {	
