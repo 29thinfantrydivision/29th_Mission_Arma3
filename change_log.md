@@ -84,6 +84,7 @@ v4.2.3
   - !arsenal, !heal, and !rearm available for non-admin if currently not in a round.
   - Modifies flexibleReset, commands.sqf, executeCommand.sqf
   - Arsenal created by !arsenal now editable by Zeus.
+- Players leaving box now have allowDamage = true set 1 second later to prevent damage from other players leaving box at similar time.
 
 ---
 v4.2.2  
