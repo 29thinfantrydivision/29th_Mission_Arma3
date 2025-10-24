@@ -899,7 +899,7 @@ switch _mode do {
 
 		("RscMPProgress" call bis_fnc_rscLayer) cutrsc ["RscMPProgress","plain"];
 
-		/* Custom code begin
+		// Custom code begin
 		if (isNil "DOTT_sectorlastVic") then {DOTT_sectorlastVic = ""};
 
 		[_logic] spawn {
@@ -909,10 +909,62 @@ switch _mode do {
 			while {sleep 3; !((_logic getvariable ["finalized",false]) || (isnull _logic))} do {
 				private _areas = _logic getVariable ["areas",[]];
 				private _sides = _logic getVariable ["sides",[]];
-				private _vehicle = objectParent player;
 				if !(alive player && {(side group player) in _sides}) then { continue }; //don't show if player not in a side that can capture
-				if (isNull _vehicle || {_vehicle isKindOf "StaticWeapon"}) then { continue };
-				if (typeOf _vehicle == DOTT_sectorlastVic) then { continue };
+
+				private _vehicle = objectParent player;				
+				if (isNull _vehicle || {typeOf _vehicle == DOTT_sectorlastVic}) then { continue };
+
+				_simulation = tolower (gettext (configfile >> "cfgvehicles" >> typeof _vehicle >> "simulation"));
+
+				//check if player weight within vehicle is counted
+				_checkWarning = switch (_simulation) do {
+					case "carx";
+					case "tankx";
+					case "shipx";
+					case "submarinex": {
+						!(DOTT_checkCrew#0)
+					};
+					case "helicopterrtd";
+					case "airplanex";
+					case "helicopterx": {
+						!(DOTT_checkCrew#1)
+					};
+					default {
+						false;
+					};
+				};
+
+				//case where infantry cost is 0, player weight in vehicle doesn't matter
+				_checkWarning = _checkWarning || (DOTT_costInfantry == 0);
+				if !(_checkWarning) then { continue };
+
+				//check vehicle costs
+				_checkWarning = switch (_simulation) do {
+					case "carx": {
+						DOTT_costWheeled == 0; 
+					};
+					case "tankx": {
+						if (_vehicle isKindOf "StaticWeapon") then {
+							DOTT_costStatic == 0; 
+						} else {
+							DOTT_costTracked == 0; 
+						};
+					};
+					case "shipx";
+					case "submarinex": {
+						DOTT_costWater == 0; 
+					};
+					case "helicopterrtd";
+					case "airplanex";
+					case "helicopterx": {
+						DOTT_costAir == 0; 
+					};
+					default {
+						false;
+					};
+				};
+
+				if !(_checkWarning) then { continue };
 
 				{
 					if (player inArea _x) exitWith {

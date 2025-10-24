@@ -82,6 +82,7 @@ v4.2.3
   - By default these parameters are changed from vanilla:
     Vehicles now have a static weight by type, all counting as 1 infantry except for tracked vehicles (2), and air vehicles (0). 
     Crew inside are not added to the weight.
+  - If settings don't allow player to capture in a certain vehicle, they will be warned if they are in that vehicle in a sector.
   - Note: This change means any sectors placed in Eden editor will not have their values used, and by extension, each sector cannot have unique values.
 
 * Command changes
