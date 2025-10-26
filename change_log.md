@@ -84,7 +84,6 @@ v4.2.3
     Crew inside are not added to the weight.
   - If settings don't allow player to capture in a certain vehicle, they will be warned if they are in that vehicle in a sector.
   - Note: This change means any sectors placed in Eden editor will not have their values used, and by extension, each sector cannot have unique values.
-
 * Command changes
   - !debrief now also resets loadout.
   - !arsenal, !heal, and !rearm available for non-admin if currently not in a round.
