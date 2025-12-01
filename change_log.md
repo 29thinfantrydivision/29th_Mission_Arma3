@@ -1,11 +1,6 @@
 ---
 Overall Future Goals
 ---
-* Stats system reintroduction
-	- System surrounding round stats, mostly kills, not persistent accuracy or other 'fluff' 
-      Progress made in 4.2.0, number of kills can be seen after end of round in map diary.
-	- Specifically kill stats (player names you've killed). Could also track your killers?
-      Progress made in 4.2.0, kills/killed by can be tracked in events after end of round in map diary.
 * "Citadel" game mode
 	- Instead of regular cap zone, instead proximity to center adds more weight
 	- Not really for training... but events
@@ -35,6 +30,13 @@ TBD
 	- Included new class "FlagTaken"
 	- Included new class "FlagCaptured"
 	- Included new class "FlagReturned"
+
+---
+v4.2.3  
+1 DEC 2025
+
+---
+- Removed voice_control script, overwritten by server setting anyways.
 
 ---
 v4.2.3  

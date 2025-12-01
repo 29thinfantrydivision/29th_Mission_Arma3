@@ -86,9 +86,6 @@ execVM "scripts\baseObjectsInit.sqf";
 //Draw little skulls each time a player dies.  Seen only by Zeus.
 _theClient call BIS_fnc_drawCuratorDeaths;
 
-// Runs the in-game VOIP restriction script
-_null = [] execVM "scripts\voice_control\voiceControl.sqf";
-
 [_theClient] spawn 
 {
 	private ["_theMan"];
