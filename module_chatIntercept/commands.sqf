@@ -8,7 +8,7 @@ pvpfw_chatIntercept_noLogCommands = ["commands", "help"];
 //remember to change !help if you edit this
 pvpfw_chatIntercept_adminCommands = ["reset", "debrief", "goto", "measure", "tickets", "parade"];
 //admin only IF mid-round, available otherwise
-pvpfw_chatIntercept_restrictedCommands = ["arsenal", "heal", "rearm"];
+pvpfw_chatIntercept_restrictedCommands = ["arsenal", "heal", "rearm", "cleanup"];
 
 
 pvpfw_chatIntercept_allCommands = [
@@ -40,7 +40,7 @@ pvpfw_chatIntercept_allCommands = [
 				case "!game": {systemChat "!game: Calls game and ends any countdown"};
 				case "!ready": {systemChat "!ready: Sets the player's side as ready, and begins the safe start if all player sides are ready"};
 				case "!unready": {systemChat "!unReady: Cancels the ready status for the player's side"};
-				case "!cleanup": {systemChat "!cleanUp: Cleans up bodies (trash can function)"};
+				case "!cleanup": {systemChat "!cleanUp: (RESTRICTED) Cleans up bodies (trash can function)"};
 				case "!arsenal": {systemChat "!arsenal: (RESTRICTED) Places an ACE arsenal in front of the player"};
 				case "!heal": {systemChat "!heal: (RESTRICTED) ACE Heals players. '!heal' for all players, otherwise '!heal SIDE' (blufor, opfor, grnfor)"};
 				case "!rearm": {systemChat "!rearm: (RESTRICTED) Rearms players. '!rearm' for all players, otherwise '!rearm SIDE' (blufor, opfor, grnfor)"};

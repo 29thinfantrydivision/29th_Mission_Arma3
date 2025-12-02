@@ -39,6 +39,7 @@ v4.2.4
 - Removed voice_control script, overwritten by server setting anyways.
 - Fix erronous roadkill in tracker, reduce cases of first shot uncon/kill not being counted.
 - Made arsenal action higher priority to prevent the option being in the middle of teleport options.
+- !cleanup now a restricted command
 
 ---
 v4.2.3  
