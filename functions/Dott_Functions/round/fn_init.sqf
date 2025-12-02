@@ -191,8 +191,8 @@ if (hasInterface) then
 	[
 		"DOTT_round_started",
 		{	
-			//the player should not be invulnerable if they are not in spectator
-			if !(!isDamageAllowed player && isNil {missionNamespace getVariable "BIS_EGSpectator_initialized"}) exitWith {};
+			//the player should not be invulnerable if they are not hidden (spectator or zeus option)
+			if (isDamageAllowed player || isObjectHidden player) exitWith {};
 			player allowDamage true;
 			private _msg = format ["FIXED: %1 was invulnerable, can now take damage.", name player];
 			[_msg] remoteExec ["systemChat"];
