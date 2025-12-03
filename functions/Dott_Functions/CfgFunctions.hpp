@@ -75,3 +75,16 @@ class Dott_Tracker
 		class sendHit {};
 	};
 };
+
+class Dott_Settings
+{
+	tag = "DOTT_settings";
+	class GUIFunctions
+	{
+		file = "functions\Dott_Functions\settings";
+		class openSettingsMenu {};
+		class gui_configure {};
+		class initDisplayMissionOptions {};
+		class gui_sourceChanged {};
+	};
+};
