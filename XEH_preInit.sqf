@@ -87,3 +87,12 @@
     true,
 	1
 ] call CBA_fnc_addSetting;
+
+[
+    "DOTT_removeDefaultVehicleInventories", 
+    "CHECKBOX", 
+    "Remove default inventories from vehicles",
+    "29th - General Settings",
+    true,
+	1
+] call CBA_fnc_addSetting;
