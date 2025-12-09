@@ -58,13 +58,7 @@ class CfgFunctions
 	};
 };
 
-class Extended_PreInit_EventHandlers 
-{
-	class DOTT_MissionSettings
-	{
-		init = "call compile preprocessFileLineNumbers ""XEH_preInit.sqf""";
-	} 
-};
+#include "data\cfgEventHandlers.hpp"
 
 class CfgNotifications 
 {
@@ -85,3 +79,5 @@ class CfgRoles
 {
 	#include "data\cfgRoles.hpp"
 };
+
+#include "data\gui.hpp"
