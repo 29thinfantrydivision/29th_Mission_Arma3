@@ -1,15 +1,7 @@
-class artilleryComputer 
-  {
-		title = "Artillery Computer";
-		values[] = {0,1};
-		texts[] = {"Off (Default)","On"};
-		default = 0;
-  };
-  
 class enableRoundEventLog 
-  {
-		title = "Enable Round Event Logging?";
-		values[] = {0,1};
-		texts[] = {"No","Yes (Default)"};
-		default = 1;
-  };
+{
+	title = "Enable Round Event Logging?";
+	values[] = {0,1};
+	texts[] = {"No","Yes (Default)"};
+	default = 1;
+};

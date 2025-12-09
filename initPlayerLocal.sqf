@@ -14,16 +14,6 @@ params ["_theClient","_didJIP"];
 enableSentences false;
 enableEnvironment [false, true];
 // ==============================================================================
-[] spawn 
-{
-	waitUntil {!isNil "artilleryComputer"};
-	if (artilleryComputer == 0) then 
-	{
-		enableEngineArtillery false;
-	};
-};
-
-
 ["visionMode", 
 {
 	if !(DOTT_disableTI) exitWith {};

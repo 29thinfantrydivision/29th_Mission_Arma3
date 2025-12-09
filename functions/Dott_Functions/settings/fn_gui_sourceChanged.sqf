@@ -6,7 +6,7 @@ private _selectedSource = "server";
 
 uiNamespace setVariable ["cba_settings_source", _selectedSource];
 
-private _selectedAddon = uiNamespace getVariable "cba_settings_addon";
+private _selectedAddon = uiNamespace getVariable "DOTT_settings_addon";
 
 
 {

@@ -35,7 +35,7 @@ private _categories = [];
 } forEach DOTT_settings_allSettings;
 
 lbSort _ctrlAddonList;
-_ctrlAddonList lbSetCurSel (uiNamespace getVariable ["cba_settings_addonIndex", 0]);
+_ctrlAddonList lbSetCurSel (uiNamespace getVariable ["DOTT_settings_addonIndex", 0]);
 
 _ctrlAddonsGroup call DOTT_settings_fnc_gui_sourceChanged;
 

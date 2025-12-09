@@ -10,9 +10,6 @@ INDEPENDENT setFriend [WEST, 0];
 [EAST, "29TH_PARADE_EAST"] call BIS_fnc_addRespawnInventory;
 [INDEPENDENT, "29TH_PARADE_INDEPENDENT"] call BIS_fnc_addRespawnInventory;
 
-artilleryComputer = "artilleryComputer" call BIS_fnc_getParamValue;
-publicVariable "artilleryComputer";
-
 //set-up default date and weather
 private _forcedDate     = [2018, 3, 30, 12, 0]; 
 private _forcedOvercast = 0.1;
