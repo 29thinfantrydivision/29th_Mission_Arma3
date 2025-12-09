@@ -36,10 +36,15 @@ v4.2.4
 1 DEC 2025
 
 ---
+* Mission Settings Now Adjustable Mid-Mission
+  - Many mission parameters and the sector settings can now be adjusted mid-mission with !settings by the admin.
+    Settings changed in this GUI will NOT persist between missions, allowing worry-free adjustments of various parameters.
+
 - Removed voice_control script, overwritten by server setting anyways.
 - Fix erronous roadkill in tracker, reduce cases of first shot uncon/kill not being counted.
 - Made arsenal action higher priority to prevent the option being in the middle of teleport options.
 - !cleanup now a restricted command
+- !showchat added, which can be used to forcibly show chat in cases where it disappears (ex. bug due to accessing menu).
 - Fix for invulerability conditions changed to if player is visible instead of in spectator.
 
 ---
