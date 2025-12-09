@@ -154,7 +154,7 @@ if (hasInterface) then
 	[
 		"enteredSpectator",
 		{
-			showScoretable -1;							
+			if (DOTT_limitSpectator == 0) then {showScoretable -1};							
 		} 
 	] call CBA_fnc_addEventHandler;
 
