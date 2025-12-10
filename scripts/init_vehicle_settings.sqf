@@ -3,19 +3,14 @@ if (isClass (configFile >> "CfgPatches" >> "ace_main")) then
 {
 	addMissionEventHandler ["EntityCreated", 
 	{
+		if !(isNumber (_config >> "ace_fastroping_enabled")) exitWith {};	
+
 		private _objectCreated = _this;
 		if (_objectCreated isKindOf "Helicopter") then 
 		{
 			[_objectCreated] call ace_fastroping_fnc_equipFRIES;
 		};
 	}];
-
-	{
-		if (_x isKindOf "Helicopter") then 
-		{
-			[_x] call ace_fastroping_fnc_equipFRIES;
-		};
-	} forEach allMissionObjects "AllVehicles";
 };
 
 // --- Disable thermal imaging on vehicles ---

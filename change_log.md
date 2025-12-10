@@ -48,6 +48,7 @@ v4.2.4
 - Fix for invulerability conditions changed to if player is visible instead of in spectator.
 - Fix case where swapping kits in arsenal did not cause saved frequencies to be applied on next kit refresh.
 - Removed spectator button from respawn menu.
+- Removed causes of errors when mission sqm contains vehicles (mainly useful for event version).
 
 ---
 v4.2.3  

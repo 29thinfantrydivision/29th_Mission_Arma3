@@ -145,7 +145,8 @@ if (isServer) then {
       		[_x, _encryptionCode] call TFAR_fnc_setLrRadioCode;
     	} forEach _radios;
 	};
-
+	/*
 	addMissionEventHandler ["EntityCreated", { _this call (_thisArgs select 0) }, [_fn_fixVehicleRadio]];
 	{ _x call _fn_fixVehicleRadio } forEach allMissionObjects "AllVehicles";
+	*/
 };
