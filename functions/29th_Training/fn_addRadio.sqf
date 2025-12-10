@@ -21,7 +21,9 @@ if (!hasInterface) exitWith {};
 
 if (isClass (configfile >> "CfgPatches" >> "task_force_radio_items")) then 
 {
-  if ( (((getUnitLoadout player) select 9) select 2) == "") then 
+  if (DOTT_addRadio == 0) exitWith {true};
+
+  if (DOTT_addRadio == 2 || {(((getUnitLoadout player) select 9) select 2) == ""}) then 
   {
     switch (side (group player)) do 
     {

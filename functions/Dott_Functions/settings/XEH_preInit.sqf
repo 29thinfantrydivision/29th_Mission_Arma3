@@ -82,10 +82,20 @@
 ] call CBA_fnc_addSetting;
 
 #define RADIO_SETTINGS_CATEGORY "29th - Radio Settings"
+
+[
+    "DOTT_addRadio", 
+    "LIST", 
+    ["Add SR Radio", "Add Side Correct SR Radio to loadout when leaving arsenal"], 
+    RADIO_SETTINGS_CATEGORY,
+    [[0, 1, 2],["No", "Only When No SR Radio Equipped", "Force Side Radio"], 2],
+	1
+] call CBA_fnc_addSetting;
+
 [
     "DOTT_removeRadiosOnDeath", 
     "CHECKBOX", 
-    "Remove SR radios on death",
+    "Remove radios on death",
     RADIO_SETTINGS_CATEGORY,
     true,
 	1
@@ -134,7 +144,7 @@
 [
     "DOTT_disableTI", 
     "CHECKBOX", 
-    "Disable thermal imaging optics?",
+    "Disable thermal imaging optics",
     [GENERAL_SETTINGS_CATEGORY, RESTRICTIONS_SUBCATEGORY],
     true,
 	1,
@@ -162,7 +172,7 @@
 [
     "DOTT_artilleryComputer", 
     "CHECKBOX", 
-    "Enable Artillery Computer?",
+    "Enable Artillery Computer",
     [GENERAL_SETTINGS_CATEGORY, RESTRICTIONS_SUBCATEGORY],
     false,
 	1,
