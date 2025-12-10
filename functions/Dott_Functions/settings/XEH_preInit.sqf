@@ -189,3 +189,12 @@
         };   
     }
 ] call CBA_fnc_addSetting;
+
+[
+    "DOTT_autoAddFRIES", 
+    "CHECKBOX", 
+    ["Auto add FRIES", "Automatically equip FRIES to helicopters when they are created."],
+    [GENERAL_SETTINGS_CATEGORY, RESTRICTIONS_SUBCATEGORY],
+    true,
+	1
+] call CBA_fnc_addSetting;

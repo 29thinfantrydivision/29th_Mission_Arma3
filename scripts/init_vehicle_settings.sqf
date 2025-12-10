@@ -3,9 +3,10 @@ if (isClass (configFile >> "CfgPatches" >> "ace_main")) then
 {
 	addMissionEventHandler ["EntityCreated", 
 	{
-		if !(isNumber (_config >> "ace_fastroping_enabled")) exitWith {};	
+		if (!DOTT_autoAddFRIES) exitWith {};
 
 		private _objectCreated = _this;
+		if !(isNumber ((configOf _objectCreated) >> "ace_fastroping_enabled")) exitWith {};	
 		if (_objectCreated isKindOf "Helicopter") then 
 		{
 			[_objectCreated] call ace_fastroping_fnc_equipFRIES;
