@@ -22,7 +22,7 @@ _display setVariable ["cba_settings_lists",[]];
 
 private _categories = [];
 {
-    (cba_settings_default getVariable _x) params ["", "", "", "", "_category"];
+    (DOTT_settings_default getVariable _x) params ["", "", "", "", "_category"];
     private _categoryLower = toLower _category;
 
     if !(_categoryLower in _categories) then {
