@@ -74,58 +74,65 @@ else //otherwise if array is correct size, then teleport requested
 
 	call Hill_fnc_exit_spectator; //kick player out of spectator
 
-	//check distance to point and compare to _pointRad, if less then skip teleport
-	private _pointDist = player distance2D _point;
-	if (_pointDist < _pointRad) exitWith {};
-	
-	//cut to black with teleporting title
-	titleText ["<t color='#ffffff' size='4'>Teleporting...</t>","BLACK OUT",0.5, true, true];
-	player allowDamage false;
-	sleep 0.1;
-	
-	//simulation and damage off to prevent death/accidents during teleport
-	moveOut player; //force player out of vehicle if they're in one
-	sleep 0.1;
-	
-	player enableSimulationGlobal false;
-	sleep 0.3;
-	
-	//set player's position to specified point (ASL)
-	private _dir = random 359;
-	player SetPosASL [(_point select 0)-6*sin(_dir),(_point select 1)-6*cos(_dir),(_point select 2)];
-	sleep 0.1;
-	
-	//enable simulation so they call fall if above terrain
-	player enableSimulationGlobal true;
-	sleep 0.4;
-	
-	//check if the player is touching ground
-	private _ground = isTouchingGround player;
-	
-	if (!_ground) then //if not touching ground then
-	{
-		//get current height above water/terrain/objects
-		private _curr = getPos player;
-		private _height = _curr select 2;
+	private _tries = 0; //try multiple times if it fails for whatever reason
+
+	while {_tries < 3} do {
+		waitUntil { uiSleep 0.1; !(player getVariable ["emr_main_isClimbing", false])};
+
+		//check distance to point and compare to _pointRad, if less then skip teleport
+		private _pointDist = player distance2D _point;
+		if (_pointDist < _pointRad || !alive player) exitWith {};
 		
-		if (_height > 2) then //if more then 2 meters in height set height to water/terrain
+		//cut to black with teleporting title
+		titleText ["<t color='#ffffff' size='4'>Teleporting...</t>","BLACK OUT",0.5, true, true];
+		player allowDamage false;
+		sleep 0.1;
+		
+		//simulation and damage off to prevent death/accidents during teleport
+		moveOut player; //force player out of vehicle if they're in one
+		sleep 0.1;
+		
+		player enableSimulationGlobal false;
+		sleep 0.3;
+		
+		//set player's position to specified point (ASL)
+		private _dir = random 359;
+		player SetPosASL [(_point select 0)-6*sin(_dir),(_point select 1)-6*cos(_dir),(_point select 2)];
+		sleep 0.1;
+		
+		//enable simulation so they call fall if above terrain
+		player enableSimulationGlobal true;
+		sleep 0.4;
+		
+		//check if the player is touching ground
+		private _ground = isTouchingGround player;
+		
+		if (!_ground) then //if not touching ground then
 		{
-    		player setPos [_curr select 0, _curr select 1, 0];
-    	}
-    	else //otherwise a little extra time to fall
-    	{
-    		sleep 0.4;
-    	};
+			//get current height above water/terrain/objects
+			private _curr = getPos player;
+			private _height = _curr select 2;
+			
+			if (_height > 2) then //if more then 2 meters in height set height to water/terrain
+			{
+				player setPos [_curr select 0, _curr select 1, 0];
+			}
+			else //otherwise a little extra time to fall
+			{
+				sleep 0.4;
+			};
+		};
+		
+		sleep 0.2;
+		
+		//return to normal state
+		player allowDamage true;
+		titleText ["<t color='#ffffff' size='4'>Teleporting...</t>","BLACK IN",0.5, true, true];
+
+		_tries = _tries + 1;
 	};
-	
-	sleep 0.2;
-	
-	//return to normal state
-	player allowDamage true;
-	titleText ["<t color='#ffffff' size='4'>Teleporting...</t>","BLACK IN",0.5, true, true];
-	
 	//teleport true for switch below
-	_teleport = true;
+	_teleport = _tries > 0;
 };
 
 if (_msgClass isEqualTo "") exitWith //if no msgClass, use defaults below
