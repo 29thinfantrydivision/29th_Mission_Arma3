@@ -43,7 +43,7 @@ if !(_display getVariable [_selectedAddon, false]) then {
     private _categorySettings = [];
 
     {
-        (DOTT_settings_default getVariable _x) params ["", "_setting", "", "", "_category", "", "", "", "", "_subCategory"];
+        (cba_settings_default getVariable _x) params ["", "_setting", "", "", "_category", "", "", "", "", "_subCategory"];
         if (toLower _category == _selectedAddon) then {
             if (isLocalized _subCategory) then {
                 _subCategory = localize _subCategory;
@@ -65,7 +65,7 @@ if !(_display getVariable [_selectedAddon, false]) then {
             _createHeader = true;
         };
 
-        (DOTT_settings_default getVariable _setting) params ["_defaultValue", "", "_settingType", "_settingData", "_category", "_displayName", "_tooltip", "_isGlobal"];
+        (cba_settings_default getVariable _setting) params ["_defaultValue", "", "_settingType", "_settingData", "_category", "_displayName", "_tooltip", "_isGlobal"];
 
         if (isLocalized _displayName) then {
             _displayName = localize _displayName;
