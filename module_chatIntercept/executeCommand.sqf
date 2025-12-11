@@ -28,9 +28,13 @@ _argument = [];
 _command = toString _command;
 _argument = toString _argument;
 
+private _foundCommand = false;
+
 {
 	if (_command == (_x select 0)) exitWith 
 	{
+		_foundCommand = true;
+
 		private _isAdmin = serverCommandAvailable "#lock";
 		if (pvpfw_chatIntercept_adminCommands find _command != -1 && !_isAdmin) exitWith 
 		{
@@ -52,5 +56,7 @@ _argument = toString _argument;
 	};
 } forEach pvpfw_chatIntercept_allCommands;
 
-
+if !(_foundCommand) then {
+	systemChat format ["Unknown command: !%1", _command];
+};
 

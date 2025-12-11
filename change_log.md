@@ -39,11 +39,18 @@ v4.2.4
 * Mission Settings Now Adjustable Mid-Mission (credit to CBA, modified their files)
   - Many mission parameters and the sector settings can now be adjusted mid-mission with !s or !settings by the admin.
     Settings changed in this GUI will NOT persist between missions, allowing worry-free adjustments of various parameters.
+  - New defaults:
+    - Radios on leaving arsenal now force the side radio regardless if a radio already is in the slot.
+    - RHS Engine Warmup script is disabled by default to prevent teleport bug.
+    - Vehicles with LR Radio now have their radio forcably set to the player's faction occupying the seat.
+      Ex. A BLUFOR player occupying a OPFOR vehicle will have their vehicle radio use BLUFOR encryption.
+  
 
 * Commands
   - !cleanup now a restricted command
   - !showchat added, which can be used to forcibly show chat in cases where it disappears (ex. bug due to accessing menu).
   - !radio added, which can be used to determine if TFAR radio is bugged in cases where people on same frequency cannot hear each other.
+  - Error now shows in chat if a command is not recognized.
 
 - Removed voice_control script, overwritten by server setting anyways.
 - Fix erronous roadkill in tracker, reduce cases of first shot uncon/kill not being counted.
@@ -53,6 +60,7 @@ v4.2.4
 - Removed spectator button from respawn menu.
 - Fix for Enhanced Movement actions causing command teleports to fail. Also added multiple tries for teleport if it fails for any other unknown reason.
 - Removed causes of errors when mission sqm contains vehicles (mainly useful for event version).
+- Remove error log in setInsignia.
 
 ---
 v4.2.3  
