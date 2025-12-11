@@ -1,7 +1,7 @@
 /*
  * Name:	Hill_fnc_setInsignia
- * Date:	8/26/2025
- * Version: 1.2
+ * Date:	12/11/2025
+ * Version: 1.3
  * Author:  Bae [29th ID] modified from Hill [29th ID]
  *
  * Description:

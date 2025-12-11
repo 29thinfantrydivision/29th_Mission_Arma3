@@ -1,7 +1,7 @@
 /*
  * Name:	DOTT_round_fnc_init
- * Date:	9/30/2025
- * Version: 1.1
+ * Date:	12/11/2025
+ * Version: 1.2
  * Author:  Bae [29th ID] modified from Dott [29th ID]
  *
  * Description:

@@ -1,7 +1,7 @@
 /*
  * Name:	DOTT_tracker_fnc_init
- * Date:	9/30/2025
- * Version: 1.3
+ * Date:	12/11/2025
+ * Version: 1.4
  * Author:  Bae [29th ID]
  *
  * Description:

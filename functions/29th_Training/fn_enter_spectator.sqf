@@ -1,7 +1,7 @@
 /*
  * Name:	Hill_fnc_enter_spectator
- * Date:	9/30/2025
- * Version: 1.1
+ * Date:	12/11/2025
+ * Version: 1.2
  * Author: Rellikplug AKA: Hill [29th ID] modified by Bae [29th ID]
  *
  * Description: Enters user into spectator mode. 

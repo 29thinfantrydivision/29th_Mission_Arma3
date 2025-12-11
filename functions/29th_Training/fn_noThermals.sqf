@@ -1,7 +1,7 @@
 /*
  * Name:	Hill_fnc_noThermals
- * Date:	7/26/2025
- * Version: 1.1
+ * Date:	12/11/2025
+ * Version: 1.2
  * Author: Rellikplug AKA: Hill [29th ID]
  *
  * Description:
