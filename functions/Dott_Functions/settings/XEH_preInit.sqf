@@ -171,6 +171,7 @@
         if (hasInterface) then 
         {
             ace_javelin_ignoreVisionMode = _this;
+            if (_this) then { [] spawn Hill_fnc_noThermals };
             if (!alive player || isNull (objectParent player)) exitWith {};
             systemChat format ["Thermal imaging optics have been %1. Kicking player out of vehicles to apply changes.", if !(_this) then {"enabled"} else {"disabled"}];
             moveOut player; //pip thermal disable needs this

@@ -138,9 +138,9 @@ if (hasInterface) then
 	[
 		"DOTT_round_started",
 		{
-			if (isNil { missionNamespace getVariable "BIS_EGSpectator_initialized" } &&
-				isNull (uiNamespace getVariable ["RscDisplayCurator", displayNull])) then
-			{ showScoretable 0 };							
+			if !(isNull (uiNamespace getVariable ["RscDisplayCurator", displayNull])) exitWith {};
+			if (!isNil { missionNamespace getVariable "BIS_EGSpectator_initialized" } && DOTT_limitSpectator == 0) exitWith {};
+			showScoretable 0;							
 		} 
 	] call CBA_fnc_addEventHandler;
 
