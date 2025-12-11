@@ -61,7 +61,7 @@ if (hasInterface) then
 	//For JIP players
 	//showScoreTable silently fails if called too early
 	addMissionEventHandler ["PreloadFinished", {
-		if (call DOTT_round_fnc_isRoundActive) then {
+		if (call DOTT_round_fnc_isRoundActive && DOTT_disableScoreboard) then {
 			showScoreTable 0;
 		};
 		removeMissionEventHandler ["PreloadFinished", _thisEventHandler];
@@ -77,7 +77,7 @@ if (hasInterface) then
 			[
 				"Draw2D", 
 				{
-					if(visibleScoretable && call DOTT_round_fnc_isRoundActive) then { showScoretable 0 };
+					if(visibleScoretable && call DOTT_round_fnc_isRoundActive && DOTT_disableScoreboard) then { showScoretable 0 };
 				}
 			];
 		}];
@@ -89,7 +89,7 @@ if (hasInterface) then
 		waitUntil {!isNull player};
 		player addEventHandler ["Respawn", 
 		{
-			if (call DOTT_round_fnc_isRoundActive) then 
+			if (call DOTT_round_fnc_isRoundActive && DOTT_disableScoreboard) then 
 			{	
 				[] spawn 
 				{
@@ -120,7 +120,7 @@ if (hasInterface) then
 				{
 					if (inputAction "CuratorInterface" > 0) then
 					{
-						if (call DOTT_round_fnc_isRoundActive) then { showScoretable 0 };
+						if (call DOTT_round_fnc_isRoundActive && DOTT_disableScoreboard) then { showScoretable 0 };
 						[] spawn
 						{
 							sleep 0.1;
@@ -138,6 +138,7 @@ if (hasInterface) then
 	[
 		"DOTT_round_started",
 		{
+			if !(DOTT_disableScoreboard) exitWith {};
 			if !(isNull (uiNamespace getVariable ["RscDisplayCurator", displayNull])) exitWith {};
 			if (!isNil { missionNamespace getVariable "BIS_EGSpectator_initialized" } && DOTT_limitSpectator == 0) exitWith {};
 			showScoretable 0;							
@@ -147,7 +148,7 @@ if (hasInterface) then
 	[
 		"exitedSpectator",
 		{
-			if (call DOTT_round_fnc_isRoundActive) then { showScoretable 0 };							
+			if (call DOTT_round_fnc_isRoundActive && DOTT_disableScoreboard) then { showScoretable 0 };							
 		} 
 	] call CBA_fnc_addEventHandler;
 

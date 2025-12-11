@@ -193,6 +193,7 @@
 ] call CBA_fnc_addSetting;
 
 #define RESTRICTIONS_SUBCATEGORY "Restrictions"
+
 [
     "DOTT_disableTI", 
     "CHECKBOX", 
@@ -244,6 +245,22 @@
         if (hasInterface) then
         {
             enableEngineArtillery _this;
+        };   
+    }
+] call CBA_fnc_addSetting;
+
+#define ROUND_SUBCATEGORY "Round"
+[
+    "DOTT_disableScoreboard", 
+    "CHECKBOX", 
+    ["Disable Scoreboard", "Disable the scoreboard during the round, except while in Zeus or non-limited spectator."],
+    [GENERAL_SETTINGS_CATEGORY, ROUND_SUBCATEGORY],
+    false,
+	1,
+    {
+        if (hasInterface) then
+        {
+            
         };   
     }
 ] call CBA_fnc_addSetting;
