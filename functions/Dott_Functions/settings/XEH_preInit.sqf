@@ -255,12 +255,16 @@
     "CHECKBOX", 
     ["Disable Scoreboard", "Disable the scoreboard during the round, except while in Zeus or non-limited spectator."],
     [GENERAL_SETTINGS_CATEGORY, ROUND_SUBCATEGORY],
-    false,
+    true,
 	1,
     {
         if (hasInterface) then
         {
-            
+            if (!_this) exitWith {showScoretable -1};
+            if !(call DOTT_round_fnc_isRoundActive) exitWith {};
+			if !(isNull (uiNamespace getVariable ["RscDisplayCurator", displayNull])) exitWith {};
+			if (!isNil { missionNamespace getVariable "BIS_EGSpectator_initialized" } && DOTT_limitSpectator == 0) exitWith {};
+			showScoretable 0;    
         };   
     }
 ] call CBA_fnc_addSetting;
