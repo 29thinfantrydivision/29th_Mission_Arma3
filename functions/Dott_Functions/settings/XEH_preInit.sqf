@@ -120,15 +120,6 @@
 #define GENERAL_SETTINGS_CATEGORY "29th - General Settings"
 
 [
-    "DOTT_removeDefaultVehicleInventories", 
-    "CHECKBOX", 
-    "Remove default inventories from vehicles",
-    GENERAL_SETTINGS_CATEGORY,
-    true,
-	1
-] call CBA_fnc_addSetting;
-
-[
     "DOTT_setInsignia", 
     "CHECKBOX", 
     "Automatically set 29th Insignia",
@@ -137,6 +128,41 @@
 	1
 ] call CBA_fnc_addSetting;
 
+#define VEHICLE_SUBCATEGORY "Vehicle"
+
+[
+    "DOTT_removeDefaultVehicleInventories", 
+    "CHECKBOX", 
+    "Remove default inventories from vehicles",
+    [GENERAL_SETTINGS_CATEGORY, VEHICLE_SUBCATEGORY],
+    true,
+	1
+] call CBA_fnc_addSetting;
+
+[
+    "DOTT_disableRHSEngineWarmup", 
+    "CHECKBOX", 
+    ["Disable RHS engine warmup", "Disable RHS startup delay on some vehicles. Useful for preventing teleport bug."],
+    [GENERAL_SETTINGS_CATEGORY, VEHICLE_SUBCATEGORY],
+    true,
+	1,
+    {
+        RHS_ENGINE_STARTUP_OFF = switch (_this) do
+        {
+            case true: { true };
+            case false: { nil };
+        };
+    }
+] call CBA_fnc_addSetting;
+
+[
+    "DOTT_autoAddFRIES", 
+    "CHECKBOX", 
+    ["Auto add FRIES", "Automatically equip FRIES to helicopters when they are created."],
+    [GENERAL_SETTINGS_CATEGORY, VEHICLE_SUBCATEGORY],
+    true,
+	1
+] call CBA_fnc_addSetting;
 
 #define SPECTATOR_SUBCATEGORY "Spectator"
 
@@ -220,13 +246,4 @@
             enableEngineArtillery _this;
         };   
     }
-] call CBA_fnc_addSetting;
-
-[
-    "DOTT_autoAddFRIES", 
-    "CHECKBOX", 
-    ["Auto add FRIES", "Automatically equip FRIES to helicopters when they are created."],
-    [GENERAL_SETTINGS_CATEGORY, RESTRICTIONS_SUBCATEGORY],
-    true,
-	1
 ] call CBA_fnc_addSetting;
