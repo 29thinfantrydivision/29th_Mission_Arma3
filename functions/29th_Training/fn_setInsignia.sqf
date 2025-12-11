@@ -63,7 +63,8 @@ private ["_sqdParams", "_targetRole", "_targetSquad", "_foundInsignias", "_targe
 _sqdParams = squadParams _target;
 if (count _sqdParams == 0) exitWith 
 {
-	["squad.xml info not found."] call BIS_fnc_error; false;
+	//["squad.xml info not found."] call BIS_fnc_error; 
+	false;
 };
 
 // get squad string stored in membericq
