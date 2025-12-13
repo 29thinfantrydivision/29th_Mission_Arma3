@@ -8,7 +8,6 @@ class RscDisplayMissionOptions
 		{
 			deletable = 0;
 			fade = 0;
-			access = 0;
 			type = 0;
 			colorBackground[] = {0,0,0,0};
 			fixedWidth = 0;
@@ -258,7 +257,6 @@ class RscDisplayMissionOptions
 				{
 					deletable = 0;
 					fade = 0;
-					access = 0;
 					type = 0;
 					colorText[] = {1,1,1,1};
 					text = "";
@@ -283,7 +281,6 @@ class RscDisplayMissionOptions
 				{
 					deletable = 0;
 					fade = 0;
-					access = 0;
 					type = 0;
 					colorBackground[] = {0,0,0,0};
 					colorText[] = {1,1,1,1};
@@ -308,7 +305,6 @@ class RscDisplayMissionOptions
 				{
 					deletable = 0;
 					fade = 0;
-					access = 0;
 					type = 0;
 					colorBackground[] = {0,0,0,0};
 					colorText[] = {1,1,1,1};
@@ -340,7 +336,6 @@ class RscDisplayMissionOptions
 	{
 		class BackgroundDisable
 		{
-			access = 0;
 			idc = -1;
 			style = 0;
 			default = 0;
@@ -403,7 +398,6 @@ class RscDisplayMissionOptions
 		};
 		class BackgroundDisableTiles
 		{
-			access = 0;
 			idc = -1;
 			default = 0;
 			show = 1;
@@ -468,7 +462,6 @@ class RscDisplayMissionOptions
 		{
 			deletable = 0;
 			fade = 0;
-			access = 0;
 			type = 0;
 			colorText[] = {1,1,1,1};
 			text = "";
@@ -493,7 +486,6 @@ class RscDisplayMissionOptions
 		{
 			deletable = 0;
 			fade = 0;
-			access = 0;
 			type = 0;
 			colorText[] = {1,1,1,1};
 			text = "";
@@ -518,7 +510,6 @@ class RscDisplayMissionOptions
 		{
 			deletable = 0;
 			fade = 0;
-			access = 0;
 			type = 0;
 			colorText[] = {1,1,1,1};
 			text = "";
@@ -558,7 +549,6 @@ class DOTT_settings_Row_Checkbox
 			h = "((1) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25))";
 			deletable = 0;
 			fade = 0;
-			access = 0;
 			type = 0;
 			colorBackground[] = {0,0,0,0};
 			colorText[] = {1,1,1,1};
@@ -623,7 +613,6 @@ class DOTT_settings_Row_Checkbox
 			h = "((1) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25))";
 			deletable = 0;
 			fade = 0;
-			access = 0;
 			type = 1;
 			colorText[] = {1,1,1,1};
 			colorDisabled[] = {1,1,1,0.25};
@@ -711,7 +700,6 @@ class DOTT_settings_Row_List
 			h = "((1) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25))";
 			deletable = 0;
 			fade = 0;
-			access = 0;
 			type = 0;
 			colorBackground[] = {0,0,0,0};
 			colorText[] = {1,1,1,1};
@@ -755,7 +743,6 @@ class DOTT_settings_Row_List
 			};
 			deletable = 0;
 			fade = 0;
-			access = 0;
 			type = 4;
 			colorSelect[] = {0,0,0,1};
 			colorText[] = {1,1,1,1};
@@ -797,7 +784,6 @@ class DOTT_settings_Row_List
 			h = "((1) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25))";
 			deletable = 0;
 			fade = 0;
-			access = 0;
 			type = 1;
 			colorText[] = {1,1,1,1};
 			colorDisabled[] = {1,1,1,0.25};
@@ -885,7 +871,6 @@ class DOTT_settings_Row_Slider
 			h = "((1) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25))";
 			deletable = 0;
 			fade = 0;
-			access = 0;
 			type = 0;
 			colorBackground[] = {0,0,0,0};
 			colorText[] = {1,1,1,1};
@@ -947,7 +932,6 @@ class DOTT_settings_Row_Slider
 			onMouseMoving = "";
 			onMouseHolding = "";
 			onSliderPosChanged = "";
-			access = 0;
 			default = 0;
 			show = 1;
 			fade = 0;
@@ -979,7 +963,6 @@ class DOTT_settings_Row_Slider
 			h = "((1) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25))";
 			deletable = 0;
 			fade = 0;
-			access = 0;
 			type = 2;
 			colorBackground[] = {0,0,0,0};
 			colorText[] = {0.95,0.95,0.95,1};
@@ -1008,7 +991,6 @@ class DOTT_settings_Row_Slider
 			h = "((1) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25))";
 			deletable = 0;
 			fade = 0;
-			access = 0;
 			type = 1;
 			colorText[] = {1,1,1,1};
 			colorDisabled[] = {1,1,1,0.25};

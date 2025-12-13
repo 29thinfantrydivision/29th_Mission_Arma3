@@ -32,7 +32,7 @@ saving = 0;
 
 debriefing = 1;
 showGPS = 1;
-showCompas = 1;
+showCompass = 1;
 showMap = 1;
 showNotePad = 1;
 showWatch = 1;
@@ -54,7 +54,7 @@ class CfgFunctions
 				file = "scripts\overrideFunctions.sqf";
 				preInit = 1;
 			};
-		}
+		};
 	};
 };
 
