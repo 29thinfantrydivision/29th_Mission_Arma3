@@ -81,7 +81,7 @@ if (isServer) then
 		"ace_unconscious", 
 		{
 			//remoteExecCall for sending info occurs 1 frame later so wait
-			[{_this call DOTT_tracker_fnc_recordACEConscious}, _this, 5] call CBA_fnc_execAfterNFrames; 
+			[{_this call DOTT_tracker_fnc_recordACEConscious}, _this, 0.5] call CBA_fnc_waitAndExecute; 
 		}
 	]
 	call CBA_fnc_addEventHandler;
