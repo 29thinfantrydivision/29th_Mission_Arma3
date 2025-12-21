@@ -4,11 +4,11 @@
 // E.G. !commands, !COMMANDS, and !CoMmAnDs will all work, but '!help !COMMANDS' will not (unless argument is 'toLower' before hand is the command code)
 // systemChat is the best way to give feedback to the local player executing commands
 
-pvpfw_chatIntercept_noLogCommands = ["commands", "help"];
+pvpfw_chatIntercept_noLogCommands = ["commands", "help", "showchat", "radiocheck"];
 //remember to change !help if you edit this
-pvpfw_chatIntercept_adminCommands = ["reset", "debrief", "goto", "measure", "tickets", "parade"];
+pvpfw_chatIntercept_adminCommands = ["reset", "debrief", "goto", "measure", "tickets", "parade", "s", "settings"];
 //admin only IF mid-round, available otherwise
-pvpfw_chatIntercept_restrictedCommands = ["arsenal", "heal", "rearm"];
+pvpfw_chatIntercept_restrictedCommands = ["arsenal", "heal", "rearm", "cleanup"];
 
 
 pvpfw_chatIntercept_allCommands = [
@@ -40,7 +40,7 @@ pvpfw_chatIntercept_allCommands = [
 				case "!game": {systemChat "!game: Calls game and ends any countdown"};
 				case "!ready": {systemChat "!ready: Sets the player's side as ready, and begins the safe start if all player sides are ready"};
 				case "!unready": {systemChat "!unReady: Cancels the ready status for the player's side"};
-				case "!cleanup": {systemChat "!cleanUp: Cleans up bodies (trash can function)"};
+				case "!cleanup": {systemChat "!cleanUp: (RESTRICTED) Cleans up bodies (trash can function)"};
 				case "!arsenal": {systemChat "!arsenal: (RESTRICTED) Places an ACE arsenal in front of the player"};
 				case "!heal": {systemChat "!heal: (RESTRICTED) ACE Heals players. '!heal' for all players, otherwise '!heal SIDE' (blufor, opfor, grnfor)"};
 				case "!rearm": {systemChat "!rearm: (RESTRICTED) Rearms players. '!rearm' for all players, otherwise '!rearm SIDE' (blufor, opfor, grnfor)"};
@@ -50,6 +50,10 @@ pvpfw_chatIntercept_allCommands = [
 				case "!measure": {systemChat "!measure: (ADMIN ONLY) Measure distances on the map using shift + click markers. Set a reference using '!measure set', then use '!measure' to get distance to your current shift + click marker"};
 				case "!tickets": {systemChat "!tickets: (ADMIN ONLY) Manages tickets and changes tickets for a given side, by the given value (E.G. '!tickets Blufor 5' will add 5 tickets to Blufor). '!tickets reset' sets all tickets to zero. '!tickets' returns the current value of all teams tickets. '!tickets enable' or 'disable' to enable/disable ticket system"};
 				case "!parade": {systemChat "!parade: (ADMIN ONLY) Sets all players' loadout within 125m of your position to parade."};
+				case "!s";
+				case "!settings": {systemChat "!settings (or !s): (ADMIN ONLY) Opens the settings GUI for global mission settings."};
+				case "!showchat": {systemChat "!showChat: Shows chat display (for bug where chat is hidden after using menu)."};
+				case "!radio": {systemChat "!radioCheck: Checks radio encryption codes for TFAR radios."};
 				default {systemChat "Can't find the specified command! Make sure to enter the command with the '!'"};
 			};
 		}
@@ -404,5 +408,54 @@ pvpfw_chatIntercept_allCommands = [
 		{
 			[player, 125] spawn DOTT_fnc_forceParadeAll;
 		}
-	]
+	],
+	[
+		"s",
+		{
+			createDialog ["RscDisplayMissionOptions", true];
+		}
+	],
+	[
+		"settings",
+		{
+			createDialog ["RscDisplayMissionOptions", true];
+		}
+	],
+	[
+		"showChat",
+		{
+			showChat true;
+		}
+	],
+	[
+		"radio",
+		{
+			private _strs = [];
+			private _activeSw = call TFAR_fnc_activeSwRadio;
+			if !(isNil "_activeSw") then
+			{
+				private _radioName = [_activeSw, "tf_parent", "SR"] call TFAR_fnc_getWeaponConfigProperty; 
+				private _swCode = _activeSw call TFAR_fnc_getSWRadioCode;
+				_strs pushBack format ["%1: %2", _radioName, _swCode];
+			};
+
+			private _activeLr = player call TFAR_fnc_backpackLR;
+			if !(isNil "_activeLr") then
+			{
+				private _radioName = [typeOf (_activeLr select 0), "displayName", "LR"] call TFAR_fnc_getVehicleConfigProperty; 
+				private _lrCode = _activeLr call TFAR_fnc_getLRRadioCode;
+				_strs pushBack format ["%1: %2", _radioName, _lrCode];
+			};
+
+			private _vehicleLr = (player call TFAR_fnc_vehicleLr);
+			if !(isNil "_vehicleLr") then
+			{
+				private _radioName = [typeOf (_vehicleLr select 0), "displayName", "Vic"] call TFAR_fnc_getVehicleConfigProperty; 
+				private _vehLrCode = _vehicleLr call TFAR_fnc_getLRRadioCode;
+				_strs pushBack format ["%1: %2", _radioName, _vehLrCode];
+			};
+
+			player sideChat (_strs joinString " | ");
+		}
+	]	
 ];

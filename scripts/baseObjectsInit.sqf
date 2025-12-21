@@ -45,7 +45,7 @@ for "_i" from 0 to ((count _ammo_boxes) - 1) do
             arsenalActionId = player addAction [
                 "<img image='\A3\Ui_f\data\IGUI\Cfg\Actions\gear_ca.paa'/><t color='#bf3eff'>  Ace Arsenal</t>",
                 { [_this select 1, _this select 1, true] call ace_arsenal_fnc_openBox; },
-                nil, 1.5, true, true, "", "true"
+                nil, 1, true, true, "", "true"
             ];
         };
     } else 
@@ -70,7 +70,7 @@ blu_ammo addAction [
         [_target, 125] call DOTT_fnc_forceParadeAll;
     }, 
     nil, 
-    1.4, 
+    0.9, 
     true, 
     true, 
     "", 

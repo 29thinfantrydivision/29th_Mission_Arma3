@@ -3,7 +3,7 @@ class 29th_Training {
   class 29th {
     file = "functions\29th_Training";
     class enter_spectator {};
-    class exit_spectator {}
+    class exit_spectator {};
     class cleaner {};
     class setInsignia {};
     class noThermals {};

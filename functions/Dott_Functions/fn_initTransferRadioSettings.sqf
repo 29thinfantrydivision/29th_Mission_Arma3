@@ -1,7 +1,7 @@
 /*
  * Name:	DOTT_fnc_initTransferRadioSettings
- * Date:	9/18/2025
- * Version: 1.0
+ * Date:	12/11/2025
+ * Version: 1.1
  * Author:  Bae [29th ID]
  *
  * Description:
@@ -93,6 +93,7 @@ if (hasInterface) then {
 				{
 					[_x, _correctCode] call TFAR_fnc_setSwRadioCode;
 				};
+				TFAR_core_saved_active_sr_settings = _x call TFAR_fnc_getSwSettings;
 			} forEach _radios;
 		}
 	] call TFAR_fnc_addEventHandler;
@@ -111,40 +112,11 @@ if (hasInterface) then {
 			[_lr, _correctCode] call TFAR_fnc_setLrRadioCode;
 		};
 	}] call CBA_fnc_addPlayerEventHandler;
-};
 
-if (isServer) then {
-	//fix bug entering a unentered vehicle with different faction backpack lr set causes vehicle to have wrong side encrpyption LR
 	private _fn_fixVehicleRadio = 
 	{
-		private _vehicle = _this;
-		if !(_vehicle isKindOf "AllVehicles" && !(_vehicle isKindOf "Man")) exitWith {};
-
-		private _correctSide = _vehicle call TFAR_fnc_getVehicleSide;
-		private _encryptionCode = "";
-		switch (_correctSide) do 
-		{
-			case west: 
-			{
-				_encryptionCode = "tf_west_radio_code";
-			};
-			case east: 
-			{
-				_encryptionCode = "tf_east_radio_code";
-			};
-			default 
-			{
-				_encryptionCode = "tf_independent_radio_code";
-			};
-		};		
-		_encryptionCode = missionNamespace getVariable [_encryptionCode, ""];
-		
-		private _radios = _vehicle call TFAR_fnc_getVehicleRadios;
-    	{
-      		[_x, _encryptionCode] call TFAR_fnc_setLrRadioCode;
-    	} forEach _radios;
+		#include "fn_fixVehicleRadio.inc.sqf"
 	};
-
-	addMissionEventHandler ["EntityCreated", { _this call (_thisArgs select 0) }, [_fn_fixVehicleRadio]];
-	{ _x call _fn_fixVehicleRadio } forEach allMissionObjects "AllVehicles";
+	["DOTT_getInVicRadio", "GetInMan", _fn_fixVehicleRadio] call CBA_fnc_addBISPlayerEventHandler;
+	["DOTT_seatSwitchVicRadio", "SeatSwitchedMan", _fn_fixVehicleRadio] call CBA_fnc_addBISPlayerEventHandler;	
 };

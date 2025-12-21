@@ -1,7 +1,7 @@
 /*
  * Name:	DOTT_round_fnc_init
- * Date:	9/30/2025
- * Version: 1.1
+ * Date:	12/11/2025
+ * Version: 1.2
  * Author:  Bae [29th ID] modified from Dott [29th ID]
  *
  * Description:
@@ -61,7 +61,7 @@ if (hasInterface) then
 	//For JIP players
 	//showScoreTable silently fails if called too early
 	addMissionEventHandler ["PreloadFinished", {
-		if (call DOTT_round_fnc_isRoundActive) then {
+		if (call DOTT_round_fnc_isRoundActive && DOTT_disableScoreboard) then {
 			showScoreTable 0;
 		};
 		removeMissionEventHandler ["PreloadFinished", _thisEventHandler];
@@ -77,7 +77,7 @@ if (hasInterface) then
 			[
 				"Draw2D", 
 				{
-					if(visibleScoretable && call DOTT_round_fnc_isRoundActive) then { showScoretable 0 };
+					if(visibleScoretable && call DOTT_round_fnc_isRoundActive && DOTT_disableScoreboard) then { showScoretable 0 };
 				}
 			];
 		}];
@@ -89,7 +89,7 @@ if (hasInterface) then
 		waitUntil {!isNull player};
 		player addEventHandler ["Respawn", 
 		{
-			if (call DOTT_round_fnc_isRoundActive) then 
+			if (call DOTT_round_fnc_isRoundActive && DOTT_disableScoreboard) then 
 			{	
 				[] spawn 
 				{
@@ -120,7 +120,7 @@ if (hasInterface) then
 				{
 					if (inputAction "CuratorInterface" > 0) then
 					{
-						if (call DOTT_round_fnc_isRoundActive) then { showScoretable 0 };
+						if (call DOTT_round_fnc_isRoundActive && DOTT_disableScoreboard) then { showScoretable 0 };
 						[] spawn
 						{
 							sleep 0.1;
@@ -138,23 +138,24 @@ if (hasInterface) then
 	[
 		"DOTT_round_started",
 		{
-			if (isNil { missionNamespace getVariable "BIS_EGSpectator_initialized" } &&
-				isNull (uiNamespace getVariable ["RscDisplayCurator", displayNull])) then
-			{ showScoretable 0 };							
+			if !(DOTT_disableScoreboard) exitWith {};
+			if !(isNull (uiNamespace getVariable ["RscDisplayCurator", displayNull])) exitWith {};
+			if (!isNil { missionNamespace getVariable "BIS_EGSpectator_initialized" } && DOTT_limitSpectator == 0) exitWith {};
+			showScoretable 0;							
 		} 
 	] call CBA_fnc_addEventHandler;
 
 	[
 		"exitedSpectator",
 		{
-			if (call DOTT_round_fnc_isRoundActive) then { showScoretable 0 };							
+			if (call DOTT_round_fnc_isRoundActive && DOTT_disableScoreboard) then { showScoretable 0 };							
 		} 
 	] call CBA_fnc_addEventHandler;
 
 	[
 		"enteredSpectator",
 		{
-			showScoretable -1;							
+			if (DOTT_limitSpectator == 0) then {showScoretable -1};							
 		} 
 	] call CBA_fnc_addEventHandler;
 
@@ -191,8 +192,8 @@ if (hasInterface) then
 	[
 		"DOTT_round_started",
 		{	
-			//the player should not be invulnerable if they are not in spectator
-			if !(!isDamageAllowed player && isNil {missionNamespace getVariable "BIS_EGSpectator_initialized"}) exitWith {};
+			//the player should not be invulnerable if they are not hidden (spectator or zeus option)
+			if (isDamageAllowed player || isObjectHidden player) exitWith {};
 			player allowDamage true;
 			private _msg = format ["FIXED: %1 was invulnerable, can now take damage.", name player];
 			[_msg] remoteExec ["systemChat"];

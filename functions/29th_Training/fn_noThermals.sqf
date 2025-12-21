@@ -1,7 +1,7 @@
 /*
  * Name:	Hill_fnc_noThermals
- * Date:	7/26/2025
- * Version: 1.1
+ * Date:	12/11/2025
+ * Version: 1.2
  * Author: Rellikplug AKA: Hill [29th ID]
  *
  * Description:
@@ -25,11 +25,11 @@
 if (!hasInterface) exitWith {false};
 private _layer = "Hill_blockThermals"; 
 
-if (currentVisionMode player == 2) then 
+if (currentVisionMode player == 2 && DOTT_disableTI) then 
 {
   _layer	cutText [MESSAGE, "BLACK", FADE_IN_TIME];
   playSound "FD_CP_Not_Clear_F";
-  waituntil {sleep 0.1; currentVisionMode player != 2};
+  waituntil {sleep 0.1; (currentVisionMode player == 2 && DOTT_disableTI)};
   _layer cutText ["", "PLAIN"];
 };
 

@@ -6,8 +6,8 @@ class Header {
   maxPlayers = 182; //Total number of playable units placed in the editor including virtual entities
 };
 
-OnLoadName = "29th Training V4.2.3";
-briefingName = "29th Training V4.2.3";
+OnLoadName = "29th Training V4.2.4";
+briefingName = "29th Training V4.2.4";
 // =========================== Loading Screen
 Author = "29th Engineers";
 loadScreen =  "Pictures\116Inf InsigniaAlpha.paa";
@@ -22,7 +22,7 @@ respawn = 3;
 respawnDelay = 5;
 respawnDialog = 0;
 
-respawnTemplates[] = {"Spectator", "MenuPosition", "MenuInventory","Tickets"};
+respawnTemplates[] = {"MenuPosition", "MenuInventory","Tickets"};
 
 enableDebugConsole = 1;
 disabledAI = 1;
@@ -32,7 +32,7 @@ saving = 0;
 
 debriefing = 1;
 showGPS = 1;
-showCompas = 1;
+showCompass = 1;
 showMap = 1;
 showNotePad = 1;
 showWatch = 1;
@@ -54,17 +54,11 @@ class CfgFunctions
 				file = "scripts\overrideFunctions.sqf";
 				preInit = 1;
 			};
-		}
+		};
 	};
 };
 
-class Extended_PreInit_EventHandlers 
-{
-	class DOTT_MissionSettings
-	{
-		init = "call compile preprocessFileLineNumbers ""XEH_preInit.sqf""";
-	} 
-};
+#include "data\cfgEventHandlers.hpp"
 
 class CfgNotifications 
 {
@@ -85,3 +79,5 @@ class CfgRoles
 {
 	#include "data\cfgRoles.hpp"
 };
+
+#include "data\gui.hpp"

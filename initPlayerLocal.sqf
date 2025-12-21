@@ -14,37 +14,11 @@ params ["_theClient","_didJIP"];
 enableSentences false;
 enableEnvironment [false, true];
 // ==============================================================================
-[] spawn 
+["visionMode", 
 {
-	waitUntil {!isNil "artilleryComputer"};
-	if (artilleryComputer == 0) then 
-	{
-		enableEngineArtillery false;
-	};
-};
-
-[] spawn 
-{
-	waitUntil {!isNil "disabledTI"};
-	if (disabledTI == 0) then 
-	{
-		["visionMode", 
-		{
-			[] spawn Hill_fnc_noThermals;
-		}] call CBA_fnc_addPlayerEventHandler;
-
-		ace_javelin_ignoreVisionMode = true;
-		
-		[] spawn 
-		{
-			waitUntil { !isNull player };
-			player addEventHandler ["GetInMan", {
-				//some delay is necessary or PiP won't shut off
-				[{ call DOTT_fnc_disablePIPThermals }, [] , 0.1] call CBA_fnc_waitAndExecute;
-			}];
-		};
-	};
-};
+	if !(DOTT_disableTI) exitWith {};
+	[] spawn Hill_fnc_noThermals;
+}] call CBA_fnc_addPlayerEventHandler;
 
 // ==============================================================================
 if(_didJIP) then 
@@ -85,9 +59,6 @@ execVM "scripts\baseObjectsInit.sqf";
 
 //Draw little skulls each time a player dies.  Seen only by Zeus.
 _theClient call BIS_fnc_drawCuratorDeaths;
-
-// Runs the in-game VOIP restriction script
-_null = [] execVM "scripts\voice_control\voiceControl.sqf";
 
 [_theClient] spawn 
 {

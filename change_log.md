@@ -1,11 +1,6 @@
 ---
 Overall Future Goals
 ---
-* Stats system reintroduction
-	- System surrounding round stats, mostly kills, not persistent accuracy or other 'fluff' 
-      Progress made in 4.2.0, number of kills can be seen after end of round in map diary.
-	- Specifically kill stats (player names you've killed). Could also track your killers?
-      Progress made in 4.2.0, kills/killed by can be tracked in events after end of round in map diary.
 * "Citadel" game mode
 	- Instead of regular cap zone, instead proximity to center adds more weight
 	- Not really for training... but events
@@ -35,6 +30,37 @@ TBD
 	- Included new class "FlagTaken"
 	- Included new class "FlagCaptured"
 	- Included new class "FlagReturned"
+
+---
+v4.2.4  
+10 DEC 2025
+
+---
+* Mission Settings Now Adjustable Mid-Mission (credit to CBA, modified their files)
+  - Many mission parameters and the sector settings can now be adjusted mid-mission with !s or !settings by the admin.
+    Settings changed in this GUI will NOT persist between missions, allowing worry-free adjustments of various parameters.
+  - New defaults:
+    - Radios on leaving arsenal now force the side radio regardless if a radio already is in the slot.
+    - RHS Engine Warmup script is disabled by default to prevent teleport bug.
+    - Vehicles with LR Radio now have their radio forcably set to the player's faction occupying the seat.
+      Ex. A BLUFOR player occupying a OPFOR vehicle will have their vehicle radio use BLUFOR encryption.
+  
+
+* Commands
+  - !cleanup now a restricted command
+  - !showchat added, which can be used to forcibly show chat in cases where it disappears (ex. bug due to accessing menu).
+  - !radio added, which can be used to determine if TFAR radio is bugged in cases where people on same frequency cannot hear each other.
+  - Error now shows in chat if a command is not recognized.
+
+- Removed voice_control script, overwritten by server setting anyways.
+- Fix erronous roadkill in tracker, reduce cases of first shot uncon/kill not being counted.
+- Made arsenal action higher priority to prevent the option being in the middle of teleport options.
+- Fix for invulerability conditions changed to if player is visible instead of in spectator.
+- Fix case where swapping kits in arsenal did not cause saved frequencies to be applied on next kit refresh.
+- Removed spectator button from respawn menu.
+- Fix for Enhanced Movement actions causing command teleports to fail. Also added multiple tries for teleport if it fails for any other unknown reason.
+- Removed causes of errors when mission sqm contains vehicles (mainly useful for event version).
+- Remove error log in setInsignia.
 
 ---
 v4.2.3  

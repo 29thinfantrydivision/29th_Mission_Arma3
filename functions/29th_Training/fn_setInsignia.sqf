@@ -1,7 +1,7 @@
 /*
  * Name:	Hill_fnc_setInsignia
- * Date:	8/26/2025
- * Version: 1.2
+ * Date:	12/11/2025
+ * Version: 1.3
  * Author:  Bae [29th ID] modified from Hill [29th ID]
  *
  * Description:
@@ -18,6 +18,8 @@
  * Example:
  * player spawn Hill_fnc_setInsignia
  */
+
+if !(DOTT_setInsignia) exitWith { false };
 
 // === Insignia Map ===
 //alternate non-combat version as second element in value 
@@ -61,7 +63,8 @@ private ["_sqdParams", "_targetRole", "_targetSquad", "_foundInsignias", "_targe
 _sqdParams = squadParams _target;
 if (count _sqdParams == 0) exitWith 
 {
-	["squad.xml info not found."] call BIS_fnc_error; false;
+	//["squad.xml info not found."] call BIS_fnc_error; 
+	false;
 };
 
 // get squad string stored in membericq

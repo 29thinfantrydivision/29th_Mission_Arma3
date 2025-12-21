@@ -1,7 +1,7 @@
 /*
  * Name:	Hill_fnc_enter_spectator
- * Date:	9/30/2025
- * Version: 1.1
+ * Date:	12/11/2025
+ * Version: 1.2
  * Author: Rellikplug AKA: Hill [29th ID] modified by Bae [29th ID]
  *
  * Description: Enters user into spectator mode. 
@@ -41,6 +41,8 @@ Then look up the IDC of the spectate button and add from there
 
 if (isDedicated || !hasInterface) exitWith {["Player must be not be dedicated server or HC."] call BIS_fnc_error; false};
 
+if (DOTT_limitSpectator == 2) exitWith { hint "Spectator Disabled"; false }; // Spectator Disabled
+
 hintSilent "SPECTATOR\n----------\nPress RELOAD to exit";  // Tell player they are spectating
 
 [] spawn 
@@ -56,7 +58,13 @@ hintSilent "SPECTATOR\n----------\nPress RELOAD to exit";  // Tell player they a
 player enableSimulation false;
 player allowDamage false;
 
-["Initialize", [player, [], false]] call BIS_fnc_EGSpectator;  // Start Spectator
+private _params = switch (DOTT_limitSpectator) do
+{
+	case 0: { [player, [], false] }; // No limits
+	case 1: { [player, [side player], false, false, false, false] }; // 1PP Team Only
+};
+
+["Initialize", _params] call BIS_fnc_EGSpectator;  // Start Spectator
 
 private _startPos = getPosATL player;
 ["exitSpectator", "onEachFrame", 
