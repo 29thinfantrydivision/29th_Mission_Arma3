@@ -22,7 +22,7 @@ respawn = 3;
 respawnDelay = 5;
 respawnDialog = 0;
 
-respawnTemplates[] = {"MenuPosition", "MenuInventory","Tickets"};
+respawnTemplates[] = {"MenuPosition", "MenuInventory"};
 
 enableDebugConsole = 1;
 disabledAI = 1;
