@@ -268,3 +268,13 @@
         };   
     }
 ] call CBA_fnc_addSetting;
+
+
+[
+    "DOTT_safeStartTime", 
+    "TIME", 
+    "Safe Start Time",
+    [GENERAL_SETTINGS_CATEGORY, ROUND_SUBCATEGORY],
+	[0, 3600, 10],
+    1
+] call CBA_fnc_addSetting;
