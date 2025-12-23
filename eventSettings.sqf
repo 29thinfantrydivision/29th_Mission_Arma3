@@ -1,0 +1,40 @@
+//Use the variables below to customize your event mission
+
+DOTT_event_hasTimer = true; //Use timer/ready system
+DOTT_event_safeStart = 10; //Safe start time after all teams ready up in seconds
+DOTT_event_timerLength = 45*60; //Length of round in seconds
+DOTT_event_timerObjects = [base_timerFlagWest, base_timerFlagEast, base_timerFlagGuer]; //Objects players can interact with to ready up their team
+DOTT_event_endingObject = base_endFlag; //Object admin can interact with to force safestart/end mission early
+
+DOTT_event_numberOfLives = 1; //0 for unlimited lives
+DOTT_event_spectateArea = base_endFlag; //Point where players will be teleported to spectate from when out of lives. 
+DOTT_event_spectateAreaRadius = 200; //Radius around DOTT_event_spectateArea that is used to determine which players are spectating/lost all lives
+DOTT_event_respawnDisarmPlayers = true; //Disarm players when they are out of lives and teleported to spectateArea
+
+DOTT_event_timeAcc = 1; //Time acceleration multiplier for the event (1 = normal time, 2 = 2x faster, 0.5 = half speed, etc)
+
+DOTT_event_hasAliveCheck = true; //Automatically end mission if only one side has players alive with them as the winner
+
+DOTT_event_arsenalRadius = 20; //Radius around arsenal object where players can access the arsenal
+
+//Win conditions
+//Leave "" for no win condition for that side
+DOTT_event_bluforWinConditions = ""; //Conditions for BLUFOR to win the game
+DOTT_event_opforWinConditions = ""; //Conditions for OPFOR to win the game
+DOTT_event_grnforWinConditions = ""; //Conditions for GRNFOR to win the game
+
+DOTT_event_winCheckInterval = 3; //Interval in seconds between win condition checks
+/*
+Examples
+DOTT_event_bluforWinConditions = ""; //No win condition for BLUFOR (except only team standing at end if hasAliveCheck = true)
+DOTT_event_opforWinConditions = ["NumSectors", 3, false]; //Win when OPFOR captures 3 sectors at any time
+DOTT_event_grnforWinConditions = ["NumSectors", 2, true]; //Win when OPFOR holds 2 sectors at the end of the timer
+
+Available Win Condition Functions:
+	Let total be the number of sectors required.
+	Let atEnd be a boolean indicating if this is checked at the end of the timer only (true) or continuously (false).
+	["NumSectors", total, atEnd] - Win when all sectors are captured
+
+	NOTE: If multiple teams meet their win conditions at the same time, the tiebreaker will be OPFOR, BLUFOR, then GRNFOR.
+	Win conditions should be designed to avoid this where possible.
+*/
