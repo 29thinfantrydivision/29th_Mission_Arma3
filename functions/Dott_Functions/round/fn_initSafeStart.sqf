@@ -23,7 +23,17 @@ if (!isServer) exitWith {remoteExec ["DOTT_round_fnc_initSafeStart", 2];}; //ser
 
 private _safeStartTime = DOTT_safeStartTime; // time between all sides ready and automatic live call (default 10)
 
-["<t color='#ffffff' size='3'>Live in %1 Seconds!</t>", "PLAIN", 0.5, true, _safeStartTime] remoteExecCall ["DOTT_fnc_displayMsg"];
+private _msgText = format [
+	"<t color='#ffffff' size='3'>Live in %1!</t>",
+	[_safeStartTime] call DOTT_round_fnc_formatTime
+];
+
+[
+	_msgText,
+	"PLAIN",
+	0.5,
+	false
+] remoteExecCall ["DOTT_fnc_displayMsg"];
 
 [_safeStartTime] call DOTT_round_fnc_initSafeStartHelper;
 

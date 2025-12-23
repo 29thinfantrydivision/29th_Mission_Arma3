@@ -48,6 +48,7 @@ class Dott_Round
 		class setOverTimePeriod {};
 		class timeWarning {};
 		class roundEvents {};
+		class formatTime {};
 	};
 };
 
