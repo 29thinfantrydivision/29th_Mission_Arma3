@@ -32,6 +32,17 @@ TBD
 	- Included new class "FlagReturned"
 
 ---
+v4.2.5  
+22 DEC 2025
+
+---
+* Fixes
+  - Fix case where attacker's side was not properly found in Round Events system.
+  - Remembered to actually wait longer for unconscious report to prevent incorrect event.
+  - Disabling scoreboard in settings GUI now also reenables scoreboard for anyone in respawn menu at the time.
+  - Fix radio settings not properly transfering over for prototype radios. Now unified behavior with non-prototype radio setting transfer.
+
+---
 v4.2.4  
 10 DEC 2025
 
