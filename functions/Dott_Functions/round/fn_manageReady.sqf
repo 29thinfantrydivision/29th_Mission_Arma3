@@ -18,7 +18,7 @@
  * [playerSide, true] call DOTT_round_fnc_manageReady;
  * 
  */
-params["_side", "_isReady"];
+params["_side", "_isReady", ["_showHint", true]];
 
 if (call DOTT_round_fnc_isRoundActive) exitWith {1};
 
@@ -36,14 +36,18 @@ switch (_side) do
 
 ["DOTT_round_sideReadyChanged", _this] call CBA_fnc_globalEvent;
 
-if(_isReady) then
+if (_showHint) then
 {
-	_readyStr = _readyStr + " ready!";
-} else 
-{
-	_readyStr = _readyStr + " not ready!";
+	if(_isReady) then
+	{
+		_readyStr = _readyStr + " ready!";
+	} else 
+	{
+		_readyStr = _readyStr + " not ready!";
+	};
+	_readyStr remoteExec ["hint"];
 };
-_readyStr remoteExec ["hint"];
+
 
 if(call DOTT_round_fnc_checkAllSidesReady && isNil {DOTT_safeStartActive}) then 
 {

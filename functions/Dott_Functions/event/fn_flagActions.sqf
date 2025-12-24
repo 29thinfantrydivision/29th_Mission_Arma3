@@ -70,9 +70,9 @@ private _fnc_addAllReadyActions =
 {
 	private _fnc_readyAllSides = 
 	{
-		[west, true] call DOTT_round_fnc_manageReady;
-		[east, true] call DOTT_round_fnc_manageReady;
-		[resistance, true] call DOTT_round_fnc_manageReady;
+		[west, true, false] call DOTT_round_fnc_manageReady;
+		[east, true, false] call DOTT_round_fnc_manageReady;
+		[resistance, true, false] call DOTT_round_fnc_manageReady;
 	};
 
 	{
@@ -120,9 +120,9 @@ private _fnc_addCancelSafeStart =
 {
 	private _fnc_unreadyAllSides = 
 	{
-		[west, false] call DOTT_round_fnc_manageReady;
-		[east, false] call DOTT_round_fnc_manageReady;
-		[resistance, false] call DOTT_round_fnc_manageReady;
+		[west, false, false] call DOTT_round_fnc_manageReady;
+		[east, false, false] call DOTT_round_fnc_manageReady;
+		[resistance, false, false] call DOTT_round_fnc_manageReady;
 	};
 	private _actionId = DOTT_event_endingObject addAction ["<t color='#bf3eff'>Cancel Safestart (Admin)</t>", { call (_this select 3) }, _fnc_unreadyAllSides, 1.5, true, true, "", "serverCommandAvailable '#lock'", 8];
 	DOTT_event_endingObject setVariable [CANCEL_SAFESTART_ID, _actionId];
