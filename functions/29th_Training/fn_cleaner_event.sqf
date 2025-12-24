@@ -1,7 +1,7 @@
 /*
  * Name:	Hill_fnc_cleaner_event
- * Date:	7/26/2025
- * Version: 1.1
+ * Date:	12/24/2025
+ * Version: 2.0
  * Author:  Rellikplug	AKA: Hill [29th ID]
  *
  * Description:

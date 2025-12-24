@@ -1,7 +1,7 @@
 /*
  * Name:	DOTT_fnc_initTransferRadioSettings
- * Date:	12/11/2025
- * Version: 1.1
+ * Date:	12/24/2025
+ * Version: 1.2
  * Author:  Bae [29th ID]
  *
  * Description:

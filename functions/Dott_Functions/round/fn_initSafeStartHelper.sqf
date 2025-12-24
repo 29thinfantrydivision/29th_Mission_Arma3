@@ -1,7 +1,7 @@
 /*
  * Name:	DOTT_round_fnc_initSafeStartHelper
- * Date:	8/15/2025
- * Version: 1.0
+ * Date:	12/24/2025
+ * Version: 1.1
  * Author:  Bae [29th ID] 
  *
  * Description:
