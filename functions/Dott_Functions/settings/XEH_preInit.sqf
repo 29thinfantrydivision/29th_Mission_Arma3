@@ -268,3 +268,22 @@
         };   
     }
 ] call CBA_fnc_addSetting;
+
+
+[
+    "DOTT_safeStartTime", 
+    "TIME", 
+    "Safe Start Time",
+    [GENERAL_SETTINGS_CATEGORY, ROUND_SUBCATEGORY],
+	[0, 3600, 10],
+    1
+] call CBA_fnc_addSetting;
+
+[
+    "DOTT_notifyFinalCheck", 
+    "CHECKBOX", 
+    ["Final Check Notification", "DEBUG: Notify players if final checks detected any issues before starting the round."],
+    [GENERAL_SETTINGS_CATEGORY, ROUND_SUBCATEGORY],
+    true,
+	1
+] call CBA_fnc_addSetting;
