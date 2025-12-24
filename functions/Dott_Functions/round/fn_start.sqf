@@ -44,9 +44,11 @@ private _msgText = format [
 bluReady = false;
 opfReady = false;
 grnReady = false; 
+DOTT_safeStartActive = nil;
 publicVariable "bluReady";
 publicVariable "opfReady";	
 publicVariable "grnReady";
+publicVariable "DOTT_safeStartActive";
 
 [] remoteExec ["DOTT_round_fnc_roundEvents"]; 
 

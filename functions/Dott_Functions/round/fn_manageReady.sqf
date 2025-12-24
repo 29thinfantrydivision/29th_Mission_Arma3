@@ -45,7 +45,7 @@ if(_isReady) then
 };
 _readyStr remoteExec ["hint"];
 
-if(call DOTT_round_fnc_checkAllSidesReady) then 
+if(call DOTT_round_fnc_checkAllSidesReady && isNil {DOTT_safeStartActive}) then 
 {
 	call DOTT_round_fnc_initSafeStart;
 };
