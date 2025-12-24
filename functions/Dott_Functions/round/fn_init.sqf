@@ -193,8 +193,11 @@ if (isServer) then
 			{
 				if !(currentWeapon _x == "Throw" || currentWeapon _x == "Put") exitWith {};
 				[_x] remoteExec ["DOTT_fnc_resetWeaponState", _x];
-				private _msg = format ["FIXED: %1 had silent weapon, now fixed.", name _x];
-				[_msg] remoteExec ["systemChat"];
+				if (DOTT_notifyFinalCheck) then
+				{
+					private _msg = format ["FIXED: %1 had silent weapon, now fixed.", name _x];
+					[_msg] remoteExec ["systemChat"];
+				};
 			}
 			forEach _players;
 		} 
@@ -209,8 +212,11 @@ if (hasInterface) then
 			//the player should not be invulnerable if they are not hidden (spectator or zeus option)
 			if (isDamageAllowed player || isObjectHidden player) exitWith {};
 			player allowDamage true;
-			private _msg = format ["FIXED: %1 was invulnerable, can now take damage.", name player];
-			[_msg] remoteExec ["systemChat"];
+			if (DOTT_notifyFinalCheck) then
+			{
+				private _msg = format ["FIXED: %1 was invulnerable, can now take damage.", name player];
+				[_msg] remoteExec ["systemChat"];
+			};
 		} 
 	] call CBA_fnc_addEventHandler;
 };

@@ -41,4 +41,5 @@ Available Win Condition Functions:
 
 /*** Do Not Edit Anything Below This Line ***/
 ["DOTT_safeStartTime", DOTT_event_safeStart, nil, "server", false] call cba_settings_fnc_set;
+["DOTT_notifyFinalCheck", false, nil, "server", false] call cba_settings_fnc_set;
 [DOTT_event_timerLength] call DOTT_round_fnc_setTimer;
