@@ -16,7 +16,7 @@ DOTT_event_currentState =
 	switch (true) do
 	{
 		case (call DOTT_round_fnc_isRoundActive): {2};
-		case (!isNil "DOTT_round_safeStartHappened"): {1};
+		case (!isNil "DOTT_round_safeStartActive"): {1};
 		default {0};
 	};
 
@@ -143,7 +143,7 @@ private _fnc_unreadyAllSides =
 	[east, false] call DOTT_round_fnc_manageReady;
 	[resistance, false] call DOTT_round_fnc_manageReady;
 };
-#define ADD_CANCEL_SAFESTART_ACTION (DOTT_cancelSafeStartId = DOTT_event_endingObject addAction ["<t color='#bf3eff'>Cancel Safestart (Admin)</t>", _this select 3, _fnc_unreadyAllSides, 1.5, true, true, "", "serverCommandAvailable '#lock'", 8])
+#define ADD_CANCEL_SAFESTART_ACTION DOTT_cancelSafeStartId = DOTT_event_endingObject addAction ["<t color='#bf3eff'>Cancel Safestart (Admin)</t>", _this select 3, _fnc_unreadyAllSides, 1.5, true, true, "", "serverCommandAvailable '#lock'", 8]
 #define REMOVE_CANCEL_SAFESTART_ACTION (DOTT_event_endingObject removeAction DOTT_cancelSafeStartId)
 
 if (DOTT_event_currentState == 1) then
@@ -174,7 +174,7 @@ if (DOTT_event_currentState == 1) then
 ] call CBA_fnc_addEventHandler;
 
 /*** Force End Safestart (Admin) ***/
-#define ADD_FORCE_END_SAFESTART_ACTION (DOTT_forceEndSafeStartId = DOTT_event_endingObject addAction ["<t color='#bf3eff'>Force End Safestart (Admin)</t>", {[DOTT_event_timerLength] call DOTT_round_fnc_start}, nil, 1.5, true, true, "", "serverCommandAvailable '#lock'", 8])
+#define ADD_FORCE_END_SAFESTART_ACTION DOTT_forceEndSafeStartId = DOTT_event_endingObject addAction ["<t color='#bf3eff'>Force End Safestart (Admin)</t>", {[DOTT_event_timerLength] call DOTT_round_fnc_start}, nil, 1.5, true, true, "", "serverCommandAvailable '#lock'", 8]
 #define REMOVE_FORCE_END_SAFESTART_ACTION (DOTT_event_endingObject removeAction DOTT_forceEndSafeStartId)
 
 if (DOTT_event_currentState == 1) then

@@ -69,10 +69,13 @@ class CfgRoles
 };
 
 allowFunctionsRecompile = 1;
+#endif
 class CfgFunctions 
 {
 	#include "functions\29th_Training\CfgFunctions.hpp"
 	#include "functions\Dott_Functions\CfgFunctions.hpp"
+	
+	#ifdef DOTT_TRAINING
 	class DOTT
 	{
 		class Override
@@ -84,9 +87,8 @@ class CfgFunctions
 			};
 		};
 	};
+	#endif
 };
-
-#endif
 
 #include "data\cfgNotifications.hpp"
 
