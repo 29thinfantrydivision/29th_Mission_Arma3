@@ -42,6 +42,23 @@ v4.2.5
   - Disabling scoreboard in settings GUI now also reenables scoreboard for anyone in respawn menu at the time.
   - Fix radio settings not properly transfering over for prototype radios. Now unified behavior with non-prototype radio setting transfer.
 
+* Event Integration
+  - Event variation of this file has been merged with this template.
+  - To switch, enable only one of the proper define in data/defines.hpp and swap the mission.sqm to the proper version.
+  - Sanity checked but not throughly tested to see if everything is working, will need to do so before any events.
+  - When possible, existing files were modified to smoothly accomodate both, but due to mission.sqm differences, some files/functions 
+    simply have a event copy that is used instead. 
+
+* Mission CBA Settings
+  - Time added as an option for GUI settings
+  - Safe start time added
+  - Final Check Notification at beginning of round now a CBA setting 
+
+- Round/safestart time display messages better support a wider range of times (display hour/minute/seconds) instead of just minute or second.
+- Safestart now uses the countdown UI to display how much safestart time is remaining. Might potentially cause confusion with LIVE on very long safestart times.
+- fn_manageready now has additional parameter to not display notification.
+  
+
 ---
 v4.2.4  
 10 DEC 2025
