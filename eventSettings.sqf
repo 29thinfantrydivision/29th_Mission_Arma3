@@ -38,3 +38,7 @@ Available Win Condition Functions:
 	NOTE: If multiple teams meet their win conditions at the same time, the tiebreaker will be OPFOR, BLUFOR, then GRNFOR.
 	Win conditions should be designed to avoid this where possible.
 */
+
+/*** Do Not Edit Anything Below This Line ***/
+["DOTT_safeStartTime", DOTT_event_safeStart, nil, "server", false] call cba_settings_fnc_set;
+[DOTT_event_timerLength] call DOTT_round_fnc_setTimer;
