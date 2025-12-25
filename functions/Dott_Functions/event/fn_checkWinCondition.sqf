@@ -1,29 +1,35 @@
-//returns [opfor owned, blufor owned, resistance owned]
-fn_getNumSectorsOwnedBySides = {
-	private _result = [0,0,0];
-	private _sectors = missionnamespace getvariable ["BIS_fnc_moduleSector_sectors",[]];
-
-	{
-		private _owner = _x getVariable ["owner", sideUnknown];
-		private _idx = _owner call BIS_fnc_sideID;
-		if (_idx >= 2) then { continue };
-		_result set [_idx, (_result select _idx) + 1];		
-	}
-	forEach _sectors;
-
-	_result;
-};
-
-/**** Win Condition Functions ****/
-fn_numSectors = {
-	params ["_sideID", "_numNeeded"];
-	private _ownedSectors = call fn_getNumSectorsOwnedBySides;
-
-	(_ownedSectors select _sideID) >= _numNeeded;
-};
-
 private _loopChecks = [[{ false }], [{ false }], [{ false }]];
 private _endChecks = [[{ false }], [{ false }], [{ false }]];
+
+{
+	private _pointValue = _x getVariable ["DOTT_pointValue", 0];
+	if (_pointValue == 0) then { continue };
+	[_x, "ownerChanged", 
+		{
+			params ["_sector", "_newOwner", "_oldOwner"];
+			private _pointValue = _sector getVariable ["DOTT_pointValue", 0];
+			private _newOwnerId = _newOwner call BIS_fnc_sideId;
+			private _oldOwnerId = _oldOwner call BIS_fnc_sideId;
+
+			if (_newOwnerId <= 2) then {DOTT_event_score set [_newOwnerId, (DOTT_event_score select _newOwnerId) + _pointValue]};
+			if (_oldOwnerId <= 2) then {DOTT_event_score set [_oldOwnerId, (DOTT_event_score select _oldOwnerId) - _pointValue]};
+		}
+	] call BIS_fnc_addScriptedEventHandler;
+
+	private _owner = _x getVariable ["owner", sideUnknown];
+	private _idx = _owner call BIS_fnc_sideID;
+	if (_idx <= 2) then 
+	{
+		DOTT_event_score set [_idx, (DOTT_event_score select _idx) + _pointValue];
+	};
+} forEach (allMissionObjects "ModuleSector_F");
+
+fn_numPoints = 
+{
+	params ["_sideId", "_pointsRequired"];
+
+	DOTT_event_score select _sideId >= _pointsRequired
+};
 
 private _sideSettings =
 [
@@ -34,12 +40,12 @@ private _sideSettings =
 
 {
 	if (_x isEqualType "") then { continue }; //no win condition for this side
-	private _winCon  = _x select 0;
+	private _winCon  = toLower (_x select 0);
 	private _winArgs = _x select 1;
 	private _atEnd = _x select 2;
 	private _checkFn = switch (_winCon) do
 	{
-		case "NumSectors": { [fn_numSectors, [_forEachIndex, _winArgs]]; };
+		case "points": { [fn_numPoints, [_forEachIndex, _winArgs]]; };
 		default { [{ false }] };
 	};
 

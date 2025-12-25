@@ -19,6 +19,7 @@ DOTT_event_arsenalRadius = 20; //Radius around arsenal object where players can 
 
 //Win conditions
 //Leave "" for no win condition for that side
+DOTT_event_score = [0, 0, 0]; //Starting score for each side [OPFOR, BLUFOR, GRNFOR]
 DOTT_event_bluforWinConditions = ""; //Conditions for BLUFOR to win the game
 DOTT_event_opforWinConditions = ""; //Conditions for OPFOR to win the game
 DOTT_event_grnforWinConditions = ""; //Conditions for GRNFOR to win the game
@@ -27,13 +28,19 @@ DOTT_event_winCheckInterval = 3; //Interval in seconds between win condition che
 /*
 Examples
 DOTT_event_bluforWinConditions = ""; //No win condition for BLUFOR (except only team standing at end if hasAliveCheck = true)
-DOTT_event_opforWinConditions = ["NumSectors", 3, false]; //Win when OPFOR captures 3 sectors at any time
-DOTT_event_grnforWinConditions = ["NumSectors", 2, true]; //Win when OPFOR holds 2 sectors at the end of the timer
+DOTT_event_opforWinConditions = ["Points", 3, false]; //Win when OPFOR has 3 points at any time
+DOTT_event_grnforWinConditions = ["Points", 2, true]; //Win when GRNFOR has 2 points at the end of the timer
 
 Available Win Condition Functions:
-	Let total be the number of sectors required.
-	Let atEnd be a boolean indicating if this is checked at the end of the timer only (true) or continuously (false).
-	["NumSectors", total, atEnd] - Win when all sectors are captured
+	"Points" 
+		Win when team has a certain number of points
+		These points can be increased or decreased by modifying the mission.sqm in editor, often by editing an object's init field.
+		Put example code below in the init field of the relevant object
+
+		Sector Example (gives _pointValue points to whoever is currently holding the sector):
+		if !(isServer) exitWith {};
+		private _pointValue = 1;
+		this setVariable ["DOTT_pointValue", _pointValue];
 
 	NOTE: If multiple teams meet their win conditions at the same time, the tiebreaker will be OPFOR, BLUFOR, then GRNFOR.
 	Win conditions should be designed to avoid this where possible.
