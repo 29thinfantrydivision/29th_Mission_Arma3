@@ -70,9 +70,9 @@ class Params
 	#include "data\params.hpp"
 };
 
-#ifdef DOTT_TRAINING
-
 #include "data\gui.hpp"
+
+#ifdef DOTT_TRAINING
 
 class CfgRespawnInventory
 {

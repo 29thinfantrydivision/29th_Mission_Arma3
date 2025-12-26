@@ -38,7 +38,7 @@ private _msgText = format [
 DOTT_safeStartActive = true;
 publicVariable "DOTT_safeStartActive";
 ["DOTT_round_safeStartBegin", []] call CBA_fnc_globalEvent;
-
-[_safeStartTime] call DOTT_round_fnc_initSafeStartHelper;
+[_safeStartTime] call BIS_fnc_countdown;
+call DOTT_round_fnc_initSafeStartHelper;
 
 true

@@ -155,6 +155,41 @@ if (_currentState == 1) then
 	_fnc_removeCancelSafeStart
 ] call CBA_fnc_addEventHandler;
 
+/*** Change Safestart Time (Admin) ***/
+#define CHANGE_SAFESTART_ID "DOTT_changeSafeStartActionId"
+private _fnc_addChangeSafeStart =
+{
+	private _actionId = DOTT_event_endingObject addAction ["<t color='#bf3eff'>Change Safestart Time (Admin)</t>", { call DOTT_event_fnc_gui_setSafeStartTime }, nil, 1.5, true, true, "", "serverCommandAvailable '#lock'", 8];
+	DOTT_event_endingObject setVariable [CHANGE_SAFESTART_ID, _actionId];
+}; 
+
+private _fnc_removeChangeSafeStart =
+{
+	private _actionId = DOTT_event_endingObject getVariable [CHANGE_SAFESTART_ID, -1];
+	DOTT_event_endingObject removeAction _actionId;
+	DOTT_event_endingObject setVariable [CHANGE_SAFESTART_ID, nil];
+};
+
+if (_currentState == 1) then
+{
+	call _fnc_addChangeSafeStart;
+};
+
+[
+	"DOTT_round_safeStartBegin", 
+	_fnc_addChangeSafeStart
+] call CBA_fnc_addEventHandler;
+
+[
+	"DOTT_round_safeStartAborted", 
+	_fnc_removeChangeSafeStart
+] call CBA_fnc_addEventHandler;
+
+[
+	"DOTT_round_started", 
+	_fnc_removeChangeSafeStart
+] call CBA_fnc_addEventHandler;
+
 /*** Force End Safestart (Admin) ***/
 #define FORCE_END_SAFESTART_ID "DOTT_forceEndSafeStartActionId"
 private _fnc_addForceEndSafeStartAction =

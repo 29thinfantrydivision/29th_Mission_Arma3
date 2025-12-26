@@ -19,20 +19,20 @@
  * 
  */
 
-params["_countdown"];
 private _allSidesReady = call DOTT_round_fnc_checkAllSidesReady;
-if (call DOTT_round_fnc_isRoundActive) exitWith { DOTT_safeStartActive = nil; publicVariable DOTT_safeStartActive; true };
+if (isNil "DOTT_safeStartActive") exitWith { true };
 if (!_allSidesReady) exitWith 
 {
 	// Display aborted message if someone unready mid-countdown			
 	["<t color='#ffffff' size='4'>Timer Aborted!</t>","PLAIN",0.5] remoteExec ["DOTT_fnc_displayMsg"];
 	DOTT_safeStartActive = nil; publicVariable DOTT_safeStartActive;
+	[-1] call BIS_fnc_countdown;
 	["DOTT_round_safeStartAborted", []] call CBA_fnc_globalEvent;
 	true
 };
-if (_countdown > 0)	then
+if (([0] call BIS_fnc_countdown) > 0) then
 {
-	[{[_this select 0] call DOTT_round_fnc_initSafeStartHelper}, [_countdown - 1], 1] call CBA_fnc_waitAndExecute;
+	[{[_this select 0] call DOTT_round_fnc_initSafeStartHelper}, [], .2] call CBA_fnc_waitAndExecute;
 } else 
 {
 	DOTT_safeStartActive = nil; publicVariable DOTT_safeStartActive;	

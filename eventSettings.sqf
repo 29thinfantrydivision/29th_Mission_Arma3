@@ -1,7 +1,7 @@
 //Use the variables below to customize your event mission
 
 DOTT_event_hasTimer = true; //Use timer/ready system
-DOTT_event_safeStart = 10; //Safe start time after all teams ready up in seconds
+DOTT_event_safeStart = 10*60; //Safe start time after all teams ready up in seconds
 DOTT_event_timerLength = 45*60; //Length of round in seconds
 DOTT_event_timerObjects = [base_timerFlagWest, base_timerFlagEast, base_timerFlagGuer]; //Objects players can interact with to ready up their team
 DOTT_event_endingObject = base_endFlag; //Object admin can interact with to force safestart/end mission early

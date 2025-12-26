@@ -112,6 +112,7 @@ class Dott_Event
 		class respawn {};
 		class flagActions {};
 		class checkWinCondition {};
+		class gui_setSafeStartTime {};
 	};
 };
 
