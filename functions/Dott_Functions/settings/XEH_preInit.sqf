@@ -270,7 +270,15 @@
             if !(call DOTT_round_fnc_isRoundActive) exitWith {};
 			if !(isNull (uiNamespace getVariable ["RscDisplayCurator", displayNull])) exitWith {};
 			if (!isNil { missionNamespace getVariable "BIS_EGSpectator_initialized" } && DOTT_limitSpectator == 0) exitWith {};
-			showScoretable 0;    
+			showScoretable 0; 
+            if (alive player) exitWith {};
+            disableRespawnScoreboard = addMissionEventHandler 
+			[
+				"Draw2D", 
+				{
+					if(visibleScoretable && call DOTT_round_fnc_isRoundActive && DOTT_disableScoreboard) then { showScoretable 0 };
+				}
+			];   
         };   
     }
 ] call CBA_fnc_addSetting;
