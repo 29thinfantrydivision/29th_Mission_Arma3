@@ -46,14 +46,7 @@ if (DOTT_event_numberOfLives > 0) then
 {
 	if (hasInterface) then
 	{
-		[] spawn 
-		{
-			waitUntil {!isNull player};
-			player addEventHandler ["Respawn", 
-			{
-				[] spawn DOTT_event_fnc_respawn;
-			}];
-		};	
+		["DOTT_event_respawn", "Respawn", {[] spawn DOTT_event_fnc_respawn}] call CBA_fnc_addBISPlayerEventHandler;
 	};
 };
 

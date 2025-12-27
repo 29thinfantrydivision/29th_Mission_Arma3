@@ -68,10 +68,7 @@ if (hasInterface) then
 	}];
 
 	//prevent scoreboard in respawn menu (hacky)
-	[] spawn 
-	{
-		waitUntil {!isNull player};
-		player addEventHandler ["Killed", 
+	["DOTT_round_scoreboardRespawnMenuStart", "Killed", 		
 		{		
 			disableRespawnScoreboard = addMissionEventHandler 
 			[
@@ -80,14 +77,12 @@ if (hasInterface) then
 					if(visibleScoretable && call DOTT_round_fnc_isRoundActive && DOTT_disableScoreboard) then { showScoretable 0 };
 				}
 			];
-		}];
-	};
+		}
+	] call CBA_fnc_addBISPlayerEventHandler;
+
 
 	//needs to be readded every life
-	[] spawn 
-	{
-		waitUntil {!isNull player};
-		player addEventHandler ["Respawn", 
+	["DOTT_round_scoreboardRespawnMenuEnd",	"Respawn",
 		{
 			if (call DOTT_round_fnc_isRoundActive && DOTT_disableScoreboard) then 
 			{	
@@ -99,8 +94,8 @@ if (hasInterface) then
 			};
 
 			removeMissionEventHandler["Draw2D", disableRespawnScoreboard];
-		}];
-	};
+		}
+	] call CBA_fnc_addBISPlayerEventHandler;
 
 	//fix countdown not showing up if no sectors placed down
 	[] spawn
