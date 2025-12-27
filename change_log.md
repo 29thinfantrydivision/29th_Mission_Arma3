@@ -48,6 +48,11 @@ v4.2.5
   - Sanity checked but not throughly tested to see if everything is working, will need to do so before any events.
   - When possible, existing files were modified to smoothly accomodate both, but due to mission.sqm differences, some files/functions 
     simply have a event copy that is used instead. 
+  
+  Changes from 4.2.3 Event
+  - Auto marking editor objects added (credit to FNF) w/ setting in eventSetting.
+  - Admin can now alter safestart (cancel, change time, end) while it is in progress using the admin pole.
+  - Notify final check now disabled.
 
 * Mission CBA Settings
   - Time added as an option for GUI settings

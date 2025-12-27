@@ -1,7 +1,7 @@
 /* The functions in the folder containing this file are heavily stripped down versions from CBA's settings addon (hope this counts as crediting them), 
 modified to let the user change certain global CBA settings temporarily until the end of the mission.
 
-Right now only supports list, slider, and checkbox settings. Unknown behavior if anything else is added to the cba mission settings.
+Right now only supports list, slider, time, and checkbox settings. Unknown behavior if anything else is added to the cba mission settings.
 */ 
 params ["_display"];
 uiNamespace setVariable ["DOTT_settings_display", _display];
