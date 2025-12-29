@@ -25,3 +25,5 @@ call DOTT_thermals_fnc_init;
 call DOTT_radio_fnc_init;
 
 call DOTT_loadout_fnc_init;
+
+call DOTT_spectator_fnc_init;

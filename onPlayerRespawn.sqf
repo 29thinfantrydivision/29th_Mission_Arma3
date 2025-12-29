@@ -5,14 +5,3 @@ Executed locally (client only) when player respawns in a multiplayer mission.
 		- This script will not fire at mission start if respawnOnStart equals -1 in description.ext
 */
 params ["_newUnit", "_oldUnit"];
-
-if (!isNull _oldUnit) then {
-	if (missionNamespace getVariable ["menuRespawn", true]) then 
-    {
-        if (TN_autoSpectate) then 
-    	{
-			systemChat "AutoSpectate is ON.";
-			[_newUnit] spawn DOTT_spectator_fnc_enter;
-		};
-	};
-};

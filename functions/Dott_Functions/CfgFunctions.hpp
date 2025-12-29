@@ -100,6 +100,7 @@ class Dott_Spectator
 	class SpectatorFunctions
 	{
 		file = "functions\Dott_Functions\spectator";
+		class init {};
 		class enter {};
 		class exit {};
 	};
