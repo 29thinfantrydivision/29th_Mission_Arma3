@@ -1,5 +1,5 @@
 /*
- * Name:	DOTT_fnc_initDefaultLoadouts
+ * Name:	DOTT_training_fnc_initDefaultLoadouts
  * Date:	8/19/2025
  * Version: 1.0
  * Author:  Bae [29th ID]
@@ -15,7 +15,7 @@
  * true
  *
  * Example:
- * call DOTT_fnc_initDefaultLoadouts;
+ * call DOTT_training_fnc_initDefaultLoadouts;
  * 
  */
 
