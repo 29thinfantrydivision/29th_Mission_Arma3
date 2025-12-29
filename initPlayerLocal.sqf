@@ -24,9 +24,6 @@ enableEnvironment [false, true];
 
 [] spawn DOTT_fnc_initDefaultLoadouts;
 
-//Add actions to spectator terminals, garbage cans, and ammo boxes
-execVM "scripts\baseObjectsInit.sqf";
-
 #endif
 
 [_theClient] execVM "scripts\player_arsenal_handlers.sqf";

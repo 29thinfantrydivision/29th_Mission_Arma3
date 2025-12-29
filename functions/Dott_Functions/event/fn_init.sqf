@@ -73,9 +73,6 @@ if (hasInterface) then
 /******* Everything else ********/
 if (hasInterface) then
 {
-	//Add actions to spectator terminals, garbage cans, and ammo boxes 
-	execVM "scripts\baseObjectsInitEvent.sqf";
-
 	//Prevent error due to no saved respawn inventory
 	[player, [missionNamespace, "Current Inventory"]] call BIS_fnc_saveInventory;
 	[player, ["missionNamespace:Current Inventory"]] call BIS_fnc_setRespawnInventory;

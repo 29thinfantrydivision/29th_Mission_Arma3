@@ -107,6 +107,27 @@ class DOTT_Curator
 	};
 };
 
+class DOTT_base
+{
+	tag = "DOTT_base";
+	class BaseFunctions
+	{
+		file = "functions\Dott_Functions\base";
+
+		class init {};
+		#ifdef DOTT_TRAINING
+		class initObjects {};
+		class cleaner {};
+		#endif
+
+		#ifdef DOTT_EVENT
+		class initObjectsEvent {};
+		class cleanerEvent {};
+		#endif
+
+	};
+};
+
 #ifdef DOTT_TRAINING
 
 class Dott_Tracker

@@ -210,7 +210,7 @@ pvpfw_chatIntercept_allCommands = [
 	[
 		"cleanup",
 		{
-			call Hill_fnc_cleaner;
+			call DOTT_base_fnc_cleaner;
 			systemChat "Cleaning up!"
 		}
 	],

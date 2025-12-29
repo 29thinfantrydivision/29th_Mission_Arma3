@@ -21,3 +21,5 @@ call DOTT_curator_fnc_init;
 call DOTT_ticket_fnc_init;
 
 call DOTT_thermals_fnc_init;
+
+call DOTT_base_fnc_init;
