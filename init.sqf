@@ -23,3 +23,6 @@ if (hasInterface) then {execVM "scripts\baseObjectsInitEvent.sqf"};
 #endif
 
 call DOTT_radio_fnc_initTransferSettings;
+
+//Run Curator (Zeus) Setup
+call DOTT_curator_fnc_init;

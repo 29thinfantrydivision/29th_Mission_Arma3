@@ -22,16 +22,6 @@ enableEnvironment [false, true];
 }] call CBA_fnc_addPlayerEventHandler;
 
 // ==============================================================================
-if(_didJIP) then 
-{
-	[_theClient] spawn 
-	{
-		params ["_theClient"];
-		waitUntil { sleep 1; !isNull _theClient }; //most reliable way to call script early without it breaking
-		[_theClient] spawn DOTT_curator_fnc_checkAssignment;
-	};
-};
-
 #ifdef DOTT_TRAINING
 
 [_theClient] spawn DOTT_parade_fnc_handleInitialInventory;
@@ -86,9 +76,6 @@ if (!isNumber (missionConfigFile >> "respawnButton") || {getNumber (missionConfi
 
 // ==============================================================================
 
-//Draw little skulls each time a player dies.  Seen only by Zeus.
-_theClient call BIS_fnc_drawCuratorDeaths;
-
 [_theClient] spawn 
 {
 	private ["_theMan"];
@@ -99,9 +86,6 @@ _theClient call BIS_fnc_drawCuratorDeaths;
 		_theMan action ["WeaponOnBack", _theMan];
 	};
 };
-
-//Run Curator (Zeus) Setup
-call DOTT_curator_fnc_init;
 
 /*
 //things break if player dies before load in finished

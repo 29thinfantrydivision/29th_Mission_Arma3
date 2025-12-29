@@ -21,37 +21,7 @@ private _forcedFog      = [0.1, 0.01, 0];
 
 call DOTT_settings_fnc_initServer;
 
-[] spawn DOTT_curator_fnc_excludeObjects;
-
 #endif
-
-#ifdef DOTT_EVENT
-
-[] spawn DOTT_curator_fnc_eventExcludeObjects;
-
-#endif
-
 
 execVM "scripts\init_vehicle_settings.sqf";
-
-addMissionEventHandler ["OnUserAdminStateChanged", {
-	params ["_networkId", "_loggedIn"];
-	private _unit = (getUserInfo _networkId) select 10;	
-	if (isNil "_unit") exitWith {};
-	if (_loggedIn) exitWith 
-	{
-		if (isNull getAssignedCuratorLogic _unit) then 
-		{ 
-			_unit assignCurator zeus_admin; 
-		};
-	};
-	[_unit] spawn {
-		params ["_unit"];
-		if (getAssignedCuratorLogic _unit == zeus_admin) then
-		{
-			waitUntil { isNull (getAssignedCuratorLogic _unit) };
-		};  
-		[_unit] spawn DOTT_curator_fnc_checkAssignment;
-	}
-}];
 

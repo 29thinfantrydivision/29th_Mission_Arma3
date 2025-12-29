@@ -101,6 +101,7 @@ class DOTT_Curator
 		class checkAssignment {};
 		class excludeObjects {};
 		class eventExcludeObjects {};
+		class addPlayerEditable {};
 	};
 };
 
