@@ -145,6 +145,14 @@ class DOTT_Training
 		class initDateAndWeather {};
 		class initDefaultLoadouts {};
 	};
+	class Override
+	{
+		class overrideFunctions 
+		{
+			file = "Dott_Functions\training\overrideFunctions.sqf";
+			preInit = 1;
+		};
+	};
 }
 
 class Dott_Tracker

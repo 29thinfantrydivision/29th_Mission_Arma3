@@ -2,4 +2,4 @@
 BIS_fnc_endMission = compileFinal "";
 
 //Alters sector module behavior
-BIS_fnc_moduleSector = compileFinal preprocessFileLineNumbers "scripts\BIS_fnc_moduleSectorAlt.sqf";
+BIS_fnc_moduleSector = compileFinal preprocessFileLineNumbers "DOTT_Functions\training\BIS_fnc_moduleSectorAlt.sqf";

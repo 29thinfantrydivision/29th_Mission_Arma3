@@ -89,20 +89,6 @@ allowFunctionsRecompile = 1;
 class CfgFunctions 
 {
 	#include "Dott_Functions\CfgFunctions.hpp"
-	
-	#ifdef DOTT_TRAINING
-	class DOTT
-	{
-		class Override
-		{
-			class overrideFunctions 
-			{
-				file = "scripts\overrideFunctions.sqf";
-				preInit = 1;
-			};
-		};
-	};
-	#endif
 };
 
 #include "data\cfgNotifications.hpp"
