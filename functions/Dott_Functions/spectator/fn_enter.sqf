@@ -1,11 +1,11 @@
 /*
- * Name:	Hill_fnc_enter_spectator
+ * Name:	DOTT_spectator_fnc_enter
  * Date:	12/11/2025
  * Version: 1.2
  * Author: Rellikplug AKA: Hill [29th ID] modified by Bae [29th ID]
  *
  * Description: Enters user into spectator mode. 
- * Lets the player leave by pressing reload by calling Hill_fnc_exit_spectator.
+ * Lets the player leave by pressing reload by calling DOTT_spectator_fnc_exit.
  *
  * Parameter(s): 
  * None
@@ -14,7 +14,7 @@
  * true if entered spectator mode, false otherwise
  *
  * Example:
- * [] spawn Hill_fnc_enter_spectator
+ * [] spawn DOTT_spectator_fnc_enter
  */
 
 /* 
@@ -72,16 +72,16 @@ private _startPos = getPosATL player;
 	params ["_startPos"];
 	if (inputAction "ReloadMagazine" > 0) exitWith 
 	{ // Check if "Reload" key is pressed
-		call Hill_fnc_exit_spectator;
+		call DOTT_spectator_fnc_exit;
 	};
 	if (((getPosATL player) distanceSqr _startPos ) > (5 * 5)) exitWith 
 	{
-		call Hill_fnc_exit_spectator;
+		call DOTT_spectator_fnc_exit;
 	};
 	//player respawns while in spectator box for some reason
 	if (!alive player) exitWith 
 	{
-        call Hill_fnc_exit_spectator;
+        call DOTT_spectator_fnc_exit;
     };
 }, [_startPos]] call BIS_fnc_addStackedEventHandler;
 

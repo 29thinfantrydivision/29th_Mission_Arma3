@@ -4,7 +4,7 @@ private _ammo_boxes = [blu_ammo,red_ammo,grn_ammo];
 private _garbages = [blu_garbage,red_garbage,green_garbage];
 private _respawns = [res_blu, res_red, res_grn];
 {
-  _x addAction ["<img image='\A3\Ui_f\data\GUI\Rsc\RscDisplayEGSpectator\Follow.paa'/><t color='#00ff00'>  Spectator</t>", "[] spawn Hill_fnc_enter_spectator", nil, 6, false, true, "", "true", 4];
+  _x addAction ["<img image='\A3\Ui_f\data\GUI\Rsc\RscDisplayEGSpectator\Follow.paa'/><t color='#00ff00'>  Spectator</t>", "[] spawn DOTT_spectator_fnc_enter", nil, 6, false, true, "", "true", 4];
 } forEach _terminals;
 
 //------- ACE Arsenal -------//

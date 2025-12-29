@@ -52,7 +52,7 @@ DOTT_garbages = []; //global variable for cleaner function
 forEach allMissionObjects "All";
 
 {
-  _x addAction ["<img image='\A3\Ui_f\data\GUI\Rsc\RscDisplayEGSpectator\Follow.paa'/><t color='#00ff00'>  Spectator</t>", "[] spawn Hill_fnc_enter_spectator", nil, 6, false, true, "", "true", 4];
+  _x addAction ["<img image='\A3\Ui_f\data\GUI\Rsc\RscDisplayEGSpectator\Follow.paa'/><t color='#00ff00'>  Spectator</t>", "[] spawn DOTT_spectator_fnc_enter", nil, 6, false, true, "", "true", 4];
 
 	//create trigger for animating the spectator box and set it up
 	private _trg = createTrigger ["EmptyDetector", getPos _x];

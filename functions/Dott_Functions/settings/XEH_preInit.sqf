@@ -193,7 +193,7 @@
         {
             if (isNil {missionNamespace getVariable "BIS_EGSpectator_initialized"}) exitWith {};
             systemChat "Spectator settings changed. Kicking out player to apply changes.";
-            call Hill_fnc_exit_spectator;
+            call DOTT_spectator_fnc_exit;
         };
     }
 ] call CBA_fnc_addSetting;

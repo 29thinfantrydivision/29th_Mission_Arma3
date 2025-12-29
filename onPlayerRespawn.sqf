@@ -15,7 +15,7 @@ if (!isNull _oldUnit) then {
         if (TN_autoSpectate) then 
     	{
 			systemChat "AutoSpectate is ON.";
-			[_newUnit] spawn Hill_fnc_enter_spectator;
+			[_newUnit] spawn DOTT_spectator_fnc_enter;
 		};
 	};
 };

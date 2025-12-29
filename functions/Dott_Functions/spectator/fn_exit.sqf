@@ -1,10 +1,10 @@
 /*
- * Name:	Hill_fnc_exit_spectator
+ * Name:	DOTT_spectator_fnc_exit
  * Date:	9/6/2016
  * Version: 1.0
  * Author: Rellikplug AKA: Hill [29th ID]
  *
- * Description: Removes the player from spectator mode and undos the changes made by Hill_fnc_enter_spectator.sqf.
+ * Description: Removes the player from spectator mode and undos the changes made by DOTT_spectator_fnc_enter.sqf.
  *
  * Parameter(s): 
  * None
@@ -13,7 +13,7 @@
  * false if player not in spectator, true otherwise
  *
  * Example:
- * [] spawn Hill_fnc_exit_spectator
+ * [] spawn DOTT_spectator_fnc_exit
  */
 
 // Check if spectator mode is initialized

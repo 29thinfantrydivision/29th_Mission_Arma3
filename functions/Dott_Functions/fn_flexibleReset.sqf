@@ -72,7 +72,7 @@ else //otherwise if array is correct size, then teleport requested
 	private _timeStart = time; 
 	waitUntil {sleep 1; time - _timeStart > 30 || (!isNull player && alive player)}; 
 
-	call Hill_fnc_exit_spectator; //kick player out of spectator
+	call DOTT_spectator_fnc_exit; //kick player out of spectator
 
 	private _tries = 0; //try multiple times if it fails for whatever reason
 

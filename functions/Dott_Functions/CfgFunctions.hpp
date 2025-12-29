@@ -79,6 +79,17 @@ class Dott_Ticket
 	};
 };
 
+class Dott_Spectator
+{
+	tag = "DOTT_spectator";
+	class SpectatorFunctions
+	{
+		file = "functions\Dott_Functions\spectator";
+		class enter {};
+		class exit {};
+	};
+};
+
 #ifdef DOTT_TRAINING
 
 class Dott_Tracker
