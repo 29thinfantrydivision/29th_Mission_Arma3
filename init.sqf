@@ -1,5 +1,13 @@
 #include "data\defines.hpp"
 diag_log text format ["|=============================   %1: init.sqf Running   =============================|", missionName];
+/*
+Order of init calls doesn't matter EXCEPT FOR:
+
+event requires round to be initialized first
+loadout should be after radio, otherwise radio saving won't work properly
+curator requires training or event to be initialized first
+
+*/
 
 call DOTT_round_fnc_init;
 
