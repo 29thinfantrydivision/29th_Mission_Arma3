@@ -38,6 +38,6 @@ if (_customParadeIdx == -1) then
         player action ["SwitchWeapon", player, player, -1] 
     };
 };
-player spawn Hill_fnc_setInsignia;
+player spawn DOTT_loadout_fnc_setInsignia;
 if !(_force) then { systemChat "Parade loadout applied." };
 true

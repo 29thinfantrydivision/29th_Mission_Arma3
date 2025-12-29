@@ -252,15 +252,15 @@ pvpfw_chatIntercept_allCommands = [
 			_argument = _this select 0;
 			if (_argument isEqualTo "") exitWith //empty arg means heal all players
 			{
-				[[[], true], DOTT_fnc_flexibleReset] remoteExec ["spawn"];
+				[[[], true], DOTT_loadout_fnc_flexibleReset] remoteExec ["spawn"];
 				systemChat "Healing all players!"
 			};
 			_argument = toLower _argument; //otherwise select team and heal
 			switch (_argument) do
 			{
-				case "blufor": { [{ [[], true] spawn DOTT_fnc_flexibleReset} ] remoteExec ["call", west]; systemChat "Healing Blufor players!"; };
-				case "opfor": { [{ [[], true] spawn DOTT_fnc_flexibleReset} ] remoteExec ["call", east]; systemChat "Healing Opfor players!";  };
-				case "grnfor": { [{ [[], true] spawn DOTT_fnc_flexibleReset} ] remoteExec ["call", resistance]; systemChat "Healing Grnfor players!";  };
+				case "blufor": { [{ [[], true] spawn DOTT_loadout_fnc_flexibleReset} ] remoteExec ["call", west]; systemChat "Healing Blufor players!"; };
+				case "opfor": { [{ [[], true] spawn DOTT_loadout_fnc_flexibleReset} ] remoteExec ["call", east]; systemChat "Healing Opfor players!";  };
+				case "grnfor": { [{ [[], true] spawn DOTT_loadout_fnc_flexibleReset} ] remoteExec ["call", resistance]; systemChat "Healing Grnfor players!";  };
 				default {systemChat "Error: Invalid input! Must be 'blufor', 'opfor', or 'grnfor'"};
 			};
 		}
@@ -271,15 +271,15 @@ pvpfw_chatIntercept_allCommands = [
 			_argument = _this select 0;
 			if (_argument isEqualTo "") exitWith
 			{
-				[{ [resetLoadout] spawn DOTT_fnc_flexibleReset }] remoteExec ["call"];
+				[{ [resetLoadout] spawn DOTT_loadout_fnc_flexibleReset }] remoteExec ["call"];
 				systemChat "Rearming all players!";
 			};
 			_argument = toLower _argument;
 			switch (_argument) do
 			{
-				case "blufor": { [{ [resetLoadout] spawn DOTT_fnc_flexibleReset }] remoteExec ["call", west]; systemChat "Rearming Blufor players!"; };
-				case "opfor": { [{ [resetLoadout] spawn DOTT_fnc_flexibleReset }] remoteExec ["call", east]; systemChat "Rearming Opfor players!"; };
-				case "grnfor": { [{ [resetLoadout] spawn DOTT_fnc_flexibleReset }] remoteExec ["call", resistance]; systemChat "Rearming Grnfor players!"; };
+				case "blufor": { [{ [resetLoadout] spawn DOTT_loadout_fnc_flexibleReset }] remoteExec ["call", west]; systemChat "Rearming Blufor players!"; };
+				case "opfor": { [{ [resetLoadout] spawn DOTT_loadout_fnc_flexibleReset }] remoteExec ["call", east]; systemChat "Rearming Opfor players!"; };
+				case "grnfor": { [{ [resetLoadout] spawn DOTT_loadout_fnc_flexibleReset }] remoteExec ["call", resistance]; systemChat "Rearming Grnfor players!"; };
 				default {systemChat "Error: Invalid input! Must be 'blufor', 'opfor', 'grnfor'"};
 			};
 		}
@@ -291,9 +291,9 @@ pvpfw_chatIntercept_allCommands = [
 			//blank argument means reset and teleport everybody
 			if (_argument isEqualTo "") exitWith
 			{
-				[{[resetLoadout,true, getPosASL res_blu] spawn DOTT_fnc_flexibleReset}] remoteExec ["call", west];
-				[{[resetLoadout,true, getPosASL res_red] spawn DOTT_fnc_flexibleReset}] remoteExec ["call", east];
-				[{[resetLoadout,true, getPosASL res_grn] spawn DOTT_fnc_flexibleReset}] remoteExec ["call", resistance];
+				[{[resetLoadout,true, getPosASL res_blu] spawn DOTT_loadout_fnc_flexibleReset}] remoteExec ["call", west];
+				[{[resetLoadout,true, getPosASL res_red] spawn DOTT_loadout_fnc_flexibleReset}] remoteExec ["call", east];
+				[{[resetLoadout,true, getPosASL res_grn] spawn DOTT_loadout_fnc_flexibleReset}] remoteExec ["call", resistance];
 				systemChat "Rearming, healing, and teleporting all players to spawn!"
 			};
 			//toLower case to reduce user error
@@ -307,7 +307,7 @@ pvpfw_chatIntercept_allCommands = [
 				//if just stay rearm/heal everybody
 				if (count _argArr isEqualTo 1) exitWith 
 				{ 
-					[[resetLoadout,true], DOTT_fnc_flexibleReset] remoteExec ["spawn"];
+					[[resetLoadout,true], DOTT_loadout_fnc_flexibleReset] remoteExec ["spawn"];
 					systemChat "Rearming and healing all players!";
 				};
 				//simple math determines position of side argument
@@ -316,18 +316,18 @@ pvpfw_chatIntercept_allCommands = [
 				//otherwise select side and rearm/heal them
 				switch (_argArr select _sideArg) do
 				{
-					case "blufor": { [{[resetLoadout,true] spawn DOTT_fnc_flexibleReset}] remoteExec ["call", west]; systemChat "Rearming and healing Blufor players!"; };
-					case "opfor": { [{[resetLoadout,true] spawn DOTT_fnc_flexibleReset}] remoteExec ["call", east]; systemChat "Rearming and healing Opfor players!"; };
-					case "grnfor": { [{[resetLoadout,true] spawn DOTT_fnc_flexibleReset}] remoteExec ["call", resistance]; systemChat "Rearming and healing Grnfor players!"; };
+					case "blufor": { [{[resetLoadout,true] spawn DOTT_loadout_fnc_flexibleReset}] remoteExec ["call", west]; systemChat "Rearming and healing Blufor players!"; };
+					case "opfor": { [{[resetLoadout,true] spawn DOTT_loadout_fnc_flexibleReset}] remoteExec ["call", east]; systemChat "Rearming and healing Opfor players!"; };
+					case "grnfor": { [{[resetLoadout,true] spawn DOTT_loadout_fnc_flexibleReset}] remoteExec ["call", resistance]; systemChat "Rearming and healing Grnfor players!"; };
 					default {systemChat "Error: Invalid input(s)! Must be 'stay', 'blufor', 'opfor', 'grnfor'"};
 				};
 			};
 			//if no stay, then rearm/heal/teleport that side
 			switch (_argument) do
 			{
-				case "blufor": { [{ [resetLoadout, true, getPosASL res_blu] spawn DOTT_fnc_flexibleReset }] remoteExec ["call", west]; systemChat "Rearming, healing, and teleporting Blufor players to spawn!"; };
-				case "opfor": { [{ [resetLoadout, true, getPosASL res_red] spawn DOTT_fnc_flexibleReset }] remoteExec ["call", east]; systemChat "Rearming, healing, and teleporting Opfor players to spawn!"; };
-				case "grnfor": { [{ [resetLoadout, true, getPosASL res_grn] spawn DOTT_fnc_flexibleReset }] remoteExec ["call", resistance]; systemChat "Rearming, healing, and teleporting Grnfor players to spawn!"; };
+				case "blufor": { [{ [resetLoadout, true, getPosASL res_blu] spawn DOTT_loadout_fnc_flexibleReset }] remoteExec ["call", west]; systemChat "Rearming, healing, and teleporting Blufor players to spawn!"; };
+				case "opfor": { [{ [resetLoadout, true, getPosASL res_red] spawn DOTT_loadout_fnc_flexibleReset }] remoteExec ["call", east]; systemChat "Rearming, healing, and teleporting Opfor players to spawn!"; };
+				case "grnfor": { [{ [resetLoadout, true, getPosASL res_grn] spawn DOTT_loadout_fnc_flexibleReset }] remoteExec ["call", resistance]; systemChat "Rearming, healing, and teleporting Grnfor players to spawn!"; };
 				default {systemChat "Error: Invalid input(s)! Must be 'stay', 'blufor', 'opfor', 'grnfor'"};
 			};
 		}	
@@ -340,7 +340,7 @@ pvpfw_chatIntercept_allCommands = [
 			if (_argument isEqualTo "") then
 			{
 				private _pos = getPosASL res_blu;
-				[[true, true, _pos], DOTT_fnc_flexibleReset ] remoteExec ["spawn"];
+				[[true, true, _pos], DOTT_loadout_fnc_flexibleReset ] remoteExec ["spawn"];
 				systemChat "Healing, rearming, and teleporting all players to Blufor base!";
 			}
 			else //teleport all players to 15 meters in front of admin
@@ -352,7 +352,7 @@ pvpfw_chatIntercept_allCommands = [
 				//use offset x/y but player z (satisfies ASL requirement)
 				private _telePos = [_offset select 0, _offset select 1, _pos select 2];
 				
-				[[true, true, _telePos], DOTT_fnc_flexibleReset] remoteExec ["spawn"];
+				[[true, true, _telePos], DOTT_loadout_fnc_flexibleReset] remoteExec ["spawn"];
 				systemChat "Healing, rearming, and teleporting all players to you!";
 			};
 			lastDebriefTime = time; //for baseObjectsInit Force Parade
@@ -365,9 +365,9 @@ pvpfw_chatIntercept_allCommands = [
 			_argument = toLower _argument;
 			switch (_argument) do
 			{
-				case "blufor": { [[],false,getPosASL blu_ammo] spawn DOTT_fnc_flexibleReset; systemChat "Teleporting to Blufor spawn!"; };
-				case "opfor": { [[],false,getPosASL red_ammo] spawn DOTT_fnc_flexibleReset; systemChat "Teleporting to Opfor spawn!"; };
-				case "grnfor": { [[],false,getPosASL grn_ammo] spawn DOTT_fnc_flexibleReset; systemChat "Teleporting to Grnfor spawn!"; };
+				case "blufor": { [[],false,getPosASL blu_ammo] spawn DOTT_loadout_fnc_flexibleReset; systemChat "Teleporting to Blufor spawn!"; };
+				case "opfor": { [[],false,getPosASL red_ammo] spawn DOTT_loadout_fnc_flexibleReset; systemChat "Teleporting to Opfor spawn!"; };
+				case "grnfor": { [[],false,getPosASL grn_ammo] spawn DOTT_loadout_fnc_flexibleReset; systemChat "Teleporting to Grnfor spawn!"; };
 				default {systemChat "Error: Invalid input! Must be 'blufor', 'opfor', or 'grnfor'"};
 			};
 		}

@@ -1,5 +1,5 @@
 /*
- * Name:	DOTT_fnc_flexibleReset
+ * Name:	DOTT_loadout_fnc_flexibleReset
  * Date:	12/11/2025
  * Version: 1.2
  * Author:  Dott [29th ID]
@@ -21,7 +21,7 @@
  * n/a
  *
  * Example:
- * [resetLoadout,true,getPosASL _pos] spawn DOTT_fnc_flexibleReset;
+ * [resetLoadout,true,getPosASL _pos] spawn DOTT_loadout_fnc_flexibleReset;
  * 
  */
 
@@ -45,7 +45,7 @@ if (_inventory isEqualTo true) then { _inventory = missionNamespace getVariable 
 
 if (count _inventory != 0) then
 {	
-	[player, _inventory, true] spawn DOTT_fnc_fullSetUnitLoadout;
+	[player, _inventory, true] spawn DOTT_loadout_fnc_fullSetUnitLoadout;
 	_resetInventory = true; //set to true for switch below
 };
 

@@ -6,9 +6,6 @@ Executed locally (client only) when player respawns in a multiplayer mission.
 */
 params ["_newUnit", "_oldUnit"];
 
-_newUnit spawn Hill_fnc_setInsignia;
-
-
 if (!isNull _oldUnit) then {
 	if (missionNamespace getVariable ["menuRespawn", true]) then 
     {

@@ -15,8 +15,6 @@ params ["_theClient","_didJIP"];
 enableSentences false;
 enableEnvironment [false, true];
 
-[_theClient] execVM "scripts\player_arsenal_handlers.sqf";
-
 //maintains a neutral rating in the event of "accidental" team kills
 _theClient addEventHandler ["HandleRating", {0}];
 

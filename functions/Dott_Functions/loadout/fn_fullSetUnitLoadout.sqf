@@ -1,5 +1,5 @@
 /*
- * Name:	DOTT_fnc_fullSetUnitLoadout
+ * Name:	DOTT_loadout_fnc_fullSetUnitLoadout
  * Date:	9/30/2025
  * Version: 1.1
  * Author:  Bae [29th ID]
@@ -16,7 +16,7 @@
  * false if _unit not local, true otherwise
  *
  * Example:
- * [player, _inventory, true] spawn DOTT_fnc_fullSetUnitLoadout;
+ * [player, _inventory, true] spawn DOTT_loadout_fnc_fullSetUnitLoadout;
  * 
  */
 
@@ -30,11 +30,11 @@ if (primaryWeapon _unit == "") then
 {
 	_unit action ["SwitchWeapon", _unit, _unit, -1] 
 };
-_unit spawn Hill_fnc_setInsignia;
+_unit spawn DOTT_loadout_fnc_setInsignia;
 
 //prevents incorrect weapon state when called on unit that respawned
 //but did not set a loadout in arsenal in current life
 sleep 1; //previously 3, 2
-[_unit] spawn DOTT_fnc_resetWeaponState;
+[_unit] spawn DOTT_loadout_fnc_resetWeaponState;
 
 true

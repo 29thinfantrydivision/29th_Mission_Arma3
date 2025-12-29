@@ -1,12 +1,15 @@
 //no #include defines needed, inherited from description.ext
-class Dott_Functions
+class Dott_Loadout
 {
-	tag = "DOTT";
+	tag = "DOTT_loadout";
 	class DottsFunctions 
 	{
-		file = "functions\Dott_Functions";
+		file = "functions\Dott_Functions\loadout";
+		class init {};
 		class fullSetUnitLoadout {};
 		class resetWeaponState {};
+		class onArsenalClosed {};
+		class setInsignia {};
 
 		#ifdef DOTT_TRAINING
 

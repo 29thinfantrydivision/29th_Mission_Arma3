@@ -1,5 +1,5 @@
 /*
- * Name:	Hill_fnc_setInsignia
+ * Name:	DOTT_loadout_fnc_setInsignia
  * Date:	12/11/2025
  * Version: 1.3
  * Author:  Bae [29th ID] modified from Hill [29th ID]
@@ -16,7 +16,7 @@
  * true if function applies insignia, false otherwise
  *
  * Example:
- * player spawn Hill_fnc_setInsignia
+ * player spawn DOTT_loadout_fnc_setInsignia
  */
 
 if !(TN_setInsignia) exitWith { false };

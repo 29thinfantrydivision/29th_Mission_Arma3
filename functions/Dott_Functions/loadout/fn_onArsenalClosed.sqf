@@ -1,5 +1,5 @@
 /*
- * Name:	Hill_fnc_arsenalClosed
+ * Name:	DOTT_loadout_fnc_onArsenalClosed
  * Date:	9/30/2025
  * Version: 1.2
  * Author:  Hill [29th ID]
@@ -14,10 +14,9 @@
  * true
  *
  * Example:
- * call Hill_fnc_arsenalClosed;
+ * call DOTT_loadout_fnc_onArsenalClosed;
  */
 
-if (!hasInterface) exitWith {};
 [player, [missionNamespace, "Current Inventory"]] call BIS_fnc_saveInventory;
 [player, ["missionNamespace:Current Inventory"]] call BIS_fnc_setRespawnInventory;
 
@@ -26,10 +25,10 @@ resetLoadout = [player] call CBA_fnc_getLoadout;
 [] spawn 
 {
 	sleep 1; //previously 3
-	[player] spawn DOTT_fnc_resetWeaponState;
+	[player] spawn DOTT_loadout_fnc_resetWeaponState;
 };
 
-player spawn Hill_fnc_setInsignia;
+player spawn DOTT_loadout_fnc_setInsignia;
 
 if (!(weaponLowered player)) then 
 {
@@ -37,5 +36,5 @@ if (!(weaponLowered player)) then
 };
 
 systemChat "Your gear has been saved.";
-hintSilent "Your gear has been saved.";
+
 true

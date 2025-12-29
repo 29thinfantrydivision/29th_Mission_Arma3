@@ -154,7 +154,7 @@ if (isServer) then
 			_players = _players select { alive _x }; //only get alive players, probably not needed however
 			{
 				if !(currentWeapon _x == "Throw" || currentWeapon _x == "Put") exitWith {};
-				[_x] remoteExec ["DOTT_fnc_resetWeaponState", _x];
+				[_x] remoteExec ["DOTT_loadout_fnc_resetWeaponState", _x];
 				if (TN_notifyFinalCheck) then
 				{
 					private _msg = format ["FIXED: %1 had silent weapon, now fixed.", name _x];
