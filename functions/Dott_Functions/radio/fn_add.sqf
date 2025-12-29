@@ -1,5 +1,5 @@
 /*
- * Name:	DOTT_radio_fnc_addRadio
+ * Name:	DOTT_radio_fnc_add
  * Date:	12/11/2025
  * Version: 1.2
  * Author:  Hill [29th ID]
@@ -14,7 +14,7 @@
  * true
  *
  * Example:
- * call DOTT_radio_fnc_addRadio;
+ * call DOTT_radio_fnc_add;
  */
 
 if (!hasInterface) exitWith {};

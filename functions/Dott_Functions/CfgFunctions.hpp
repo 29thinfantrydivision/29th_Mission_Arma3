@@ -63,9 +63,10 @@ class Dott_Radio
 	class RadioFunctions
 	{
 		file = "functions\Dott_Functions\radio";
+		class init {};
 		class initTransferSettings {};
-		class addRadio {};
-		class removeRadio {};
+		class add {};
+		class remove {};
 	};
 };
 

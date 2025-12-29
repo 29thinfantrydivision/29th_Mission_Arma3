@@ -3,8 +3,3 @@
 */
 
 params ["_dead"];
-
-if (TN_removeRadiosOnDeath) then
-{
-	_dead call DOTT_radio_fnc_removeRadio;
-};
