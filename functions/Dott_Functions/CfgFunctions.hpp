@@ -121,6 +121,16 @@ class DOTT_Curator
 	};
 };
 
+class DOTT_Vehicle
+{
+	tag = "DOTT_vehicle";
+	class VehicleFunctions
+	{
+		file = "functions\Dott_Functions\vehicle";
+		class init {};
+	};
+};
+
 #ifdef DOTT_TRAINING
 
 class DOTT_Training

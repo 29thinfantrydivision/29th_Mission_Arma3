@@ -27,3 +27,5 @@ call DOTT_radio_fnc_init;
 call DOTT_loadout_fnc_init;
 
 call DOTT_spectator_fnc_init;
+
+call DOTT_vehicle_fnc_init;
