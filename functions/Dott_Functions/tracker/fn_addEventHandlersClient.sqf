@@ -49,7 +49,7 @@ player addEventHandler ["FiredMan",
 	params ["_unit", "_weapon", "_muzzle", "_mode", "_ammo", "_magazine", "_projectile"];
 	if (!local _unit) exitWith {}; //this EH is global so only execute on client who placed
 	private _vehicle = objNull;
-	private _realWeapon = call DOTT_tracker_fnc_getWeapon;
+	private _realWeapon = DOTT_weaponNameCache getOrDefaultCall [[_weapon, _muzzle, _magazine, _ammo, _vehicle], {call DOTT_tracker_fnc_getWeapon}, true];
 	private _data = [name _unit, side (group _unit), getPosASL _unit, _realWeapon];
 	_projectile setVariable ["DOTT_instigatorInfo", _data];
 	_projectile addEventHandler ["HitPart", { call DOTT_tracker_fnc_hit }];	
@@ -88,7 +88,6 @@ player addEventHandler ["FiredMan",
 DOTT_lastFireCheck = 0;
 //Easiest way to detect roadkill event
 //Will arrive on server later than projectile hit events however
-//Could potentially use this to also check for burn, but since it doesn't have instigator no point for now
 ["ace_medical_woundReceived", 
 	{
 		params ["_unit", "", "_instigator", "_ammo"];
