@@ -9,6 +9,10 @@ Overall Future Goals
 * Random mortars in area defined by admin
 * Teleport pole that teleports you inside a radius, or into an area, or along a circle edge (COULD USE POLY TOO)
 	- Poly contained in circle, check random points in circle until you find one in poly?
+* Fix Security Flaws
+  - Limit remote exec functions
+  - allowFunctionsRecompile = 1; is necessary for custom sector settings, can't think of a way to bypass this
+  - This is a low priority since this mission file is intended to be used on private servers.
 * Near Goals
 	- CTF system via chat commands
 		- Pole addactions to score?
@@ -30,6 +34,7 @@ Overall Future Goals
     - Using vanilla hint is limiting due to potential overwrites from different systems, 
       which can also make how long we want a message to stay up inconsistent.
     - Potentially take FNF notification system and tweak it.
+  - UI for round safestart/ready system
 ---
 TBD
 
@@ -68,6 +73,12 @@ v4.3.0
   - Safe start time added
   - Final Check Notification at beginning of round now a CBA setting 
 
+* Total reorganization of functions
+  - Practically every function now lives under a subfolder under the DOTT_Functions folder.
+  - Code related to these subfolders living in init, initPlayerLocal, initPlayerServer, initServer, onPlayerKilled, onPlayerRespawn
+    transferred to the init file in subfolder, which is called in the main.sqf.
+  - 29th_Training folder is now gone.
+
 - Round/safestart time display messages better support a wider range of times (display hour/minute/seconds) instead of just minute or second.
 - Safestart now uses the countdown UI to display how much safestart time is remaining. Might potentially cause confusion with LIVE on very long safestart times.
 - fn_manageready now has additional parameter to not display notification.
@@ -76,7 +87,7 @@ v4.3.0
 - Replaced all CBA setting tags from DOTT to TN.
 - Grenade throws now also cached for tracker system.
 - Removed probably meaningless logic from autospectate.
-- Moved relevant functions into radio, ticket, thermals, spectator, and parade folder in DOTT_Functions.
+
 
 ---
 v4.2.4  
