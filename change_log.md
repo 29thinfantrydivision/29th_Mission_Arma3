@@ -30,11 +30,15 @@ Overall Future Goals
     - Merge excludeObjFromZeus w/ event version
     - Merge cleaner w/ event version (this might not require sqm change)
     - Add trigger zone for arsenal instead of just getting the middle of respawn and box
+    - Remove most zeus modules and just dynamically create in mission based on hashmap
   - New hint system
     - Using vanilla hint is limiting due to potential overwrites from different systems, 
       which can also make how long we want a message to stay up inconsistent.
     - Potentially take FNF notification system and tweak it.
   - UI for round safestart/ready system
+  - More modular command system
+    - That would seamlessly have its available commands be modified by what modules are on 
+      or depending on using training or event version.
 ---
 TBD
 
@@ -83,6 +87,7 @@ v4.3.0
 - Safestart now uses the countdown UI to display how much safestart time is remaining. Might potentially cause confusion with LIVE on very long safestart times.
 - fn_manageready now has additional parameter to not display notification.
 - Rewrite of Zeus related round code. No longer need to check every key press to check if entering/exiting Zeus.
+- Rewrite of chat command code to use event handler instead of loops.
 - Swap event handlers waiting for player to be nonnull with CBA equivalent to reduce unnecessary spawns.
 - Replaced all CBA setting tags from DOTT to TN.
 - Grenade throws now also cached for tracker system.

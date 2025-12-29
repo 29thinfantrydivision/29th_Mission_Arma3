@@ -10,15 +10,54 @@ pvpfw_chatIntercept_adminCommands = ["reset", "debrief", "goto", "measure", "tic
 //admin only IF mid-round, available otherwise
 pvpfw_chatIntercept_restrictedCommands = ["arsenal", "heal", "rearm", "cleanup"];
 
+/*
+pvpfw_chatIntercept_moduleMap = createHashMapFromArray
+[
+	["round", ["timer", "live", "addtime", "quicktimer", "overtime", "game", "ready", "unready"]],
+	["training", ["cleanup"]],
+	["loadout", ["heal", "rearm", "reset", "debrief"]],
+	["ticket", ["tickets"]],
+	["parade", ["parade"]],
+	["settings", ["s"]]
+];
+*/
 
-pvpfw_chatIntercept_allCommands = [
+pvpfw_chatIntercept_helpInfo = createHashMapFromArray
+[
+	["help", "Gives help on how to use commands"],
+	["commands", "Lists commands"],
+	["timer", "Sets countdown timer length, specified in minutes (E.G. '!timer 20' sets the timer length to 20 minutes)"],
+	["live", "Starts a countdown timer, specified by !timer"],
+	["addtime", "Adds time to the current timer, specified in minutes (negative values subtract)"],
+	["quicktimer", "Starts a countdown timer, specified in minutes (E.G. '!quicktimer 20' creates a 20 minute timer)"],
+	["overtime", "Creates an overtime period that occurs when the timer ends, a value of 0 disables overtime. Overtime must be reapplied for each timer"],
+	["game", "Calls game and ends any countdown"],
+	["ready", "Sets the player's side as ready, and begins the safe start if all player sides are ready"],
+	["unready", "Cancels the ready status for the player's side"],
+	["cleanup", "Cleans up bodies (trash can function)"],
+	["arsenal", "Places an ACE arsenal in front of the player"],
+	["heal", "ACE Heals players. '!heal' for all players, otherwise '!heal SIDE' (blufor, opfor, grnfor)"],
+	["rearm", "Rearms players. '!rearm' for all players, otherwise '!rearm SIDE' (blufor, opfor, grnfor)"],
+	["reset", "Rearms, heals, and (optionally) teleports players to spawn. !reset' will rearm, heal, and teleport players to spawn. '!reset stay' will rearm and heal them. May also specify side (blufor, opfor, grnfor)"],
+	["debrief", "ACE Heals and teleports players for debrief. '!debrief' to teleport all players to Blufor base, '!debrief here' to teleport all players to your position"],
+	["goto", "Teleports admin to side spawns. '!goto SIDE' (blufor, opfor, grnfor)"],
+	["measure", "Measure distances on the map using shift + click markers. Set a reference using '!measure set', then use '!measure' to get distance to your current shift + click marker"],
+	["tickets", "Manages tickets and changes tickets for a given side, by the given value (E.G. '!tickets Blufor 5' will add 5 tickets to Blufor). '!tickets reset' sets all tickets to zero. '!tickets' returns the current value of all teams tickets. '!tickets enable' or 'disable' to enable/disable ticket system"],
+	["parade", "Sets all players' loadout within 125m of your position to parade."],
+	["s", "Opens the settings GUI for global mission settings."],
+	["showchat", "Shows chat display (for bug where chat is hidden after using menu)."],
+	["radio", "Checks radio encryption codes for TFAR radios."]
+];
+
+
+pvpfw_chatIntercept_allCommands = createHashMapFromArray [
 	[
 		"commands",
 		{
 			_commands = "";
 			{
-				_commands = _commands + (pvpfw_chatIntercept_commandMarker + (_x select 0)) + ", ";
-			}forEach pvpfw_chatIntercept_allCommands;
+				_commands = _commands + (pvpfw_chatIntercept_commandMarker + _x) + ", ";
+			}forEach (keys pvpfw_chatIntercept_allCommands);
 			systemChat format["Available Commands: %1",_commands];
 			systemChat "Use !help followed by the command name to see how to use it";
 		}
@@ -28,34 +67,26 @@ pvpfw_chatIntercept_allCommands = [
 		{
 			_argument = _this select 0;
 			_argument = toLower _argument;
-			switch (_argument) do
+			private _helpInfo = pvpfw_chatIntercept_helpInfo get _argument;
+			if !(isNil "_helpInfo") then 
 			{
-				case "!help": {systemChat "!help: Gives help on how to use commands"};
-				case "!commands": {systemChat "!commands: Lists commands"};
-				case "!timer": {systemChat "!timer: Sets countdown timer length, specified in minutes (E.G. '!timer 20' sets the timer length to 20 minutes)"};
-				case "!live": {systemChat "!live: Starts a countdown timer, specified by !timer"};
-				case "!addtime": {systemChat "!addTime: Adds time to the current timer, specified in minutes (negative values subtract)"};
-				case "!quicktimer": {systemChat "!quickTimer: Starts a countdown timer, specified in minutes (E.G. '!quicktimer 20' creates a 20 minute timer)"};
-				case "!overtime": {systemChat "!overTime: Creates an overtime period that occurs when the timer ends, a value of 0 disables overtime. Overtime must be reapplied for each timer"};
-				case "!game": {systemChat "!game: Calls game and ends any countdown"};
-				case "!ready": {systemChat "!ready: Sets the player's side as ready, and begins the safe start if all player sides are ready"};
-				case "!unready": {systemChat "!unReady: Cancels the ready status for the player's side"};
-				case "!cleanup": {systemChat "!cleanUp: (RESTRICTED) Cleans up bodies (trash can function)"};
-				case "!arsenal": {systemChat "!arsenal: (RESTRICTED) Places an ACE arsenal in front of the player"};
-				case "!heal": {systemChat "!heal: (RESTRICTED) ACE Heals players. '!heal' for all players, otherwise '!heal SIDE' (blufor, opfor, grnfor)"};
-				case "!rearm": {systemChat "!rearm: (RESTRICTED) Rearms players. '!rearm' for all players, otherwise '!rearm SIDE' (blufor, opfor, grnfor)"};
-				case "!reset": {systemChat "!reset: (ADMIN ONLY) Rearms, heals, and (optionally) teleports players to spawn. !reset' will rearm, heal, and teleport players to spawn. '!reset stay' will rearm and heal them. May also specify side (blufor, opfor, grnfor)"};
-				case "!debrief": {systemChat "!debrief: (ADMIN ONLY) ACE Heals and teleports players for debrief. '!debrief' to teleport all players to Blufor base, '!debrief here' to teleport all players to your position"};
-				case "!goto": {systemChat "!goto: (ADMIN ONLY) Teleports admin to side spawns. '!goto SIDE' (blufor, opfor, grnfor)"};
-				case "!measure": {systemChat "!measure: (ADMIN ONLY) Measure distances on the map using shift + click markers. Set a reference using '!measure set', then use '!measure' to get distance to your current shift + click marker"};
-				case "!tickets": {systemChat "!tickets: (ADMIN ONLY) Manages tickets and changes tickets for a given side, by the given value (E.G. '!tickets Blufor 5' will add 5 tickets to Blufor). '!tickets reset' sets all tickets to zero. '!tickets' returns the current value of all teams tickets. '!tickets enable' or 'disable' to enable/disable ticket system"};
-				case "!parade": {systemChat "!parade: (ADMIN ONLY) Sets all players' loadout within 125m of your position to parade."};
-				case "!s";
-				case "!settings": {systemChat "!settings (or !s): (ADMIN ONLY) Opens the settings GUI for global mission settings."};
-				case "!showchat": {systemChat "!showChat: Shows chat display (for bug where chat is hidden after using menu)."};
-				case "!radio": {systemChat "!radioCheck: Checks radio encryption codes for TFAR radios."};
-				default {systemChat "Can't find the specified command! Make sure to enter the command with the '!'"};
-			};
+				private _restrictionStr = switch (true) do
+				{
+					case (pvpfw_chatIntercept_adminCommands find _argument != -1): 
+					{
+						"(ADMIN ONLY)";
+					};
+					case (pvpfw_chatIntercept_restrictedCommands find _argument != -1): 
+					{
+						"(RESTRICTED)";
+					};
+					default 
+					{
+						"";
+					};
+				};
+				systemChat format ["!%1: %2 %3", _argument, _restrictionStr, _helpInfo];
+			} else { systemChat "Can't find the specified command! Make sure to enter the command without the '!'"};
 		}
 	],
 	[
@@ -411,12 +442,6 @@ pvpfw_chatIntercept_allCommands = [
 	],
 	[
 		"s",
-		{
-			createDialog ["RscDisplayMissionOptions", true];
-		}
-	],
-	[
-		"settings",
 		{
 			createDialog ["RscDisplayMissionOptions", true];
 		}

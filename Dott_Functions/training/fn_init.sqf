@@ -3,7 +3,7 @@ if (hasInterface) then
 	call DOTT_training_fnc_initBaseObjects;
 
 	//Init chat command system
-	[] execVM "module_chatIntercept\init.sqf";
+	call DOTT_commands_fnc_init;
 
 	[] spawn DOTT_training_fnc_initDefaultLoadouts;
 };

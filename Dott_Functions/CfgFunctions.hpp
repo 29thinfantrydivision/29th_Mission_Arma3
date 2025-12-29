@@ -133,6 +133,19 @@ class DOTT_Vehicle
 
 #ifdef DOTT_TRAINING
 
+class DOTT_Commands
+{
+	tag = "DOTT_commands";
+	class CommandFunctions
+	{
+		file = "Dott_Functions\commands";
+		class init {};
+		class execute {};
+		//class remove {};
+		//class changeRestriction {};
+	};
+};
+
 class DOTT_Training
 {
 	tag = "DOTT_training";
