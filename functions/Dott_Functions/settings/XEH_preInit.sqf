@@ -118,7 +118,7 @@
         if (hasInterface) then 
         {
             if (!alive player || isNull (objectParent player)) exitWith {};
-            #include "..\fn_fixVehicleRadio.inc.sqf"
+            #include "..\radio\fn_fixVehicleRadio.inc.sqf"
         };
     }
 ] call CBA_fnc_addSetting;
