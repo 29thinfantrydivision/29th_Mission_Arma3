@@ -88,7 +88,7 @@ allowFunctionsRecompile = 1;
 #endif
 class CfgFunctions 
 {
-	#include "functions\Dott_Functions\CfgFunctions.hpp"
+	#include "Dott_Functions\CfgFunctions.hpp"
 	
 	#ifdef DOTT_TRAINING
 	class DOTT

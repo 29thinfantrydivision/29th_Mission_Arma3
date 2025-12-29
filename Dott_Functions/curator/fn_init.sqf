@@ -1,4 +1,4 @@
-#include "..\..\..\data\defines.hpp"
+#include "..\..\data\defines.hpp"
 
 //Note: Events DOTT_enteredZeus and DOTT_exitedZeus are defined in cfgEventHandlers
 

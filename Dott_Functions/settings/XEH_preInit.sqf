@@ -1,4 +1,4 @@
-#include "..\..\..\data\defines.hpp"
+#include "..\..\data\defines.hpp"
 
 #ifdef DOTT_TRAINING
 
