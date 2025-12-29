@@ -63,6 +63,7 @@ class Dott_Thermals
 	class ThermalFunctions
 	{
 		file = "functions\Dott_Functions\thermals";
+		class init {};
 		class disablePIP {};
 		class blackScreen {};
 	};

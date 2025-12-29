@@ -14,14 +14,7 @@ params ["_theClient","_didJIP"];
 
 enableSentences false;
 enableEnvironment [false, true];
-// ==============================================================================
-["visionMode", 
-{
-	if !(TN_disableTI) exitWith {};
-	[] spawn DOTT_thermals_fnc_blackScreen;
-}] call CBA_fnc_addPlayerEventHandler;
 
-// ==============================================================================
 #ifdef DOTT_TRAINING
 
 [_theClient] spawn DOTT_parade_fnc_handleInitialInventory;

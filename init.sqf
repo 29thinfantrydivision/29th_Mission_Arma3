@@ -19,3 +19,5 @@ call DOTT_radio_fnc_initTransferSettings;
 call DOTT_curator_fnc_init;
 
 call DOTT_ticket_fnc_init;
+
+call DOTT_thermals_fnc_init;

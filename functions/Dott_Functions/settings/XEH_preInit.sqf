@@ -218,7 +218,7 @@
                 call DOTT_thermals_fnc_disablePIP;
             } else
             {
-                systemChat format ["Thermal imaging optics have been enabled. You have have to reenter vehicle to enable some PIP thermals."];
+                systemChat format ["Thermal imaging optics have been enabled. You have to reenter vehicle to enable some PIP thermals."];
             };
         };
 
