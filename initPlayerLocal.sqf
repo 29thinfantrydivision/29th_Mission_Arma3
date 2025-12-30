@@ -5,21 +5,13 @@ Executed locally (only on client) when player joins mission (includes both missi
 diag_log text format ["|=============================   %1: initPlayerLocal.sqf Running   =============================|", missionName];
 params ["_theClient","_didJIP"];
 
-//0 enableChannel [true,false]; //global
-//1 enableChannel [true,false]; //side
-//2 enableChannel [true,false]; //command
-//3 enableChannel [true,false]; //group
-//4 enableChannel [true,false]; //vehicle
-//5 enableChannel [true,false]; //direct
-
 enableSentences false;
 enableEnvironment [false, true];
 
 //maintains a neutral rating in the event of "accidental" team kills
 _theClient addEventHandler ["HandleRating", {0}];
 
-// ==============================================================================
-
+// ====== Misfire prevention. ==========
 [_theClient] spawn 
 {
 	private ["_theMan"];
@@ -31,18 +23,7 @@ _theClient addEventHandler ["HandleRating", {0}];
 	};
 };
 
-/*
-//things break if player dies before load in finished
-//NOTE: This might be breaking in very rare occasions but unsure, added check in round init to catch failures.
-player allowDamage false;
-addMissionEventHandler ["PreloadFinished", {
-	player allowDamage true;
-	removeMissionEventHandler ["PreloadFinished", _thisEventHandler];
-}];
-*/
-
-//Prevent respawn showing up on old unit for split second.
-//Might be inconsistent if bad network conditions (theory)
+// ====== Prevent respawn showing up on old unit for split second.==========
 addMissionEventHandler ["EntityCreated", 
 {
 	params["_entity"];
