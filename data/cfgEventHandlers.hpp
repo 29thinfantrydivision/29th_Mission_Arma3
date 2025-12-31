@@ -16,8 +16,12 @@ class Extended_DisplayLoad_EventHandlers
 
 class Extended_DisplayUnload_EventHandlers 
 {
-    class RscDisplayCurator 
+    class RscDisplayCurator
 	{
         DOTT_round = "[""DOTT_exitedZeus"", []] call CBA_fnc_localEvent";
     };
+    class RscDisplayMPInterrupt
+	{
+        DOTT = "[""DOTT_exitedMainMenu"", []] call CBA_fnc_localEvent";
+    };	
 };

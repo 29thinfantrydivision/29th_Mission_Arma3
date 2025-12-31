@@ -59,6 +59,7 @@ v4.3.0
   - Remembered to actually wait longer for unconscious report to prevent incorrect event.
   - Disabling scoreboard in settings GUI now also reenables scoreboard for anyone in respawn menu at the time.
   - Fix radio settings not properly transfering over for prototype radios. Now unified behavior with non-prototype radio setting transfer.
+  - Workaround for inconsistent bug where chat is no longer displayed after leaving pause menu.
 
 * Event Integration
   - Event variation of this file has been merged with this template.
