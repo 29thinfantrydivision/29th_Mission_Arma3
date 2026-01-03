@@ -6,7 +6,7 @@
 
 pvpfw_chatIntercept_noLogCommands = ["commands", "help", "showchat", "radiocheck"];
 //remember to change !help if you edit this
-pvpfw_chatIntercept_adminCommands = ["reset", "debrief", "goto", "measure", "tickets", "parade", "s", "settings"];
+pvpfw_chatIntercept_adminCommands = ["reset", "debrief", "goto", "measure", "tickets", "parade", "s"];
 //admin only IF mid-round, available otherwise
 pvpfw_chatIntercept_restrictedCommands = ["arsenal", "heal", "rearm", "cleanup"];
 
@@ -44,7 +44,7 @@ pvpfw_chatIntercept_helpInfo = createHashMapFromArray
 	["measure", "Measure distances on the map using shift + click markers. Set a reference using '!measure set', then use '!measure' to get distance to your current shift + click marker"],
 	["tickets", "Manages tickets and changes tickets for a given side, by the given value (E.G. '!tickets Blufor 5' will add 5 tickets to Blufor). '!tickets reset' sets all tickets to zero. '!tickets' returns the current value of all teams tickets. '!tickets enable' or 'disable' to enable/disable ticket system"],
 	["parade", "Sets all players' loadout within 125m of your position to parade."],
-	["s", "Opens the settings GUI for global mission settings."],
+	["s", "Opens the GUI for global mission settings."],
 	["showchat", "Shows chat display (for bug where chat is hidden after using menu)."],
 	["radio", "Checks radio encryption codes for TFAR radios."]
 ];
