@@ -1,6 +1,7 @@
-/* The functions in the folder containing this file are heavily stripped down versions from CBA's settings addon (hope this counts as crediting them), 
-modified to let the user change certain global CBA settings temporarily until the end of the mission.
-
+/* The functions in the folder containing this file are heavily stripped down versions from CBA's settings addon, 
+modified to let the user change certain global CBA settings temporarily until the end of the mission. Last modified Dec 2025.
+Original source license can be found here:
+https://github.com/CBATeam/CBA_A3?tab=GPL-2.0-1-ov-file#readme
 Right now only supports list, slider, time, and checkbox settings. Unknown behavior if anything else is added to the cba mission settings.
 */ 
 params ["_display"];
