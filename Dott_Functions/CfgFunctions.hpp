@@ -166,7 +166,7 @@ class DOTT_Training
 			preInit = 1;
 		};
 	};
-}
+};
 
 class Dott_Tracker
 {
