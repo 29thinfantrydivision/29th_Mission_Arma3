@@ -21,7 +21,11 @@
 
 if (hasInterface) then
 {
-	call DOTT_training_fnc_initBaseObjects;
+	[] spawn 
+	{
+		waitUntil { !isNull player };
+		call DOTT_training_fnc_initBaseObjects;		
+	};
 
 	//Init chat command system
 	call DOTT_commands_fnc_init;

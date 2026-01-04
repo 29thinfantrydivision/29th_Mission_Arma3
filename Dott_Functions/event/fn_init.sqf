@@ -96,9 +96,12 @@ if (hasInterface) then
 {
 	call DOTT_event_fnc_initBaseObjects;
 
-	//Prevent error due to no saved respawn inventory
-	[player, [missionNamespace, "Current Inventory"]] call BIS_fnc_saveInventory;
-	[player, ["missionNamespace:Current Inventory"]] call BIS_fnc_setRespawnInventory;
+	[] spawn {
+		//Prevent error due to no saved respawn inventory
+		waitUntil { !isNull player };
+		[player, [missionNamespace, "Current Inventory"]] call BIS_fnc_saveInventory;
+		[player, ["missionNamespace:Current Inventory"]] call BIS_fnc_setRespawnInventory;
+	};
 
 	//Hide map markers belonging to opposing sides
 	{

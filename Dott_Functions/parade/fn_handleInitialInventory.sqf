@@ -8,7 +8,7 @@
  * Ensures joining player has correct loadout on joining the server, using custom parade if available on BLUFOR.
  *
  * Parameter(s): 
- * _theClient: unit to handle initial inventory
+ * none
  *
  * Returns:
  * n/a
@@ -19,19 +19,17 @@
 
 if (!hasInterface) exitWith {};
 
-private _theClient = _this select 0;
-
 waitUntil {!isNull player};
 
-if (side (group _theClient) == WEST) then {
+if (side (group player) == WEST) then {
 	addMissionEventHandler ["PreloadFinished", {
 		[true] call DOTT_parade_fnc_load;
 		removeMissionEventHandler ["PreloadFinished", _thisEventHandler];
 	}];
 };
-if (side (group _theClient) == EAST) then {
-	[_theClient, missionConfigfile >> "CfgRespawnInventory" >> "29TH_PARADE_EAST"] call BIS_fnc_loadInventory;
+if (side (group player) == EAST) then {
+	[player, missionConfigfile >> "CfgRespawnInventory" >> "29TH_PARADE_EAST"] call BIS_fnc_loadInventory;
 };
-if (side (group _theClient) == INDEPENDENT) then {
-	[_theClient, missionConfigfile >> "CfgRespawnInventory" >> "29TH_PARADE_INDEPENDENT"] call BIS_fnc_loadInventory;
+if (side (group player) == INDEPENDENT) then {
+	[player, missionConfigfile >> "CfgRespawnInventory" >> "29TH_PARADE_INDEPENDENT"] call BIS_fnc_loadInventory;
 };

@@ -30,20 +30,25 @@ if (hasInterface) then
 		[_x, [-1, -2, 0]] call BIS_fnc_setCuratorVisionModes; 
 	} forEach allCurators;
 
-	//Draw little skulls each time a player dies.  Seen only by Zeus.
-	player call BIS_fnc_drawCuratorDeaths;
+	[] spawn 
+	{
+		waitUntil { !isNull player };
 
-	["DOTT_enteredZeus",
-		{
-			private _curatorName = name player;
-			private _msg = format ["CURATOR INTERFACE OPENED: %1", _curatorName];
-			_msg remoteExec ["DOTT_common_fnc_diag_log",2];
-		}
-	] call CBA_fnc_addEventHandler;
+		//Draw little skulls each time a player dies.  Seen only by Zeus.
+		player call BIS_fnc_drawCuratorDeaths;
 
-	[player] spawn DOTT_curator_fnc_checkAssignment;
+		["DOTT_enteredZeus",
+			{
+				private _curatorName = name player;
+				private _msg = format ["CURATOR INTERFACE OPENED: %1", _curatorName];
+				_msg remoteExec ["DOTT_common_fnc_diag_log",2];
+			}
+		] call CBA_fnc_addEventHandler;
 
-	[player] remoteExec ["DOTT_curator_fnc_addPlayerEditable", 2];	
+		[player] spawn DOTT_curator_fnc_checkAssignment;
+
+		[player] remoteExec ["DOTT_curator_fnc_addPlayerEditable", 2];
+	};	
 };
 
 if (isServer) then
@@ -63,10 +68,11 @@ if (isServer) then
 			params ["_unit"];
 			if (getAssignedCuratorLogic _unit == zeus_admin) then
 			{
-				waitUntil { isNull (getAssignedCuratorLogic _unit) };
-			};  
-			[_unit] spawn DOTT_curator_fnc_checkAssignment;
-		}
+				unassignCurator zeus_admin;
+				sleep .1;
+				[_unit] spawn DOTT_curator_fnc_checkAssignment;
+			};
+		};
 	}];
 
 	#ifdef DOTT_TRAINING

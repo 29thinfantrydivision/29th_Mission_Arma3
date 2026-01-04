@@ -20,7 +20,7 @@
 
 if (hasInterface) then
 {
-	[player] spawn DOTT_parade_fnc_handleInitialInventory;
+	[] spawn DOTT_parade_fnc_handleInitialInventory;
 };
 
 if (isServer) then

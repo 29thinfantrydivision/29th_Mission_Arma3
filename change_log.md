@@ -65,6 +65,7 @@ v4.3.0
   - Event variation of this file has been merged with this template.
   - To switch, enable only one of the proper define in data/defines.hpp and swap the mission.sqm to the proper version.
   - Sanity checked but not throughly tested to see if everything is working, will need to do so before any events.
+    EDIT: Flag actions currently bit bugged, will need to fix later.
   - When possible, existing files were modified to smoothly accomodate both, but due to mission.sqm differences, some files/functions 
     simply have a event copy that is used instead. 
   
@@ -72,6 +73,7 @@ v4.3.0
   - Auto marking editor objects added (credit to FNF) w/ setting in eventSetting.
   - Admin can now alter safestart (cancel, change time, end) while it is in progress using the admin pole.
   - Notify final check now disabled.
+  - New points system instead of numSectors for win conditions.
 
 * Mission CBA Settings
   - Time added as an option for GUI settings
@@ -93,7 +95,6 @@ v4.3.0
 - Replaced all CBA setting tags from DOTT to TN.
 - Grenade throws now also cached for tracker system.
 - Removed probably meaningless logic from autospectate.
-
 
 ---
 v4.2.4  
