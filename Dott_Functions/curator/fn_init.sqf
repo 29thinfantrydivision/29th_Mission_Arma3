@@ -8,7 +8,6 @@
  *
  * Description:
  * Initalizes curator fixes and settings.
- * Should be initialized after training/event system due to base object init.
  *
  * Parameter(s): 
  * None
