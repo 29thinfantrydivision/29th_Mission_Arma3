@@ -25,7 +25,7 @@ _argument = [];
 	};
 }forEach _chatArr;
 
-_command = toString _command;
+_command = toLower (toString _command);
 _argument = toString _argument;
 
 private _commandCode = pvpfw_chatIntercept_allCommands get _command;

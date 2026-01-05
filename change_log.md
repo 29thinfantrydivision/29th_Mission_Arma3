@@ -60,7 +60,8 @@ v4.3.1
   - Safe start begin/abort and round start/end shown as events in OCAP recording.
   - Adds cba_settings.sqf and cba_settings_hasSettingsFile = 1 in description.ext.
 
-
+* Commands
+  - Command usage is now case insensitive again. (Accidentally introduced sensitivty in 4.3.0).
 ---
 v4.3.0  
 27 DEC 2025
