@@ -61,7 +61,14 @@ v4.3.1
   - Adds cba_settings.sqf and cba_settings_hasSettingsFile = 1 in description.ext.
 
 * Commands
-  - Command usage is now case insensitive again. (Accidentally introduced sensitivty in 4.3.0).
+  - Command usage is now case insensitive again. (Accidentally introduced sensitivity in 4.3.0).
+
+* Radio
+  - Prevent arsenal closed from being called if Zeus is open.
+  - Added BIS arsenal event handler.
+
+* Loadout
+  - Prevent arsenal closed from being called if Zeus is open.
 ---
 v4.3.0  
 27 DEC 2025

@@ -23,9 +23,16 @@ if !(isClass (configFile >> "CfgPatches" >> "tfar_core")) exitWith {};
 
 if (hasInterface) then
 {
-	if (isClass (configFile >> "CfgPatches" >> "ace_main")) then {
+	[missionNamespace, "arsenalClosed", {
+		if !(isNull (findDisplay 312)) exitWith {}; //Don't do if Zeus Open (ZEN Loadout Editing)
+		call DOTT_radio_fnc_add;
+	}] call BIS_fnc_addScriptedEventHandler;
+
+	if (isClass (configFile >> "CfgPatches" >> "ace_main")) then 
+	{
 		["ace_arsenal_displayClosed", 
 		{
+			if !(isNull (findDisplay 312)) exitWith {}; //Don't do if Zeus Open (ZEN Loadout Editing)
 			call DOTT_radio_fnc_add;
 		}] call CBA_fnc_addEventHandler;
 	};

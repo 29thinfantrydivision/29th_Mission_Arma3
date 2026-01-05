@@ -22,12 +22,14 @@
 if (hasInterface) then 
 {
 	[missionNamespace, "arsenalClosed", {
+		if !(isNull (findDisplay 312)) exitWith {}; //Don't do if Zeus Open (ZEN Loadout Editing)
 		call DOTT_loadout_fnc_onArsenalClosed;
 	}] call BIS_fnc_addScriptedEventHandler;
 
 	if (isClass (configFile >> "CfgPatches" >> "ace_main")) then {
 		["ace_arsenal_displayClosed", 
 			{
+				if !(isNull (findDisplay 312)) exitWith {}; //Don't do if Zeus Open (ZEN Loadout Editing)
 				call DOTT_loadout_fnc_onArsenalClosed;
 			}
 		] call CBA_fnc_addEventHandler;
