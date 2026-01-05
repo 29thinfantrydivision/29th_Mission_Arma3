@@ -9,6 +9,10 @@ Overall Future Goals
 * Random mortars in area defined by admin
 * Teleport pole that teleports you inside a radius, or into an area, or along a circle edge (COULD USE POLY TOO)
 	- Poly contained in circle, check random points in circle until you find one in poly?
+* Fix Security Flaws
+  - Limit remote exec functions
+  - allowFunctionsRecompile = 1; is necessary for custom sector settings, can't think of a way to bypass this
+  - This is a low priority since this mission file is intended to be used on private servers.
 * Near Goals
 	- CTF system via chat commands
 		- Pole addactions to score?
@@ -20,7 +24,21 @@ Overall Future Goals
 	- Wave system for team leaders to call in player waves
 		- Could also use timer
 	- Deploy area. Allow a side to deploy within or outside of a designated circle.
-
+  - mission.sqm
+    - When/if it becomes worth it, update mission.sqm to
+    - Merge baseObjectsInit w/ event version
+    - Merge excludeObjFromZeus w/ event version
+    - Merge cleaner w/ event version (this might not require sqm change)
+    - Add trigger zone for arsenal instead of just getting the middle of respawn and box
+    - Remove most zeus modules and just dynamically create in mission based on hashmap
+  - New hint system
+    - Using vanilla hint is limiting due to potential overwrites from different systems, 
+      which can also make how long we want a message to stay up inconsistent.
+    - Potentially take FNF notification system and tweak it.
+  - UI for round safestart/ready system
+  - More modular command system
+    - That would seamlessly have its available commands be modified by what modules are on 
+      or depending on using training or event version.
 ---
 TBD
 
@@ -30,6 +48,53 @@ TBD
 	- Included new class "FlagTaken"
 	- Included new class "FlagCaptured"
 	- Included new class "FlagReturned"
+
+---
+v4.3.0  
+27 DEC 2025
+
+---
+* Fixes
+  - Fix case where attacker's side was not properly found in Round Events system.
+  - Remembered to actually wait longer for unconscious report to prevent incorrect event.
+  - Disabling scoreboard in settings GUI now also reenables scoreboard for anyone in respawn menu at the time.
+  - Fix radio settings not properly transfering over for prototype radios. Now unified behavior with non-prototype radio setting transfer.
+  - Workaround for inconsistent bug where chat is no longer displayed after leaving pause menu.
+
+* Event Integration
+  - Event variation of this file has been merged with this template.
+  - To switch, enable only one of the proper define in data/defines.hpp and swap the mission.sqm to the proper version.
+  - Sanity checked but not throughly tested to see if everything is working, will need to do so before any events.
+    EDIT: Flag actions currently bit bugged, will need to fix later.
+  - When possible, existing files were modified to smoothly accomodate both, but due to mission.sqm differences, some files/functions 
+    simply have a event copy that is used instead. 
+  
+  Changes from 4.2.3 Event
+  - Auto marking editor objects added (credit to FNF) w/ setting in eventSetting.
+  - Admin can now alter safestart (cancel, change time, end) while it is in progress using the admin pole.
+  - Notify final check now disabled.
+  - New points system instead of numSectors for win conditions.
+
+* Mission CBA Settings
+  - Time added as an option for GUI settings
+  - Safe start time added
+  - Final Check Notification at beginning of round now a CBA setting 
+
+* Total reorganization of functions
+  - Practically every function now lives under a subfolder under the DOTT_Functions folder.
+  - Code related to these subfolders living in init, initPlayerLocal, initPlayerServer, initServer, onPlayerKilled, onPlayerRespawn
+    transferred to the init file in subfolder, which is called in the main.sqf.
+  - 29th_Training folder is now gone.
+
+- Round/safestart time display messages better support a wider range of times (display hour/minute/seconds) instead of just minute or second.
+- Safestart now uses the countdown UI to display how much safestart time is remaining. Might potentially cause confusion with LIVE on very long safestart times.
+- fn_manageready now has additional parameter to not display notification.
+- Rewrite of Zeus related round code. No longer need to check every key press to check if entering/exiting Zeus.
+- Rewrite of chat command code to use event handler instead of loops.
+- Swap event handlers waiting for player to be nonnull with CBA equivalent to reduce unnecessary spawns.
+- Replaced all CBA setting tags from DOTT to TN.
+- Grenade throws now also cached for tracker system.
+- Removed probably meaningless logic from autospectate.
 
 ---
 v4.2.4  
