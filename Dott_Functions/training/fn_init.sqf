@@ -42,8 +42,3 @@ if (isServer) then
 
 	call DOTT_settings_fnc_initServer;
 };
-
-//We want event variation to only have CBA as a mod requirement so below are training only
-
-//heavily ACE Medical integrated + meaningless since mission ends automatically as well
-if (("enableRoundEventLog" call BIS_fnc_getParamValue) == 1) then {call DOTT_tracker_fnc_init};
