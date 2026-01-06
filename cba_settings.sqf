@@ -1,4 +1,4 @@
-#include "data\defines.hpp";
+#include "data\defines.hpp"
 
 force OCAP_settings_autoStart = false;
 force OCAP_settings_minPlayerCount = 2;
