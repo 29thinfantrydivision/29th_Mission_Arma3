@@ -60,6 +60,8 @@ taskManagement_propagate = 1;
 
 cba_settings_hasSettingsFile = 1;
 
+allowFunctionsRecompile = 1;
+
 #include "data\cfgEventHandlers.hpp"
 
 class CfgNotifications 
@@ -74,8 +76,6 @@ class Params
 
 #include "data\gui.hpp"
 
-#ifdef DOTT_TRAINING
-
 class CfgRespawnInventory
 {
 	#include "data\cfgInventories.hpp"
@@ -86,8 +86,6 @@ class CfgRoles
 	#include "data\cfgRoles.hpp"
 };
 
-allowFunctionsRecompile = 1;
-#endif
 class CfgFunctions 
 {
 	#include "Dott_Functions\CfgFunctions.hpp"
@@ -95,8 +93,4 @@ class CfgFunctions
 
 #include "data\cfgNotifications.hpp"
 
-#ifdef DOTT_EVENT
-
 #include "data\CfgDebriefing.hpp"
-
-#endif

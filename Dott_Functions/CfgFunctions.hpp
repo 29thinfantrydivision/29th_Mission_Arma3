@@ -10,12 +10,7 @@ class Dott_Loadout
 		class resetWeaponState {};
 		class onArsenalClosed {};
 		class setInsignia {};
-
-		#ifdef DOTT_TRAINING
-
 		class flexibleReset {};
-
-		#endif
 	};
 };
 
@@ -141,8 +136,6 @@ class DOTT_OCAP
 	};
 };
 
-#ifdef DOTT_TRAINING
-
 class DOTT_Commands
 {
 	tag = "DOTT_commands";
@@ -234,10 +227,6 @@ class Dott_Parade
 	};
 };
 
-#endif
-
-#ifdef DOTT_EVENT
-
 class Dott_Event
 {
 	tag = "DOTT_event";
@@ -256,5 +245,3 @@ class Dott_Event
 		class cleaner {};
 	};
 };
-
-#endif
