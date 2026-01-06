@@ -69,6 +69,9 @@ v4.3.1
 
 * Loadout
   - Prevent arsenal closed from being called if Zeus is open.
+
+* Parade
+  - Hopefully fix inconsistent case where Forced Parade is not applied on join.
 ---
 v4.3.0  
 27 DEC 2025
