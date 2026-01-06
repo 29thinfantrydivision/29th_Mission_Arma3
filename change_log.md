@@ -61,6 +61,13 @@ v4.3.1
   - Should upload automatically when mission ends.
   - Adds cba_settings.sqf and cba_settings_hasSettingsFile = 1 in description.ext.
 
+* Continued Modularization
+  - CBA settings split from single file in settings folder to XEH_preInit.sqf in relevant subfolders.
+  - Categories renamed/reorganized to match modules more.
+  - main init.sqf and XEH_preInit.sqf make use of DOTT_Modules defines in data\defines.hpp
+    by checking if relevant module init functions or setting files exist.
+  - Minimize the amount of #ifdefs in the code (many used for loading optimization) for maintainability.
+
 * Commands
   - Command usage is now case insensitive again. (Accidentally introduced sensitivity in 4.3.0).
 
@@ -73,6 +80,9 @@ v4.3.1
 
 * Parade
   - Hopefully fix inconsistent case where Forced Parade is not applied on join.
+
+- Renamed event "DOTT_exitedMainMenu" to "DOTT_exitedPauseMenu" for better accuracy.
+
 ---
 v4.3.0  
 27 DEC 2025
