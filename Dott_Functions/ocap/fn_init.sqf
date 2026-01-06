@@ -1,3 +1,23 @@
+/*
+ * Name:	DOTT_ocap_fnc_init
+ * Date:	01/05/2026
+ * Version: 1.0
+ * Author:  Bae [29th ID]
+ *
+ * Description:
+ * Initializes OCAP event handlers that work with the round system.
+ *
+ * Parameter(s): 
+ * None
+ *
+ * Returns:
+ * n/a
+ *
+ * Example:
+ * call DOTT_ocap_fnc_init;
+ * 
+ */
+
 //NOTE: OCAP settings defined in cba_settings.sqf
 
 if !(isServer) exitWith {};

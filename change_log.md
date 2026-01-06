@@ -58,6 +58,7 @@ v4.3.1
 * OCAP Integration
   - Mission automatically starts recording on safestart/live and pauses recording on round end.
   - Safe start begin/abort and round start/end shown as events in OCAP recording.
+  - Should upload automatically when mission ends.
   - Adds cba_settings.sqf and cba_settings_hasSettingsFile = 1 in description.ext.
 
 * Commands
