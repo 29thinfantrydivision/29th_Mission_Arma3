@@ -10,7 +10,7 @@ loadout should be after radio, otherwise radio saving won't work properly
 */
 
 #ifdef DOTT_TRAINING
-#define DOTT_MODULES ["round", "training", "commands", "parade", "tracker", "curator", "ticket", "thermals", "radio", "loadout", "spectator", "vehicle", "ocap"]
+#define DOTT_MODULES ["round", "training", "commands", "parade", "tracker", "settings", "curator", "ticket", "thermals", "radio", "loadout", "spectator", "vehicle", "ocap"]
 #endif
 
 #ifdef DOTT_EVENT

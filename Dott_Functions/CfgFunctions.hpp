@@ -215,7 +215,7 @@ class Dott_Settings
 	class GUIFunctions
 	{
 		file = "Dott_Functions\settings";
-		class initServer {};		
+		class init {};		
 		class initDisplayMissionOptions {};
 	};
 };

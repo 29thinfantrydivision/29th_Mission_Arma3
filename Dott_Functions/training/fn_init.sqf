@@ -39,6 +39,4 @@ if (isServer) then
 	private _forcedOvercast = 0.1;
 	private _forcedFog      = [0.1, 0.01, 0];
 	[_forcedDate, _forcedOvercast, _forcedFog] call DOTT_training_fnc_initDateAndWeather;
-
-	call DOTT_settings_fnc_initServer;
 };
