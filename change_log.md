@@ -70,6 +70,7 @@ v4.3.1
   - main init.sqf and XEH_preInit.sqf make use of DOTT_Modules defines in data\defines.hpp
     by checking if relevant module init functions or setting files exist.
   - Minimize the amount of #ifdefs in the code (many used for loading optimization) for maintainability.
+  - Commands split from single file in commands folder to commands.sqf in relevant subfolders.
 
 * Commands
   - Command usage is now case insensitive again. (Accidentally introduced sensitivity in 4.3.0).
