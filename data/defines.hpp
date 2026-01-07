@@ -6,11 +6,12 @@ Order of doesn't matter EXCEPT FOR:
 
 event requires round to be initialized first
 loadout should be after radio, otherwise radio saving won't work properly
+commands should be at the end
 
 */
 
 #ifdef DOTT_TRAINING
-#define DOTT_MODULES ["round", "training", "commands", "parade", "tracker", "settings", "curator", "ticket", "thermals", "radio", "loadout", "spectator", "vehicle", "ocap"]
+#define DOTT_MODULES ["round", "training", "parade", "tracker", "settings", "curator", "ticket", "thermals", "radio", "loadout", "spectator", "vehicle", "ocap", "commands"]
 #endif
 
 #ifdef DOTT_EVENT

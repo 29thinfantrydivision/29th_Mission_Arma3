@@ -22,7 +22,7 @@ pvpfw_chatIntercept_moduleMap = createHashMapFromArray
 ];
 */
 
-pvpfw_chatIntercept_helpInfo = createHashMapFromArray
+pvpfw_chatIntercept_helpInfo = 
 [
 	["help", "Gives help on how to use commands"],
 	["commands", "Lists commands"],
@@ -50,7 +50,8 @@ pvpfw_chatIntercept_helpInfo = createHashMapFromArray
 ];
 
 
-pvpfw_chatIntercept_allCommands = createHashMapFromArray [
+pvpfw_chatIntercept_allCommands = 
+[
 	[
 		"commands",
 		{

@@ -144,8 +144,8 @@ class DOTT_Commands
 		file = "Dott_Functions\commands";
 		class init {};
 		class execute {};
-		//class remove {};
-		//class changeRestriction {};
+		class addModule {};
+		class changeRestriction {};
 	};
 };
 

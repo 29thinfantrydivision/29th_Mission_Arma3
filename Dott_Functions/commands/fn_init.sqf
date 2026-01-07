@@ -1,3 +1,4 @@
+#include "..\..\data\defines.hpp"
 /*
  * Name:	DOTT_commands_fnc_init
  * Date:	12/30/2025
@@ -22,7 +23,18 @@
 if (hasInterface) then {
 	pvpfw_chatIntercept_commandMarker = "!"; //Character at the front of the chat input to intercept it
 
-	[] call compile preProcessFilelineNumbers "Dott_Functions\commands\commands.sqf";
+	{
+		private _commandsFile = format ["DOTT_Functions\%1\commands.sqf", _x];
+		if !(fileExists _commandsFile) then { continue };
+
+		call compile preprocessFileLineNumbers _commandsFile;
+	}
+	forEach (DOTT_MODULES - ["commands"]);
+
+	pvpfw_chatIntercept_allCommands = createHashMapFromArray pvpfw_chatIntercept_allCommands;
+	pvpfw_chatIntercept_helpInfo = createHashMapFromArray pvpfw_chatIntercept_helpInfo;
+	DOTT_commands_finishedInit = true;
+	["DOTT_commands_initCompleted", []] call CBA_fnc_localEvent;
 
 	addMissionEventHandler ["HandleChatMessage", 
 		{
