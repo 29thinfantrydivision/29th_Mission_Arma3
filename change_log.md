@@ -84,6 +84,7 @@ v4.3.1
 
 * Loadout
   - Prevent arsenal closed from being called if Zeus is open.
+  - Increase invulnerability time by 2 more seconds on teleport to reduce damage on teleport instances.
 
 * Parade
   - Hopefully fix inconsistent case where Forced Parade is not applied on join.

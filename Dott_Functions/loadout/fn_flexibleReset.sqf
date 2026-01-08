@@ -76,6 +76,8 @@ else //otherwise if array is correct size, then teleport requested
 
 	private _tries = 0; //try multiple times if it fails for whatever reason
 
+	player allowDamage false;
+
 	while {_tries < 3} do {
 		waitUntil { uiSleep 0.1; !(player getVariable ["emr_main_isClimbing", false])};
 
@@ -85,7 +87,7 @@ else //otherwise if array is correct size, then teleport requested
 		
 		//cut to black with teleporting title
 		titleText ["<t color='#ffffff' size='4'>Teleporting...</t>","BLACK OUT",0.5, true, true];
-		player allowDamage false;
+
 		sleep 0.1;
 		
 		//simulation and damage off to prevent death/accidents during teleport
@@ -126,10 +128,15 @@ else //otherwise if array is correct size, then teleport requested
 		sleep 0.2;
 		
 		//return to normal state
-		player allowDamage true;
+
 		titleText ["<t color='#ffffff' size='4'>Teleporting...</t>","BLACK IN",0.5, true, true];
 
 		_tries = _tries + 1;
+	};
+	[] spawn 
+	{
+		sleep 2;
+		player allowDamage true;
 	};
 	//teleport true for switch below
 	_teleport = _tries > 0;
