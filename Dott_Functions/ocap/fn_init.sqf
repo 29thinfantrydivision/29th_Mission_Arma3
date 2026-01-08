@@ -26,6 +26,32 @@ if !(isClass (configFile >> "CfgPatches" >> "OCAP_recorder")) exitWith {};
 
 DOTT_ocap_roundNum = 1;
 
+// --- Sector Capture --- //
+{
+	[_x, "ownerChanged", 
+	{
+		params ["_sector", "_owner", "_ownerOld"];
+		private _sectorName = _sector getVariable ["name", "sector"];
+		private _ownerName = _owner call BIS_fnc_sideName;
+		["ocap_customEvent", ["generalEvent", format["%1 captured by %2", _sectorName, _ownerName]]] call CBA_fnc_serverEvent;
+	}] call BIS_fnc_addScriptedEventHandler;
+} forEach (allMissionObjects "ModuleSector_F");
+
+addMissionEventHandler ["EntityCreated", 
+{
+	params ["_entity"];
+	if (_entity isKindOf "ModuleSector_F") then 
+	{
+		[_entity, "ownerChanged", 
+		{
+			params ["_sector", "_owner", "_ownerOld"];
+			private _sectorName = _sector getVariable ["name", "sector"];
+			private _ownerName = _owner call BIS_fnc_sideName;
+			["ocap_customEvent", ["generalEvent", format["%1 captured by %2", _sectorName, _ownerName]]] call CBA_fnc_serverEvent;
+		}] call BIS_fnc_addScriptedEventHandler;
+	};
+}];
+
 
 //Order matters, event won't register if recording is not currently happening
 //However, dont start/pause recordings if autoStart is forced by server config
@@ -103,9 +129,3 @@ if !(OCAP_settings_autoStart) then
 		}
 	] call CBA_fnc_addEventHandler;
 };
-
-
-
-
-
-
