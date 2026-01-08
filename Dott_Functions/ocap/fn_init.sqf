@@ -55,6 +55,10 @@ addMissionEventHandler ["EntityCreated",
 
 //Order matters, event won't register if recording is not currently happening
 //However, dont start/pause recordings if autoStart is forced by server config
+if !(OCAP_settings_autoStart) then 
+{
+	DOTT_ocap_fnc_startRecording = call compile preprocessFileLineNumbers "DOTT_Functions\ocap\fn_startRecording.sqf"
+};
 
 //SafeStart Start
 if !(OCAP_settings_autoStart) then 
@@ -62,7 +66,7 @@ if !(OCAP_settings_autoStart) then
 	[
 		"DOTT_round_safeStartBegin", 
 		{
-			["ocap_record"] call CBA_fnc_serverEvent;
+			call DOTT_ocap_fnc_startRecording;
 		}
 	] call CBA_fnc_addEventHandler;
 };
@@ -99,7 +103,7 @@ if !(OCAP_settings_autoStart) then
 		"DOTT_round_started", 
 		{
 			if (OCAP_recorder_recording) exitWith {};
-			["ocap_record"] call CBA_fnc_serverEvent;
+			call DOTT_ocap_fnc_startRecording;
 		}
 	] call CBA_fnc_addEventHandler;
 };
