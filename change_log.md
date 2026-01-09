@@ -64,6 +64,7 @@ v4.3.1
       Remove OCAP started recording notification
       Let markers created and removed between rounds be tracked
       Let ACE moved markers be tracked
+      Prevent major but unlikely issue where if save has no markers, it is formatted improperly and breaks.
   - Issues:
       Sectors do not show up properly on map, capture event will be displayed however.
       Due to workarounds, created markers show up in recording two seconds after they were created.

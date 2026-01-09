@@ -94,71 +94,50 @@ if (isServer) then
 	createMarkerLocal ["DOTT_ocap_debugMarker", [0,0,0]];
 	"DOTT_ocap_debugMarker" setMarkerAlphaLocal 0;
 
-	//SafeStart Start
-	if !(OCAP_settings_autoStart) then 
-	{ 
-		[
-			"DOTT_round_safeStartBegin", 
-			{
-				call DOTT_ocap_fnc_startRecording;
-			}
-		] call CBA_fnc_addEventHandler;
-
-		[
-			"DOTT_round_safeStartAborted", 
-			{
-				[{call DOTT_ocap_fnc_stopRecording}] call CBA_fnc_execNextFrame;
-			}
-		] call CBA_fnc_addEventHandler;
-
-		[
-			"DOTT_round_started", 
-			{
-				if (OCAP_recorder_recording) exitWith {};
-				call DOTT_ocap_fnc_startRecording;
-			}
-		] call CBA_fnc_addEventHandler;	
-
-		[
-			"DOTT_round_ended", 
-			{
-				[{call DOTT_ocap_fnc_stopRecording}] call CBA_fnc_execNextFrame;
-			}
-		] call CBA_fnc_addEventHandler;	
-	};
-
-	//SafeStart Start
 	[
 		"DOTT_round_safeStartBegin", 
 		{
-			[{["ocap_customEvent", ["generalEvent", "Safe start began!"]] call CBA_fnc_serverEvent}] call CBA_fnc_execNextFrame;
+			if !(OCAP_settings_autoStart) then 
+			{ 
+				call DOTT_ocap_fnc_startRecording;
+			};
+
+			["ocap_customEvent", ["generalEvent", "Safe start began!"]] call CBA_fnc_serverEvent;
 		}
 	] call CBA_fnc_addEventHandler;
 
-	//Safe Start Aborted
 	[
 		"DOTT_round_safeStartAborted", 
 		{
 			["ocap_customEvent", ["generalEvent", "Safe start aborted!"]] call CBA_fnc_serverEvent;
+
+			if !(OCAP_settings_autoStart) then 
+			{ 
+				call DOTT_ocap_fnc_stopRecording;
+			};
 		}
 	] call CBA_fnc_addEventHandler;
 
-	//Round Start
 	[
 		"DOTT_round_started", 
 		{
-			[{["ocap_customEvent", ["generalEvent", format ["Round %1 started!", DOTT_ocap_roundNum]]] call CBA_fnc_serverEvent}] call CBA_fnc_execNextFrame;
-		}
-	] call CBA_fnc_addEventHandler;
+			[{["ocap_customEvent", ["generalEvent", format ["Round %1 started!", DOTT_ocap_roundNum]]] call CBA_fnc_serverEvent}];
 
-	//Round End
+			if !(OCAP_settings_autoStart || OCAP_recorder_recording) then 
+			{ 				
+				call DOTT_ocap_fnc_startRecording;
+			};
+		}
+	] call CBA_fnc_addEventHandler;	
+
 	[
 		"DOTT_round_ended", 
 		{
 			["ocap_customEvent", ["generalEvent", format ["Round %1 ended!", DOTT_ocap_roundNum]]] call CBA_fnc_serverEvent;
 			DOTT_ocap_roundNum = DOTT_ocap_roundNum + 1;
+			call DOTT_ocap_fnc_stopRecording;
 		}
-	] call CBA_fnc_addEventHandler;
+	] call CBA_fnc_addEventHandler;	
 };
 
 if (hasInterface && !(OCAP_settings_autoStart)) then

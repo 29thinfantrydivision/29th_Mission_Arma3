@@ -1,7 +1,8 @@
 //if recording, let natural loop do below instead
 if (((missionNamespace getVariable ["ocap_recorder_recording", false]) && missionNamespace getVariable ["ocap_recorder_startTime", -1] > -1)) exitWith {};
 
-params ["_player"]
+params ["_player"];
+
 if !(_player getVariable ["ocap_isInitialized", false]) then {
     _player setVariable ["ocap_id", ocap_nextId];
     [":NEW:UNIT:", [
