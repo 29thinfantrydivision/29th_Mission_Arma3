@@ -18,6 +18,13 @@
  * 
  */
 
+/*
+	A large amount of code in this folder is taken from OCAP 2 Addon.
+	https://github.com/OCAP2/OCAP?tab=License-1-ov-file#readme
+*/
+
+
+
 //NOTE: OCAP settings defined in cba_settings.sqf
 
 if !(isClass (configFile >> "CfgPatches" >> "OCAP_recorder")) exitWith {};
