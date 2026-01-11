@@ -9,13 +9,13 @@
  * if not all teams are ready.
  *
  * Parameter(s): 
- * _countdown (Number): How many more times to call itself every second
+ * None
  *
  * Returns:
  * true
  *
  * Example:
- * [10] call DOTT_round_fnc_initSafeStartHelper;
+ * call DOTT_round_fnc_initSafeStartHelper;
  * 
  */
 
@@ -32,10 +32,10 @@ if (!_allSidesReady) exitWith
 };
 if (([0] call BIS_fnc_countdown) > 0) then
 {
-	[{[_this select 0] call DOTT_round_fnc_initSafeStartHelper}, [], .2] call CBA_fnc_waitAndExecute;
+	[{call DOTT_round_fnc_initSafeStartHelper}, [], .2] call CBA_fnc_waitAndExecute;
 } else 
 {
-	DOTT_safeStartActive = nil; publicVariable DOTT_safeStartActive;	
+	DOTT_safeStartActive = nil; publicVariable DOTT_safeStartActive;
 	[] call DOTT_round_fnc_start;
 };
 true
