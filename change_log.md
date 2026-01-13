@@ -66,6 +66,7 @@ v4.3.2
 * Round
   - Added check to see if safestart is running before initalizing safestart.
   - Log weaponstate of every player to server log at beginning of round (hopefully helps figure out silent bug issue).
+  - Players will send notice to all players if they detect a known cause of silent weapon at beginning of round (hopefully helps figure out silent bug issue). 
   - initSafeStart now forces all sides as ready (for better event compatibility)
 
 * Spectator
