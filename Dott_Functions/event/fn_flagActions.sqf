@@ -41,7 +41,7 @@ private _fnc_removeSideReadyActions =
 
 if (_currentState == 0) then
 {
-	private _playerSideReady = [opfReady, bluReady, grnReady] select (playerSide call BIS_fnc_sideID);
+	private _playerSideReady = DOTT_round_sideReady select (playerSide call BIS_fnc_sideID);
 	if !(_playerSideReady) then { call _fnc_addSideReadyActions };
 };
 

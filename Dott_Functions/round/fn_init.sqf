@@ -22,16 +22,12 @@
 
 if (isServer) then 
 {
-	bluReady = false;
-	opfReady = false;	
-	grnReady = false;
+	DOTT_round_sideReady = [false, false, false];
 	timerLength = 20*60; 
 	overtimeEnabled = false; 
 	overtimePeriod = 5*60; 
 
-	publicVariable "bluReady";
-	publicVariable "opfReady";	
-	publicVariable "grnReady";
+	publicVariable "DOTT_round_sideReady";
 	publicVariable "timerLength";
 	publicVariable "overtimeEnabled";
 	publicVariable "overtimePeriod";

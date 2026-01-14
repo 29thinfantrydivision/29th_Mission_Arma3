@@ -22,7 +22,11 @@ private _bluCount = west countSide allPlayers;
 private _opfCount = east countSide allPlayers;
 private _grnCount = resistance countSide allPlayers;
 
+private _opfReady = DOTT_round_sideReady select 0;
+private _bluReady = DOTT_round_sideReady select 1;
+private _grnReady = DOTT_round_sideReady select 2;
+
 //All sides are ready or have no players
-(bluReady || _bluCount == 0) &&
-(opfReady || _opfCount == 0) &&
-(grnReady || _grnCount == 0)
+(_bluReady || _bluCount == 0) &&
+(_opfReady || _opfCount == 0) &&
+(_grnReady || _grnCount == 0)

@@ -23,12 +23,8 @@ if (!isServer) exitWith {remoteExec ["DOTT_round_fnc_initSafeStart", 2];}; //ser
 
 if !(isNil "DOTT_safeStartActive") exitWith {};
 
-bluReady = true;
-opfReady = true;	
-grnReady = true;
-publicVariable "bluReady";
-publicVariable "opfReady";
-publicVariable "grnReady";
+DOTT_round_sideReady = [true, true, true];
+publicVariable "DOTT_round_sideReady";
 
 DOTT_safeStartActive = true;
 publicVariable "DOTT_safeStartActive";
