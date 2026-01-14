@@ -48,7 +48,7 @@ if (_currentState == 0) then
 if (_currentState < 2) then
 {
 	[
-		"DOTT_round_sideReadyChanged",
+		"DOTT_round_manageReadyChange",
 		{
 			params ["_side", "_isReady"];
 			_thisArgs params ["_fnc_addSideReadyActions", "_fnc_removeSideReadyActions"];

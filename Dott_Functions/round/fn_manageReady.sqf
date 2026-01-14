@@ -30,7 +30,7 @@ if (_playerSideReady == _isReady) exitWith { 2 };
 DOTT_round_sideReady set [_sideIdx, _isReady];
 publicVariable "DOTT_round_sideReady";
 
-["DOTT_round_sideReadyChanged", _this] call CBA_fnc_globalEvent;
+["DOTT_round_manageReadyChange", _this] call CBA_fnc_globalEvent;
 
 private _readyStr = playerSide call BIS_fnc_sideName; //For now name of team
 

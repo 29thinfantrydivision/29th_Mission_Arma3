@@ -71,6 +71,7 @@ v4.3.2
   - Players will send notice to all players if they detect a known cause of silent weapon at beginning of round (hopefully helps figure out silent bug issue). 
   - initSafeStart now forces all sides as ready (for better event compatibility)
   - Replaced bluReady, opfReady, grnReady with DOTT_round_sideReady array to simplify code.
+  - Rename event "DOTT_round_sideReadyChanged" -> "DOTT_round_manageReadyChange" so it's less misleading. (Side ready can change outside this event/function).
 
 * Spectator
   - Moved loadout teleport check after sleep.
