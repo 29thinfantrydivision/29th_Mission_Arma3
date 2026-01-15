@@ -8,7 +8,7 @@ if !(_autoStart) then
     {
         waitUntil {!isNull player};
         if !(didJIP) exitWith {};
-        [player] remoteExec ["DOTT_ocap_fnc_initializePlayer", 2];
+        [player] remoteExecCall ["DOTT_ocap_fnc_initializePlayer", 2];
     };
 };
 

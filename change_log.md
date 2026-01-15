@@ -65,6 +65,8 @@ v4.3.2
 
 * OCAP
   - Fixed incorrect variable name in initializePlayer (ocap_nextId -> ocap_recorder_nextId)
+  - remoteExecCall instead of remoteExec initalizePlayer (can't risk interruption midway)
+
 * Round
   - Added check to see if safestart is running before initalizing safestart.
   - Log weaponstate of every player to server log at beginning of round (hopefully helps figure out silent bug issue).
