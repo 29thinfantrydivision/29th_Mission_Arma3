@@ -78,6 +78,9 @@ v4.3.2
 * Spectator
   - Moved loadout teleport check after sleep.
 
+* Thermals
+  - Fixed incorrect condition check breaking black no thermal screen.
+
 * New Parade/Class-A Uniform Update
   - Default Respawn Parade Loadout Updated
   - Default Parade Loadout in ACE Arsenal (training/fn_initDefaultLoadouts.sqf) Updated
