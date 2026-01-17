@@ -78,6 +78,12 @@ v4.3.2
 * Spectator
   - Moved loadout teleport check after sleep.
 
+* New Parade/Class-A Uniform Update
+  - Default Respawn Parade Loadout Updated
+  - Default Parade Loadout in ACE Arsenal (training/fn_initDefaultLoadouts.sqf) Updated
+  - parade/fn_checkNonCombatLoadout.sqf updated
+  - Remove Dress Blues in parade/fn_checkNonCombatLoadout.sqf
+
 ---
 v4.3.1  
 9 JAN 2026
