@@ -41,14 +41,14 @@ private _fnc_removeSideReadyActions =
 
 if (_currentState == 0) then
 {
-	private _playerSideReady = [opfReady, bluReady, grnReady] select (playerSide call BIS_fnc_sideID);
+	private _playerSideReady = DOTT_round_sideReady select (playerSide call BIS_fnc_sideID);
 	if !(_playerSideReady) then { call _fnc_addSideReadyActions };
 };
 
 if (_currentState < 2) then
 {
 	[
-		"DOTT_round_sideReadyChanged",
+		"DOTT_round_manageReadyChange",
 		{
 			params ["_side", "_isReady"];
 			_thisArgs params ["_fnc_addSideReadyActions", "_fnc_removeSideReadyActions"];
@@ -62,25 +62,23 @@ if (_currentState < 2) then
 			};				
 		}, [_fnc_addSideReadyActions, _fnc_removeSideReadyActions]
 	] call CBA_fnc_addEventHandlerArgs;
+
+	[
+		"DOTT_round_safeStartBegin",
+		{ call _thisArgs }, _fnc_removeSideReadyActions
+	] call CBA_fnc_addEventHandlerArgs;
 };
 
 /*** Ready All Sides (Admin) ***/
 #define ALL_READY_ID "DOTT_allReadyActionId"
 private _fnc_addAllReadyActions =
 {
-	private _fnc_readyAllSides = 
 	{
-		[west, true, false] call DOTT_round_fnc_manageReady;
-		[east, true, false] call DOTT_round_fnc_manageReady;
-		[resistance, true, false] call DOTT_round_fnc_manageReady;
-	};
-
-	{
-		private _actionId = _x addAction ["<t color='#bf3eff'>Ready All Sides (Admin)</t>", { call (_this select 3) }, _fnc_readyAllSides, 1.5, true, true, "", "serverCommandAvailable '#lock'", 8];
+		private _actionId = _x addAction ["<t color='#bf3eff'>Ready All Sides (Admin)</t>", { call DOTT_round_fnc_initSafeStart }, nil, 1.5, true, true, "", "serverCommandAvailable '#lock'", 8];
 		_x setVariable [ALL_READY_ID, _actionId];
 	} forEach DOTT_event_timerObjects;
 
-	private _actionId = DOTT_event_endingObject addAction ["<t color='#bf3eff'>Ready All Sides (Admin)</t>", { call (_this select 3) }, _fnc_readyAllSides, 1.5, true, true, "", "serverCommandAvailable '#lock'", 8];
+	private _actionId = DOTT_event_endingObject addAction ["<t color='#bf3eff'>Ready All Sides (Admin)</t>", { call DOTT_round_fnc_initSafeStart }, nil, 1.5, true, true, "", "serverCommandAvailable '#lock'", 8];
 	DOTT_event_endingObject setVariable [ALL_READY_ID, _actionId];
 };
 

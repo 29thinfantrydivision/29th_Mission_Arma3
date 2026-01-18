@@ -22,16 +22,12 @@
 
 if (isServer) then 
 {
-	bluReady = false;
-	opfReady = false;	
-	grnReady = false;
+	DOTT_round_sideReady = [false, false, false];
 	timerLength = 20*60; 
 	overtimeEnabled = false; 
 	overtimePeriod = 5*60; 
 
-	publicVariable "bluReady";
-	publicVariable "opfReady";	
-	publicVariable "grnReady";
+	publicVariable "DOTT_round_sideReady";
 	publicVariable "timerLength";
 	publicVariable "overtimeEnabled";
 	publicVariable "overtimePeriod";
@@ -152,7 +148,10 @@ if (isServer) then
 		{	
 			private _players = allPlayers - entities "HeadlessClient_F";
 			_players = _players select { alive _x }; //only get alive players, probably not needed however
+
+			diag_log "Round Start Weapon States:";			
 			{
+				diag_log format ["%1: %2", name _x, weaponState _x];
 				if !(currentWeapon _x == "Throw" || currentWeapon _x == "Put") exitWith {};
 				[_x] remoteExec ["DOTT_loadout_fnc_resetWeaponState", _x];
 				if (TN_notifyFinalCheck) then
@@ -179,6 +178,24 @@ if (hasInterface) then
 				private _msg = format ["FIXED: %1 was invulnerable, can now take damage.", name player];
 				[_msg] remoteExec ["systemChat"];
 			};
+		} 
+	] call CBA_fnc_addEventHandler;
+
+	[
+		"DOTT_round_started",
+		{	
+			private _players = allPlayers - entities "HeadlessClient_F";
+			_players = _players select { alive _x }; //only get alive players, probably not needed however
+			
+			{
+				if !(currentWeapon _x == "Throw" || currentWeapon _x == "Put") exitWith {};
+				if (TN_notifyFinalCheck) then
+				{
+					private _msg = format ["WARNING: %1 has silent weapon for %2.", name _x, name player];
+					[_msg] remoteExec ["systemChat"];
+				};
+			}
+			forEach _players;
 		} 
 	] call CBA_fnc_addEventHandler;
 };

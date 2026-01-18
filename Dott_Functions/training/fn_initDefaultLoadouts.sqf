@@ -37,7 +37,7 @@ private _loadouts =
 [
 	[
 		"Parade",
-		[[["rhs_weap_m1garand_sa43","","","",["rhsgref_8Rnd_762x63_Tracer_M1T_M1rifle",8],[],""],[],[],["29th_rhs_combat_uniform_ocp_retex",[["ACE_EarPlugs",1],["ACE_fieldDressing",3],["ACE_morphine",1],["rhsgref_8Rnd_762x63_Tracer_M1T_M1rifle",3,8]]],["29th_rhs_iotv_ocp_base_retex",[]],[],"29th_rhs_patrolcap_ocp_retex","",[],["ItemMap","","TFAR_anprc152_9","ItemCompass","",""]],[]]
+		[[["rhs_weap_m1garand_sa43","","","",["rhsgref_8Rnd_762x63_Tracer_M1T_M1rifle",8],[],""],[],[],["29th_rhs_combat_uniform_ocp_retex",[["ACE_EarPlugs",1],["ACE_fieldDressing",3],["ACE_morphine",1],["rhsgref_8Rnd_762x63_Tracer_M1T_M1rifle",3,8]]],["29th_rhs_iotv_ocp_base_retex",[]],[],"r_Garrison_cap_qtr_crp_en","",[],["ItemMap","","TFAR_anprc152_9","ItemCompass","",""]],[]]
 	],
 	[
 		"BLUFOR Rifleman",

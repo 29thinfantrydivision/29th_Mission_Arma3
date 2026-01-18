@@ -20,8 +20,6 @@
 
 params["_unit"];
 //BLUFOR parade gear,
-(headgear _unit == "29th_rhs_patrolcap_ocp_retex" && primaryWeapon _unit == "rhs_weap_m1garand_sa43") ||
-//dress blues,
-(uniform _unit) find "29th_uniform" == 0 ||
-//or no weapon
+((headgear _unit) find "r_Garrison_cap" == 0 && primaryWeapon _unit == "rhs_weap_m1garand_sa43") ||
+//or no weapon (Common Forced Parade Officer Loadout condition)
 primaryWeapon _unit == ""

@@ -1,7 +1,7 @@
 /*
  * Name:	DOTT_round_fnc_initSafeStartHelper
- * Date:	12/24/2025
- * Version: 1.1
+ * Date:	01/11/2026
+ * Version: 1.2
  * Author:  Bae [29th ID] 
  *
  * Description:
@@ -9,18 +9,19 @@
  * if not all teams are ready.
  *
  * Parameter(s): 
- * _countdown (Number): How many more times to call itself every second
+ * None
  *
  * Returns:
  * true
  *
  * Example:
- * [10] call DOTT_round_fnc_initSafeStartHelper;
+ * call DOTT_round_fnc_initSafeStartHelper;
  * 
  */
 
-private _allSidesReady = call DOTT_round_fnc_checkAllSidesReady;
 if (isNil "DOTT_safeStartActive") exitWith { true };
+
+private _allSidesReady = call DOTT_round_fnc_checkAllSidesReady;
 if (!_allSidesReady) exitWith 
 {
 	// Display aborted message if someone unready mid-countdown			
@@ -32,10 +33,10 @@ if (!_allSidesReady) exitWith
 };
 if (([0] call BIS_fnc_countdown) > 0) then
 {
-	[{[_this select 0] call DOTT_round_fnc_initSafeStartHelper}, [], .2] call CBA_fnc_waitAndExecute;
+	[{call DOTT_round_fnc_initSafeStartHelper}, [], .2] call CBA_fnc_waitAndExecute;
 } else 
 {
-	DOTT_safeStartActive = nil; publicVariable DOTT_safeStartActive;	
+	DOTT_safeStartActive = nil; publicVariable DOTT_safeStartActive;
 	[] call DOTT_round_fnc_start;
 };
 true

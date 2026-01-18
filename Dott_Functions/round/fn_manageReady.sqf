@@ -22,19 +22,17 @@ params["_side", "_isReady", ["_showHint", true]];
 
 if (call DOTT_round_fnc_isRoundActive) exitWith {1};
 
-if ((_side == west && bluReady == _isReady) ||
-    (_side == east && opfReady == _isReady) ||
-    (_side == resistance && grnReady == _isReady)) exitWith { 2 };
+private _sideIdx = playerSide call BIS_fnc_sideID;
+if (_sideIdx > 2) exitWith {systemChat "Error: Invalid side to change ready state."};
+private _playerSideReady = DOTT_round_sideReady select _sideIdx;
+if (_playerSideReady == _isReady) exitWith { 2 };
 
-private _readyStr = "";
-switch (_side) do
-{
-	case west: { bluReady = _isReady; publicVariable "bluReady"; _readyStr = "Blufor";};
-	case east: { opfReady = _isReady; publicVariable "opfReady"; _readyStr = "Opfor";};
-	case resistance: { grnReady = _isReady; publicVariable "grnReady"; _readyStr = "Grnfor"; };
-};
+DOTT_round_sideReady set [_sideIdx, _isReady];
+publicVariable "DOTT_round_sideReady";
 
-["DOTT_round_sideReadyChanged", _this] call CBA_fnc_globalEvent;
+["DOTT_round_manageReadyChange", _this] call CBA_fnc_globalEvent;
+
+private _readyStr = playerSide call BIS_fnc_sideName; //For now name of team
 
 if (_showHint) then
 {

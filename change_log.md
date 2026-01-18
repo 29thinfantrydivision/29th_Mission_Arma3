@@ -51,6 +51,43 @@ TBD
 	- Included new class "FlagReturned"
 
 ---
+v4.3.2  
+11 JAN 2026
+
+---
+
+* Curator
+  - Fix unassign/assign curator not executed in scheduled environment error.
+
+* Event
+  - Replace Ready All Sides flag function with initSafeStart.
+  - Side ready flag action now has safe start begin event handler.
+
+* OCAP
+  - Fixed incorrect variable name in initializePlayer (ocap_nextId -> ocap_recorder_nextId)
+  - remoteExecCall instead of remoteExec initalizePlayer (can't risk interruption midway)
+
+* Round
+  - Added check to see if safestart is running before initalizing safestart.
+  - Log weaponstate of every player to server log at beginning of round (hopefully helps figure out silent bug issue).
+  - Players will send notice to all players if they detect a known cause of silent weapon at beginning of round (hopefully helps figure out silent bug issue). 
+  - initSafeStart now forces all sides as ready (for better event compatibility)
+  - Replaced bluReady, opfReady, grnReady with DOTT_round_sideReady array to simplify code.
+  - Rename event "DOTT_round_sideReadyChanged" -> "DOTT_round_manageReadyChange" so it's less misleading. (Side ready can change outside this event/function).
+
+* Spectator
+  - Moved loadout teleport check after sleep.
+
+* Thermals
+  - Fixed incorrect condition check breaking black no thermal screen.
+
+* New Parade/Class-A Uniform Update
+  - Default Respawn Parade Loadout Updated
+  - Default Parade Loadout in ACE Arsenal (training/fn_initDefaultLoadouts.sqf) Updated
+  - parade/fn_checkNonCombatLoadout.sqf updated
+  - Remove Dress Blues in parade/fn_checkNonCombatLoadout.sqf
+
+---
 v4.3.1  
 9 JAN 2026
 

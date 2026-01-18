@@ -41,13 +41,10 @@ private _msgText = format [
 	[{(call DOTT_round_fnc_getTime) <= 0}, { call DOTT_round_fnc_end }, []] call CBA_fnc_waitUntilAndExecute;
 }] remoteExecCall ["call", 2];
 
-bluReady = false;
-opfReady = false;
-grnReady = false; 
+DOTT_round_sideReady = [false, false, false]; 
+publicVariable "DOTT_round_sideReady";
+
 DOTT_safeStartActive = nil;
-publicVariable "bluReady";
-publicVariable "opfReady";	
-publicVariable "grnReady";
 publicVariable "DOTT_safeStartActive";
 
 [] remoteExec ["DOTT_round_fnc_roundEvents"]; 
