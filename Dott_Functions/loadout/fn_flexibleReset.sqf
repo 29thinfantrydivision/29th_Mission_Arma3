@@ -92,21 +92,14 @@ else //otherwise if array is correct size, then teleport requested
 
 		sleep 0.1;
 		
-		//simulation and damage off to prevent death/accidents during teleport
+		//damage off to prevent death/accidents during teleport
 		moveOut player; //force player out of vehicle if they're in one
 		sleep 0.1;
-		
-		player enableSimulationGlobal false;
-		sleep 0.3;
 		
 		//set player's position to specified point (ASL)
 		private _dir = random 359;
 		player SetPosASL [(_point select 0)-6*sin(_dir),(_point select 1)-6*cos(_dir),(_point select 2)];
 		sleep 0.1;
-		
-		//enable simulation so they call fall if above terrain
-		player enableSimulationGlobal true;
-		sleep 0.4;
 		
 		//check if the player is touching ground
 		private _ground = isTouchingGround player;
@@ -128,14 +121,13 @@ else //otherwise if array is correct size, then teleport requested
 		};
 		
 		sleep 0.2;
-		
-		//return to normal state
 
 		titleText ["<t color='#ffffff' size='4'>Teleporting...</t>","BLACK IN",0.5, true, true];
 
 		_tries = _tries + 1;
 	};
 	
+	//return to normal state	
 	[] spawn 
 	{
 		sleep 2;

@@ -51,6 +51,13 @@ TBD
 	- Included new class "FlagReturned"
 
 ---
+v4.3.4  
+20 JAN 2026
+---
+* Loadout
+  - Remove enableDamageGlobal from teleport script in attempt to fix silent weapon bug cause
+
+---
 v4.3.3  
 19 JAN 2026
 ---
