@@ -51,6 +51,19 @@ TBD
 	- Included new class "FlagReturned"
 
 ---
+v4.3.4  
+20 JAN 2026
+---
+* Commands
+  - !weaponstate added, which shows a list of players that currently have silent weapons for the player.
+
+* Loadout
+  - Remove enableSimulationGlobal from teleport script in attempt to fix silent weapon bug cause
+
+* Spectator
+  - Remove enableSimulation from enter/exit in attempt to fix silent weapon bug cause
+
+---
 v4.3.3  
 19 JAN 2026
 ---
