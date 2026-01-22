@@ -51,6 +51,13 @@ TBD
 	- Included new class "FlagReturned"
 
 ---
+v4.3.5  
+21 JAN 2026
+---
+* Curator
+  - Fix _unit not being passed to spawned code in init
+
+---
 v4.3.4  
 20 JAN 2026
 ---
