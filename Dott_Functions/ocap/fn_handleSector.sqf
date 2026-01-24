@@ -8,7 +8,7 @@ params ["_logic"];
     private _ownerName = _owner call BIS_fnc_sideName;
     ["ocap_customEvent", ["generalEvent", format["%1 captured by %2", _sectorName, _ownerName]]] call CBA_fnc_serverEvent;
 
-    [_sector, _owner] call DOTT_ocap_fnc_changeSectorSideMarker;
+    [_sector, _owner] call DOTT_ocap_fnc_createSectorMarkers;
 }] call BIS_fnc_addScriptedEventHandler;
 
 //create area color and name on map on creation
@@ -17,20 +17,6 @@ params ["_logic"];
     params ["_logic"];
 
     sleep 0.5; //wait for owner/name to be assigned, maybe not needed
-
-    private _owner = _logic getVariable ["owner", sideUnknown];
-    [_logic, _owner] call DOTT_ocap_fnc_changeSectorSideMarker;
-
-    private _sectorName = _logic getVariable ["name", ""];
-
-    private _markerIconText = createmarkerlocal ["DOTT_ocap_iconText" + str _logic, position _logic];
-    _markerIconText setmarkertypelocal "loc_Attack";
-    _markerIconText setmarkercolorlocal "colorblack";
-    _markerIconText setmarkertextlocal _sectorName;
-    _markerIconText setmarkersizelocal [.5,.5];
-    _markerIconText setmarkeralphalocal 1;
-
-    _logic setVariable ["DOTT_nameMarker", _markerIconText];
 
     //update markers
     while {sleep 3; !((_logic getvariable ["finalized",false]) || (isnull _logic))} do 
@@ -54,6 +40,7 @@ params ["_logic"];
 
         if (_moved) then
         {
+            private _markerIconText = _logic getVariable ["DOTT_nameMarker", ""];
             _markerIconText setMarkerPosLocal position _logic;
         };
 
@@ -66,7 +53,7 @@ params ["_logic"];
             if (_triggerArea isNotEqualTo _markerArea) exitWith 
             {
                 private _owner = _logic getVariable ["owner", sideUnknown];
-                [_logic, _owner] call DOTT_ocap_fnc_changeSectorSideMarker;
+                [_logic, _owner] call DOTT_ocap_fnc_createSectorMarkers;
             };
         }
         forEach _areas;        

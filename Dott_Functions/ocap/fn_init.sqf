@@ -33,7 +33,7 @@ if (isServer) then
 
 	// --- Sector --- //
 	DOTT_ocap_fnc_handleSector = compileFinal preprocessFileLineNumbers "DOTT_Functions\ocap\fn_handleSector.sqf";	
-	DOTT_ocap_fnc_changeSectorSideMarker = compileFinal preprocessFileLineNumbers "DOTT_Functions\ocap\fn_changeSectorSideMarker.sqf";
+	DOTT_ocap_fnc_createSectorMarkers = compileFinal preprocessFileLineNumbers "DOTT_Functions\ocap\fn_createSectorMarkers.sqf";
 
 	{
 		_x call DOTT_ocap_fnc_handleSector;
