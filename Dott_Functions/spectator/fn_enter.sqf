@@ -55,7 +55,6 @@ hintSilent "SPECTATOR\n----------\nPress RELOAD to exit";  // Tell player they a
 };
 
 [player, true] remoteExecCall ["hideObjectGlobal", 2];
-player allowDamage false;
 
 private _params = switch (TN_limitSpectator) do
 {
