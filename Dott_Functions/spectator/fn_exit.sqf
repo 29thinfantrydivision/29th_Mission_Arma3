@@ -23,6 +23,8 @@ if (isNil {missionNamespace getVariable "BIS_EGSpectator_initialized"}) exitWith
 [player, false] remoteExecCall ["hideObjectGlobal", 2];
 cutText ["","PLAIN DOWN"]; // Clear cutText
 hintSilent ""; // Clear Hint
+
+player allowDamage false; //Terminate EGSpectator makes player vulnerable, so make invulnerable again to minimize damage while leaving spectator (collision)
 [] spawn 
 {
 	sleep 2; //wait so player does not take collision damage from other players leaving box

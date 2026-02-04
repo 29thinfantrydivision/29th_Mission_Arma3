@@ -51,6 +51,25 @@ TBD
 	- Included new class "FlagReturned"
 
 ---
+v4.3.6  
+02 FEB 2026
+---
+
+* Loadout
+  - EXPERIMENTAL: Apply setUnitLoadout before CBA_fnc_setLoadout to attempt to replicate conditions where silent bug doesn't appear for players who haven't respawned.
+
+* Round
+  - Remove server side checking for silent weapon, mostly pointless since client side can cause the issue.
+  - Client side check notification now condensed, excludes showing who views the issue.
+
+* OCAP
+  - Wait 10 seconds after sector is created to create marker to wait for any Zeus changes.
+  - Remove 'fix' halfing sector marker size.
+
+* Spectator
+  - Reworked invulnerability to work around the fact that BIS spectator function implicitly does it already.
+
+---
 v4.3.5  
 29 JAN 2026
 ---
