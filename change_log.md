@@ -51,6 +51,15 @@ TBD
 	- Included new class "FlagReturned"
 
 ---
+v4.3.7  
+04 FEB 2026
+---
+
+* OCAP
+  - Fix not passing variable into sleep in 4.3.5 (...again).
+
+
+---
 v4.3.6  
 02 FEB 2026
 ---

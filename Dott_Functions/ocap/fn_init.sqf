@@ -44,8 +44,9 @@ if (isServer) then
 		params ["_entity"];
 		if (_entity isKindOf "ModuleSector_F") then 
 		{
-			[] spawn 
+			[_entity] spawn 
 			{
+				params ["_entity"];
 				sleep 10;
 				_entity call DOTT_ocap_fnc_handleSector;
 			}		
