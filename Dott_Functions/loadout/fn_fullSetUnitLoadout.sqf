@@ -26,11 +26,6 @@ if (!local _unit) exitWith {["Unit %1 must be local.", _unit] call BIS_fnc_error
 
 if (!alive _unit) exitWith { false };
 
-waitUntil { uiSleep 0.1; !isSwitchingWeapon _unit };
-//EXPERIMENTAL: Apply setUnitLoadout before CBA_fnc_setLoadout to attempt prevent silent weapon bug
-_unit setUnitLoadout [["hgun_PDW2000_F","","","",["30Rnd_9x21_Mag",30],[],""],
- nil, nil, nil, nil, nil, nil, nil, nil, nil];
-waitUntil { uiSleep 0.5; !isSwitchingWeapon _unit };
 isNil { [_unit, _loadout, _fullMagazines] call CBA_fnc_setLoadout }; //run unscheduled
 
 //don't pull out weapon if no primary 

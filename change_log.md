@@ -58,6 +58,8 @@ v4.3.7
   - Removed resetWeaponState, while there is some evidence it stops the server from having the weapon be desynced, doesn't stop clients randomly being desynced.
     Could result in silent bug happening when leaving ACE Arsenal under certain conditions.
   - FlexibleReset will now skip rearming players in spectator box. Until silent weapon bug is reasonably fixed, reducing opportunities for it to happen.
+  - Removed experimental addition of setUnitLoadout in 4.3.5.
+
 
 * OCAP
   - Fix not passing variable into sleep in 4.3.5 (...again).
