@@ -1,7 +1,7 @@
 /*
  * Name:	DOTT_loadout_fnc_onArsenalClosed
- * Date:	9/30/2025
- * Version: 1.2
+ * Date:	02/04/2026
+ * Version: 1.3
  * Author:  Hill [29th ID]
  *
  * Description:
@@ -24,7 +24,6 @@ resetLoadout = [player] call CBA_fnc_getLoadout;
 
 [] spawn 
 {
-	sleep 1; //previously 3
 	[player] spawn DOTT_loadout_fnc_resetWeaponState;
 };
 
