@@ -57,10 +57,14 @@ v4.3.8
 * Loadout
   - Flexible reset no longer rearms player if in base (determined by ACE Arsenal action showing up). Until silent weapon bug is reasonably fixed, 
     reducing opportunities for it to happen.
-  - Moved last experimental resetWeaponState implemetation to only when closing arsenal, remove all other experimental loadout changes from 4.3.7.
+  - Moved last experimental resetWeaponState implementation to only when closing arsenal, remove all other experimental loadout changes from 4.3.7.
   - EXPERIMENTAL: resetWeaponState now removes and reequips primary and handgun weapon after a delay, and ammunition afterwards. 
     Delays are naturally longer due to weapon swapping animations.
     Only using for flexibleReset and not onArsenalClosed due to being too intrusive for the latter.
+
+* OCAP
+  - Check if count _area = count _areaMarkers to avoid error caused by it being false in loop.
+    Not entirely sure why they would be different at times, so just skipping (should be safe logic wise) to avoid error log.
 
 ---
 v4.3.7  
