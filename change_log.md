@@ -51,6 +51,14 @@ TBD
 	- Included new class "FlagReturned"
 
 ---
+v4.3.8  
+07 FEB 2026
+---
+* Loadout
+  - Flexible reset no longer rearms player if in base (determined by ACE Arsenal action showing up). Until silent weapon bug is reasonably fixed, 
+    reducing opportunities for it to happen.
+
+---
 v4.3.7  
 04 FEB 2026
 ---
