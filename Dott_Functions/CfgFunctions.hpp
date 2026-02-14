@@ -156,8 +156,6 @@ class DOTT_Training
 	{
 		file = "Dott_Functions\training";
 		class init {};
-		class initBaseObjects {};
-		class cleaner {};
 		class initDateAndWeather {};
 		class initDefaultLoadouts {};
 	};
@@ -241,7 +239,16 @@ class Dott_Event
 		class checkWinCondition {};
 		class gui_setSafeStartTime {};
 		class markEditorPlacedObjects {};
-		class initBaseObjects {};
+	};
+};
+
+class Dott_Base
+{
+	tag = "DOTT_base";
+	class BaseFunctions
+	{
+		file = "Dott_Functions\base";
+		class init {};
 		class cleaner {};
 	};
 };

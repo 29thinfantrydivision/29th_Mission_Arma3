@@ -18,10 +18,6 @@ Overall Future Goals
   - This is a low priority since this mission file is intended to be used on private servers.
 * mission.sqm
   - When/if it becomes worth it, update mission.sqm to
-  - Merge baseObjectsInit w/ event version
-  - Merge excludeObjFromZeus w/ event version
-  - Merge cleaner w/ event version (this might not require sqm change)
-  - Add trigger zone for arsenal instead of just getting the middle of respawn and box
   - Remove most zeus modules and just dynamically create in mission based on hashmap
 * CTF system via chat commands
   - Pole addactions to score?
@@ -68,7 +64,7 @@ v4.4.0
 - Removed CP1S3.
 - Removed rifleman slots to make each BLUFOR squad have 18 members.
 
-- Renamed base object variables to unify training/event fn_initBaseObjects and fn_cleaner.
+- Renamed base object variables to unify training/event fn_initBaseObjects, fn_cleaner, and fn_excludeObjects.
 - Disabled simulation, enabled simple object, and/or enabled local only on some objects in base for optimization.
 ---
 v4.3.8  

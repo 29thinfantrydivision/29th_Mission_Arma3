@@ -21,12 +21,6 @@
 
 if (hasInterface) then
 {
-	[] spawn 
-	{
-		waitUntil { !isNull player };
-		call DOTT_training_fnc_initBaseObjects;		
-	};
-
 	[] spawn DOTT_training_fnc_initDefaultLoadouts;
 };
 

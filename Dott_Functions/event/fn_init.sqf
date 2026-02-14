@@ -94,8 +94,6 @@ if (hasInterface) then
 /******* Everything else ********/
 if (hasInterface) then
 {
-	call DOTT_event_fnc_initBaseObjects;
-
 	[] spawn {
 		//Prevent error due to no saved respawn inventory
 		waitUntil { !isNull player };

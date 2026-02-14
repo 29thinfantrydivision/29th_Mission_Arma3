@@ -1,6 +1,30 @@
+#include "..\..\data\defines.hpp"
+
+/*
+ * Name:	DOTT_base_fnc_init
+ * Date:	02/14/2026
+ * Version: 2.0
+ * Author:  Bae [29th ID] modified from Hill [29th ID]
+ *
+ * Description:
+ * Initalizes base objects.
+ *
+ * Parameter(s): 
+ * None
+ *
+ * Returns:
+ * n/a
+ *
+ * Example:
+ * call DOTT_base_fnc_init;
+ * 
+ */
+
+if !(hasInterface) exitWith {};
+
 //Add actions to spectator terminals
-private _terminals = [];
-private _ammo_boxes = [];
+DOTT_terminals = [];
+DOTT_ammo_boxes = [];
 DOTT_garbages = []; //global variable for cleaner function
 
 { //forEach object placed in editor
@@ -22,12 +46,12 @@ DOTT_garbages = []; //global variable for cleaner function
 	private _actionObject = _tags select 1;
 	if (_actionObject isNotEqualTo "action") then { continue };
 	
-	//third tag is action type, sort variable into assosiated array
+	//third tag is action type, sort variable into associated array
 	private _actionType = _tags select 2;
 	switch (_actionType) do
 	{
-		case "arsenal": { _ammo_boxes pushBack _x; };
-		case "terminal": { _terminals pushBack _x; };
+		case "arsenal": { DOTT_ammo_boxes pushBack _x; };
+		case "terminal": { DOTT_terminals pushBack _x; };
 		case "garbage": { DOTT_garbages pushBack _x; };
 	};
 		//if var name doesn't include "base", skip object, continue to next object in vehicles array
@@ -62,40 +86,40 @@ forEach allMissionObjects "All";
 	private _activate = format ["[%1,3] call BIS_fnc_dataTerminalAnimate;", _x];
 	private _deActivate = format ["[%1,0] call BIS_fnc_dataTerminalAnimate;", _x];
 	_trg setTriggerStatements [_condition, _activate, _deActivate];
-} forEach _terminals;
+} forEach DOTT_terminals;
 
-//------- ACE Arsenal -------//
+//------- ACE Arsenal via radius from box -------//
 private _centers = [];
 arsenalActionId = -1;
 
-for "_i" from 0 to ((count _ammo_boxes) - 1) do 
+for "_i" from 0 to ((count DOTT_ammo_boxes) - 1) do 
 {
-  private _ammo = _ammo_boxes select _i;
+	private _ammo = DOTT_ammo_boxes select _i;
 
-  private _p1 = getPosATL _ammo;
+	private _p1 = getPosATL _ammo;
 
-  _centers pushBack _p1;
+	_centers pushBack _p1;
 };
 
 [_centers] spawn 
 {
-  params ["_centers"];
+	params ["_centers"];
+	if (count _centers == 0) exitWith {};
+	private _radius = if (isNil "DOTT_event_arsenalRadius") then { 75 } else { DOTT_event_arsenalRadius };
+	private _radiusSquared = _radius*_radius;
 
-  private _radius = DOTT_event_arsenalRadius;
-  private _radiusSquared = _radius*_radius;
+	while {true} do 
+	{
+	private _inZone = false;
+	{
+		private _distSquared = (getPosATL player) distanceSqr _x;
+		if(_distSquared <= _radiusSquared) exitWith {_inZone = true};
+	} forEach _centers;
 
-  while {true} do 
-  {
-    private _inZone = false;
-    {
-      private _distSquared = player distanceSqr _x;
-      if(_distSquared <= _radiusSquared) exitWith {_inZone = true};
-    } forEach _centers;
-
-    if (_inZone) then 
-    {
-        if (arsenalActionId == -1) then 
-        {
+	if (_inZone) then 
+	{
+		if (arsenalActionId == -1) then 
+		{
 			if (isClass (configFile >> "CfgPatches" >> "ace_main")) then 
 			{ 
 				arsenalActionId = player addAction [
@@ -111,22 +135,42 @@ for "_i" from 0 to ((count _ammo_boxes) - 1) do
 					nil, 1.5, true, true, "", "true"
 				];
 			};
-        };
-    } else 
-    {
-        if (arsenalActionId != -1) then 
-        {
-            player removeAction arsenalActionId;
-            arsenalActionId = -1;
-        };
-    };
-    sleep 1; 
-  };
+		};
+	} else 
+	{
+		if (arsenalActionId != -1) then 
+		{
+			player removeAction arsenalActionId;
+			arsenalActionId = -1;
+		};
+	};
+	sleep 1; 
+	};
 };
 
 player addEventHandler ["Respawn", { arsenalActionId = -1; }];
 //-----------------------------//
+if (DOTT_MODULES find "parade" != -1) then
+{
+	lastDebriefTime = -10;
+	blu_ammo addAction [
+		"<img image='\A3\Ui_f\data\IGUI\Cfg\Actions\gear_ca.paa'/><t color='#3f8eff'>  Force Parade</t>", 
+		{
+			params ["_target"];
+			[_target, 125] call DOTT_parade_fnc_forceAll;
+		}, 
+		nil, 
+		0.9, 
+		true, 
+		true, 
+		"", 
+		"serverCommandAvailable '#lock' && ((player distance blu_ammo) < 5 || (time - lastDebriefTime) < 10)", 
+		50
+	];
+};
+
+
 
 {
-  _x addAction ["<img image='\A3\Ui_f\data\IGUI\Cfg\simpleTasks\types\repair_ca.paa'/><t color='#FF0080'>  Clean-Up</t>", "call DOTT_event_fnc_cleaner", nil, 1, false, true, "", "true", 2];
+	_x addAction ["<img image='\A3\Ui_f\data\IGUI\Cfg\simpleTasks\types\repair_ca.paa'/><t color='#FF0080'>  Clean-Up</t>", "call DOTT_base_fnc_cleaner", nil, 1, false, true, "", "true", 2];
 } forEach DOTT_garbages;
