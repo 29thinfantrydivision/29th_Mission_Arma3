@@ -1,5 +1,3 @@
-#include "..\..\data\defines.hpp"
-
 /*
  * Name:	DOTT_curator_fnc_init
  * Date:	12/30/2025
@@ -102,11 +100,5 @@ if (isServer) then
 		};
 	}];
 
-	#ifdef DOTT_TRAINING
 	[] spawn DOTT_curator_fnc_excludeObjects;
-	#endif
-
-	#ifdef DOTT_EVENT
-	[] spawn DOTT_curator_fnc_eventExcludeObjects;
-	#endif
 };

@@ -112,7 +112,6 @@ class DOTT_Curator
 		class fixAssignment {};
 		class checkAssignment {};
 		class excludeObjects {};
-		class eventExcludeObjects {};
 		class addPlayerEditable {};
 	};
 };
