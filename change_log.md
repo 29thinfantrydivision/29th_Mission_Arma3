@@ -16,9 +16,6 @@ Overall Future Goals
   - Limit remote exec functions
   - allowFunctionsRecompile = 1; is necessary for custom sector settings, can't think of a way to bypass this
   - This is a low priority since this mission file is intended to be used on private servers.
-* mission.sqm
-  - When/if it becomes worth it, update mission.sqm to
-  - Remove most zeus modules and just dynamically create in mission based on hashmap
 * CTF system via chat commands
   - Pole addactions to score?
   - Maybe no flag? Drop object on death that is the "flag"
@@ -66,6 +63,7 @@ v4.4.0
 
 - Renamed base object variables to unify training/event fn_initBaseObjects, fn_cleaner, and fn_excludeObjects.
 - Disabled simulation, enabled simple object, and/or enabled local only on some objects in base for optimization.
+- Removed Game Master modules from the sqm, create via script instead. Adds createCuratorModule, removes checkAssignment, fixAssignment.
 ---
 v4.3.8  
 07 FEB 2026

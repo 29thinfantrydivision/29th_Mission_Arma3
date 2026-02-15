@@ -31,7 +31,7 @@ if (hasInterface) then
 	{
 		waitUntil { !isNull player };
 
-		//Draw little skulls each time a player dies.  Seen only by Zeus.
+		//Draw little skulls each time a player dies. Seen only by Zeus.
 		player call BIS_fnc_drawCuratorDeaths;
 
 		["DOTT_enteredZeus",
@@ -49,13 +49,13 @@ if (hasInterface) then
 			[
 				"PreloadFinished", 
 				{
-					[player] call DOTT_curator_fnc_checkAssignment;
+					[player] spawn DOTT_curator_fnc_createCuratorModule;
 					removeMissionEventHandler ["PreloadFinished", _thisEventHandler];
 				}
 			];
 		} else //non-JIP, but might not be needed because this is a JIP problem
 		{
-			[player] call DOTT_curator_fnc_checkAssignment;
+			[player] spawn DOTT_curator_fnc_createCuratorModule;
 		};
 
 		[player] remoteExec ["DOTT_curator_fnc_addPlayerEditable", 2];
@@ -64,6 +64,17 @@ if (hasInterface) then
 
 if (isServer) then
 {
+	DOTT_curator_group = createGroup [sideLogic, false];
+
+	if (isNil "zeus_admin") then { //in case zeus_admin is in mission.sqm for some reason
+		zeus_admin = DOTT_curator_group createUnit ["ModuleCurator_F", [0, 0, 0], [], 0, "NONE"];
+		zeus_admin setVariable ["owner", "#adminLogged", true];
+		zeus_admin setVariable ["name", "Admin", true];    
+		zeus_admin setVariable ["Addons", 3, true];
+		zeus_admin setVariable ["BIS_fnc_initModules_disableAutoActivation", false];
+		zeus_admin setVariable ["isCuratorExcluded", true, false];
+	};
+
 	addMissionEventHandler ["OnUserAdminStateChanged", {
 		params ["_networkId", "_loggedIn"];
 		private _userInfo = (getUserInfo _networkId);
@@ -94,7 +105,7 @@ if (isServer) then
 					params ["_unit"];					
 					unassignCurator zeus_admin;
 					sleep .1;
-					[_unit] spawn DOTT_curator_fnc_checkAssignment;
+					[_unit] spawn DOTT_curator_fnc_createCuratorModule;
 				};
 			};
 		};

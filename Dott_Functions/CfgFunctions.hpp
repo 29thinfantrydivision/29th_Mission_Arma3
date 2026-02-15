@@ -109,10 +109,9 @@ class DOTT_Curator
 	{
 		file = "Dott_Functions\curator";
 		class init {};
-		class fixAssignment {};
-		class checkAssignment {};
 		class excludeObjects {};
 		class addPlayerEditable {};
+		class createCuratorModule {};
 	};
 };
 
