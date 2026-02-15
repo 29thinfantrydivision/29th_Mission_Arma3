@@ -24,7 +24,7 @@ if !(hasInterface) exitWith {};
 
 //Add actions to spectator terminals
 DOTT_terminals = [];
-DOTT_ammo_boxes = [];
+DOTT_arsenals = [];
 DOTT_garbages = []; //global variable for cleaner function
 
 { //forEach object placed in editor
@@ -50,28 +50,10 @@ DOTT_garbages = []; //global variable for cleaner function
 	private _actionType = _tags select 2;
 	switch (_actionType) do
 	{
-		case "arsenal": { DOTT_ammo_boxes pushBack _x; };
+		case "arsenal": { DOTT_arsenals pushBack _x; };
 		case "terminal": { DOTT_terminals pushBack _x; };
 		case "garbage": { DOTT_garbages pushBack _x; };
 	};
-		//if var name doesn't include "base", skip object, continue to next object in vehicles array
-		//private _baseObject = ["base", _vicString] call BIS_fnc_inString;
-		//if (!_baseObject) then { continue };
-	
-	//if (["arsenal", _vicString] call BIS_fnc_inString) then //arsenal vars
-	//{
-	//	_arsenalArr pushBack _x;
-	//};
-	//
-	//if (["terminal", _vicString] call BIS_fnc_inString) then //spectator terminal vars
-	//{
-	//	_terminalArr pushBack _x;
-	//};
-	//
-	//if (["garbage", _vicString] call BIS_fnc_inString) then //garbage can vars
-	//{
-	//	_garbageArr pushBack _x;
-	//};
 }
 forEach allMissionObjects "All";
 
@@ -92,9 +74,9 @@ forEach allMissionObjects "All";
 private _centers = [];
 arsenalActionId = -1;
 
-for "_i" from 0 to ((count DOTT_ammo_boxes) - 1) do 
+for "_i" from 0 to ((count DOTT_arsenals) - 1) do 
 {
-	private _ammo = DOTT_ammo_boxes select _i;
+	private _ammo = DOTT_arsenals select _i;
 
 	private _p1 = getPosATL _ammo;
 
