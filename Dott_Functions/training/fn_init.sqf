@@ -45,17 +45,20 @@ if (hasInterface) then
 		DOTT_arsenal_centers pushBack _centerPos;
 	} forEach _findCenterObjs;
 
-	/* Draw base locations on map for curator, do on enter and exit in case curator logic changes (admin swap)*/
+	/* Draw base locations on map for curator */
+	DOTT_training_curatorBaseLogic = objNull;
+
 	["DOTT_enteredZeus",
 	{
-		private _locationColors = [[1,0,0,0.5], [0.5, 0.7, 1.0, 0.5], [0,1,0,0.5]];
+		//check if curator module changes (admin swap), if so we need to do this to new module
+		if (DOTT_training_curatorBaseLogic isEqualTo getAssignedCuratorLogic player) exitWith {};
 
-		DOTT_training_curatorBaseIcons = [];
 		DOTT_training_curatorBaseLogic = getAssignedCuratorLogic player;
 
+		private _locationColors = [[1,0,0,0.5], [0.5, 0.7, 1.0, 0.5], [0,1,0,0.5]];
+
 		{
-			DOTT_training_curatorBaseIcons pushBack
-			([ 
+			[ 
 				DOTT_training_curatorBaseLogic, 
 				[ 
 				"\A3\ui_f\data\map\markers\nato\b_unknown.paa", 
@@ -70,19 +73,8 @@ if (hasInterface) then
 				], 
 				true, 
 				true
-			] call bis_fnc_addcuratoricon);
+			] call bis_fnc_addcuratoricon;
 		} forEach DOTT_arsenal_centers;
-	}
-	] call CBA_fnc_addEventHandler;
-
-	["DOTT_exitedZeus",
-	{
-		{
-			[DOTT_training_curatorBaseLogic, _x] call bis_fnc_removecuratoricon;
-		} forEach DOTT_training_curatorBaseIcons;
-
-		DOTT_training_curatorBaseIcons = nil;
-		DOTT_training_curatorBaseLogic = nil;
 	}
 	] call CBA_fnc_addEventHandler;
 	/* ---------------------------------- */
