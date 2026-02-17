@@ -72,7 +72,7 @@ if (_eventType == VEHICLE_KILL_NUM && isNull _instigator) then
 	{
 		private _distance = round ((getPosASL _unit) distance (getPosASL _instigator));
 		private _side = side (group _instigator);
-		if (_side == sideUnknown) then //dead man
+		if (_side == sideUnknown || _side == civilian) then //dead man
 		{
 			//might work improperly if zeus changed player side
 			_side = getNumber (configFile >> "CfgVehicles" >> typeOf _instigator >> "side") call BIS_fnc_sideType;

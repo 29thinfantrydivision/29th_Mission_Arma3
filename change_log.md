@@ -89,6 +89,9 @@ v4.4.0
 
 * Loadout
   - Use ace_common_fnc_addToInventory to hopefully fix rare issue where grenades are not properly "equipped" when resetWeaponState is used.
+
+* Tracker
+  - Also check if side is civllian to reduce cases where instigator side is unknown in recordKill and addEventHandlersClient.
 ---
 v4.3.8  
 07 FEB 2026
