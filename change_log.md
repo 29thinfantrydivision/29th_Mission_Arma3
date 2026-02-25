@@ -44,6 +44,13 @@ TBD
 	- Included new class "FlagReturned"
 
 ---
+v4.4.1
+25 FEB 2026
+---
+* Tracker
+  - Added one missing side civilian check in recordKill (from 4.4.0).
+
+---
 v4.4.0
 19 FEB 2026
 ---
