@@ -47,6 +47,9 @@ TBD
 v4.4.1
 25 FEB 2026
 ---
+* Base
+  - Make terminal animation trigger creation local instead of global. Oversight from 4.4.0 that was potentially a source of lag during mission.
+
 * Tracker
   - Added one missing side civilian check in recordKill (from 4.4.0).
 
