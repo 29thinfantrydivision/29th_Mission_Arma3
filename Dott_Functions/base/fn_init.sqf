@@ -61,7 +61,7 @@ forEach allMissionObjects "All";
   _x addAction ["<img image='\A3\Ui_f\data\GUI\Rsc\RscDisplayEGSpectator\Follow.paa'/><t color='#00ff00'>  Spectator</t>", "[] spawn DOTT_spectator_fnc_enter", nil, 6, false, true, "", "true", 4];
 
 	//create trigger for animating the spectator box and set it up
-	private _trg = createTrigger ["EmptyDetector", getPos _x];
+	private _trg = createTrigger ["EmptyDetector", getPos _x, false];
 	_trg setTriggerArea [0, 0, 0, false];
 	_trg setTriggerActivation ["NONE", "NONE", true];
 	private _condition = format ["player distance %1 < 3", _x];

@@ -44,6 +44,22 @@ TBD
 	- Included new class "FlagReturned"
 
 ---
+v4.4.1
+25 FEB 2026
+---
+* Base
+  - Make terminal animation trigger creation local instead of global. Oversight from 4.4.0 that was potentially a source of lag during mission.
+
+* Tracker
+  - Added one missing side civilian check in recordKill (from 4.4.0).
+
+* Training
+  - Removed BIS_fnc_endMission from overrideFunctions.sqf. Initial purpose was to stop missing ending on end of countdown timer, 
+    but this behavior has not been reproduced in testing. (Famous last words.) (Might be due to respawn template settings in older versions.)
+    Done as an initial step to troubleshooting OCAP not saving the map correctly sometimes, but likely will not fix.
+    Otherwise useful to get rid of unneeded things in the mission file.
+
+---
 v4.4.0
 19 FEB 2026
 ---
