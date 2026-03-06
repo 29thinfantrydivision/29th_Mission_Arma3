@@ -60,9 +60,6 @@ v4.4.2
     Teams can still ready up, and if all teams ready up during this forced safe start period, it will shorten to the default safe start period.
   - Added HUD overlay showing team ready status during safe start. (Thanks PFC Wells.) 
 
-* OCAP
-  - Remove workarounds, this module will now require OCAP 2.1+.
-
 * Tracker
   - Hopefully finally fixed small issue where instigator is unknown by defaulting side of instigator to first entry in _unitSides instead
     of sideUnknown if _time is lower than all entries. Previous fix attempts in 4.4.0 and 4.4.1 likely could be reverted, but will leave in place.
