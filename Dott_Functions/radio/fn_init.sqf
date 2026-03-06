@@ -1,7 +1,7 @@
 /*
  * Name:	DOTT_radio_fnc_init
- * Date:	01/05/2026
- * Version: 1.1
+ * Date:	03/06/2026
+ * Version: 1.2
  * Author:  Bae [29th ID]
  *
  * Description:

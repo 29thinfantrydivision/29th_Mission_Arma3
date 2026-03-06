@@ -30,9 +30,9 @@ Overall Future Goals
       which can also make how long we want a message to stay up inconsistent.
     - Potentially take FNF notification system and tweak it.
     - Potentially use CBA's.
-  - UI for round safestart/ready system
   - Finish event module
     - Safestart related flag actions bugged.
+    - Potentially integrate new forced safe start feature
 ---
 TBD
 
@@ -45,7 +45,7 @@ TBD
 
 ---
 v4.4.2
-03 MAR 2026
+06 MAR 2026
 ---
 
 * Curator

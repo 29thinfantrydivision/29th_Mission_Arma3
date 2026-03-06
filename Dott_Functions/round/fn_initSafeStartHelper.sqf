@@ -2,13 +2,13 @@
 
 /*
  * Name:	DOTT_round_fnc_initSafeStartHelper
- * Date:	01/11/2026
- * Version: 1.2
+ * Date:	03/06/2026
+ * Version: 1.3
  * Author:  Bae [29th ID] 
  *
  * Description:
  * Helper function for initSafeStart that calls itself every second until the end of safeStart or 
- * if not all teams are ready.
+ * if not all teams are ready and forced safe start is not on.
  *
  * Parameter(s): 
  * None

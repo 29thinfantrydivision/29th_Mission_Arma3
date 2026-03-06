@@ -2,8 +2,8 @@
 
 /*
  * Name:	DOTT_round_fnc_init
- * Date:	12/24/2025
- * Version: 1.3
+ * Date:	03/06/2026
+ * Version: 1.4
  * Author:  Bae [29th ID] modified from Dott [29th ID]
  *
  * Description:
@@ -34,18 +34,18 @@ if (isServer) then
 	[
 		"DOTT_round_started",
 		{
-			west addScoreSide -SCORE_REDUCE_VALUE;
-			east addScoreSide -SCORE_REDUCE_VALUE;
-			independent addScoreSide -SCORE_REDUCE_VALUE;							
+			{
+				_x addScoreSide -SCORE_REDUCE_VALUE
+			} forEach [west, east, independent];					
 		} 
 	] call CBA_fnc_addEventHandler;	
 
 	[
 		"DOTT_round_ended",
 		{
-			west addScoreSide SCORE_REDUCE_VALUE;
-			east addScoreSide SCORE_REDUCE_VALUE;
-			independent addScoreSide SCORE_REDUCE_VALUE;							
+			{
+				_x addScoreSide SCORE_REDUCE_VALUE
+			} forEach [west, east, independent];						
 		} 
 	] call CBA_fnc_addEventHandler;	
 };

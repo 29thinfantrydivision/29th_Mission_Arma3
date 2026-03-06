@@ -2,12 +2,13 @@
 
 /*
  * Name:	DOTT_round_fnc_initSafeStart
- * Date:	01/11/2026
- * Version: 1.2
+ * Date:	03/06/2026
+ * Version: 1.3
  * Author:  Bae [29th ID] modified from Dott [29th ID]
  *
  * Description:
- * Launches safe start before round start. Launches round if all sides are still ready after the safe start time.
+ * Launches safe start before round start. 
+ * Launches round if all sides are still ready after the safe start time or if forced parameter is used.
  * Forced to be run on server.
  *
  * Parameter(s): 

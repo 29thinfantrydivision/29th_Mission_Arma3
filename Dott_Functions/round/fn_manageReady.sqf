@@ -2,8 +2,8 @@
 
 /*
  * Name:	DOTT_round_fnc_manageReady
- * Date:	12/24/2025
- * Version: 1.1
+ * Date:	03/06/2026
+ * Version: 1.2
  * Author:  Bae [29th ID] modified from Dott [29th ID]
  *
  * Description:

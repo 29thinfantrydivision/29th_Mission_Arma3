@@ -1,7 +1,7 @@
 /*
  * Name:	DOTT_training_fnc_init
- * Date:	02/19/2026
- * Version: 1.1.1
+ * Date:	03/06/2026
+ * Version: 1.2
  * Author:  Bae [29th ID]
  *
  * Description:

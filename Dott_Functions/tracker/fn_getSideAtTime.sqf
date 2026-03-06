@@ -1,7 +1,7 @@
 /*
  * Name:	DOTT_tracker_fnc_getSideAtTime
- * Date:	8/18/2025
- * Version: 1.0
+ * Date:	03/06/2026
+ * Version: 1.1
  * Author:  Bae [29th ID]
  *
  * Description:
