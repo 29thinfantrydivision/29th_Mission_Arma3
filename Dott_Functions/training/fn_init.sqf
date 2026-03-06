@@ -102,12 +102,7 @@ if (isServer) then
 		{
 			if ( _pos distance _x < 75) exitWith 
 			{
-				[_unit] spawn
-				{
-					params ["_unit"];
-					sleep 1; //wait a bit so disappearance is less jarring
-					deleteVehicle _unit;
-				};
+				deleteVehicle _unit;
 			};
 		}
 		forEach DOTT_arsenal_centers;
