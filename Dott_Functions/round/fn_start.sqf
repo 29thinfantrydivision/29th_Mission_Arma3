@@ -28,7 +28,7 @@ if (call DOTT_round_fnc_isRoundActive) exitWith {false};
 [_roundLength] call BIS_fnc_countdown;
 
 private _msgText = format [
-	"<t color='#ffffff' size='4'>LIVE LIVE LIVE</t><br/>%1 Time Limit",
+	"<t color='#ffffff'><t size='4'>LIVE LIVE LIVE</t><br/><t size='2'>%1 Time Limit</t></t>",
 	[_roundLength, true] call DOTT_round_fnc_formatTime
 ];
 

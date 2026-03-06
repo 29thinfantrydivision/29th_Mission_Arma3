@@ -44,7 +44,7 @@ if (call DOTT_round_fnc_checkAllSidesReady) then
 		if ([0] call BIS_fnc_countdown <= TN_safeStartTime) exitWith {};
 
 		private _msgText = format [
-			"<t color='#ffffff' size='3'>All teams ready! Shortening safe start.</t><br/>Live in %1!",
+			"<t color='#ffffff'><t size='3'>All teams ready! Shortening safe start.</t><br/><t size='2'>Live in %1!</t></t>",
 			[TN_safeStartTime] call DOTT_round_fnc_formatTime
 		];
 
