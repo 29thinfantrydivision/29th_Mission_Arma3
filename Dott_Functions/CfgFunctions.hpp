@@ -38,6 +38,7 @@ class Dott_Round
 		class checkAllSidesReady {};
 		class initSafeStart {};
 		class initSafeStartHelper {};
+		class changeForcedSafeStart {};
 		class start {};
 		class end {};
 		class isRoundActive {};

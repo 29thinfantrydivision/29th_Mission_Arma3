@@ -58,10 +58,11 @@ v4.4.2
   - Radios from disconnecting bodies are now deleted as well.
 
 * Round
-  - Added !safe (safestart) as a new command, which allows the admin to force safe start with a specified time in minutes, 
+  - Added !safe as a new command, which allows the admin to force safe start with a specified time in minutes, 
     or unforce safe start if given 0 (E.G. '!safe 1' forces a 1 minute safe start)".
     Teams can still ready up, and if all teams ready up during this forced safe start period, it will shorten to the default safe start period.
-  - Added HUD overlay showing team ready status during safe start. (Thanks PFC Wells.) 
+    Creates fn_changedForcedSafeStart.sqf along with public variable DOTT_round_ignoreReadiness.
+  - Added HUD overlay showing team ready status during safe start. (Thanks PFC Wells.) Creates fn_initReadyUI.sqf
 
 * Tracker
   - Hopefully finally fixed small issue where instigator is unknown by defaulting side of instigator to first entry in _unitSides instead

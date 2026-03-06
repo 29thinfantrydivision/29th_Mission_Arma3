@@ -120,19 +120,15 @@
 							systemChat "Forcing Safe Start!";
 						};
 						default {
-							[_minutes * 60] call BIS_fnc_countdown;
-							private _formattedTime = [_minutes * 60] call DOTT_round_fnc_formatTime;
-							systemChat format ["Changing forced safestart to %1!", _formattedTime];
-							private _hint = format ["Forced Safe Start changed to %1!", _formattedTime];
-							[_hint] remoteExecCall ["hint"];
+							[_minutes * 60] call DOTT_round_fnc_changeForcedSafeStart;
+							systemChat "Changing forced safestart!";
 						};
 					};
 				}
 				else 
 				{
-					if !(isNil "DOTT_round_safeStartActive") then
+					if ([0] call DOTT_round_fnc_changeForcedSafeStart) then
 					{					
-						DOTT_round_ignoreReadiness = false; publicVariable "DOTT_round_ignoreReadiness";
 						systemChat "Safe start is no longer forced and will end if all teams are not ready!";
 					}
 					else
