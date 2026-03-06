@@ -20,7 +20,7 @@
  * [playerSide, true] call DOTT_round_fnc_manageReady;
  * 
  */
-params["_side", "_isReady", ["_showHint", true]];
+params["_side", "_isReady"];
 
 if (call DOTT_round_fnc_isRoundActive) exitWith {1};
 
@@ -35,19 +35,6 @@ publicVariable "DOTT_round_sideReady";
 ["DOTT_round_manageReadyChange", _this] call CBA_fnc_globalEvent;
 
 private _readyStr = _side call BIS_fnc_sideName; //For now name of team
-
-if (_showHint) then
-{
-	if(_isReady) then
-	{
-		_readyStr = _readyStr + " ready!";
-	} else 
-	{
-		_readyStr = _readyStr + " not ready!";
-	};
-	_readyStr remoteExec ["hint"];
-};
-
 
 if (call DOTT_round_fnc_checkAllSidesReady) then 
 {

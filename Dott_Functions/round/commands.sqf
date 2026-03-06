@@ -105,25 +105,27 @@
 			}
 		],
 		[
-			"ss",
+			"safe",
 			{
 				_argument = _this select 0;
 				private _minutes = abs (parsenumber _argument); //overtime can't be negative!
 				if (_minutes > 0) then 
 				{
-					if (isNil "DOTT_round_safeStartActive") then
-					{
-						[_minutes*60, true] call DOTT_round_fnc_initSafeStart;
-						systemChat "Forcing Safe Start!";
-					}
-					else
-					{
-						//messy, shouldn't have so much unabstracted stuff here
-						[_minutes*60] call BIS_fnc_countdown;
-						private _formattedTime = [_minutes*60] call DOTT_round_fnc_formatTime;
-						systemChat format ["Changing forced safestart to %1!", _formattedTime];
-						private _hint = format ["Forced Safe Start changed to %1!", _formattedTime];
-						[_hint] remoteExecCall ["hint"];
+					switch (true) do {
+						case (call DOTT_round_fnc_isRoundActive): {
+							systemChat "Error: Round is currently active!";
+						};
+						case (isNil "DOTT_round_safeStartActive"): {
+							[_minutes * 60, true] call DOTT_round_fnc_initSafeStart;
+							systemChat "Forcing Safe Start!";
+						};
+						default {
+							[_minutes * 60] call BIS_fnc_countdown;
+							private _formattedTime = [_minutes * 60] call DOTT_round_fnc_formatTime;
+							systemChat format ["Changing forced safestart to %1!", _formattedTime];
+							private _hint = format ["Forced Safe Start changed to %1!", _formattedTime];
+							[_hint] remoteExecCall ["hint"];
+						};
 					};
 				}
 				else 
@@ -150,6 +152,6 @@
 		["game", "Calls game and ends any countdown"],
 		["ready", "Sets the player's side as ready, and begins the safe start if all player sides are ready"],
 		["unready", "Cancels the ready status for the player's side"],
-		["ss", "Forces safe start with a specified time in minutes, or unforce safe start if given 0 (E.G. '!ss 1' forces a 1 minute safe start)"]
+		["safe", "Forces safe start with a specified time in minutes, or unforce safe start if given 0 (E.G. '!safe 1' forces a 1 minute safe start)"]
 	]
 ] call DOTT_commands_fnc_addModule;

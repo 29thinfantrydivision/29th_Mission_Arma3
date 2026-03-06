@@ -50,6 +50,7 @@ class Dott_Round
 		class roundEvents {};
 		class formatTime {};
 		class collectSilentWeapons {};
+		class initReadyUI {};
 	};
 };
 

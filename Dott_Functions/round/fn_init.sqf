@@ -52,6 +52,8 @@ if (isServer) then
 
 if (hasInterface) then
 {
+	call DOTT_round_fnc_initReadyUI;
+
 	//For JIP players
 	//showScoreTable silently fails if called too early
 	addMissionEventHandler ["PreloadFinished", {

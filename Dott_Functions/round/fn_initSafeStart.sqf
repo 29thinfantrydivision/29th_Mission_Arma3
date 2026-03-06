@@ -16,7 +16,7 @@
  * NOTE: Calling syntax should always include at least empty array.
  *
  * Returns:
- * true
+ * true if safe started launched, false otherwise
  *
  * Example:
  * [] call DOTT_round_fnc_initSafeStart;
@@ -25,7 +25,9 @@
 
 if (!isServer) exitWith {_this remoteExec ["DOTT_round_fnc_initSafeStart", 2];}; //server should be in charge of this waitAndExecute
 
-if !(isNil "DOTT_round_safeStartActive") exitWith {};
+if !(isNil "DOTT_round_safeStartActive") exitWith { false };
+if (call DOTT_round_fnc_isRoundActive) exitWith { false }; //don't start safe start if round already live
+
 
 params [["_safeStartTime", TN_safeStartTime], ["_forced", false]];
 
