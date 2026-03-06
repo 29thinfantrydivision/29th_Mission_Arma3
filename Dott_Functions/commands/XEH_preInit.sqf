@@ -3,7 +3,7 @@
 #include "..\..\data\settingCategories.hpp"
 
 private _defaultNoLog = "['commands', 'help', 'showchat', 'radio']";
-private _defaultRestrictedCommands = "['arsenal', 'heal', 'rearm', 'cleanup']";
+private _defaultRestrictedCommands = "['arsenal', 'heal', 'rearm', 'cleanup', 'fb']";
 private _defaultAdminCommands = "['reset', 'debrief', 'goto', 'measure', 'tickets', 'parade', 's', 'ss']";
 
 [
