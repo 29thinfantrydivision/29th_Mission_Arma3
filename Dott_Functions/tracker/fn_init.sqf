@@ -165,6 +165,7 @@ if (hasInterface) then
 		{
 			DOTT_tracker_cookOffs = [];
 			player setVariable ["DOTT_burnInstigator", nil];
+			player setVariable ["DOTT_burnInstigatorTime", nil];
 			player setVariable ["DOTT_burnWeapon", nil];
 			//burn info of other players locally is not reset, but should be fine
 		} 
