@@ -13,12 +13,6 @@ diag_log text format [
 
 #include "data\defines.hpp"
 
-// Modules are defined in defines.hpp as a preprocessor macro.
-// Guard against undefined or empty module list.
-if (isNil "DOTT_MODULES") exitWith {
-    diag_log text "ERROR: DOTT_MODULES is not defined.";
-};
-
 {
     private _moduleInitName =
         format ["DOTT_%1_fnc_init", _x];
