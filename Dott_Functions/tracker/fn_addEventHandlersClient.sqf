@@ -91,6 +91,8 @@ DOTT_lastFireCheck = 0;
 ["ace_medical_woundReceived", 
 	{
 		params ["_unit", "", "_instigator", "_ammo"];
+		//most wounds are from bullets/frags which we don't handle here, exit before doing anything else
+		if !(_ammo in ["collision", "burn", "fire", "FuelExplosion", "FuelExplosionBig"]) exitWith {};
 		//in this event handler we need more reliable instigator side info as they may not be alive during damage
 		private _fn_findSide = 
 		{
@@ -113,7 +115,7 @@ DOTT_lastFireCheck = 0;
 			private _instigatorInfo = [_driver call DOTT_tracker_fnc_getName, _sideInstigator, getPosASL _driver, 
 				_weapon, round(serverTime - DOTT_tracker_startTime)];
 			
-			[_unit, _instigatorInfo] remoteExecCall ["DOTT_tracker_fnc_sendHit", 2];
+			[[_unit], _instigatorInfo] remoteExecCall ["DOTT_tracker_fnc_sendHit", 2];
 		};
 
 		if (_ammo == "burn") then 
@@ -128,7 +130,6 @@ DOTT_lastFireCheck = 0;
 			if (isNull _instigator) then //usually means damage from fire on person
 			{
 				_instigator = _unit getVariable ["DOTT_burnInstigator", objNull];
-				_sideInstigator = _instigator call _fn_findSide;
 				_weapon = _unit getVariable ["DOTT_burnWeapon", "Fire"];				
 			} else
 			{
@@ -172,7 +173,7 @@ DOTT_lastFireCheck = 0;
 			private _instigatorInfo = [_instigator call DOTT_tracker_fnc_getName, _sideInstigator, getPosASL _instigator, 
 				_weapon, round(serverTime - DOTT_tracker_startTime)];
 	
-			[_unit, _instigatorInfo] remoteExecCall ["DOTT_tracker_fnc_sendHit", 2];
+			[[_unit], _instigatorInfo] remoteExecCall ["DOTT_tracker_fnc_sendHit", 2];
 		};
 
 		//Burn has a delay of 1 second so if someone dies before that it won't register (mostly from close RHS Incendiary)
@@ -216,7 +217,7 @@ DOTT_lastFireCheck = 0;
 			private _instigatorInfo = [_instigator call DOTT_tracker_fnc_getName, _sideInstigator, getPosASL _instigator, 
 				_weapon, round(serverTime - DOTT_tracker_startTime)];
 	
-			[_unit, _instigatorInfo] remoteExecCall ["DOTT_tracker_fnc_sendHit", 2];
+			[[_unit], _instigatorInfo] remoteExecCall ["DOTT_tracker_fnc_sendHit", 2];
 
 					
 		};
@@ -236,7 +237,7 @@ DOTT_lastFireCheck = 0;
 			private _instigatorInfo = [_instigator call DOTT_tracker_fnc_getName, _sideInstigator, getPosASL _instigator, 
 				_weapon, round(serverTime - DOTT_tracker_startTime)];
 	
-			[_unit, _instigatorInfo] remoteExecCall ["DOTT_tracker_fnc_sendHit", 2];
+			[[_unit], _instigatorInfo] remoteExecCall ["DOTT_tracker_fnc_sendHit", 2];
 		};		
 
 	}
@@ -248,27 +249,32 @@ DOTT_lastFireCheck = 0;
 		params ["_unit", "_instigator"];
 		if (!alive _unit) exitWith {};
 
-		if (!isNull _instigator) then 
+		if (!isNull _instigator) then
 		{
 			_unit setVariable ["DOTT_burnInstigator", _instigator, true];
-			_unit setVariable ["DOTT_burnWeapon", "Fire", true];			
+			_unit setVariable ["DOTT_burnInstigatorTime", time];
+			_unit setVariable ["DOTT_burnWeapon", "Fire", true];
 		} else
 		{
+			//skip expensive spatial searches if we recently cached who set this unit on fire
+			if (!isNull (_unit getVariable ["DOTT_burnInstigator", objNull]) && { time - (_unit getVariable ["DOTT_burnInstigatorTime", -999]) < 5 }) exitWith {};
 			//look for nearby ACE incendiary grenade (RHS one doesn't set people on fire)
-			private _grenades = (position player) nearObjects ["ACE_G_M14", INFANTRY_GRENADE_DISTANCE];
-			if (count _grenades > 0) then 
+			private _grenades = (position _unit) nearObjects ["ACE_G_M14", INFANTRY_GRENADE_DISTANCE];
+			if (count _grenades > 0) then
 			{
 				private _grenade = _grenades select 0;
 				_unit setVariable ["DOTT_burnInstigator", (getShotParents _grenade) select 0, true];
-				_unit setVariable ["DOTT_burnWeapon", "ACE AN-M14", true];					
-			} else 
+				_unit setVariable ["DOTT_burnInstigatorTime", time];
+				_unit setVariable ["DOTT_burnWeapon", "ACE AN-M14", true];
+			} else
 			{
 				//look through cookoffs
 				{
-					if ((_x select 0) distance (getPosASL _unit) < COOKOFF_DISTANCE) exitWith 
+					if ((_x select 0) distance (getPosASL _unit) < COOKOFF_DISTANCE) exitWith
 					{
 						_unit setVariable ["DOTT_burnInstigator", _x select 1, true];
-						_unit setVariable ["DOTT_burnWeapon", "Cookoff Fire", true];		
+						_unit setVariable ["DOTT_burnInstigatorTime", time];
+						_unit setVariable ["DOTT_burnWeapon", "Cookoff Fire", true];
 					}
 				}
 				forEach DOTT_tracker_cookOffs;
@@ -283,6 +289,7 @@ DOTT_lastFireCheck = 0;
 						{
 							private _burnWeapon = _x getVariable ["DOTT_burnWeapon", "Fire"];
 							_unit setVariable ["DOTT_burnInstigator", _burnInstigator, true];
+							_unit setVariable ["DOTT_burnInstigatorTime", time];
 							_unit setVariable ["DOTT_burnWeapon", _burnWeapon, true];
 						};
 					}
@@ -302,7 +309,7 @@ addMissionEventHandler ["EntityKilled",
 	if (isNull _instigator) then 
 	{
 		//look for ACE/RHS incendiary grenade
-		private _grenades = (position _unit) nearObjects ["GrenadeHand", VEHICLE_GRENADE_DISTANCE];;
+		private _grenades = (position _unit) nearObjects ["GrenadeHand", VEHICLE_GRENADE_DISTANCE];
 		{
 			if ((typeOf _x) == "ACE_G_M14" || (typeOf _x) == "rhs_ammo_an_m14_th3") exitWith {_instigator = (getShotParents _x) select 0 };					
 		}
@@ -317,7 +324,8 @@ player addEventHandler ["Respawn",
 {
 	params ["_unit"];
 	_unit setVariable ["DOTT_burnInstigator", nil];
-	_unit setVariable ["DOTT_burnWeapon", nil];	
+	_unit setVariable ["DOTT_burnInstigatorTime", nil];
+	_unit setVariable ["DOTT_burnWeapon", nil];
 }];
 
 true

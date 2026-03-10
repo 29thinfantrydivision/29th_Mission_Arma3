@@ -38,7 +38,8 @@ if (_hitEntity isKindOf "Man") exitWith { [[_hitEntity], _instigatorInfo] remote
 private _hitHull = _hitEntity getHitPointDamage "hitHull";
 if (_hitHull >= 1) exitWith {};
 
-private _targets = ([_hitEntity] + (crew _hitEntity)) select { alive _x };
+private _targets = (crew _hitEntity) select { alive _x };
+_targets pushBack _hitEntity;
 [_targets, _instigatorInfo] remoteExecCall ["DOTT_tracker_fnc_sendHit", 2];
 
 true
