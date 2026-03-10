@@ -41,7 +41,7 @@ if (hasInterface) then
 
 		[player] remoteExec ["DOTT_curator_fnc_addPlayerEditable", 2];
 
-		[vehicleVarName player, roleDescription player] remoteExec ["DOTT_curator_fnc_createModule", 2];
+		[vehicleVarName player, roleDescription player] remoteExecCall ["DOTT_curator_fnc_createModule", 2];
 	};	
 };
 
