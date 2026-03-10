@@ -81,10 +81,7 @@ if (_eventType == VEHICLE_KILL_NUM && isNull _instigator) then
 
 		private _instigatorInfo = [_instigator call DOTT_tracker_fnc_getName, _side, getPosASL _instigator, _weapon, _timeStamp];
 
-		{
-			[_x, _instigatorInfo] call DOTT_tracker_fnc_sendHit;
-		}
-		forEach (crew _unit);
+		[crew _unit, _instigatorInfo] call DOTT_tracker_fnc_sendHit;
 	};
 };
 

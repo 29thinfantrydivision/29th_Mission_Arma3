@@ -50,6 +50,7 @@ v4.4.3
 * Tracker
   - Optimize sendHit by not inadvertently creating a new HashMap even if it's not needed.
   - Fix hit not overwriting potentially saved hit time if projectile has hit other valid objects.
+  - Batch vehicle and crew sendHit calls into a single remoteExecCall instead of one per unit by passing an array of objects instead to sendHit.
 
 ---
 v4.4.2

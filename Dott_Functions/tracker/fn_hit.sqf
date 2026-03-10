@@ -32,15 +32,13 @@ private _instigatorInfo = _projectile getVariable "DOTT_instigatorInfo";
 if (count _instigatorInfo > 4) then { _instigatorInfo deleteAt 4 };
 _instigatorInfo pushBack round(serverTime - DOTT_tracker_startTime);
 
-if (_hitEntity isKindOf "Man") exitWith { [_hitEntity, _instigatorInfo] remoteExecCall ["DOTT_tracker_fnc_sendHit", 2] };
+if (_hitEntity isKindOf "Man") exitWith { [[_hitEntity], _instigatorInfo] remoteExecCall ["DOTT_tracker_fnc_sendHit", 2] };
 
 //if vehicle is already going to blow up don't record any more damage so the kill is hopefully credited properly
 private _hitHull = _hitEntity getHitPointDamage "hitHull";
 if (_hitHull >= 1) exitWith {};
 
-{ if (alive _x) then { [_x, _instigatorInfo] remoteExecCall ["DOTT_tracker_fnc_sendHit", 2] } }
-forEach (crew _hitEntity);
-
-[_hitEntity, _instigatorInfo] remoteExecCall ["DOTT_tracker_fnc_sendHit", 2];
+private _targets = ([_hitEntity] + (crew _hitEntity)) select { alive _x };
+[_targets, _instigatorInfo] remoteExecCall ["DOTT_tracker_fnc_sendHit", 2];
 
 true
