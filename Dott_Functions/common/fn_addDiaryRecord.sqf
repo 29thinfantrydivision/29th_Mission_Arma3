@@ -15,7 +15,7 @@
  * Diary Record
  *
  * Example:
- * ["Something Happened", "Log"] remoteExec ["addDiaryRecord", 0];
+ * ["Log", "Something Happened"] remoteExecCall ["DOTT_common_fnc_addDiaryRecord", 0];
  * 
  */
  

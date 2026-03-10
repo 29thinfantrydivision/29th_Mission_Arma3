@@ -2,7 +2,7 @@
  *
  * Tracks players respawns for limited life events
  * 
- * Paramaters:
+ * Parameters:
  *	_storeDeaths (bool): When true, tells the script to store the current number of deaths and exit
  *
  * Requires:
@@ -61,7 +61,7 @@ if (_playerDeaths >= DOTT_event_numberOfLives) then
 	sleep 0.3;
 	
 	//set player's position to specified point (ASL)
-	private _dir = random 359;
+	private _dir = random 360;
 	player SetPosASL [(_point select 0)-6*sin(_dir),(_point select 1)-6*cos(_dir),(_point select 2)];
 	sleep 0.1;
 	

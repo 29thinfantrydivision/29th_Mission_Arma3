@@ -9,13 +9,14 @@
  * REQUIRES ACE 3
  *
  * Parameter(s): 
- * _roundNum (Number): Number of round to copy information of to clipboard.
+ * _subject (String): Diary subject containing the record.
+ * _title (String): Title of the record to copy.
  *
  * Returns:
  * true
  *
  * Example:
- * [0] call DOTT_tracker_fnc_copyRecordToClipboard;
+ * ["Round 1", "Kill Log"] call DOTT_tracker_fnc_copyRecordToClipboard;
  * 
  */
 

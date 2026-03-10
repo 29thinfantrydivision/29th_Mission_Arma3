@@ -5,7 +5,7 @@
  * Author:  Bae [29th ID]
  *
  * Description:
- * Initalizes ticket system.
+ * Initializes ticket system.
  * NOTE: Unsure if finished
  *
  * Parameter(s): 

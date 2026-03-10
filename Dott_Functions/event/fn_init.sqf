@@ -71,7 +71,7 @@ if (DOTT_event_numberOfLives > 0) then
 	};
 };
 
-/******* Time Accleration ********/
+/******* Time Acceleration ********/
 if (isServer) then
 {
 	[
