@@ -1,9 +1,18 @@
+/**
+ * XEH_preInit.sqf
+ * Purpose: CBA Extended Event Handler pre-initialization. Iterates through
+ *          DOTT_MODULES and calls each module's XEH_preInit.sqf if it exists.
+ * Params:  None
+ * Return:  None
+ */
+
 #include "data\defines.hpp"
 
 {
-	private _preInitModuleFile = format ["DOTT_Functions\%1\XEH_preInit.sqf", _x];
-	if !(fileExists _preInitModuleFile) then { continue };
+    private _preInitModuleFile =
+        format ["DOTT_Functions\%1\XEH_preInit.sqf", _x];
 
-	call compile preprocessFileLineNumbers _preInitModuleFile;
-}
-forEach DOTT_MODULES;
+    if !(fileExists _preInitModuleFile) then { continue };
+
+    call compile preprocessFileLineNumbers _preInitModuleFile;
+} forEach DOTT_MODULES;

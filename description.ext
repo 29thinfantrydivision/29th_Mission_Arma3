@@ -1,53 +1,67 @@
+/**
+ * description.ext
+ * Purpose: Mission configuration file. Defines mission metadata, respawn
+ *          settings, UI toggles, and includes for sub-configurations.
+ * Params:  None (engine config)
+ * Return:  None (engine config)
+ */
+
 #include "data\defines.hpp"
 
+// ===================================================================
+// Mission metadata — event mode (editor should customize these)
+// ===================================================================
 #ifdef DOTT_EVENT
 
-OnLoadName = "YOUR MISSION NAME HERE"; //CHANGE THIS
-briefingName = "YOUR MISSION NAME HERE"; //CHANGE THIS
-// =========================== Loading Screen
-Author = "YOUR NAME HERE"; //CHANGE THIS
-OnLoadMission = "YOUR DESCRIPTION HERE"; //CHANGE THIS
-OverviewText = "YOUR DESCRIPTION HERE"; //CHANGE THIS
+OnLoadName = "YOUR MISSION NAME HERE";
+briefingName = "YOUR MISSION NAME HERE";
+Author = "YOUR NAME HERE";
+OnLoadMission = "YOUR DESCRIPTION HERE";
+OverviewText = "YOUR DESCRIPTION HERE";
 
 #endif
 
-/***** IGNORE BELOW THIS LINE FOR EVENT UNLESS YOU KNOW WHAT YOU ARE DOING *****/
-
+// ===================================================================
+// Mission metadata — training mode
+// ===================================================================
 #ifdef DOTT_TRAINING
 
 OnLoadName = "29th Training V4.4.2";
 briefingName = "29th Training V4.4.2";
-// =========================== Loading Screen
 Author = "29th Engineers";
 OnLoadMission = "<t align='center'><t size='1.5' color='#2A1ADC'>BLUFOR</t><t size='1.5' color='#FFFFFF'> | </t><t size='1.5' color='#B40404'>OPFOR</t><t size='1.5' color='#FFFFFF'> | </t><t size='1.5' color='#088A08'>GRNFOR</t><br/><t size='1.25' color='#A09FAB'> Training Sandbox</t><br/>Ever Forward!</t>";
 OverviewText = "<t align='center'><t size='1.5' color='#2A1ADC'>BLUFOR</t><t size='1.5' color='#FFFFFF'> | </t><t size='1.5' color='#B40404'>OPFOR</t><t size='1.5' color='#FFFFFF'> | </t><t size='1.5' color='#088A08'>GRNFOR</t><br/><t size='1.25' color='#A09FAB'> Training Sandbox</t><br/>Ever Forward!</t>";
 
 #endif
 
+// ===================================================================
+// General mission settings
+// ===================================================================
 dev = "29th Engineers";
 OnLoadMissionTime = 1;
-loadScreen =  "Pictures\116Inf InsigniaAlpha.paa";
-//OverviewPicture = "Pictures\116Inf InsigniaAlpha.paa"; //doesn't work on a dedicated server
+loadScreen = "Pictures\116Inf InsigniaAlpha.paa";
 
-class Header {
-  gameType = SANDBOX;
-  minPlayers = 1;
-  maxPlayers = 167; //Total number of playable units placed in the editor including virtual entities
+class Header
+{
+    gameType = SANDBOX;
+    minPlayers = 1;
+    maxPlayers = 167;
 };
 
+// --- Respawn ---
 respawnOnStart = 0;
 respawn = 3;
 respawnDelay = 5;
 respawnDialog = 0;
-
 respawnTemplates[] = {"MenuPosition", "MenuInventory"};
 
+// --- Gameplay ---
 enableDebugConsole = 1;
 disabledAI = 1;
 forceRotorLibSimulation = 0;
-//disableChannels[] = {{0,false,false},{1,false,true},{2,true,true},{3,false,true},{4,false,true},{5,false,true},{6,false,false}};
 saving = 0;
 
+// --- HUD elements ---
 debriefing = 1;
 showGPS = 1;
 showCompass = 1;
@@ -57,38 +71,39 @@ showWatch = 1;
 showUAVFeed = 1;
 
 taskManagement_propagate = 1;
-
 cba_settings_hasSettingsFile = 1;
-
 allowFunctionsRecompile = 1;
 
+// ===================================================================
+// Sub-configuration includes
+// ===================================================================
 #include "data\cfgEventHandlers.hpp"
 
-class CfgNotifications 
+class CfgNotifications
 {
-	#include "data\cfgNotifications.hpp"
+    #include "data\cfgNotifications.hpp"
 };
 
 class Params
 {
-	#include "data\params.hpp"
+    #include "data\params.hpp"
 };
 
 #include "data\gui.hpp"
 
 class CfgRespawnInventory
 {
-	#include "data\cfgInventories.hpp"
+    #include "data\cfgInventories.hpp"
 };
 
 class CfgRoles
 {
-	#include "data\cfgRoles.hpp"
+    #include "data\cfgRoles.hpp"
 };
 
-class CfgFunctions 
+class CfgFunctions
 {
-	#include "Dott_Functions\CfgFunctions.hpp"
+    #include "Dott_Functions\CfgFunctions.hpp"
 };
 
 #include "data\CfgDebriefing.hpp"

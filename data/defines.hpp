@@ -1,19 +1,34 @@
-//Define ONLY ONE of the variations below
+/**
+ * defines.hpp
+ * Purpose: Preprocessor definitions for the mission. Selects the active
+ *          mission mode (training vs event) and defines the module load
+ *          order via DOTT_MODULES.
+ * Params:  None (preprocessor)
+ * Return:  None (preprocessor)
+ */
+
+// Define ONLY ONE of the modes below.
 #define DOTT_TRAINING
 //#define DOTT_EVENT
 
-/*
-Order of modules doesn't matter EXCEPT FOR:
-
-Round should be first, a lot of other modules assume its initialized
-loadout should be after radio, otherwise radio saving won't work properly
-base should be after event to properly initialize arsenal radius
-*/
+/**
+ * Module ordering constraints:
+ *   - "round" MUST be first; most other modules assume it is initialized.
+ *   - "loadout" must come after "radio", otherwise radio saving breaks.
+ *   - "base" must come after "event" to properly read arsenal radius.
+ */
 
 #ifdef DOTT_TRAINING
-#define DOTT_MODULES ["round", "training",          "parade", "tracker", "settings", "curator", "ticket", "thermals", "radio", "loadout", "spectator", "vehicle", "base", "ocap", "commands"]
+#define DOTT_MODULES [ \
+    "round", "training", "parade", "tracker", "settings", \
+    "curator", "ticket", "thermals", "radio", "loadout", \
+    "spectator", "vehicle", "base", "ocap", "commands" \
+]
 #endif
 
 #ifdef DOTT_EVENT
-#define DOTT_MODULES ["round",             "event",                                  "curator", "ticket", "thermals", "radio", "loadout", "spectator", "vehicle", "base", "ocap"]
+#define DOTT_MODULES [ \
+    "round", "event", "curator", "ticket", "thermals", \
+    "radio", "loadout", "spectator", "vehicle", "base", "ocap" \
+]
 #endif

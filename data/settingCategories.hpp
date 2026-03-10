@@ -1,3 +1,11 @@
+/**
+ * settingCategories.hpp
+ * Purpose: CBA settings category and subcategory name definitions.
+ *          Used by module settings registration for the settings GUI.
+ * Params:  None (preprocessor)
+ * Return:  None (preprocessor)
+ */
+
 #define GENERAL_SETTINGS_CATEGORY "29th - General Settings"
 
 #define VEHICLE_SUBCATEGORY "Vehicle"
