@@ -1,9 +1,24 @@
-params ["_weaponHolder", "_observer"];
+/*
+ * Function: DOTT_round_fnc_collectSilentWeapons
+ *
+ * Description:
+ *     Collects the name of a player detected with the silent weapon
+ *     bug into a server-side hashmap. Called via remoteExecCall from
+ *     each client after round start.
+ *
+ * Parameters:
+ *     _weaponHolder <String> - Display name of the player holding
+ *                              the bugged weapon.
+ *
+ * Returns:
+ *     None
+ */
 
-if (isNil "DOTT_round_clientSilentWeapons") then { DOTT_round_clientSilentWeapons = createHashMap };
+params ["_weaponHolder"];
 
-if !(_weaponHolder in DOTT_round_clientSilentWeapons) then { DOTT_round_clientSilentWeapons set [_weaponHolder, []] };
+if (isNil "DOTT_round_clientSilentWeapons") then
+{
+    DOTT_round_clientSilentWeapons = createHashMap;
+};
 
-private _observerArray = DOTT_round_clientSilentWeapons get _weaponHolder;
-
-_observerArray pushBack _observer;
+DOTT_round_clientSilentWeapons set [_weaponHolder, true];

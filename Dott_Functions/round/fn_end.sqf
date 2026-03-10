@@ -1,53 +1,73 @@
 /*
- * Name:	DOTT_round_fnc_end
- * Date:	8/14/2025
- * Version: 1.0
- * Author:  Bae [29th ID] modified from Dott [29th ID]
+ * Function: DOTT_round_fnc_end
  *
  * Description:
- * Transisitions to overtime if applicable, otherwise ends the round with notifications.
+ *     Transitions to overtime if applicable, otherwise ends the round
+ *     with notifications. When overtime triggers, it disables itself
+ *     to prevent infinite repeats, then re-waits for the overtime
+ *     countdown to expire before calling end again.
  *
- * Parameter(s): 
- * _force (boolean): Manual overriding of round end.
+ * Parameters:
+ *     _force <Boolean> - Manual override to force round end.
+ *                        Default: false
  *
  * Returns:
- * true
- *
- * Example:
- * [true] call DOTT_round_fnc_end;
- * 
+ *     <Boolean> - true
  */
 
+params [["_force", false, [false]]];
 
-params[["_force", false, [false]]];
 if (DOTT_round_overtimeEnabled && !_force) then
 {
-	[format ["<t color='#ffffff' size='3'><br/>%1 Minute OVERTIME</t>", DOTT_round_overtimePeriod / 60],"PLAIN",0.5, true] remoteExecCall ["DOTT_common_fnc_displayMsg"];
-	[DOTT_round_overtimePeriod] call BIS_fnc_countdown;
-	DOTT_round_overtimeEnabled = false; //Prevents overtime from repeating forever
-	publicVariable "DOTT_round_overtimeEnabled";
-	DOTT_round_timeAdded = true;
-	publicVariable "DOTT_round_timeAdded";
-	[{(call DOTT_round_fnc_getTime) <= 0}, { call DOTT_round_fnc_end }, []] call CBA_fnc_waitUntilAndExecute;
-} else
-{	
-	//let waituntilandexecute in fn_start call end
-	if (call DOTT_round_fnc_isRoundActive) exitWith 
-	{		
-		DOTT_round_overtimeEnabled = false; //in case manual end was called
-		publicVariable "DOTT_round_overtimeEnabled";		
-		[-1] call BIS_fnc_countdown; 
-		true
-	};
-	
+    /* --- Overtime transition --- */
+    private _overtimeMsg = format [
+        "<t color='#ffffff' size='3'><br/>%1 Minute OVERTIME</t>",
+        DOTT_round_overtimePeriod / 60
+    ];
+    [
+        _overtimeMsg,
+        "PLAIN",
+        0.5,
+        true
+    ] remoteExecCall ["DOTT_common_fnc_displayMsg"];
 
-	if (_force) exitWith {true}; //implies called when round not running
+    [DOTT_round_overtimePeriod] call BIS_fnc_countdown;
 
-	//let round naturally end on non-forced case
-	["<t color='#ffffff' size='5'>GAME!</t>","PLAIN",0.4] remoteExecCall ["DOTT_common_fnc_displayMsg"];
-	[-1] call BIS_fnc_countdown;
-	["DOTT_round_ended",[]] call CBA_fnc_globalEvent;		
+    DOTT_round_overtimeEnabled = false;
+    publicVariable "DOTT_round_overtimeEnabled";
+
+    DOTT_round_timeAdded = true;
+    publicVariable "DOTT_round_timeAdded";
+
+    [
+        {(call DOTT_round_fnc_getTime) <= 0},
+        {call DOTT_round_fnc_end},
+        []
+    ] call CBA_fnc_waitUntilAndExecute;
+}
+else
+{
+    /* --- Forced end while round is still running --- */
+    if (call DOTT_round_fnc_isRoundActive) exitWith
+    {
+        DOTT_round_overtimeEnabled = false;
+        publicVariable "DOTT_round_overtimeEnabled";
+        [-1] call BIS_fnc_countdown;
+        true
+    };
+
+    // Called when round is not running; nothing to do.
+    if (_force) exitWith {true};
+
+    /* --- Natural round end --- */
+    [
+        "<t color='#ffffff' size='5'>GAME!</t>",
+        "PLAIN",
+        0.4
+    ] remoteExecCall ["DOTT_common_fnc_displayMsg"];
+
+    [-1] call BIS_fnc_countdown;
+    ["DOTT_round_ended", []] call CBA_fnc_globalEvent;
 };
 
 true
-

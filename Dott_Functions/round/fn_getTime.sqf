@@ -1,21 +1,14 @@
 /*
- * Name:	DOTT_round_fnc_getTime
- * Date:	8/14/2025
- * Version: 1.0
- * Author:  Bae [29th ID] modified from Dott [29th ID]
+ * Function: DOTT_round_fnc_getTime
  *
  * Description:
- * Getter function for the current round time left.
+ *     Returns the current round time remaining in seconds.
  *
- * Parameter(s): 
- * None
+ * Parameters:
+ *     None
  *
  * Returns:
- * current time left in seconds.
- *
- * Example:
- * call DOTT_round_fnc_getTime;
- * 
+ *     <Number> - Seconds remaining on the countdown.
  */
 
 [0] call BIS_fnc_countdown
