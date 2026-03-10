@@ -1,125 +1,129 @@
-/*
- * Name:	DOTT_ticket_fnc_count
- * Date:	3/3/2024
- * Version:	1.1
- * Author:	Dott [29th ID]
+/**
+ * Function: DOTT_ticket_fnc_count
+ * Author:   Dott [29th ID]
  *
  * Description:
- * Counts tickets and displays them discretly to each team and the admin. Does not use BIS_fnc_respawnTickets
- * remoteExec in onPlayerRespawn.sqf
+ *   Server-side handler that decrements a ticket for the
+ *   respawning player's side. Notifies the player, their team,
+ *   and any logged-in admin about ticket status. Does not use
+ *   BIS_fnc_respawnTickets.
  *
- * Parameter(s):
- * _playerSide (side): The side of the player which remoteExec'd the function
+ *   Called via remoteExec from the client respawn event handler
+ *   registered in fn_init.sqf.
+ *
+ * Parameters:
+ *   _playerSide (Side) - The side of the player who respawned
  *
  * Returns:
- * n/a
- *
- * Example (in onPlayerRespawn.sqf):
- * 
- *	private _playerSide = playerSide;
- *  [_playerSide] remoteExec ["DOTT_ticket_fnc_count", 2];
- *	
- * 
+ *   Nothing
  */
- 
-params 
+
+params
 [
-	["_playerSide",sideUnknown]
+    ["_playerSide", sideUnknown]
 ];
 
-if (!isServer) exitWith {}; //server only
+if (!isServer) exitWith {};
 
-private _clientOwner = remoteExecutedOwner; //define client who remoteExec'd
+private _clientOwner = remoteExecutedOwner;
 
-//test each connected client for admin status
-private _adminClient = 2; //default is server, to avoid sending hints to clients when no logged admin is present
+// ------------------------------------------------------------------
+// Find the logged-in admin's client owner ID.
+// Defaults to server (2) so hints don't go to random clients when
+// no admin is logged in.
+// ------------------------------------------------------------------
+private _adminClient = 2;
 {
-	private _currentID = owner _x;
-	private _adminStatus = admin _currentID;
-	
-	//if player is logged admin, define their clientOwnerID as admin and exit forEach loop
-	if (_adminStatus isEqualTo 2) exitWith
-	{
-		_adminClient = _currentID;
-	};
+    private _currentID = owner _x;
+    private _adminStatus = admin _currentID;
+
+    if (_adminStatus isEqualTo 2) exitWith
+    {
+        _adminClient = _currentID;
+    };
+} forEach (allPlayers - entities "HeadlessClient_F");
+
+// ------------------------------------------------------------------
+// Map the side to its global variable name and admin-facing label.
+// Civilian and unknown sides are ignored.
+// ------------------------------------------------------------------
+private _varName = "";
+private _adminLabel = "";
+
+switch (_playerSide) do
+{
+    case west:
+    {
+        _varName = "DOTT_ticketWEST";
+        _adminLabel = "Blufor";
+    };
+    case east:
+    {
+        _varName = "DOTT_ticketEAST";
+        _adminLabel = "Opfor";
+    };
+    case resistance:
+    {
+        _varName = "DOTT_ticketGUER";
+        _adminLabel = "Grnfor";
+    };
+    case civilian: {};
+    default {};
+};
+
+// No-op for civilian / unknown sides.
+if (_varName isEqualTo "") exitWith {};
+
+// ------------------------------------------------------------------
+// Core ticket logic: decrement, notify player and team.
+// ------------------------------------------------------------------
+private _tickets = missionNamespace getVariable [_varName, 0];
+
+if (_tickets isEqualTo 0) then
+{
+    // Side is already at zero -- warn the respawning player.
+    [
+        "<t color='#ffffff' size='2'>Your team is out of tickets! Do not leave spawn!</t>",
+        "PLAIN",
+        0.8
+    ] remoteExec ["DOTT_common_fnc_displayMsg", _clientOwner];
 }
-forEach allPlayers - entities "HeadlessClient_F"; //clients minus headless client
-
-switch (_playerSide) do //select side
+else
 {
-	case west: 
-	{
-		Private _ticketWEST = DOTT_ticketWEST;
-		if (_ticketWEST isEqualTo 0) then //If tickets are 0, tell player
-		{
-			["<t color='#ffffff' size='2'>Your team is out of tickets! Do not leave spawn!</t>","PLAIN",0.8] remoteExec ["DOTT_common_fnc_displayMsg", _clientOwner];
-		}
-		else //otherwise subtract ticket
-		{
-			DOTT_ticketWEST = (_ticketWEST - 1); publicVariable "DOTT_ticketWEST";
-			
-			if (DOTT_ticketWEST isEqualTo 0) then //If player gets the last ticket, tell them, and hint team
-			{
-				"Your team is out of tickets!" remoteExec ["hint", _playerSide];
-				"ADMIN: Blufor is out of tickets!" remoteExec ["hint", _adminClient]; //inform admin
-				["<t color='#ffffff' size='2'>You are the last player allowed to leave spawn!</t>","PLAIN",0.8] remoteExec ["DOTT_common_fnc_displayMsg", _clientOwner];
-				
-			}
-			else //If tickets remain, tell player they can spawn and hintSilent remaining tickets to team
-			{
-				format ["Your team has %1 tickets remaining!", DOTT_ticketWEST] remoteExec ["hintSilent", _playerSide];
-				["<t color='#ffffff' size='2'>You may leave spawn!</t>","PLAIN",0.5] remoteExec ["DOTT_common_fnc_displayMsg", _clientOwner];
-			};
-		};
-	};
-	case east: 
-	{	
-		Private _ticketEAST = DOTT_ticketEAST;
-		if (_ticketEAST isEqualTo 0) then
-		{
-			["<t color='#ffffff' size='2'>Your team is out of tickets! Do not leave spawn!</t>","PLAIN",0.8] remoteExec ["DOTT_common_fnc_displayMsg", _clientOwner];
-		}
-		else
-		{
-			DOTT_ticketEAST = (_ticketEAST - 1); publicVariable "DOTT_ticketEAST";
-			
-			if (DOTT_ticketEAST isEqualTo 0) then
-			{
-				"Your team is out of tickets!" remoteExec ["hint", _playerSide];
-				"ADMIN: Opfor is out of tickets!" remoteExec ["hint", _adminClient];
-				["<t color='#ffffff' size='2'>You are the last player allowed to leave spawn!</t>","PLAIN",0.8] remoteExec ["DOTT_common_fnc_displayMsg", _clientOwner];
-			}
-			else
-			{
-				format ["Your team has %1 tickets remaining!", DOTT_ticketEAST] remoteExec ["hintSilent", _playerSide];
-				["<t color='#ffffff' size='2'>You may leave spawn!</t>","PLAIN",0.5] remoteExec ["DOTT_common_fnc_displayMsg", _clientOwner];
-			};
-		};		
-	};
-	case resistance: 
-	{	
-		Private _ticketGUER = DOTT_ticketGUER;
-		if (_ticketGUER isEqualTo 0) then
-		{
-			["<t color='#ffffff' size='2'>Your team is out of tickets! Do not leave spawn!</t>","PLAIN",0.8] remoteExec ["DOTT_common_fnc_displayMsg", _clientOwner];
-		}
-		else
-		{
-			DOTT_ticketGUER = (_ticketGUER - 1); publicVariable "DOTT_ticketGUER";
-			
-			if (DOTT_ticketGUER isEqualTo 0) then
-			{
-				"Your team is out of tickets!" remoteExec ["hint", _playerSide];
-				"ADMIN: Grnfor is out of tickets!" remoteExec ["hint", _adminClient];
-				["<t color='#ffffff' size='2'>You are the last player allowed to leave spawn!</t>","PLAIN",0.8] remoteExec ["DOTT_common_fnc_displayMsg", _clientOwner];
-			}
-			else
-			{
-				format ["Your team has %1 tickets remaining!", DOTT_ticketGUER] remoteExec ["hintSilent", _playerSide];
-				["<t color='#ffffff' size='2'>You may leave spawn!</t>","PLAIN",0.5] remoteExec ["DOTT_common_fnc_displayMsg", _clientOwner];
-			};
-		};
-	};
-	case civilian: {};
-	default {};
+    // Subtract one ticket and broadcast.
+    _tickets = _tickets - 1;
+    missionNamespace setVariable [_varName, _tickets];
+    publicVariable _varName;
+
+    if (_tickets isEqualTo 0) then
+    {
+        // Last ticket -- warn team and admin.
+        "Your team is out of tickets!" remoteExec [
+            "hint", _playerSide
+        ];
+        format [
+            "ADMIN: %1 is out of tickets!", _adminLabel
+        ] remoteExec ["hint", _adminClient];
+        [
+            "<t color='#ffffff' size='2'>You are the last player allowed to leave spawn!</t>",
+            "PLAIN",
+            0.8
+        ] remoteExec [
+            "DOTT_common_fnc_displayMsg", _clientOwner
+        ];
+    }
+    else
+    {
+        // Tickets remain -- silent hint to team, message to player.
+        format [
+            "Your team has %1 tickets remaining!", _tickets
+        ] remoteExec ["hintSilent", _playerSide];
+        [
+            "<t color='#ffffff' size='2'>You may leave spawn!</t>",
+            "PLAIN",
+            0.5
+        ] remoteExec [
+            "DOTT_common_fnc_displayMsg", _clientOwner
+        ];
+    };
 };
