@@ -425,36 +425,8 @@ DOTT_lastFireCheck = 0;
 // We broadcast these variables since burning bodies can
 // set people on fire and we need to track that too.
 {
-    params ["_unit", "_killer", "_instigator"];
-    if !(_unit isKindOf "AllVehicles") exitWith {};
-    if (_unit isKindOf "Man") exitWith {};
-    // Delayed vehicle explosions seem to not have
-    // instigator.
-    if (isNull _instigator) then
-    {
-        _instigator = effectiveCommander _killer;
-    };
-    if (isNull _instigator) then
-    {
-        // Look for ACE/RHS incendiary grenade.
-        private _grenades = (position _unit)
-            nearObjects [
-                "GrenadeHand",
-                VEHICLE_GRENADE_DISTANCE
-            ];
-        {
-            if (
-                (typeOf _x) == "ACE_G_M14"
-                || (typeOf _x) == "rhs_ammo_an_m14_th3"
-            ) exitWith
-            {
-                _instigator =
-                    (getShotParents _x) select 0;
-            };
-        }
-        forEach _grenades;
-    };
-    if (isNull _instigator) exitWith {};
+    params ["_unit", "_instigator"];
+    if (!alive _unit) exitWith {};
 
     if (!isNull _instigator) then
     {
