@@ -1,8 +1,16 @@
 /**
- * @description Enables or disables overtime for the current round.
- * @param {Boolean} _enabled - true to enable, false to disable.
- * @return {Boolean} true
- * @example [true] call DOTT_round_fnc_setOvertimeEnabled;
+ * DOTT_round_fnc_setOvertimeEnabled
+ *
+ * Enables or disables overtime for the current round.
+ *
+ * Parameters:
+ *     _enabled - Boolean - true to enable, false to disable.
+ *
+ * Returns:
+ *     Boolean - true
+ *
+ * Example:
+ *     [true] call DOTT_round_fnc_setOvertimeEnabled;
  */
 
 params ["_enabled"];

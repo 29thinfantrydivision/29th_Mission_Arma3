@@ -1,10 +1,17 @@
 /**
- * @description Transitions to overtime if applicable, otherwise ends
- *     the round with notifications.
- * @param {Boolean} _force - Manual overriding of round end.
- *     Default: false
- * @return {Boolean} true
- * @example [true] call DOTT_round_fnc_end;
+ * DOTT_round_fnc_end
+ *
+ * Transitions to overtime if applicable, otherwise ends the round
+ * with notifications.
+ *
+ * Parameters:
+ *     _force - Boolean - Manual overriding of round end. Default: false
+ *
+ * Returns:
+ *     Boolean - true
+ *
+ * Example:
+ *     [true] call DOTT_round_fnc_end;
  */
 
 params [["_force", false, [false]]];

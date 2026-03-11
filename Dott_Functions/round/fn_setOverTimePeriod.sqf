@@ -1,9 +1,16 @@
 /**
- * @description Sets the overtime period duration. Rejects
- *     non-positive values.
- * @param {Number} _time - Overtime duration in seconds.
- * @return {Boolean} true on success, false if rejected.
- * @example [300] call DOTT_round_fnc_setOvertimePeriod;
+ * DOTT_round_fnc_setOvertimePeriod
+ *
+ * Sets the overtime period duration. Rejects non-positive values.
+ *
+ * Parameters:
+ *     _time - Number - Overtime duration in seconds.
+ *
+ * Returns:
+ *     Boolean - true on success, false if rejected.
+ *
+ * Example:
+ *     [300] call DOTT_round_fnc_setOvertimePeriod;
  */
 
 params ["_time"];

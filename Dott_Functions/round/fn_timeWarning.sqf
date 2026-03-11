@@ -1,8 +1,17 @@
 /**
- * @description Displays a time remaining notification via BIS
- *     notification system. Currently restricted to admins only.
- * @return None
- * @example call DOTT_round_fnc_timeWarning;
+ * DOTT_round_fnc_timeWarning
+ *
+ * Displays a time remaining notification via BIS notification system.
+ * Currently restricted to admins only.
+ *
+ * Parameters:
+ *     None
+ *
+ * Returns:
+ *     Nothing
+ *
+ * Example:
+ *     call DOTT_round_fnc_timeWarning;
  */
 
 // Admin-only for now.

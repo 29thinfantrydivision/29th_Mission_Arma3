@@ -1,12 +1,20 @@
 /**
- * @description Formats a time value in seconds into a human-readable
- *     string like "20 Minutes" or "1 Hour 30 Minutes 5 Seconds".
- *     Omits zero-valued units. Uses singular forms when appropriate.
- * @param {Number} _seconds - Time in seconds to format.
- * @param {Boolean} _forceNoS - Always use singular form for units.
- *     Default: false
- * @return {String} Formatted time string.
- * @example [300] call DOTT_round_fnc_formatTime;
+ * DOTT_round_fnc_formatTime
+ *
+ * Formats a time value in seconds into a human-readable string like
+ * "20 Minutes" or "1 Hour 30 Minutes 5 Seconds". Omits zero-valued
+ * units. Uses singular forms when appropriate.
+ *
+ * Parameters:
+ *     _seconds - Number - Time in seconds to format.
+ *     _forceNoS - Boolean - Always use singular form for units.
+ *         Default: false
+ *
+ * Returns:
+ *     String - Formatted time string.
+ *
+ * Example:
+ *     [300] call DOTT_round_fnc_formatTime;
  */
 
 params ["_seconds", ["_forceNoS", false]];

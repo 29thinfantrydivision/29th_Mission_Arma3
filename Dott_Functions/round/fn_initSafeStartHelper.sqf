@@ -1,12 +1,21 @@
 #include "defines.hpp"
 
 /**
- * @description Helper function for initSafeStart. Polls every 0.2
- *     seconds until the safe start countdown expires (then starts
- *     the round) or until teams are no longer all ready and forced
- *     mode is off (then aborts the countdown).
- * @return {Boolean} true
- * @example call DOTT_round_fnc_initSafeStartHelper;
+ * DOTT_round_fnc_initSafeStartHelper
+ *
+ * Helper function for initSafeStart. Polls every 0.2 seconds until
+ * the safe start countdown expires (then starts the round) or until
+ * teams are no longer all ready and forced mode is off (then aborts
+ * the countdown).
+ *
+ * Parameters:
+ *     None
+ *
+ * Returns:
+ *     Boolean - true
+ *
+ * Example:
+ *     call DOTT_round_fnc_initSafeStartHelper;
  */
 
 if (isNil "DOTT_round_safeStartActive") exitWith {true};

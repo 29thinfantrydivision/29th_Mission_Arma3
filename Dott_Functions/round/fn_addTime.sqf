@@ -1,11 +1,18 @@
 /**
- * @description Adds (or subtracts) time from the currently running
- *     round. Cannot be used when no round is active. Notifies all
- *     players of the time change via hint.
- * @param {Number} _timeDelta - Seconds to add. Negative values
- *     subtract time.
- * @return {Number} New time remaining, or -1 if round not active.
- * @example [120] call DOTT_round_fnc_addTime;
+ * DOTT_round_fnc_addTime
+ *
+ * Adds (or subtracts) time from the currently running round. Cannot
+ * be used when no round is active. Notifies all players of the time
+ * change via hint.
+ *
+ * Parameters:
+ *     _timeDelta - Number - Seconds to add. Negative values subtract time.
+ *
+ * Returns:
+ *     Number - New time remaining, or -1 if round not active.
+ *
+ * Example:
+ *     [120] call DOTT_round_fnc_addTime;
  */
 
 params ["_timeDelta"];

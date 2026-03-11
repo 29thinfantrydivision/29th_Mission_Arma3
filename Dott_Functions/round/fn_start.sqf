@@ -1,14 +1,21 @@
 #include "defines.hpp"
 
 /**
- * @description Starts the round with a specified timer length.
- *     Displays a LIVE notification, kicks off the countdown,
- *     schedules the end-of-round check, fires the round_started
- *     event, and clears safe start state.
- * @param {Number} _roundLength - Round duration in seconds.
- *     Default: DOTT_round_timerLength
- * @return {Boolean} false if round already active, true otherwise.
- * @example [] call DOTT_round_fnc_start;
+ * DOTT_round_fnc_start
+ *
+ * Starts the round with a specified timer length. Displays a LIVE
+ * notification, kicks off the countdown, schedules the end-of-round
+ * check, fires the round_started event, and clears safe start state.
+ *
+ * Parameters:
+ *     _roundLength - Number - Round duration in seconds.
+ *         Default: DOTT_round_timerLength
+ *
+ * Returns:
+ *     Boolean - false if round already active, true otherwise.
+ *
+ * Example:
+ *     [] call DOTT_round_fnc_start;
  */
 
 params [["_roundLength", DOTT_round_timerLength, [0]]];

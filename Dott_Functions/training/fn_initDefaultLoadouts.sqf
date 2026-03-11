@@ -1,31 +1,31 @@
 /**
  * DOTT_training_fnc_initDefaultLoadouts
  *
- * Purpose:
- *   Registers default ACE Arsenal loadouts for each faction.
- *   Loadouts are SOP-correct Rifleman kits plus a Parade kit.
- *   Sorted alphabetically in the Arsenal UI regardless of
- *   array order here.
- *
- * Parameter(s): None
- *
- * Returns: true
+ * Registers default ACE Arsenal loadouts for each faction.
+ * Loadouts are SOP-correct Rifleman kits plus a Parade kit.
+ * Sorted alphabetically in the Arsenal UI regardless of
+ * array order here.
  *
  * Loadout Notes:
- *   1. Earplugs, Medical (15 Bandages, 5 Morphine, 1 PAK),
- *      IR Strobe in Uniform.
- *   2. 6 Non-Tracer + 3 Tracer rifle mags (1 loaded),
- *      2 Pistol mags (1 loaded), grenades (6 Frag,
- *      2 White Smoke, 1 Colored Smoke) in Vest then
- *      overflow to Backpack.
- *   3. NVGs, Entrenching Tool in Backpack.
- *   4. Map, Compass, Binoculars, Watch in link slots.
- *   Remove Insignia and Radio.
- *   SOP Accurate as of 8/19/2025.
+ *     1. Earplugs, Medical (15 Bandages, 5 Morphine, 1 PAK),
+ *        IR Strobe in Uniform.
+ *     2. 6 Non-Tracer + 3 Tracer rifle mags (1 loaded),
+ *        2 Pistol mags (1 loaded), grenades (6 Frag,
+ *        2 White Smoke, 1 Colored Smoke) in Vest then
+ *        overflow to Backpack.
+ *     3. NVGs, Entrenching Tool in Backpack.
+ *     4. Map, Compass, Binoculars, Watch in link slots.
+ *     Remove Insignia and Radio.
+ *     SOP Accurate as of 8/19/2025.
  *
- * Date: 8/19/2025
- * Version: 1.0
- * Author: Bae [29th ID]
+ * Parameters:
+ *     None
+ *
+ * Returns:
+ *     true
+ *
+ * Example:
+ *     call DOTT_training_fnc_initDefaultLoadouts;
  */
 
 /*
@@ -70,8 +70,7 @@ private _loadouts =
 {
     private _loadoutName = _x select 0;
     private _unitLoadoutArray = _x select 1;
-    [_loadoutName, _unitLoadoutArray, false]
-        call ACE_arsenal_fnc_addDefaultLoadout;
+    [_loadoutName, _unitLoadoutArray, false] call ACE_arsenal_fnc_addDefaultLoadout;
 } forEach _loadouts;
 
 true

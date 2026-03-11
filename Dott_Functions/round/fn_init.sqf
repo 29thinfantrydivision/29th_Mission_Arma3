@@ -1,12 +1,21 @@
 #include "defines.hpp"
 
 /**
- * @description Sets up the initial state of the round management
- *     system. Configures scoreboard blocking during active rounds,
- *     wires up final checks for player invulnerability and the
- *     silent weapon bug, and ensures the countdown UI layer exists.
- * @return {Boolean} true
- * @example call DOTT_round_fnc_init;
+ * DOTT_round_fnc_init
+ *
+ * Sets up the initial state of the round management system. Configures
+ * scoreboard blocking during active rounds, wires up final checks for
+ * player invulnerability and the silent weapon bug, and ensures the
+ * countdown UI layer exists.
+ *
+ * Parameters:
+ *     None
+ *
+ * Returns:
+ *     Boolean - true
+ *
+ * Example:
+ *     call DOTT_round_fnc_init;
  */
 
 /* ---- Server-side initialization ---- */
@@ -64,10 +73,7 @@ if (hasInterface) then
             {
                 showScoretable 0;
             };
-            removeMissionEventHandler [
-                "PreloadFinished",
-                _thisEventHandler
-            ];
+            removeMissionEventHandler ["PreloadFinished", _thisEventHandler];
         }
     ];
 
@@ -108,10 +114,7 @@ if (hasInterface) then
                     showScoretable 0;
                 };
             };
-            removeMissionEventHandler [
-                "Draw2D",
-                disableRespawnScoreboard
-            ];
+            removeMissionEventHandler ["Draw2D", disableRespawnScoreboard];
         }
     ] call CBA_fnc_addBISPlayerEventHandler;
 
@@ -160,17 +163,9 @@ if (hasInterface) then
         "DOTT_round_started",
         {
             if !(TN_disableScoreboard) exitWith {};
-            if !(isNull (
-                uiNamespace getVariable [
-                    "RscDisplayCurator",
-                    displayNull
-                ]
-            )) exitWith {};
+            if !(isNull (uiNamespace getVariable ["RscDisplayCurator", displayNull])) exitWith {};
             if (
-                !isNil {
-                    missionNamespace getVariable
-                        "BIS_EGSpectator_initialized"
-                }
+                !isNil {missionNamespace getVariable "BIS_EGSpectator_initialized"}
                 && TN_limitSpectator == 0
             ) exitWith {};
             showScoretable 0;
@@ -269,8 +264,7 @@ if (hasInterface) then
             [] spawn
             {
                 sleep 0.5;
-                private _players =
-                    allPlayers - entities "HeadlessClient_F";
+                private _players = allPlayers - entities "HeadlessClient_F";
                 _players = _players select {alive _x};
 
                 {
@@ -281,10 +275,7 @@ if (hasInterface) then
                     {
                         continue;
                     };
-                    [name _x] remoteExecCall [
-                        "DOTT_round_fnc_collectSilentWeapons",
-                        2
-                    ];
+                    [name _x] remoteExecCall ["DOTT_round_fnc_collectSilentWeapons", 2];
                 } forEach _players;
             };
         }

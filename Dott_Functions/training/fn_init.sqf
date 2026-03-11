@@ -1,21 +1,19 @@
 /**
  * DOTT_training_fnc_init
  *
- * Purpose:
- *   Initializes the training variation of the mission template.
- *   Sets up curator whitelisting, arsenal zone centers, base
- *   map markers, default loadouts, weather, and disconnect
- *   body cleanup. Should be called after round initialization.
+ * Initializes the training variation of the mission template.
+ * Sets up curator whitelisting, arsenal zone centers, base
+ * map markers, default loadouts, weather, and disconnect
+ * body cleanup. Should be called after round initialization.
  *
- * Parameter(s): None
- * Returns: Nothing
+ * Parameters:
+ *     None
+ *
+ * Returns:
+ *     Nothing
  *
  * Example:
- *   call DOTT_training_fnc_init;
- *
- * Date: 03/06/2026
- * Version: 1.2
- * Author: Bae [29th ID]
+ *     call DOTT_training_fnc_init;
  */
 
 //for curator module, make sure training init is put before curator
@@ -63,12 +61,9 @@ if (hasInterface) then
     ["DOTT_enteredZeus",
     {
         //check if curator module changes (admin swap), if so we need to do this to new module
-        if (DOTT_training_curatorBaseLogic
-            isEqualTo getAssignedCuratorLogic player)
-        exitWith {};
+        if (DOTT_training_curatorBaseLogic isEqualTo getAssignedCuratorLogic player) exitWith {};
 
-        DOTT_training_curatorBaseLogic =
-            getAssignedCuratorLogic player;
+        DOTT_training_curatorBaseLogic = getAssignedCuratorLogic player;
 
         private _locationColors =
         [
@@ -106,14 +101,11 @@ if (isServer) then
 {
     INDEPENDENT setFriend [WEST, 0];
 
-    //set-up default date and weather
     private _forcedDate = [2018, 3, 30, 12, 0];
     private _forcedOvercast = 0.1;
     private _forcedFog = [0.1, 0.01, 0];
-    [_forcedDate, _forcedOvercast, _forcedFog]
-        call DOTT_training_fnc_initDateAndWeather;
+    [_forcedDate, _forcedOvercast, _forcedFog] call DOTT_training_fnc_initDateAndWeather;
 
-    //delete disconnecting bodies in base
     addMissionEventHandler ["HandleDisconnect",
     {
         params ["_unit"];

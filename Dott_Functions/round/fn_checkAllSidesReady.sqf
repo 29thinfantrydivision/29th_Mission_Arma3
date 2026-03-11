@@ -1,8 +1,17 @@
 /**
- * @description Checks if all sides with active players are ready.
- *     Sides with zero players are treated as implicitly ready.
- * @return {Boolean} true if all populated sides are ready.
- * @example call DOTT_round_fnc_checkAllSidesReady;
+ * DOTT_round_fnc_checkAllSidesReady
+ *
+ * Checks if all sides with active players are ready. Sides with zero
+ * players are treated as implicitly ready.
+ *
+ * Parameters:
+ *     None
+ *
+ * Returns:
+ *     Boolean - true if all populated sides are ready.
+ *
+ * Example:
+ *     call DOTT_round_fnc_checkAllSidesReady;
  */
 
 private _bluCount = west countSide allPlayers;
