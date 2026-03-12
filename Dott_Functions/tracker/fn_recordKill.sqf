@@ -6,7 +6,7 @@
  * Purpose:
  * Client-side function that constructs a kill event array from
  * an EntityKilled event. Determines the killer by checking
- * stored hit data, falling back to engine-provided instigator,
+ * stored hit data, prioritizing any engine-provided instigator,
  * and handles special cases like incendiary grenades on vehicles.
  *
  * Parameters:
@@ -143,7 +143,7 @@ if (_eventType == VEHICLE_KILL_NUM
     };
 };
 
-if !(isNil "_lastHit" && !_override) then
+if (!isNil "_lastHit" && !_override) then
 {
     if !(isNull _instigator) then
     {
