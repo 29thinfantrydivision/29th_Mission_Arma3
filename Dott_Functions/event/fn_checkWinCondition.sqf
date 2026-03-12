@@ -167,6 +167,10 @@ private _sideSettings =
 
 while {call DOTT_round_fnc_isRoundActive} do
 {
+    if (isNil "DOTT_event_winCheckInterval") then
+    {
+        DOTT_event_winCheckInterval = 0.5;
+    };
     sleep DOTT_event_winCheckInterval;
 
     {
