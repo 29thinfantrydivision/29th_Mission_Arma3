@@ -41,34 +41,6 @@ if (isServer) then
 
     DOTT_ocap_roundNum = 1;
 
-    // --- Sector --- //
-    DOTT_ocap_fnc_handleSector = compileFinal
-        preprocessFileLineNumbers
-        "DOTT_Functions\ocap\fn_handleSector.sqf";
-
-    DOTT_ocap_fnc_createSectorMarkers = compileFinal
-        preprocessFileLineNumbers
-        "DOTT_Functions\ocap\fn_createSectorMarkers.sqf";
-
-    {
-        _x call DOTT_ocap_fnc_handleSector;
-    } forEach (allMissionObjects "ModuleSector_F");
-
-    addMissionEventHandler ["EntityCreated",
-    {
-        params ["_entity"];
-
-        if (_entity isKindOf "ModuleSector_F") then
-        {
-            [_entity] spawn
-            {
-                params ["_entity"];
-                sleep 10;
-                _entity call DOTT_ocap_fnc_handleSector;
-            };
-        };
-    }];
-
     //Order matters, event won't register if recording is not currently happening
     //However, dont start/pause recordings if autoStart is forced by server config
     if !(OCAP_settings_autoStart) then
@@ -95,22 +67,11 @@ if (isServer) then
         {
             call DOTT_ocap_fnc_stopRecording;
         }] call CBA_fnc_waitUntilAndExecute;
-
-        //Add marker workarounds
-        [{!isNil "ocap_listener_markers"},
-        {
-            call compile preprocessFileLineNumbers
-                "DOTT_Functions\ocap\handleMarker.sqf";
-        }] call CBA_fnc_waitUntilAndExecute;
     };
 
     [OCAP_settings_autoStart] remoteExec
         ["DOTT_ocap_fnc_initClient",
         [0, -2] select isDedicated, true];
-
-    //Workaround for major but unlikely issue where if save has no markers, it is formatted improperly.
-    createMarkerLocal ["DOTT_ocap_debugMarker", [0, 0, 0]];
-    "DOTT_ocap_debugMarker" setMarkerAlphaLocal 0;
 
     [
         "DOTT_round_safeStartBegin",
