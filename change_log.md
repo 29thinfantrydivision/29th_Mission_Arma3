@@ -47,6 +47,13 @@ TBD
 v4.4.3
 10 MAR 2026
 ---
+* Claude Assisted Restructure of Mission File
+  - Fixed spelling mistakes
+  - Fixed/standardized indentations and other standards
+  - Deduplicate code and remove dead code
+  - Bug fixes notably including
+    - fn_markEditorPlacedObjects: fix wrong variable (_x -> _obj) in boundingBox call
+    - description.ext: remove duplicate cfgNotifications include
 
 * Commands
   - Move base commands.sqf initialization out of XEH_preInit into fn_init so it's no longer run on server.
