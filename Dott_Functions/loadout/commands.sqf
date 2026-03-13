@@ -21,74 +21,53 @@ DOTT_loadout_cmdResetBases = createHashMapFromArray [
 ];
 
 /*
- * Dispatches a flexibleReset call to all players on the named side.
+ * Dispatches a flexibleReset call, either to all players or to
+ * players on the named side.
  *
- * _sideName - String: "blufor", "opfor", or "grnfor"
+ * _sideName - String: "blufor", "opfor", "grnfor", or "" for all players
  * _params   - Array: parameters to pass to flexibleReset
- * _msgFmt   - String: format string with one %1 for display name
+ * _msg      - String: systemChat message. When _sideName is non-empty,
+ *             %1 in the string is replaced with the side's display name.
  *
  * Returns false if side is invalid, true otherwise.
  */
 DOTT_loadout_fnc_cmdDispatch =
 {
-    params ["_sideName", "_params", "_msgFmt"];
-    private _entry = DOTT_loadout_cmdSideMap get _sideName;
-    if (isNil "_entry") exitWith { false };
-    _entry params ["_target", "_displayName"];
+    params ["_sideName", "_params", "_msg"];
+
+    private _target = 0;
+    private _displayName = "all";
+    private _ok = true;
+
+    if (!(_sideName isEqualTo "")) then
+    {
+        private _entry = DOTT_loadout_cmdSideMap get _sideName;
+        if (isNil "_entry") then
+        {
+            _ok = false;
+        }
+        else
+        {
+            _entry params ["_target", "_displayName"];
+        };
+    };
+
+    if (!_ok) exitWith { false };
+
     _params remoteExec ["DOTT_loadout_fnc_flexibleReset", _target];
-    systemChat format [_msgFmt, _displayName];
-    true;
+    if (!(_msg isEqualTo "")) then { systemChat format [_msg, _displayName]; };
+    true
 };
 
-/*
- * Dispatches a reset-with-teleport to the named side.
- * Resolves the per-side base object position and sends a
- * flexibleReset call with teleport.
- *
- * _sideName - String: "blufor", "opfor", or "grnfor"
- * _silent   - Bool: true to suppress systemChat (default: false)
- *
- * Returns false if side is invalid, true otherwise.
- */
-DOTT_loadout_fnc_cmdResetTeleport =
-{
-    params ["_sideName", ["_silent", false, [false]]];
-    private _entry = DOTT_loadout_cmdSideMap get _sideName;
-    private _baseName = DOTT_loadout_cmdResetBases get _sideName;
-    if (isNil "_entry" || isNil "_baseName") exitWith { false };
-    _entry params ["_target", "_displayName"];
-    private _baseObj = missionNamespace getVariable [_baseName, objNull];
-    private _pos = getPosASL _baseObj;
-    [true, true, _pos] remoteExec ["DOTT_loadout_fnc_flexibleReset", _target];
-    if (!_silent) then
-    {
-        systemChat format [
-            "Rearming, healing, and teleporting %1 players to spawn!",
-            _displayName
-        ];
-    };
-    true;
-};
 
 [
     [
         [
             "heal",
             {
-                private _argument = _this select 0;
+                private _side = toLower (_this select 0);
 
-                // No argument = heal everyone.
-                if (_argument isEqualTo "") exitWith
-                {
-                    [[], true] remoteExec ["DOTT_loadout_fnc_flexibleReset"];
-                    systemChat "Healing all players!";
-                };
-
-                private _side = toLower _argument;
-
-                private _ok = [
-                    _side, [[], true], "Healing %1 players!"
-                ] call DOTT_loadout_fnc_cmdDispatch;
+                private _ok = [_side, [[], true], "Healing %1 players!"] call DOTT_loadout_fnc_cmdDispatch;
 
                 if (!_ok) then
                 {
@@ -99,19 +78,9 @@ DOTT_loadout_fnc_cmdResetTeleport =
         [
             "rearm",
             {
-                private _argument = _this select 0;
+                private _side = toLower (_this select 0);
 
-                if (_argument isEqualTo "") exitWith
-                {
-                    [true] remoteExec ["DOTT_loadout_fnc_flexibleReset"];
-                    systemChat "Rearming all players!";
-                };
-
-                private _side = toLower _argument;
-
-                private _ok = [
-                    _side, [true], "Rearming %1 players!"
-                ] call DOTT_loadout_fnc_cmdDispatch;
+                private _ok = [_side, [true], "Rearming %1 players!"] call DOTT_loadout_fnc_cmdDispatch;
 
                 if (!_ok) then
                 {
@@ -128,7 +97,9 @@ DOTT_loadout_fnc_cmdResetTeleport =
                 if (_argument isEqualTo "") exitWith
                 {
                     {
-                        [_x, true] call DOTT_loadout_fnc_cmdResetTeleport;
+                        private _baseName = DOTT_loadout_cmdResetBases get _x;
+                        private _baseObj = missionNamespace getVariable [_baseName, objNull];
+                        [_x, [true, true, getPosASL _baseObj], ""] call DOTT_loadout_fnc_cmdDispatch;
                     } forEach ["blufor", "opfor", "grnfor"];
                     systemChat "Rearming, healing, and teleporting all players to spawn!";
                 };
@@ -139,19 +110,9 @@ DOTT_loadout_fnc_cmdResetTeleport =
 
                 if (_stayArg != -1) exitWith
                 {
-                    // "stay" alone = rearm + heal everyone.
-                    if (count _argArr isEqualTo 1) exitWith
-                    {
-                        [true, true] remoteExec ["DOTT_loadout_fnc_flexibleReset"];
-                        systemChat "Rearming and healing all players!";
-                    };
+                    private _sideArg = if (count _argArr > 1) then { _argArr select (1 - _stayArg) } else { "" };
 
-                    // "stay" + side name.
-                    private _sideArg = _argArr select (1 - _stayArg);
-
-                    private _ok = [
-                        _sideArg, [true, true], "Rearming and healing %1 players!"
-                    ] call DOTT_loadout_fnc_cmdDispatch;
+                    private _ok = [_sideArg, [true, true], "Rearming and healing %1 players!"] call DOTT_loadout_fnc_cmdDispatch;
 
                     if (!_ok) then
                     {
@@ -161,12 +122,15 @@ DOTT_loadout_fnc_cmdResetTeleport =
 
                 // Side only = full reset + teleport.
                 private _side = toLower _argument;
-                private _ok = [_side] call DOTT_loadout_fnc_cmdResetTeleport;
+                private _baseName = DOTT_loadout_cmdResetBases get _side;
 
-                if (!_ok) then
+                if (isNil "_baseName") exitWith
                 {
                     systemChat "Error: Invalid input(s)! Must be 'stay', 'blufor', 'opfor', 'grnfor'";
                 };
+
+                private _baseObj = missionNamespace getVariable [_baseName, objNull];
+                [_side, [true, true, getPosASL _baseObj], "Rearming, healing, and teleporting %1 players to spawn!"] call DOTT_loadout_fnc_cmdDispatch;
             }
         ],
         [
@@ -177,8 +141,7 @@ DOTT_loadout_fnc_cmdResetTeleport =
                 if (_argument isEqualTo "") then
                 {
                     private _pos = getPosASL base_res_blu;
-                    [true, true, _pos] remoteExec ["DOTT_loadout_fnc_flexibleReset"];
-                    systemChat "Healing, rearming, and teleporting all players to Blufor base!";
+                    ["", [true, true, _pos], "Healing, rearming, and teleporting all players to Blufor base!"] call DOTT_loadout_fnc_cmdDispatch;
                 }
                 else
                 {
@@ -194,8 +157,7 @@ DOTT_loadout_fnc_cmdResetTeleport =
                         _pos select 2
                     ];
 
-                    [true, true, _telePos] remoteExec ["DOTT_loadout_fnc_flexibleReset"];
-                    systemChat "Healing, rearming, and teleporting all players to you!";
+                    ["", [true, true, _telePos], "Healing, rearming, and teleporting all players to you!"] call DOTT_loadout_fnc_cmdDispatch;
                 };
 
                 // Timestamp used by baseObjectsInit for Force Parade triggers.
@@ -241,21 +203,16 @@ DOTT_loadout_fnc_cmdResetTeleport =
         ],
         [
             "reset",
-            "Rearms, heals, and (optionally)"
-                + " teleports players to spawn."
-                + " '!reset' will rearm, heal, and"
-                + " teleport players to spawn."
-                + " '!reset stay' will rearm and heal"
-                + " them. May also specify side"
-                + " (blufor, opfor, grnfor)"
+            "Rearms, heals, and (optionally) teleports players to spawn."
+                + " '!reset' will rearm, heal, and teleport players to spawn."
+                + " '!reset stay' will rearm and heal them."
+                + " May also specify side (blufor, opfor, grnfor)"
         ],
         [
             "debrief",
-            "ACE Heals and teleports players"
-                + " for debrief. '!debrief' to teleport"
-                + " all players to Blufor base,"
-                + " '!debrief here' to teleport all"
-                + " players to your position"
+            "ACE Heals and teleports players for debrief." +
+                + " '!debrief' to teleport all players to Blufor base,"
+                + " '!debrief here' to teleport all players to your position"
         ],
         [
             "goto",
