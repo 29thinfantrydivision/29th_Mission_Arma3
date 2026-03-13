@@ -72,8 +72,6 @@ v4.4.3
   - Fix hit not overwriting potentially saved hit time if projectile has hit other valid objects.
   - Batch vehicle and crew sendHit calls into a single remoteExecCall instead of one per unit by passing an array of objects instead to sendHit.
   - Fix burnSimulation EH searching for incendiary grenades around player instead of the burning unit when instigator is null.
-  - Optimize ace_medical_woundReceived by exiting early if ammo type isn't one the system tracks (collision, burn, fire, vehicle explosion).
-    This avoids compiling _fn_findSide as a code object on every single wound received, the vast majority of which are bullets and frags we don't care about.
   - Optimize burnSimulation EH by skipping all nearObjects searches if the burn instigator was cached within the last 5 seconds.
     The cache timestamp is reset whenever a new instigator is found, so the window stays fresh while the unit is actively burning.
     After 5 seconds the searches resume, allowing re-attribution if the unit walks into a new fire source.

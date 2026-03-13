@@ -154,12 +154,6 @@ DOTT_tracker_fnc_findSide =
 ["ace_medical_woundReceived",
 {
     params ["_unit", "", "_instigator", "_ammo"];
-    // Most wounds are from bullets/frags which we don't
-    // handle here, exit before doing anything else.
-    if !(_ammo in [
-        "collision", "burn", "fire",
-        "FuelExplosion", "FuelExplosionBig"
-    ]) exitWith {};
 
     if (_ammo == "collision") then
     {
