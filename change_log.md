@@ -64,6 +64,9 @@ v4.4.3
 * Parade
   - Hopefully fix custom parade uniform not being applied on join by checking if respawn template parade loadout is applied first.
 
+* Settings
+  - Add check to exclude non-global settings from GUI.
+
 * Tracker
   - Optimize sendHit by not inadvertently creating a new HashMap even if it's not needed.
   - Fix hit not overwriting potentially saved hit time if projectile has hit other valid objects.

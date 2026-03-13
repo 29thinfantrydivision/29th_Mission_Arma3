@@ -2,7 +2,8 @@
  * fn_init.sqf
  * Server-side initialization for the DOTT settings system.
  * Snapshots each CBA mission setting's server value as the
- * "default" baseline and builds the global settings list.
+ * "default" baseline and builds the global settings list,
+ * skipping any non-global settings.
  *
  * Params: none
  * Return: none
@@ -42,8 +43,15 @@ if (isServer) then
             continue;
         };
 
-        //replace default with server initial setting
         private _setting = cba_settings_default getVariable _x;
+
+        // skip non-global settings
+        if (_setting select 7 != 1) then
+        {
+            continue;
+        };
+
+        //replace default with server initial setting
         _setting set [
             0,
             [_x, "server"] call CBA_settings_fnc_get
