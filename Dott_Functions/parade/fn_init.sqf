@@ -25,6 +25,9 @@ if (hasInterface) then
     [] spawn
     {
         waitUntil { !isNull player };
+        //prevent race condition where sometimes default parade loadout
+        //is applied after custom parade loadout
+        waitUntil { primaryWeapon player == "rhs_weap_m1garand_sa43"}; 
         isNil { call DOTT_parade_fnc_handleInitialInventory };
     };
 };

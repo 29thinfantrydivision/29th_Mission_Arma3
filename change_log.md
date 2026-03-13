@@ -58,6 +58,9 @@ v4.4.3
 * Commands
   - Move base commands.sqf initialization out of XEH_preInit into fn_init so it's no longer run on server.
 
+* Parade
+  - Hopefully fix custom parade uniform not being applied on join by checking if respawn template parade loadout is applied first.
+
 * Tracker
   - Optimize sendHit by not inadvertently creating a new HashMap even if it's not needed.
   - Fix hit not overwriting potentially saved hit time if projectile has hit other valid objects.
