@@ -21,23 +21,6 @@
 #define VEHICLE_GRENADE_DISTANCE 10
 #define INFANTRY_GRENADE_DISTANCE 5
 
-// Propagate instigator info through submunitions (shotgun
-// pellets, bouncing mines, etc.) and attach hit EHs.
-private _fn_addSubmunitionEH =
-{
-    params ["_projectile"];
-    _projectile addEventHandler ["SubmunitionCreated",
-    {
-        params ["_projectile", "_submunitionProjectile"];
-        _submunitionProjectile setVariable [
-            "DOTT_instigatorInfo",
-            _projectile getVariable "DOTT_instigatorInfo"
-        ];
-        _submunitionProjectile addEventHandler ["HitPart", { call DOTT_tracker_fnc_hit }];
-        _submunitionProjectile addEventHandler ["HitExplosion", { call DOTT_tracker_fnc_hit }];
-    }];
-};
-
 player addEventHandler ["FiredMan",
 {
     params [
@@ -59,7 +42,16 @@ player addEventHandler ["FiredMan",
     _projectile addEventHandler ["HitPart", { call DOTT_tracker_fnc_hit }];
     _projectile addEventHandler ["HitExplosion", { call DOTT_tracker_fnc_hit }];
 
-    _projectile call _fn_addSubmunitionEH;
+    _projectile addEventHandler ["SubmunitionCreated",
+    {
+        params ["_projectile", "_submunitionProjectile"];
+        _submunitionProjectile setVariable [
+            "DOTT_instigatorInfo",
+            _projectile getVariable "DOTT_instigatorInfo"
+        ];
+        _submunitionProjectile addEventHandler ["HitPart", { call DOTT_tracker_fnc_hit }];
+        _submunitionProjectile addEventHandler ["HitExplosion", { call DOTT_tracker_fnc_hit }];
+    }];
 }];
 
 ["ace_advanced_throwing_throwFiredXEH",
@@ -85,7 +77,16 @@ player addEventHandler ["FiredMan",
     _projectile addEventHandler ["HitPart", { call DOTT_tracker_fnc_hit }];
     _projectile addEventHandler ["HitExplosion", { call DOTT_tracker_fnc_hit }];
 
-    _projectile call _fn_addSubmunitionEH;
+    _projectile addEventHandler ["SubmunitionCreated",
+    {
+        params ["_projectile", "_submunitionProjectile"];
+        _submunitionProjectile setVariable [
+            "DOTT_instigatorInfo",
+            _projectile getVariable "DOTT_instigatorInfo"
+        ];
+        _submunitionProjectile addEventHandler ["HitPart", { call DOTT_tracker_fnc_hit }];
+        _submunitionProjectile addEventHandler ["HitExplosion", { call DOTT_tracker_fnc_hit }];
+    }];
 }] call CBA_fnc_addEventHandler;
 
 ["ace_explosives_place",
@@ -113,7 +114,16 @@ player addEventHandler ["FiredMan",
     _explosive addEventHandler ["HitPart", { call DOTT_tracker_fnc_hit }];
     _explosive addEventHandler ["HitExplosion", { call DOTT_tracker_fnc_hit }];
 
-    _explosive call _fn_addSubmunitionEH;
+    _explosive addEventHandler ["SubmunitionCreated",
+    {
+        params ["_projectile", "_submunitionProjectile"];
+        _submunitionProjectile setVariable [
+            "DOTT_instigatorInfo",
+            _projectile getVariable "DOTT_instigatorInfo"
+        ];
+        _submunitionProjectile addEventHandler ["HitPart", { call DOTT_tracker_fnc_hit }];
+        _submunitionProjectile addEventHandler ["HitExplosion", { call DOTT_tracker_fnc_hit }];
+    }];
 }] call CBA_fnc_addEventHandler;
 
 DOTT_lastFireCheck = 0;

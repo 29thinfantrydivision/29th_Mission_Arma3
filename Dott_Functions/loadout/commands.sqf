@@ -21,29 +21,29 @@ DOTT_loadout_cmdResetBases = createHashMapFromArray [
 ];
 
 /*
- * Dispatches a code block to all players on the named side.
+ * Dispatches a flexibleReset call to all players on the named side.
  *
  * _sideName - String: "blufor", "opfor", or "grnfor"
- * _code     - Code: block to remoteExec on that side
+ * _params   - Array: parameters to pass to flexibleReset
  * _msgFmt   - String: format string with one %1 for display name
  *
  * Returns false if side is invalid, true otherwise.
  */
 DOTT_loadout_fnc_cmdDispatch =
 {
-    params ["_sideName", "_code", "_msgFmt"];
+    params ["_sideName", "_params", "_msgFmt"];
     private _entry = DOTT_loadout_cmdSideMap get _sideName;
     if (isNil "_entry") exitWith { false };
     _entry params ["_target", "_displayName"];
-    [_code] remoteExec ["call", _target];
+    _params remoteExec ["DOTT_loadout_fnc_flexibleReset", _target];
     systemChat format [_msgFmt, _displayName];
     true;
 };
 
 /*
  * Dispatches a reset-with-teleport to the named side.
- * Builds the code block dynamically to reference the correct
- * per-side base object.
+ * Resolves the per-side base object position and sends a
+ * flexibleReset call with teleport.
  *
  * _sideName - String: "blufor", "opfor", or "grnfor"
  * _silent   - Bool: true to suppress systemChat (default: false)
@@ -57,11 +57,9 @@ DOTT_loadout_fnc_cmdResetTeleport =
     private _baseName = DOTT_loadout_cmdResetBases get _sideName;
     if (isNil "_entry" || isNil "_baseName") exitWith { false };
     _entry params ["_target", "_displayName"];
-    private _code = compile format [
-        "[resetLoadout, true, getPosASL %1] spawn DOTT_loadout_fnc_flexibleReset",
-        _baseName
-    ];
-    [_code] remoteExec ["call", _target];
+    private _baseObj = missionNamespace getVariable [_baseName, objNull];
+    private _pos = getPosASL _baseObj;
+    [true, true, _pos] remoteExec ["DOTT_loadout_fnc_flexibleReset", _target];
     if (!_silent) then
     {
         systemChat format [
@@ -82,22 +80,14 @@ DOTT_loadout_fnc_cmdResetTeleport =
                 // No argument = heal everyone.
                 if (_argument isEqualTo "") exitWith
                 {
-                    [
-                        [[], true],
-                        DOTT_loadout_fnc_flexibleReset
-                    ] remoteExec ["spawn"];
+                    [[], true] remoteExec ["DOTT_loadout_fnc_flexibleReset"];
                     systemChat "Healing all players!";
                 };
 
                 private _side = toLower _argument;
-                private _code =
-                {
-                    [[], true]
-                        spawn DOTT_loadout_fnc_flexibleReset;
-                };
 
                 private _ok = [
-                    _side, _code, "Healing %1 players!"
+                    _side, [[], true], "Healing %1 players!"
                 ] call DOTT_loadout_fnc_cmdDispatch;
 
                 if (!_ok) then
@@ -113,22 +103,14 @@ DOTT_loadout_fnc_cmdResetTeleport =
 
                 if (_argument isEqualTo "") exitWith
                 {
-                    [{
-                        [resetLoadout]
-                            spawn DOTT_loadout_fnc_flexibleReset;
-                    }] remoteExec ["call"];
+                    [true] remoteExec ["DOTT_loadout_fnc_flexibleReset"];
                     systemChat "Rearming all players!";
                 };
 
                 private _side = toLower _argument;
-                private _code =
-                {
-                    [resetLoadout]
-                        spawn DOTT_loadout_fnc_flexibleReset;
-                };
 
                 private _ok = [
-                    _side, _code, "Rearming %1 players!"
+                    _side, [true], "Rearming %1 players!"
                 ] call DOTT_loadout_fnc_cmdDispatch;
 
                 if (!_ok) then
@@ -160,23 +142,15 @@ DOTT_loadout_fnc_cmdResetTeleport =
                     // "stay" alone = rearm + heal everyone.
                     if (count _argArr isEqualTo 1) exitWith
                     {
-                        [
-                            [resetLoadout, true],
-                            DOTT_loadout_fnc_flexibleReset
-                        ] remoteExec ["spawn"];
+                        [true, true] remoteExec ["DOTT_loadout_fnc_flexibleReset"];
                         systemChat "Rearming and healing all players!";
                     };
 
                     // "stay" + side name.
                     private _sideArg = _argArr select (1 - _stayArg);
-                    private _code =
-                    {
-                        [resetLoadout, true]
-                            spawn DOTT_loadout_fnc_flexibleReset;
-                    };
 
                     private _ok = [
-                        _sideArg, _code, "Rearming and healing %1 players!"
+                        _sideArg, [true, true], "Rearming and healing %1 players!"
                     ] call DOTT_loadout_fnc_cmdDispatch;
 
                     if (!_ok) then
@@ -203,10 +177,7 @@ DOTT_loadout_fnc_cmdResetTeleport =
                 if (_argument isEqualTo "") then
                 {
                     private _pos = getPosASL base_res_blu;
-                    [
-                        [true, true, _pos],
-                        DOTT_loadout_fnc_flexibleReset
-                    ] remoteExec ["spawn"];
+                    [true, true, _pos] remoteExec ["DOTT_loadout_fnc_flexibleReset"];
                     systemChat "Healing, rearming, and teleporting all players to Blufor base!";
                 }
                 else
@@ -223,10 +194,7 @@ DOTT_loadout_fnc_cmdResetTeleport =
                         _pos select 2
                     ];
 
-                    [
-                        [true, true, _telePos],
-                        DOTT_loadout_fnc_flexibleReset
-                    ] remoteExec ["spawn"];
+                    [true, true, _telePos] remoteExec ["DOTT_loadout_fnc_flexibleReset"];
                     systemChat "Healing, rearming, and teleporting all players to you!";
                 };
 
