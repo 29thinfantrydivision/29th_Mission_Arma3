@@ -1368,3 +1368,20 @@ class DOTT_settings_Row_Time
     shadow = 0;
     style = 16;
 };
+
+
+class DOTT_RscDisplayFlagMenu
+{
+    idd = 29140;
+    movingEnable = 0;
+    enableSimulation = 1;
+    class controls {};
+};
+
+class DOTT_RscDisplaySafeStartTime
+{
+    idd = 29141;
+    movingEnable = 0;
+    enableSimulation = 1;
+    class controls {};
+};

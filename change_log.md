@@ -31,9 +31,7 @@ Overall Future Goals
       which can also make how long we want a message to stay up inconsistent.
     - Potentially take FNF notification system and tweak it.
     - Potentially use CBA's.
-  - Finish event module
-    - Safestart related flag actions bugged.
-    - Potentially integrate new forced safe start feature
+  - missionEventVR at some point swapped with non-demo "real" mission, fix later
 ---
 TBD
 
@@ -63,6 +61,11 @@ v4.4.3
 
 * Curator
   - fn_addPlayerEditable generalized to fn_addEditable
+
+* Event
+  - Merged admin actions on flag into a single "Event Menu", which opens a GUI displaying actions that were formerly on the pole.
+    Care taken to ensure new ready UI system is not hidden when GUI is opened.
+  - New "Forced Safe Start" system implemented, admin can start long safe start and teams can ready to reduce to shorter safe start.
 
 * OCAP
   - Updated folder to remove marker related workarounds to be compatible with OCAP Addon 2.1.0.

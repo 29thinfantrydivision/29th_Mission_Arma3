@@ -1,7 +1,8 @@
 //Use the variables below to customize your event mission
 
 DOTT_event_hasTimer = true; //Use timer/ready system
-DOTT_event_safeStart = 10 * 60; //Safe start time after all teams ready up in seconds
+DOTT_event_forcedSafeStart = 15 * 60;//Safe start time before all teams ready up in seconds
+DOTT_event_readySafeStart = 30; //Safe start time after all teams ready up in seconds
 DOTT_event_timerLength = 45 * 60; //Length of round in seconds
 DOTT_event_timerObjects = [
     base_timerFlagWest,
@@ -63,7 +64,7 @@ Available Win Condition Functions:
 */
 
 /*** Do Not Edit Anything Below This Line ***/
-["TN_safeStartTime", DOTT_event_safeStart,
+["TN_safeStartTime", DOTT_event_readySafeStart,
     nil, "server", false] call cba_settings_fnc_set;
 ["TN_notifyFinalCheck", false,
     nil, "server", false] call cba_settings_fnc_set;

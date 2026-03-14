@@ -239,6 +239,7 @@ class DOTT_Event
         class flagActions {};
         class checkWinCondition {};
         class gui_setSafeStartTime {};
+        class gui_flagMenu {};
         class markEditorPlacedObjects {};
     };
 };

@@ -26,7 +26,9 @@ if (DOTT_event_hasTimer) then
 {
     if (hasInterface) then
     {
-        call DOTT_event_fnc_flagActions;
+        [{!isNull player}, {
+            call DOTT_event_fnc_flagActions;
+        }] call CBA_fnc_waitUntilAndExecute;
     };
 
     if (isServer) then

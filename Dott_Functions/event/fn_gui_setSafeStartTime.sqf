@@ -4,7 +4,10 @@
  * Opens a GUI dialog that lets an admin adjust the remaining
  * safe-start countdown timer via a slider or direct text
  * input. The new time is applied via BIS_fnc_countdown and
- * broadcast to all clients as a hint.
+ * broadcast to all clients via displayMsg.
+ *
+ * Uses createDialog (DOTT_RscDisplaySafeStartTime, IDD 29141)
+ * which overlays on display 46 — readyUI stays visible.
  *
  * Parameters:
  *     None
@@ -13,7 +16,8 @@
  *     Nothing
  */
 
-private _display = findDisplay 46 createDisplay "RscDisplayEmpty";
+createDialog "DOTT_RscDisplaySafeStartTime";
+private _display = findDisplay 29141;
 //declare early to put in the back
 private _bg = _display ctrlCreate ["RscText", 50000];
 private _timeCtrl = _display ctrlCreate ["DOTT_settings_Row_Time", 5000];
@@ -81,8 +85,8 @@ _btnOK ctrlAddEventHandler [
     "ButtonClick",
     {
         params ["_ctrl"];
-        private _timeCtrl = ctrlParent _ctrl;
-        private _sliderCtrl = _timeCtrl displayCtrl 5140;
+        private _display = ctrlParent _ctrl;
+        private _sliderCtrl = _display displayCtrl 5140;
 
         if (isNil "DOTT_round_safeStartActive") then
         {
@@ -92,11 +96,16 @@ _btnOK ctrlAddEventHandler [
         {
             private _newtime = sliderPosition _sliderCtrl;
             [_newTime] call BIS_fnc_countdown;
-            private _msg = format [
-                "Safe Start Time changed to %1!",
-                _newTime call DOTT_round_fnc_formatTime
-            ];
-            _msg remoteExec ["hint"];
+
+            [
+                format [
+                    "<t color='#ffffff' size='2.5'>Safe Start Time changed to %1!</t>",
+                    (round _newTime) call DOTT_round_fnc_formatTime
+                ],
+                "PLAIN",
+                0.5,
+                false
+            ] remoteExec ["DOTT_common_fnc_displayMsg"];
         };
         (ctrlParent _ctrl) closeDisplay 1;
     }
