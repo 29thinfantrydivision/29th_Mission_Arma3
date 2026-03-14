@@ -69,6 +69,9 @@ v4.4.3
 * Parade
   - Hopefully fix custom parade uniform not being applied on join by checking if respawn template parade loadout is applied first.
 
+* Round
+  - Add safe start time to the Round Ready UI.
+
 * Settings
   - Add check to exclude non-global settings from GUI.
 

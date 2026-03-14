@@ -443,7 +443,12 @@ DOTT_round_fnc_updateReadyUI =
 
         if (_isSafeStart) then
         {
-            _lines pushBack "<t color='#E8C840' size='0.9' align='center' shadow='1'>SAFE START</t>";
+            private _remaining = ceil ([0] call BIS_fnc_countdown) max 0;
+            private _timerStr = [_remaining, "MM:SS"] call BIS_fnc_secondsToString;
+            _lines pushBack format [
+                "<t color='#E8C840' size='0.9' align='center' shadow='1'>SAFE START - %1</t>",
+                _timerStr
+            ];
         };
 
         {
@@ -845,9 +850,6 @@ DOTT_round_fnc_flashReadyUI =
             call DOTT_round_fnc_stopReadyUIPFH;
         }
     ] call CBA_fnc_addEventHandler;
-
-    diag_log
-        "[ReadyUI] Initialized — event-driven PFH lifecycle active.";
 };
 
 true
