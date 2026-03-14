@@ -23,6 +23,7 @@ Overall Future Goals
   - Add ability to admin to add players to array?
   - Unit string indicators like sl, plt, etc...
   - Player profile string reading for Cpl, Sgt, etc?
+* FIX: BLUFOR Base right light unintentionally simulation disabled.
 
 * Near Goals
   - New hint system
