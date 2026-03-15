@@ -80,7 +80,7 @@ private _fnc_rebuild =
         {
             2;
         };
-        case (!isNil "DOTT_round_safeStartActive"):
+        case (DOTT_round_safeStartActive):
         {
             1;
         };

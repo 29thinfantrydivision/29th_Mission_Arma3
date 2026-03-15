@@ -25,7 +25,7 @@ if (_seconds > 0) then
     if (call DOTT_round_fnc_isRoundActive) exitWith {};
 
     // Don't call a new safe start; redirect to initSafeStart for that.
-    if (isNil "DOTT_round_safeStartActive") exitWith {};
+    if (!DOTT_round_safeStartActive) exitWith {};
 
     [_seconds] call BIS_fnc_countdown;
 
@@ -47,7 +47,7 @@ if (_seconds > 0) then
 }
 else
 {
-    if !(isNil "DOTT_round_safeStartActive") then
+    if (DOTT_round_safeStartActive) then
     {
         DOTT_round_ignoreReadiness = false;
         publicVariable "DOTT_round_ignoreReadiness";

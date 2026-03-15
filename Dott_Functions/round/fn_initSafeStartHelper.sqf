@@ -18,7 +18,7 @@
  *     call DOTT_round_fnc_initSafeStartHelper;
  */
 
-if (isNil "DOTT_round_safeStartActive") exitWith {true};
+if (!DOTT_round_safeStartActive) exitWith {true};
 
 private _allSidesReady =
     call DOTT_round_fnc_checkAllSidesReady;

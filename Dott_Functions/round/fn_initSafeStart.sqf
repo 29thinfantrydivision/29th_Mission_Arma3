@@ -28,7 +28,7 @@ if (!isServer) exitWith
     _this remoteExec ["DOTT_round_fnc_initSafeStart", 2];
 };
 
-if !(isNil "DOTT_round_safeStartActive") exitWith {false};
+if (DOTT_round_safeStartActive) exitWith {false};
 if (call DOTT_round_fnc_isRoundActive) exitWith {false};
 
 params [

@@ -77,6 +77,7 @@ v4.4.3
   - Add safe start time to the Round Ready UI.
   - Safe start timer now restores to the remaining forced duration when a team unreadies after all teams had readied up early,
     adjusted for time passed.
+  - Replace nil/true pattern for safeStartActive variable with false/true.
 
 * Settings
   - Add check to exclude non-global settings from GUI.

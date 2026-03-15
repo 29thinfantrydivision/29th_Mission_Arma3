@@ -42,7 +42,7 @@ publicVariable "DOTT_round_sideReady";
 /* --- Check if all sides ready and handle safe start --- */
 if (call DOTT_round_fnc_checkAllSidesReady) then
 {
-    if (isNil "DOTT_round_safeStartActive") then
+    if (!DOTT_round_safeStartActive) then
     {
         [] call DOTT_round_fnc_initSafeStart;
     }
@@ -77,7 +77,7 @@ else
     // A team unreadied. If we're in a forced safe start that was shortened,
     // restore the original forced timer adjusted for total elapsed time.
     if (
-        !(isNil "DOTT_round_safeStartActive")
+        DOTT_round_safeStartActive
         && {DOTT_round_ignoreReadiness}
         && {!(isNil "DOTT_round_shortenedAt")}
     ) then

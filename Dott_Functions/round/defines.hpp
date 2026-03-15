@@ -7,7 +7,7 @@
     publicVariable "DOTT_round_sideReady";
 
 #define RESET_SAFESTART_VARS \
-    DOTT_round_safeStartActive = nil; \
+    DOTT_round_safeStartActive = false; \
     publicVariable "DOTT_round_safeStartActive"; \
     DOTT_round_ignoreReadiness = false; \
     publicVariable "DOTT_round_ignoreReadiness"; \

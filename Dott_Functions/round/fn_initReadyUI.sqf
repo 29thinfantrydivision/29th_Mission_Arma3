@@ -395,7 +395,7 @@ DOTT_round_fnc_updateReadyUI =
     };
 
     private _isSafeStart =
-        !(isNil "DOTT_round_safeStartActive");
+        DOTT_round_safeStartActive;
     private _anyReady =
         ({_x} count DOTT_round_sideReady) > 0;
     private _isRoundActive =
@@ -758,7 +758,7 @@ DOTT_round_fnc_flashReadyUI =
 
     // Only start PFH at init if UI is actually needed right now (JIP into safe start, etc.)
     if (
-        !(isNil "DOTT_round_safeStartActive")
+        DOTT_round_safeStartActive
         || {
             !(isNil "DOTT_round_sideReady")
             && {({_x} count DOTT_round_sideReady) > 0}
@@ -812,7 +812,7 @@ DOTT_round_fnc_flashReadyUI =
                         ({_x} count
                             DOTT_round_sideReady) == 0
                     }
-                    && {isNil "DOTT_round_safeStartActive"}
+                    && {!DOTT_round_safeStartActive}
                 ) then
                 {
                     call DOTT_round_fnc_stopReadyUIPFH;

@@ -21,6 +21,9 @@
 /* ---- Server-side initialization ---- */
 if (isServer) then
 {
+    DOTT_round_safeStartActive = false;
+    publicVariable "DOTT_round_safeStartActive";
+
     DOTT_round_sideReady = [false, false, false];
     publicVariable "DOTT_round_sideReady";
 

@@ -49,7 +49,7 @@ private _msgText = format [
 /* --- Reset state --- */
 UNREADY_ALL_SIDES;
 
-DOTT_round_safeStartActive = nil;
+DOTT_round_safeStartActive = false;
 publicVariable "DOTT_round_safeStartActive";
 
 [] remoteExec ["DOTT_round_fnc_roundEvents"];

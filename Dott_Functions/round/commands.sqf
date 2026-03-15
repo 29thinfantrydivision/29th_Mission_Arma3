@@ -166,7 +166,7 @@
                         {
                             systemChat "Error: Round is currently active!";
                         };
-                        case (isNil "DOTT_round_safeStartActive"):
+                        case (!DOTT_round_safeStartActive):
                         {
                             [_minutes * 60, true] call DOTT_round_fnc_initSafeStart;
                             systemChat "Forcing Safe Start!";

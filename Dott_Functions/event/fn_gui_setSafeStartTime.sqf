@@ -88,7 +88,7 @@ _btnOK ctrlAddEventHandler [
         private _display = ctrlParent _ctrl;
         private _sliderCtrl = _display displayCtrl 5140;
 
-        if (isNil "DOTT_round_safeStartActive") then
+        if (!DOTT_round_safeStartActive) then
         {
             systemChat "Safe start has already ended! Input ignored.";
         }
