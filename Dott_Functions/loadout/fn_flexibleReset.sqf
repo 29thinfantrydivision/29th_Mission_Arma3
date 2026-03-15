@@ -185,7 +185,7 @@ else
             {
                 private _msg = format
                 [
-                    "Error: %1 was not teleported",
+                    "Error: %1 was not teleported.",
                     name player
                 ];
                 _msg remoteExecCall ["systemChat", 0];

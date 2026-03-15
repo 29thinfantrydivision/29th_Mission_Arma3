@@ -43,16 +43,15 @@ TBD
 	- Included new class "FlagReturned"
 
 ---
-v4.4.3
-10 MAR 2026
+v4.5.0
+14 MAR 2026
 ---
 * Claude Assisted Restructure of Mission File
   - Fixed spelling mistakes
   - Fixed/standardized indentations and other standards
   - Deduplicate code and remove dead code
-  - Bug fixes notably including
-    - fn_markEditorPlacedObjects: fix wrong variable (_x -> _obj) in boundingBox call
-    - description.ext: remove duplicate cfgNotifications include
+
+* description.ext: Removed duplicate cfgNotifications include
 
 * Convert any remoteExec that runs code that does not need a scheduled environment into remoteExecCall.
 
@@ -68,6 +67,7 @@ v4.4.3
   - Merged admin actions on flag into a single "Event Menu", which opens a GUI displaying actions that were formerly on the pole.
     Care taken to ensure new ready UI system is not hidden when GUI is opened.
   - New "Forced Safe Start" system implemented, admin can start long safe start and teams can ready to reduce to shorter safe start.
+  - fn_markEditorPlacedObjects: fix wrong variable (_x -> _obj) in boundingBox call
 
 * Loadout
   - Add additional failsafe for flexibleReset teleport, if player is not within 75 meters of teleport point
