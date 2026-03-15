@@ -10,4 +10,6 @@
     DOTT_round_safeStartActive = nil; \
     publicVariable "DOTT_round_safeStartActive"; \
     DOTT_round_ignoreReadiness = false; \
-    publicVariable "DOTT_round_ignoreReadiness";
+    publicVariable "DOTT_round_ignoreReadiness"; \
+    DOTT_round_forcedTimeRemaining = nil; \
+    DOTT_round_shortenedAt = nil;

@@ -53,6 +53,10 @@ if (call DOTT_round_fnc_checkAllSidesReady) then
             [0] call BIS_fnc_countdown <= TN_safeStartTime
         ) exitWith {};
 
+        // Save forced timer state so we can restore if a team unreadies.
+        DOTT_round_forcedTimeRemaining = [0] call BIS_fnc_countdown;
+        DOTT_round_shortenedAt = serverTime;
+
         private _msgText = format [
             "<t color='#ffffff'><t size='3'>All teams ready! Shortening safe start.</t><br/><t size='2'>Live in %1!</t></t>",
             [TN_safeStartTime] call DOTT_round_fnc_formatTime
@@ -66,6 +70,41 @@ if (call DOTT_round_fnc_checkAllSidesReady) then
         ] remoteExecCall ["DOTT_common_fnc_displayMsg"];
 
         [TN_safeStartTime] call BIS_fnc_countdown;
+    };
+}
+else
+{
+    // A team unreadied. If we're in a forced safe start that was shortened,
+    // restore the original forced timer adjusted for total elapsed time.
+    if (
+        !(isNil "DOTT_round_safeStartActive")
+        && {DOTT_round_ignoreReadiness}
+        && {!(isNil "DOTT_round_shortenedAt")}
+    ) then
+    {
+        private _elapsed = serverTime - DOTT_round_shortenedAt;
+        private _restoredTime = (DOTT_round_forcedTimeRemaining - _elapsed) max 1;
+        private _currentTime = [0] call BIS_fnc_countdown;
+
+        DOTT_round_shortenedAt = nil;
+        DOTT_round_forcedTimeRemaining = nil;
+
+        // Don't restore if the adjusted original would be shorter than current.
+        if (_restoredTime <= _currentTime) exitWith {};
+
+        [_restoredTime] call BIS_fnc_countdown;
+
+        private _msgText = format [
+            "<t color='#ffffff'><t size='2.5'>Team unreadied! Restoring longer safe start.</t><br/><t size='2'>Live in %1!</t></t>",
+            [round _restoredTime] call DOTT_round_fnc_formatTime
+        ];
+
+        [
+            _msgText,
+            "PLAIN",
+            0.5,
+            false
+        ] remoteExecCall ["DOTT_common_fnc_displayMsg"];
     };
 };
 
