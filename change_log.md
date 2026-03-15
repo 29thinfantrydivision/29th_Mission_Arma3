@@ -31,7 +31,6 @@ Overall Future Goals
       which can also make how long we want a message to stay up inconsistent.
     - Potentially take FNF notification system and tweak it.
     - Potentially use CBA's.
-  - missionEventVR at some point swapped with non-demo "real" mission, fix later
 ---
 TBD
 
