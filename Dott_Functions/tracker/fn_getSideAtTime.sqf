@@ -1,7 +1,6 @@
 /**
- * File: fn_getSideAtTime.sqf
  * Function: DOTT_tracker_fnc_getSideAtTime
- * Author: Bae [29th ID]
+ * Author:   Bae [29th ID]
  *
  * Purpose:
  * Finds a unit's side at a given time by searching their side

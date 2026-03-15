@@ -1,7 +1,6 @@
 /**
- * File: fn_createDiaryEntries.sqf
  * Function: DOTT_tracker_fnc_createDiaryEntries
- * Author: Bae [29th ID]
+ * Author:   Bae [29th ID]
  *
  * Purpose:
  * Client-side function that creates diary entries after

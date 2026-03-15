@@ -1,5 +1,6 @@
 /**
- * DOTT_common_fnc_displayMsg
+ * Function: DOTT_common_fnc_displayMsg
+ * Author:   Dott [29th ID]
  *
  * Displays titleText messages, typically remoteExec'd for global use.
  * Supports a single format substitution (%1) via _msgVar1.

@@ -1,7 +1,6 @@
 /**
- * File: fn_hit.sqf
  * Function: DOTT_tracker_fnc_hit
- * Author: Bae [29th ID]
+ * Author:   Bae [29th ID]
  *
  * Purpose:
  * HitExplosion/HitPart projectile event handler for the tracker.

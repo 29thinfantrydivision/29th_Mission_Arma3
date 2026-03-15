@@ -1,5 +1,6 @@
 /**
- * DOTT_event_fnc_gui_flagMenu
+ * Function: DOTT_event_fnc_gui_flagMenu
+ * Author:   Claude prompted by Bae [29th ID]
  *
  * Opens a centered GUI menu showing admin-only event actions
  * based on the current round state. Only accessible to

@@ -1,7 +1,6 @@
 /**
- * File: fn_sendHit.sqf
  * Function: DOTT_tracker_fnc_sendHit
- * Author: Bae [29th ID]
+ * Author:   Bae [29th ID]
  *
  * Purpose:
  * Server-side function that stores hit attribution data on

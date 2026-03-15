@@ -1,5 +1,6 @@
 /**
- * DOTT_thermals_fnc_init
+ * Function: DOTT_thermals_fnc_init
+ * Author:   Bae [29th ID]
  *
  * Initializes the thermal restriction module.
  * - Client: monitors vision mode changes to black-screen on

@@ -1,5 +1,6 @@
 /**
- * DOTT_loadout_fnc_onArsenalClosed
+ * Function: DOTT_loadout_fnc_onArsenalClosed
+ * Author:   Hill [29th ID]
  *
  * Purpose: Post-arsenal cleanup. Saves the player's current inventory
  *          as their respawn loadout, attempts to fix the silent weapon

@@ -1,7 +1,6 @@
 /**
- * File: fn_init.sqf
  * Function: DOTT_tracker_fnc_init
- * Author: Bae [29th ID]
+ * Author:   Bae [29th ID]
  *
  * Purpose:
  * Initializes the tracker system on both server and client.

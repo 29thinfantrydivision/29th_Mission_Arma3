@@ -1,7 +1,6 @@
 /**
- * File: fn_sendAll.sqf
  * Function: DOTT_tracker_fnc_sendAll
- * Author: Bae [29th ID]
+ * Author:   Bae [29th ID]
  *
  * Purpose:
  * Server-side function (called via remoteExec from client) that

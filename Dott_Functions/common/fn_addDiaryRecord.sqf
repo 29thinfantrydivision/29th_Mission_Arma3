@@ -1,5 +1,6 @@
 /**
- * DOTT_common_fnc_addDiaryRecord
+ * Function: DOTT_common_fnc_addDiaryRecord
+ * Author:   Bae [29th ID]
  *
  * Wrapper for createDiaryRecord intended to be remoteExec'd.
  * Allows server-side code to add diary entries on client machines.

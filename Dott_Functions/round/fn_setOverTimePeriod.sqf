@@ -1,5 +1,6 @@
 /**
- * DOTT_round_fnc_setOvertimePeriod
+ * Function: DOTT_round_fnc_setOvertimePeriod
+ * Author:   Bae [29th ID], modified from Dott [29th ID]
  *
  * Sets the overtime period duration. Rejects non-positive values.
  *

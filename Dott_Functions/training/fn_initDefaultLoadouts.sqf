@@ -1,5 +1,6 @@
 /**
- * DOTT_training_fnc_initDefaultLoadouts
+ * Function: DOTT_training_fnc_initDefaultLoadouts
+ * Author:   Bae [29th ID]
  *
  * Registers default ACE Arsenal loadouts for each faction.
  * Loadouts are SOP-correct Rifleman kits plus a Parade kit.

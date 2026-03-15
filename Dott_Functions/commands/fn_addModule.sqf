@@ -2,7 +2,7 @@
  * Name:	DOTT_commands_fnc_addModule
  * Date:	12/30/2025
  * Version: 1.0
- * Author:  Bae [29th ID]
+ * Author:   Bae [29th ID]
  *
  * Description:
  * Adds chat commands to the chat command system. Meant for modules to call on init.

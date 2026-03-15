@@ -1,7 +1,6 @@
 /**
- * File: fn_getName.sqf
  * Function: DOTT_tracker_fnc_getName
- * Author: Bae [29th ID]
+ * Author:   Bae [29th ID]
  *
  * Purpose:
  * Returns the display name for a unit. For infantry, uses the

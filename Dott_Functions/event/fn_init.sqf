@@ -1,5 +1,6 @@
 /**
- * DOTT_event_fnc_init
+ * Function: DOTT_event_fnc_init
+ * Author:   Bae [29th ID]
  *
  * Initializes the event variation of the mission template.
  * Loads event settings, wires up timer / alive-check /

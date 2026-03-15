@@ -1,5 +1,6 @@
 /**
- * DOTT_event_fnc_gui_setSafeStartTime
+ * Function: DOTT_event_fnc_gui_setSafeStartTime
+ * Author:   Bae [29th ID]
  *
  * Opens a GUI dialog that lets an admin adjust the remaining
  * safe-start countdown timer via a slider or direct text

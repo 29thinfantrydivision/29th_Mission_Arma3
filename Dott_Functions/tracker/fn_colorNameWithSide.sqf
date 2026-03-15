@@ -1,7 +1,6 @@
 /**
- * File: fn_colorNameWithSide.sqf
  * Function: DOTT_tracker_fnc_colorNameWithSide
- * Author: Bae [29th ID]
+ * Author:   Bae [29th ID]
  *
  * Purpose:
  * Wraps a name string in an HTML font-color tag matching the

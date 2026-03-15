@@ -1,5 +1,6 @@
 /**
- * DOTT_thermals_fnc_disablePIP
+ * Function: DOTT_thermals_fnc_disablePIP
+ * Author:   Bae [29th ID]
  *
  * Iterates every RenderTarget camera on the player's vehicle and
  * terminates any that use thermal vision (renderVisionMode == 2)

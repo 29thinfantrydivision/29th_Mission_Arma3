@@ -1,5 +1,7 @@
 /**
- * fn_gui_settingCheckbox.sqf
+ * Function: DOTT_settings_fnc_gui_settingCheckbox
+ * Author:   Bae [29th ID]
+ *
  * Initializes a checkbox setting row and wires the
  * CheckedChanged event to write temporary overrides.
  * Runs in uiNamespace.

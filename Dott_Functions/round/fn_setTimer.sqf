@@ -1,5 +1,6 @@
 /**
- * DOTT_round_fnc_setTimer
+ * Function: DOTT_round_fnc_setTimer
+ * Author:   Bae [29th ID], modified from Dott [29th ID]
  *
  * Sets the round timer length. Cannot be used while the round is
  * active (use addTime instead). Rejects non-positive values.

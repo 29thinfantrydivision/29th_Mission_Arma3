@@ -1,5 +1,6 @@
 /**
- * DOTT_thermals_fnc_blackScreen
+ * Function: DOTT_thermals_fnc_blackScreen
+ * Author:   Hill [29th ID]
  *
  * Blacks out the screen with a warning message whenever the player
  * activates thermal vision (infantry or vehicle optics) while

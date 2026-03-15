@@ -1,5 +1,6 @@
 /**
- * DOTT_event_fnc_game
+ * Function: DOTT_event_fnc_game
+ * Author:   Bae [29th ID], modified from Dott [29th ID]
  *
  * Manages round endings by forcing a specific side victory,
  * neutral ending, or named ending class. Redirects to server

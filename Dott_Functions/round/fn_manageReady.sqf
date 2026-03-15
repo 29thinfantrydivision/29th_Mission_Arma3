@@ -1,7 +1,8 @@
 #include "defines.hpp"
 
 /**
- * DOTT_round_fnc_manageReady
+ * Function: DOTT_round_fnc_manageReady
+ * Author:   Bae [29th ID], modified from Dott [29th ID]
  *
  * Changes the ready state of a side and checks if all sides are ready
  * to start the round. If all sides become ready, initiates safe start

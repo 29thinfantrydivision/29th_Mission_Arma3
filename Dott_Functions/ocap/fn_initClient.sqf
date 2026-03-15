@@ -1,5 +1,6 @@
 /**
- * DOTT_ocap_fnc_initClient
+ * Function: DOTT_ocap_fnc_initClient
+ * Author:   Bae [29th ID]
  *
  * Purpose:
  *   Client-side OCAP initialization. Handles JIP player

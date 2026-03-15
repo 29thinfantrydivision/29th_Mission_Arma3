@@ -1,7 +1,6 @@
 /**
- * File: fn_receiveAll.sqf
  * Function: DOTT_tracker_fnc_receiveAll
- * Author: Bae [29th ID]
+ * Author:   Bae [29th ID]
  *
  * Purpose:
  * Client-side function that receives all previous round

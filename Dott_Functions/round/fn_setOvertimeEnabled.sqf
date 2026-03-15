@@ -1,5 +1,6 @@
 /**
- * DOTT_round_fnc_setOvertimeEnabled
+ * Function: DOTT_round_fnc_setOvertimeEnabled
+ * Author:   Bae [29th ID], modified from Dott [29th ID]
  *
  * Enables or disables overtime for the current round.
  *

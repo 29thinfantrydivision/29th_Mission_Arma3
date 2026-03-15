@@ -1,7 +1,8 @@
 #include "defines.hpp"
 
 /**
- * DOTT_round_fnc_start
+ * Function: DOTT_round_fnc_start
+ * Author:   Bae [29th ID], modified from Dott [29th ID]
  *
  * Starts the round with a specified timer length. Displays a LIVE
  * notification, kicks off the countdown, schedules the end-of-round

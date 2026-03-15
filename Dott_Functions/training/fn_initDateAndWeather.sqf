@@ -1,5 +1,6 @@
 /**
- * DOTT_training_fnc_initDateAndWeather
+ * Function: DOTT_training_fnc_initDateAndWeather
+ * Author:   Bae [29th ID]
  *
  * Sets date, overcast, and fog on the server. The engine
  * automatically syncs weather to clients. Must only run

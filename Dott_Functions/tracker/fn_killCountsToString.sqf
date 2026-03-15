@@ -1,7 +1,6 @@
 /**
- * File: fn_killCountsToString.sqf
  * Function: DOTT_tracker_fnc_killCountsToString
- * Author: Bae [29th ID]
+ * Author:   Bae [29th ID]
  *
  * Purpose:
  * Converts a sorted kill-counts array into an HTML string

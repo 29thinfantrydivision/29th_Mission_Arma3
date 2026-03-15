@@ -1,5 +1,6 @@
 /**
- * DOTT_loadout_fnc_setInsignia
+ * Function: DOTT_loadout_fnc_setInsignia
+ * Author:   Bae [29th ID], modified from Hill [29th ID]
  *
  * Purpose: If a unit has a valid 29th squad.xml configuration, applies
  *          the appropriate insignia to their uniform. Members get

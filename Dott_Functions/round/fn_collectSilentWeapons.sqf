@@ -1,5 +1,6 @@
 /**
- * DOTT_round_fnc_collectSilentWeapons
+ * Function: DOTT_round_fnc_collectSilentWeapons
+ * Author:   Bae [29th ID]
  *
  * Collects the name of a player detected with the silent weapon bug
  * into a server-side hashmap. Called via remoteExecCall from each

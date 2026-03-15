@@ -1,5 +1,6 @@
 /**
- * DOTT_loadout_fnc_flexibleReset
+ * Function: DOTT_loadout_fnc_flexibleReset
+ * Author:   Dott [29th ID]
  *
  * Purpose: Optionally loads saved inventory, heals player, teleports
  *          them to a position, and notifies them.

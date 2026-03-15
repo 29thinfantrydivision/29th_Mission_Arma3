@@ -1,5 +1,6 @@
 /**
- * DOTT_round_fnc_isRoundActive
+ * Function: DOTT_round_fnc_isRoundActive
+ * Author:   Bae [29th ID], modified from Dott [29th ID]
  *
  * Checks if the round is currently active.
  *

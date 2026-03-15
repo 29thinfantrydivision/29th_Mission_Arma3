@@ -1,5 +1,7 @@
 /**
- * fn_gui_settingSlider.sqf
+ * Function: DOTT_settings_fnc_gui_settingSlider
+ * Author:   Bae [29th ID]
+ *
  * Initializes a slider setting row.  Wires the slider drag,
  * the text-edit KeyUp, and the KillFocus events to write
  * temporary overrides.  Runs in uiNamespace.

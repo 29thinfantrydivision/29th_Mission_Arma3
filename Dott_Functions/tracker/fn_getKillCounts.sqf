@@ -1,7 +1,6 @@
 /**
- * File: fn_getKillCounts.sqf
  * Function: DOTT_tracker_fnc_getKillCounts
- * Author: Bae [29th ID]
+ * Author:   Bae [29th ID]
  *
  * Purpose:
  * Finds kill count at end of round from events. Units left

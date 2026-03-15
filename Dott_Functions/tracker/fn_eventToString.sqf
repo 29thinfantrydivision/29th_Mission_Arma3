@@ -1,7 +1,6 @@
 /**
- * File: fn_eventToString.sqf
  * Function: DOTT_tracker_fnc_eventToString
- * Author: Bae [29th ID]
+ * Author:   Bae [29th ID]
  *
  * Purpose:
  * Converts an event array into a human-readable HTML string

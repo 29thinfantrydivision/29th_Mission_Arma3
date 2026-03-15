@@ -1,7 +1,6 @@
 /**
- * File: fn_copyToClipboard.sqf
  * Function: DOTT_tracker_fnc_copyToClipboard
- * Author: Bae [29th ID]
+ * Author:   Bae [29th ID]
  *
  * Purpose:
  * Copies a string to the system clipboard using ACE's extension

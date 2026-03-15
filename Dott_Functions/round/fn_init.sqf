@@ -1,7 +1,8 @@
 #include "defines.hpp"
 
 /**
- * DOTT_round_fnc_init
+ * Function: DOTT_round_fnc_init
+ * Author:   Bae [29th ID], modified from Dott [29th ID]
  *
  * Sets up the initial state of the round management system. Configures
  * scoreboard blocking during active rounds, wires up final checks for

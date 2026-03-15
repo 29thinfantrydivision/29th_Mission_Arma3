@@ -1,5 +1,6 @@
 /**
- * DOTT_round_fnc_formatTime
+ * Function: DOTT_round_fnc_formatTime
+ * Author:   Bae [29th ID]
  *
  * Formats a time value in seconds into a human-readable string like
  * "20 Minutes" or "1 Hour 30 Minutes 5 Seconds". Omits zero-valued

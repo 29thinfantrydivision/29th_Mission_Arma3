@@ -1,5 +1,7 @@
 /**
- * fn_gui_settingTime.sqf
+ * Function: DOTT_settings_fnc_gui_settingTime
+ * Author:   Bae [29th ID]
+ *
  * Initializes a time-picker setting row (HH:MM:SS).
  * Wires the slider and three text-edit fields to write
  * temporary overrides.  Runs in uiNamespace.

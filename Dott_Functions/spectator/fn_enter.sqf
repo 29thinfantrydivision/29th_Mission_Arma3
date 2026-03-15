@@ -1,5 +1,6 @@
 /**
- * DOTT_spectator_fnc_enter
+ * Function: DOTT_spectator_fnc_enter
+ * Author:   Bae [29th ID], modified from Hill [29th ID]
  *
  * Places the player into BIS EG Spectator mode and registers a
  * per-frame handler that exits spectator when the player presses

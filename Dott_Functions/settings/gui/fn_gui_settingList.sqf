@@ -1,5 +1,7 @@
 /**
- * fn_gui_settingList.sqf
+ * Function: DOTT_settings_fnc_gui_settingList
+ * Author:   Bae [29th ID]
+ *
  * Initializes a list (dropdown) setting row and wires the
  * LBSelChanged event to write temporary overrides.
  * Runs in uiNamespace.

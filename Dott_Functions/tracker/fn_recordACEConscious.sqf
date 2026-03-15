@@ -1,7 +1,6 @@
 /**
- * File: fn_recordACEConscious.sqf
  * Function: DOTT_tracker_fnc_recordACEConscious
- * Author: Bae [29th ID]
+ * Author:   Bae [29th ID]
  *
  * Purpose:
  * Server-side function that constructs an ace_unconscious event

@@ -1,5 +1,7 @@
 /**
- * fn_gui_sourceChanged.sqf
+ * Function: DOTT_settings_fnc_gui_sourceChanged
+ * Author:   Bae [29th ID]
+ *
  * Shows/hides the options-group controls so only the
  * panel matching the currently selected addon + source
  * is visible.  Called when the source tab changes.

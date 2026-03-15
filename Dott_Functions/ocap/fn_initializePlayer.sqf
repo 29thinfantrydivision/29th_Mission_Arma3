@@ -1,5 +1,6 @@
 /**
- * DOTT_ocap_fnc_initializePlayer
+ * Function: DOTT_ocap_fnc_initializePlayer
+ * Author:   Bae [29th ID], modified from OCAP Addon
  *
  * Purpose:
  *   Registers a player unit with the OCAP recording system by

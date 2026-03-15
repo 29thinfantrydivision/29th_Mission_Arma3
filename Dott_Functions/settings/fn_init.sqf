@@ -1,5 +1,7 @@
 /**
- * fn_init.sqf
+ * Function: DOTT_settings_fnc_init
+ * Author:   Bae [29th ID]
+ *
  * Server-side initialization for the DOTT settings system.
  * Snapshots each CBA mission setting's server value as the
  * "default" baseline and builds the global settings list,

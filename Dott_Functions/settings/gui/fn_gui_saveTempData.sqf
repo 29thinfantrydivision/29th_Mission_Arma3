@@ -1,5 +1,7 @@
 /**
- * fn_gui_saveTempData.sqf
+ * Function: DOTT_settings_fnc_gui_saveTempData
+ * Author:   Bae [29th ID]
+ *
  * Applies every pending setting override stored in the
  * temporary namespace back into CBA's live settings.
  * Called when the user clicks OK in the settings dialog.

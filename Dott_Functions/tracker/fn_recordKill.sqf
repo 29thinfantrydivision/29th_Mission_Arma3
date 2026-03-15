@@ -1,7 +1,6 @@
 /**
- * File: fn_recordKill.sqf
  * Function: DOTT_tracker_fnc_recordKill
- * Author: Bae [29th ID]
+ * Author:   Bae [29th ID]
  *
  * Purpose:
  * Client-side function that constructs a kill event array from

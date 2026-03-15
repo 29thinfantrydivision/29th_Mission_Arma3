@@ -1,5 +1,6 @@
 /**
- * DOTT_ocap_fnc_init
+ * Function: DOTT_ocap_fnc_init
+ * Author:   Bae [29th ID]
  *
  * Purpose:
  *   Initializes OCAP event handlers that integrate with the round
@@ -15,10 +16,6 @@
  *
  * Example:
  *   call DOTT_ocap_fnc_init;
- *
- * Date: 02/04/2026
- * Version: 1.1
- * Author: Bae [29th ID]
  */
 
 /*

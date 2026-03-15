@@ -1,7 +1,8 @@
 #include "defines.hpp"
 
 /**
- * DOTT_round_fnc_initSafeStart
+ * Function: DOTT_round_fnc_initSafeStart
+ * Author:   Bae [29th ID], modified from Dott [29th ID]
  *
  * Launches safe start before round start. Displays a countdown
  * notification and delegates to the helper function which polls until

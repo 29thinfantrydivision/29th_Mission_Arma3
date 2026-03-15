@@ -1,7 +1,6 @@
 /**
- * File: fn_recordSectorCapture.sqf
  * Function: DOTT_tracker_fnc_recordSectorCapture
- * Author: Bae [29th ID]
+ * Author:   Bae [29th ID]
  *
  * Purpose:
  * Records a sector ownership change event. Bypasses the

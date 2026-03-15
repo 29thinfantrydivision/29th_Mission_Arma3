@@ -1,5 +1,6 @@
 /**
- * DOTT_event_fnc_flagActions
+ * Function: DOTT_event_fnc_flagActions
+ * Author:   Bae [29th ID]
  *
  * Adds a single "Event Menu" scroll-wheel action to timer
  * objects and the ending object. The action opens a GUI

@@ -1,5 +1,7 @@
 /**
- * fn_gui_settingDefault.sqf
+ * Function: DOTT_settings_fnc_gui_settingDefault
+ * Author:   Bae [29th ID]
+ *
  * Wires the "Reset to default" button for a single setting
  * row.  Clicking it restores the server's initial value and
  * invokes the row's updateUI callback.

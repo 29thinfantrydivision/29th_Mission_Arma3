@@ -1,5 +1,7 @@
 /**
- * fn_gui_addonChanged.sqf
+ * Function: DOTT_settings_fnc_gui_addonChanged
+ * Author:   Bae [29th ID]
+ *
  * Fired when the user selects a different addon/category in
  * the sidebar listbox.  Lazily builds every setting row for
  * that category (checkbox / list / slider / time) the first

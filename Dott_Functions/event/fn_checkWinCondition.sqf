@@ -1,5 +1,6 @@
 /**
- * DOTT_event_fnc_checkWinCondition
+ * Function: DOTT_event_fnc_checkWinCondition
+ * Author:   Bae [29th ID]
  *
  * Evaluates win conditions each tick during an active round.
  * Supports point-based victory via sector ownership and kill

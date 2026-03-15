@@ -1,5 +1,6 @@
 /**
- * DOTT_round_fnc_end
+ * Function: DOTT_round_fnc_end
+ * Author:   Bae [29th ID], modified from Dott [29th ID]
  *
  * Transitions to overtime if applicable, otherwise ends the round
  * with notifications.

@@ -1,5 +1,6 @@
 /**
- * DOTT_round_fnc_changeForcedSafeStart
+ * Function: DOTT_round_fnc_changeForcedSafeStart
+ * Author:   Bae [29th ID]
  *
  * Changes or cancels/unforces a currently active safe start. Will not
  * start a new safe start if one is not already active. Passing 0 or

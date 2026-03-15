@@ -1,7 +1,6 @@
 /**
- * File: fn_weaponToNum.sqf
  * Function: DOTT_tracker_fnc_weaponToNum
- * Author: Bae [29th ID]
+ * Author:   Bae [29th ID]
  *
  * Purpose:
  * Server-side function that registers or looks up a weapon name

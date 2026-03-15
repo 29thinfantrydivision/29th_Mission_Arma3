@@ -1,5 +1,6 @@
 /**
- * DOTT_round_fnc_getTime
+ * Function: DOTT_round_fnc_getTime
+ * Author:   Bae [29th ID], modified from Dott [29th ID]
  *
  * Returns the current round time remaining in seconds.
  *

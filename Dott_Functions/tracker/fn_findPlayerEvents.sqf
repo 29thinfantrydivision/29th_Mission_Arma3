@@ -1,7 +1,6 @@
 /**
- * File: fn_findPlayerEvents.sqf
  * Function: DOTT_tracker_fnc_findPlayerEvents
- * Author: Bae [29th ID]
+ * Author:   Bae [29th ID]
  *
  * Purpose:
  * Finds all events relevant to a specific player from the event

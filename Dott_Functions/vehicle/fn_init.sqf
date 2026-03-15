@@ -1,5 +1,6 @@
 /**
- * DOTT_vehicle_fnc_init
+ * Function: DOTT_vehicle_fnc_init
+ * Author:   Bae [29th ID]
  *
  * Initializes vehicle settings on the server.
  * - Auto-equips FRIES on helicopters (if ACE loaded).

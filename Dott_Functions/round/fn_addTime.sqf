@@ -1,5 +1,6 @@
 /**
- * DOTT_round_fnc_addTime
+ * Function: DOTT_round_fnc_addTime
+ * Author:   Bae [29th ID], modified from Dott [29th ID]
  *
  * Adds (or subtracts) time from the currently running round. Cannot
  * be used when no round is active. Notifies all players of the time

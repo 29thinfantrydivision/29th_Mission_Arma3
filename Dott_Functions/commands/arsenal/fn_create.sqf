@@ -1,5 +1,6 @@
 /**
- * DOTT_commands_fnc_arsenalCreate
+ * Function: DOTT_commands_fnc_arsenalCreate
+ * Author:   Bae [29th ID]
  *
  * Creates an ACE arsenal box at a given position and
  * registers it on the server for curator editing and

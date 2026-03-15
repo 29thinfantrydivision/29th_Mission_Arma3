@@ -1,5 +1,6 @@
 /**
- * DOTT_event_fnc_markEditorPlacedObjects
+ * Function: DOTT_event_fnc_markEditorPlacedObjects
+ * Author:   Mallen [FNF], modified by Bae [29th ID]
  *
  * Creates local map markers for editor-placed static objects
  * and cargo containers that are large enough to be tactically

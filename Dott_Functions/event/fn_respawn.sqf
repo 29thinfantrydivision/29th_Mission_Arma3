@@ -1,5 +1,6 @@
 /**
- * DOTT_event_fnc_respawn
+ * Function: DOTT_event_fnc_respawn
+ * Author:   Bae [29th ID], modified from Dott [29th ID]
  *
  * Tracks player deaths during a live round and teleports
  * the player to the spectate area when they exhaust their

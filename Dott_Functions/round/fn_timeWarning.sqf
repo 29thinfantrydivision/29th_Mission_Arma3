@@ -1,5 +1,6 @@
 /**
- * DOTT_round_fnc_timeWarning
+ * Function: DOTT_round_fnc_timeWarning
+ * Author:   Bae [29th ID], modified from Dott [29th ID]
  *
  * Displays a time remaining notification via BIS notification system.
  * Currently restricted to admins only.

@@ -1,7 +1,8 @@
 #include "defines.hpp"
 
 /**
- * DOTT_round_fnc_initSafeStartHelper
+ * Function: DOTT_round_fnc_initSafeStartHelper
+ * Author:   Bae [29th ID]
  *
  * Helper function for initSafeStart. Polls every 0.2 seconds until
  * the safe start countdown expires (then starts the round) or until

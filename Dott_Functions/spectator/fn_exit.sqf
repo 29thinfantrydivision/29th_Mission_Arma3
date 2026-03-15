@@ -1,5 +1,6 @@
 /**
- * DOTT_spectator_fnc_exit
+ * Function: DOTT_spectator_fnc_exit
+ * Author:   Hill [29th ID]
  *
  * Removes the player from BIS EG Spectator mode and undoes all
  * changes made by DOTT_spectator_fnc_enter. Temporarily disables

@@ -1,7 +1,6 @@
 /**
- * File: fn_addEventHandlersClient.sqf
  * Function: DOTT_tracker_fnc_addEventHandlersClient
- * Author: Bae [29th ID]
+ * Author:   Bae [29th ID]
  *
  * Purpose:
  * Adds client-side event handlers for the tracker system.

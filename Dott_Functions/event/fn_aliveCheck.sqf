@@ -1,5 +1,6 @@
 /**
- * DOTT_event_fnc_aliveCheck
+ * Function: DOTT_event_fnc_aliveCheck
+ * Author:   Bae [29th ID], modified from Dott [29th ID]
  *
  * Monitors alive player counts per side and triggers game end
  * when only one side remains. Supports both permadeath (BIRD

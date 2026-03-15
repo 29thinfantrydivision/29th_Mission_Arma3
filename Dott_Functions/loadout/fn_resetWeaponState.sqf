@@ -1,5 +1,6 @@
 /**
- * DOTT_loadout_fnc_resetWeaponState
+ * Function: DOTT_loadout_fnc_resetWeaponState
+ * Author:   Bae [29th ID]
  *
  * Purpose: Fully removes and re-adds the primary and handgun weapons
  *          to reset internal weapon state, in an attempt to prevent the silent weapon

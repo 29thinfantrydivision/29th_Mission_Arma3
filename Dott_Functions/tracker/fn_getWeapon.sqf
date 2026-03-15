@@ -1,7 +1,6 @@
 /**
- * File: fn_getWeapon.sqf
  * Function: DOTT_tracker_fnc_getWeapon
- * Author: Bae [29th ID]
+ * Author:   Bae [29th ID]
  *
  * Purpose:
  * Returns a string best describing the weapon used for infantry.

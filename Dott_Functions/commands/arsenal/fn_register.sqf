@@ -1,5 +1,6 @@
 /**
- * DOTT_commands_fnc_arsenalRegister
+ * Function: DOTT_commands_fnc_arsenalRegister
+ * Author:   Bae [29th ID]
  *
  * Registers an arsenal object on the server for curator
  * editing and auto-deletion when the round starts.

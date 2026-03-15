@@ -1,5 +1,6 @@
 /**
- * DOTT_loadout_fnc_fullSetUnitLoadout
+ * Function: DOTT_loadout_fnc_fullSetUnitLoadout
+ * Author:   Bae [29th ID]
  *
  * Purpose: Wrapper around CBA_fnc_setLoadout that also resets weapon
  *          state (silent weapon bug fix) and reapplies insignia once

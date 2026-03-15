@@ -1,7 +1,6 @@
 /**
- * File: fn_saveEvent.sqf
  * Function: DOTT_tracker_fnc_saveEvent
- * Author: Bae [29th ID]
+ * Author:   Bae [29th ID]
  *
  * Purpose:
  * Server-side function that converts an event array's human-

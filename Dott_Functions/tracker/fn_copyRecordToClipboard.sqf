@@ -1,7 +1,6 @@
 /**
- * File: fn_copyRecordToClipboard.sqf
  * Function: DOTT_tracker_fnc_copyRecordToClipboard
- * Author: Bae [29th ID]
+ * Author:   Bae [29th ID]
  *
  * Purpose:
  * Copies text from record to clipboard up to and excluding the

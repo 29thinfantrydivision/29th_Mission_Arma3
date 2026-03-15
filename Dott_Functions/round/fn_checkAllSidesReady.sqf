@@ -1,5 +1,6 @@
 /**
- * DOTT_round_fnc_checkAllSidesReady
+ * Function: DOTT_round_fnc_checkAllSidesReady
+ * Author:   Bae [29th ID]
  *
  * Checks if all sides with active players are ready. Sides with zero
  * players are treated as implicitly ready.

@@ -1,5 +1,6 @@
 /**
- * DOTT_spectator_fnc_init
+ * Function: DOTT_spectator_fnc_init
+ * Author:   Bae [29th ID]
  *
  * Initializes the spectator module on clients.
  * Registers a respawn event handler that automatically places

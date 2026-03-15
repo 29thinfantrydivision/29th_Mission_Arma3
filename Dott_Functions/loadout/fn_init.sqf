@@ -1,5 +1,6 @@
 /**
- * DOTT_loadout_fnc_init
+ * Function: DOTT_loadout_fnc_init
+ * Author:   Bae [29th ID]
  *
  * Purpose: Initializes the loadout module on clients. Registers arsenal
  *          close handlers for both BI and ACE arsenals, and sets up
