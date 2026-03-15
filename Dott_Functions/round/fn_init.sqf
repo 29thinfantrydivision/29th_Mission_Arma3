@@ -226,7 +226,7 @@ if (isServer) then
                     keys DOTT_round_clientSilentWeapons
                 ];
                 diag_log _msg;
-                [_msg] remoteExec ["systemChat"];
+                [_msg] remoteExecCall ["systemChat"];
 
                 DOTT_round_clientSilentWeapons = nil;
             };
@@ -253,7 +253,7 @@ if (hasInterface) then
                     "FIXED: %1 was invulnerable, can now take damage.",
                     name player
                 ];
-                [_msg] remoteExec ["systemChat"];
+                [_msg] remoteExecCall ["systemChat"];
             };
         }
     ] call CBA_fnc_addEventHandler;

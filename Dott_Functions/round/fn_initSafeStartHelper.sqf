@@ -30,7 +30,7 @@ if !(_allSidesReady || DOTT_round_ignoreReadiness) exitWith
         "<t color='#ffffff' size='4'>Timer Aborted!</t>",
         "PLAIN",
         0.5
-    ] remoteExec ["DOTT_common_fnc_displayMsg"];
+    ] remoteExecCall ["DOTT_common_fnc_displayMsg"];
 
     RESET_SAFESTART_VARS;
     [-1] call BIS_fnc_countdown;

@@ -17,7 +17,7 @@
 
 params ["_player"];
 
-[DOTT_tracker_previous] remoteExec [
+[DOTT_tracker_previous] remoteExecCall [
     "DOTT_tracker_fnc_receiveAll",
     _player
 ];

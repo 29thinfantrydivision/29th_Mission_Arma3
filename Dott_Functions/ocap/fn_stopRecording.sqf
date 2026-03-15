@@ -33,7 +33,7 @@ _missionDateFormat append (date apply {if (_x < 10) then {"0" + str _x} else {st
             "\A3\ui_f\data\igui\cfg\simpleTasks\types\use_ca.paa"
         ];
     }, _this] call CBA_fnc_waitUntilAndExecute;
-}] remoteExec ["call", [0, -2] select isDedicated, true];
+}] remoteExecCall ["call", [0, -2] select isDedicated, true];
 
 // Log times
 [] call ocap_recorder_fnc_updateTime;

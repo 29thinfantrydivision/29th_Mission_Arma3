@@ -36,19 +36,19 @@ switch (_ticketSide) do
     {
         DOTT_ticketWEST = (_ticketWEST + _ticketAmount);
         publicVariable "DOTT_ticketWEST";
-        format ["Blufor tickets set to %1", DOTT_ticketWEST] remoteExec ["hint"];
+        format ["Blufor tickets set to %1", DOTT_ticketWEST] remoteExecCall ["hint"];
     };
     case "EAST":
     {
         DOTT_ticketEAST = (_ticketEAST + _ticketAmount);
         publicVariable "DOTT_ticketEAST";
-        format ["Opfor tickets set to %1", DOTT_ticketEAST] remoteExec ["hint"];
+        format ["Opfor tickets set to %1", DOTT_ticketEAST] remoteExecCall ["hint"];
     };
     case "GUER":
     {
         DOTT_ticketGUER = (_ticketGUER + _ticketAmount);
         publicVariable "DOTT_ticketGUER";
-        format ["Grnfor tickets set to %1", DOTT_ticketGUER] remoteExec ["hint"];
+        format ["Grnfor tickets set to %1", DOTT_ticketGUER] remoteExecCall ["hint"];
     };
     case "reset":
     {
@@ -58,7 +58,7 @@ switch (_ticketSide) do
         publicVariable "DOTT_ticketEAST";
         DOTT_ticketGUER = 0;
         publicVariable "DOTT_ticketGUER";
-        "All tickets reset to zero!" remoteExec ["hint"];
+        "All tickets reset to zero!" remoteExecCall ["hint"];
     };
     default
     {

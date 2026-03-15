@@ -69,7 +69,7 @@ if (isServer) then
         }] call CBA_fnc_waitUntilAndExecute;
     };
 
-    [OCAP_settings_autoStart] remoteExec
+    [OCAP_settings_autoStart] remoteExecCall
         ["DOTT_ocap_fnc_initClient",
         [0, -2] select isDedicated, true];
 

@@ -25,7 +25,7 @@
 // Server should own the waitAndExecute chain.
 if (!isServer) exitWith
 {
-    _this remoteExec ["DOTT_round_fnc_initSafeStart", 2];
+    _this remoteExecCall ["DOTT_round_fnc_initSafeStart", 2];
 };
 
 if (DOTT_round_safeStartActive) exitWith {false};

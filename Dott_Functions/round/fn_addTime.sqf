@@ -29,6 +29,6 @@ private _hintMsg = format [
     "Added %1 minutes to the time limit!",
     _timeDelta / 60
 ];
-[_hintMsg] remoteExec ["hint"];
+[_hintMsg] remoteExecCall ["hint"];
 
 call DOTT_round_fnc_getTime

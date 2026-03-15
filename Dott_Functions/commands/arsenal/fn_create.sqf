@@ -37,4 +37,4 @@ _arsenal enableSimulationGlobal false;
 
 [_arsenal, true] call ace_arsenal_fnc_initBox;
 
-[_arsenal] remoteExec ["DOTT_commands_fnc_arsenalRegister", 2];
+[_arsenal] remoteExecCall ["DOTT_commands_fnc_arsenalRegister", 2];

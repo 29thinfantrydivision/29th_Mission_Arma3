@@ -54,7 +54,7 @@ if (_forceEnding) exitWith
 {
     if (_forceEndingClass != "") then
     {
-        [_forceEndingClass] remoteExec ["BIS_fnc_endMission"];
+        [_forceEndingClass] remoteExecCall ["BIS_fnc_endMission"];
     }
     else
     {
@@ -62,19 +62,19 @@ if (_forceEnding) exitWith
         {
             case west:
             {
-                [_endWest] remoteExec ["BIS_fnc_endMission"];
+                [_endWest] remoteExecCall ["BIS_fnc_endMission"];
             };
             case east:
             {
-                [_endEast] remoteExec ["BIS_fnc_endMission"];
+                [_endEast] remoteExecCall ["BIS_fnc_endMission"];
             };
             case resistance:
             {
-                [_endResistance] remoteExec ["BIS_fnc_endMission"];
+                [_endResistance] remoteExecCall ["BIS_fnc_endMission"];
             };
             default
             {
-                [_endNeutral] remoteExec ["BIS_fnc_endMission"];
+                [_endNeutral] remoteExecCall ["BIS_fnc_endMission"];
             };
         };
     };
@@ -88,7 +88,7 @@ if (_forceEnding) exitWith
 //private _eventSectorCount =
 //    count _eventSectors;
 
-//["end1"] remoteExec ["BIS_fnc_endMission"];
+//["end1"] remoteExecCall ["BIS_fnc_endMission"];
 
 //call{t_sector_1 getVariable "owner" == WEST}
 //call{t_sector_1 enablesimulation false;}

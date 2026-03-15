@@ -112,7 +112,7 @@ if (isServer) then
                     DOTT_tracker_sides,
                     DOTT_tracker_weapons,
                     DOTT_tracker_currentRound
-                ] remoteExec ["DOTT_tracker_fnc_createDiaryEntries"];
+                ] remoteExecCall ["DOTT_tracker_fnc_createDiaryEntries"];
 
                 DOTT_tracker_previous pushBack
                 [
@@ -175,7 +175,7 @@ if (hasInterface) then
     //     Round Histories --- //
     addMissionEventHandler ["PreloadFinished",
     {
-        [player] remoteExec ["DOTT_tracker_fnc_sendAll", 2];
+        [player] remoteExecCall ["DOTT_tracker_fnc_sendAll", 2];
         player removeDiarySubject "Statistics";
         removeMissionEventHandler ["PreloadFinished", _thisEventHandler];
     }];

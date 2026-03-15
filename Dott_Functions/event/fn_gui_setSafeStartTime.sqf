@@ -105,7 +105,7 @@ _btnOK ctrlAddEventHandler [
                 "PLAIN",
                 0.5,
                 false
-            ] remoteExec ["DOTT_common_fnc_displayMsg"];
+            ] remoteExecCall ["DOTT_common_fnc_displayMsg"];
         };
         (ctrlParent _ctrl) closeDisplay 1;
     }

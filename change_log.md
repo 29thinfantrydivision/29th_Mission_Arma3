@@ -54,6 +54,8 @@ v4.4.3
     - fn_markEditorPlacedObjects: fix wrong variable (_x -> _obj) in boundingBox call
     - description.ext: remove duplicate cfgNotifications include
 
+* Convert any remoteExec that runs code that does not need a scheduled environment into remoteExecCall.
+
 * Commands
   - Move base commands.sqf initialization out of XEH_preInit into fn_init so it's no longer run on server.
   - Rewrote arsenal command and moved logic into separate subfolder. 

@@ -55,11 +55,11 @@ if (hasInterface) then
             {
                 private _curatorName = name player;
                 private _msg = format ["CURATOR INTERFACE OPENED: %1", _curatorName];
-                _msg remoteExec ["DOTT_common_fnc_diag_log", 2];
+                _msg remoteExecCall ["DOTT_common_fnc_diag_log", 2];
             }
         ] call CBA_fnc_addEventHandler;
 
-        [[player]] remoteExec ["DOTT_curator_fnc_addEditable", 2];
+        [[player]] remoteExecCall ["DOTT_curator_fnc_addEditable", 2];
 
         [vehicleVarName player, roleDescription player] remoteExecCall ["DOTT_curator_fnc_createModule", 2];
     };

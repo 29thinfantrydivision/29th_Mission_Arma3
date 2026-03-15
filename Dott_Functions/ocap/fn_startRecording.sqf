@@ -56,7 +56,7 @@ _missionDateFormat append (date apply {if (_x < 10) then {"0" + str _x} else {st
             ]
         ];
     }, _this] call CBA_fnc_waitUntilAndExecute;
-}] remoteExec ["call", [0, -2] select isDedicated, true];
+}] remoteExecCall ["call", [0, -2] select isDedicated, true];
 
 if (ocap_recorder_captureFrameNo == 0) then
 {

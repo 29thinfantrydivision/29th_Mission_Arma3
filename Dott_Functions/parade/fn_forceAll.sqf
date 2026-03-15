@@ -25,7 +25,7 @@ private _targets = _allPlayers select
 };
 
 {
-    [] remoteExec ["DOTT_parade_fnc_load", _x];
+    [] remoteExecCall ["DOTT_parade_fnc_load", _x];
 } forEach _targets;
 
 true

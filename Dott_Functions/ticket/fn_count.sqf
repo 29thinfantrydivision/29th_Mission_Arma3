@@ -80,7 +80,7 @@ if (_tickets isEqualTo 0) then
         "<t color='#ffffff' size='2'>Your team is out of tickets! Do not leave spawn!</t>",
         "PLAIN",
         0.8
-    ] remoteExec [
+    ] remoteExecCall [
         "DOTT_common_fnc_displayMsg",
         _clientOwner
     ];
@@ -93,15 +93,15 @@ else
     if (_tickets isEqualTo 0) then
     {
         // Last ticket -- warn team and admin.
-        "Your team is out of tickets!" remoteExec ["hint", _playerSide];
+        "Your team is out of tickets!" remoteExecCall ["hint", _playerSide];
         format [
             "ADMIN: %1 is out of tickets!", _adminLabel
-        ] remoteExec ["hint", _adminClient];
+        ] remoteExecCall ["hint", _adminClient];
         [
             "<t color='#ffffff' size='2'>You are the last player allowed to leave spawn!</t>",
             "PLAIN",
             0.8
-        ] remoteExec ["DOTT_common_fnc_displayMsg", _clientOwner];
+        ] remoteExecCall ["DOTT_common_fnc_displayMsg", _clientOwner];
     }
     else
     {
@@ -109,11 +109,11 @@ else
         format [
             "Your team has %1 tickets remaining!",
             _tickets
-        ] remoteExec ["hintSilent", _playerSide];
+        ] remoteExecCall ["hintSilent", _playerSide];
         [
             "<t color='#ffffff' size='2'>You may leave spawn!</t>",
             "PLAIN",
             0.5
-        ] remoteExec ["DOTT_common_fnc_displayMsg", _clientOwner];
+        ] remoteExecCall ["DOTT_common_fnc_displayMsg", _clientOwner];
     };
 };
