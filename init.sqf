@@ -10,4 +10,10 @@ diag_log text format [
     private _function =
         missionNamespace getVariable [_moduleInitName, {}];
     call _function;
+    diag_log text format ["|   (%1/%2) %3: init complete", _forEachIndex + 1, count TN_MODULES, _moduleInitName];
 } forEach TN_MODULES;
+
+diag_log text format [
+    "|=============================   %1: init.sqf Finished   =============================|",
+    missionName
+];

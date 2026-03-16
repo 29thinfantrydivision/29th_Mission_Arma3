@@ -49,3 +49,8 @@ addMissionEventHandler ["EntityCreated",
         showChat true;
     };
 }] call CBA_fnc_addEventHandler;
+
+diag_log text format [
+    "|=============================   %1: initPlayerLocal.sqf Finished   =============================|",
+    missionName
+];
