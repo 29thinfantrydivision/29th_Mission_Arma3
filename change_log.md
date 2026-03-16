@@ -42,6 +42,7 @@ v4.5.0
   - Chat interception reverted back to waiting for display instead of event handler.
     More overhead, but needed due to security concerns as this method does not send the hidden chat over network.
     Modernized code by getting rid of conversion to array.
+  - Rename pvpfw_chatIntercept prefix to DOTT_commands.
   - Move base commands.sqf initialization out of XEH_preInit into fn_init so it's no longer run on server.
   - Rewrote arsenal command and moved logic into separate subfolder. 
     Arsenals created with this command are deleted automatically on round start.

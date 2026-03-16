@@ -19,12 +19,12 @@
  * 
  */
 
-if (isNil "pvpfw_chatIntercept_allCommands") exitWith { false };
+if (isNil "DOTT_commands_allCommands") exitWith { false };
 
 params [["_commands", [], [[]]], ["_helpInfo", [], [[]]]];
 
-pvpfw_chatIntercept_allCommands append _commands;
-pvpfw_chatIntercept_helpInfo append _helpInfo;
+DOTT_commands_allCommands append _commands;
+DOTT_commands_helpInfo append _helpInfo;
 
 true
 

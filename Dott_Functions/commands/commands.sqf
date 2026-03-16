@@ -5,13 +5,13 @@
 // systemChat is the best way to give feedback to the local player executing commands
 
 /*
-    pvpfw_chatIntercept_noLogCommands
-    pvpfw_chatIntercept_adminCommands
-    pvpfw_chatIntercept_restrictedCommands
+    DOTT_commands_noLogCommands
+    DOTT_commands_adminCommands
+    DOTT_commands_restrictedCommands
     created in XEH_preInit.sqf
 */
 
-pvpfw_chatIntercept_helpInfo = [
+DOTT_commands_helpInfo = [
     [
         "help",
         "Gives help on how to use commands"
@@ -39,14 +39,14 @@ pvpfw_chatIntercept_helpInfo = [
 ];
 
 
-pvpfw_chatIntercept_allCommands = [
+DOTT_commands_allCommands = [
     [
         "commands",
         {
             private _commands = "";
             {
-                _commands = _commands + (pvpfw_chatIntercept_commandMarker + _x) + ", ";
-            } forEach (keys pvpfw_chatIntercept_allCommands);
+                _commands = _commands + (DOTT_commands_commandMarker + _x) + ", ";
+            } forEach (keys DOTT_commands_allCommands);
 
             systemChat format ["Available Commands: %1", _commands];
             systemChat "Use !help followed by the command name to see how to use it";
@@ -58,18 +58,18 @@ pvpfw_chatIntercept_allCommands = [
             private _argument = _this select 0;
             _argument = toLower _argument;
 
-            private _helpInfo = pvpfw_chatIntercept_helpInfo get _argument;
+            private _helpInfo = DOTT_commands_helpInfo get _argument;
 
             if !(isNil "_helpInfo") then
             {
                 private _restrictionStr =
                     switch (true) do
                 {
-                    case (pvpfw_chatIntercept_adminCommands find _argument != -1):
+                    case (DOTT_commands_adminCommands find _argument != -1):
                     {
                         "(ADMIN ONLY)";
                     };
-                    case (pvpfw_chatIntercept_restrictedCommands find _argument != -1):
+                    case (DOTT_commands_restrictedCommands find _argument != -1):
                     {
                         "(RESTRICTED)";
                     };

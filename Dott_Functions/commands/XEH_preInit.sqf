@@ -12,7 +12,7 @@ private _defaultAdminCommands = "['reset', 'debrief', 'goto', 'measure', 'ticket
     _defaultNoLog,
 	1,
 	{
-		pvpfw_chatIntercept_noLogCommands = parseSimpleArray _this;
+		DOTT_commands_noLogCommands = parseSimpleArray _this;
 	}
 ] call CBA_fnc_addSetting;
 
@@ -24,7 +24,7 @@ private _defaultAdminCommands = "['reset', 'debrief', 'goto', 'measure', 'ticket
 	_defaultRestrictedCommands,
 	1,
 	{
-		pvpfw_chatIntercept_restrictedCommands = parseSimpleArray _this;
+		DOTT_commands_restrictedCommands = parseSimpleArray _this;
 	}
 ] call CBA_fnc_addSetting;
 
@@ -36,7 +36,7 @@ private _defaultAdminCommands = "['reset', 'debrief', 'goto', 'measure', 'ticket
 	_defaultAdminCommands,
 	1,
 	{
-		pvpfw_chatIntercept_adminCommands = parseSimpleArray _this;
+		DOTT_commands_adminCommands = parseSimpleArray _this;
 	}
 ] call CBA_fnc_addSetting;
 
@@ -48,6 +48,6 @@ private _defaultAdminCommands = "['reset', 'debrief', 'goto', 'measure', 'ticket
 	"[]",
 	1,
 	{
-		pvpfw_chatIntercept_removedCommands = parseSimpleArray _this;
+		DOTT_commands_removedCommands = parseSimpleArray _this;
 	}
 ] call CBA_fnc_addSetting;

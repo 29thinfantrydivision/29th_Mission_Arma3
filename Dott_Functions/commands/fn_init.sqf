@@ -27,7 +27,7 @@
 
 if (hasInterface) then
 {
-    pvpfw_chatIntercept_commandMarker = "!"; //Character at the front of the chat input to intercept it
+    DOTT_commands_commandMarker = "!"; //Character at the front of the chat input to intercept it
 
     #include "commands.sqf"
 
@@ -41,8 +41,8 @@ if (hasInterface) then
     forEach (DOTT_MODULES - ["commands"]);
 
     // Convert flat arrays to HashMaps for fast lookup.
-    pvpfw_chatIntercept_allCommands = createHashMapFromArray pvpfw_chatIntercept_allCommands;
-    pvpfw_chatIntercept_helpInfo = createHashMapFromArray pvpfw_chatIntercept_helpInfo;
+    DOTT_commands_allCommands = createHashMapFromArray DOTT_commands_allCommands;
+    DOTT_commands_helpInfo = createHashMapFromArray DOTT_commands_helpInfo;
 
     DOTT_commands_finishedInit = true;
     ["DOTT_commands_initCompleted", []] call CBA_fnc_localEvent;
@@ -67,7 +67,7 @@ if (hasInterface) then
                     private _text = ctrlText (_display displayCtrl 101);
 
                     if (_text isEqualTo "") exitWith { false };
-                    if !((_text select [0, 1]) isEqualTo pvpfw_chatIntercept_commandMarker) exitWith { false };
+                    if !((_text select [0, 1]) isEqualTo DOTT_commands_commandMarker) exitWith { false };
 
                     closeDialog 0;
                     _display closeDisplay 1;
