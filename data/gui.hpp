@@ -15,7 +15,7 @@ class TN_RscText
     shadow = 1;
     colorShadow[] = {0, 0, 0, 0.5};
     font = "RobotoCondensed";
-    SizeEx = "(         (           (           ((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
+    SizeEx = "((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
     linespacing = 1;
     tooltipColorText[] = {1, 1, 1, 1};
     tooltipColorBox[] = {1, 1, 1, 1};
@@ -38,13 +38,13 @@ class TN_RscButton
     colorFocused[] = {0, 0, 0, 1};
     colorShadow[] = {0, 0, 0, 0};
     colorBorder[] = {0, 0, 0, 1};
-    soundEnter[] = {"\A3\ui_f\data\sound\RscButton\soundEnter",0.09,1};
-    soundPush[] = {"\A3\ui_f\data\sound\RscButton\soundPush",0.09,1};
-    soundClick[] = {"\A3\ui_f\data\sound\RscButton\soundClick",0.09,1};
-    soundEscape[] = {"\A3\ui_f\data\sound\RscButton\soundEscape",0.09,1};
+    soundEnter[] = {"\A3\ui_f\data\sound\RscButton\soundEnter", 0.09, 1};
+    soundPush[] = {"\A3\ui_f\data\sound\RscButton\soundPush", 0.09, 1};
+    soundClick[] = {"\A3\ui_f\data\sound\RscButton\soundClick", 0.09, 1};
+    soundEscape[] = {"\A3\ui_f\data\sound\RscButton\soundEscape", 0.09, 1};
     shadow = 2;
     font = "RobotoCondensed";
-    sizeEx = "(         (           (           ((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
+    sizeEx = "((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
     url = "";
     offsetX = 0;
     offsetY = 0;
@@ -97,20 +97,20 @@ class TN_RscButtonMenu
     colorFocusedSecondary[] = {0, 0, 0, 1};
     color2Secondary[] = {0, 0, 0, 1};
     colorDisabledSecondary[] = {1, 1, 1, 0.25};
-    sizeExSecondary = "(            (           (           ((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
+    sizeExSecondary = "((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
     fontSecondary = "PuristaLight";
     period = 1.2;
     periodFocus = 1.2;
     periodOver = 1.2;
-    size = "(           (           (           ((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
-    sizeEx = "(         (           (           ((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
+    size = "((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+    sizeEx = "((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
     tooltipColorText[] = {1, 1, 1, 1};
     tooltipColorBox[] = {1, 1, 1, 1};
     tooltipColorShade[] = {0, 0, 0, 0.65};
     class TextPos
     {
-        left = "0.25 *          (           ((safezoneW / safezoneH) min 1.2) / 40)";
-        top = "(            (           (           ((safezoneW / safezoneH) min 1.2) / 1.2) / 25) -        (           (           (           ((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)) / 2";
+        left = "0.25 * (((safezoneW / safezoneH) min 1.2) / 40)";
+        top = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) - ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)) / 2";
         right = 0.005;
         bottom = 0;
     };
@@ -123,15 +123,15 @@ class TN_RscButtonMenu
     };
     class ShortcutPos
     {
-        left = "5.25 *          (           ((safezoneW / safezoneH) min 1.2) / 40)";
+        left = "5.25 * (((safezoneW / safezoneH) min 1.2) / 40)";
         top = 0;
-        w = "1 *            (           ((safezoneW / safezoneH) min 1.2) / 40)";
-        h = "1 *            (           (           ((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+        w = "1 * (((safezoneW / safezoneH) min 1.2) / 40)";
+        h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
     };
-    soundEnter[] = {"\A3\ui_f\data\sound\RscButtonMenu\soundEnter",0.09,1};
-    soundPush[] = {"\A3\ui_f\data\sound\RscButtonMenu\soundPush",0.09,1};
-    soundClick[] = {"\A3\ui_f\data\sound\RscButtonMenu\soundClick",0.09,1};
-    soundEscape[] = {"\A3\ui_f\data\sound\RscButtonMenu\soundEscape",0.09,1};
+    soundEnter[] = {"\A3\ui_f\data\sound\RscButtonMenu\soundEnter", 0.09, 1};
+    soundPush[] = {"\A3\ui_f\data\sound\RscButtonMenu\soundPush", 0.09, 1};
+    soundClick[] = {"\A3\ui_f\data\sound\RscButtonMenu\soundClick", 0.09, 1};
+    soundEscape[] = {"\A3\ui_f\data\sound\RscButtonMenu\soundEscape", 0.09, 1};
 };
 
 class TN_RscEdit
@@ -142,14 +142,14 @@ class TN_RscEdit
     colorBackground[] = {0, 0, 0, 0};
     colorText[] = {0.95, 0.95, 0.95, 1};
     colorDisabled[] = {1, 1, 1, 0.25};
-    colorSelection[] = {"(profilenamespace getvariable ['GUI_BCG_RGB_R',0.13])","(profilenamespace getvariable ['GUI_BCG_RGB_G',0.54])","(profilenamespace getvariable ['GUI_BCG_RGB_B',0.21])",1};
+    colorSelection[] = {"(profilenamespace getvariable ['GUI_BCG_RGB_R',0.13])", "(profilenamespace getvariable ['GUI_BCG_RGB_G',0.54])", "(profilenamespace getvariable ['GUI_BCG_RGB_B',0.21])", 1};
     autocomplete = "";
     text = "";
     size = 0.2;
     style = "0x00 + 0x40";
     font = "RobotoCondensed";
     shadow = 2;
-    sizeEx = "(         (           (           ((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
+    sizeEx = "((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
     canModify = 1;
     tooltipColorText[] = {1, 1, 1, 1};
     tooltipColorBox[] = {1, 1, 1, 1};
@@ -163,7 +163,7 @@ class TN_RscCombo
     type = 4;
     style = "0x10 + 0x200";
     font = "RobotoCondensed";
-    sizeEx = "(         (           (           ((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
+    sizeEx = "((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
     shadow = 0;
     colorSelect[] = {0, 0, 0, 1};
     colorText[] = {1, 1, 1, 1};
@@ -184,9 +184,9 @@ class TN_RscCombo
     tooltipColorText[] = {1, 1, 1, 1};
     tooltipColorBox[] = {1, 1, 1, 1};
     tooltipColorShade[] = {0, 0, 0, 0.65};
-    soundSelect[] = {"\A3\ui_f\data\sound\RscCombo\soundSelect",0.1,1};
-    soundExpand[] = {"\A3\ui_f\data\sound\RscCombo\soundExpand",0.1,1};
-    soundCollapse[] = {"\A3\ui_f\data\sound\RscCombo\soundCollapse",0.1,1};
+    soundSelect[] = {"\A3\ui_f\data\sound\RscCombo\soundSelect", 0.1, 1};
+    soundExpand[] = {"\A3\ui_f\data\sound\RscCombo\soundExpand", 0.1, 1};
+    soundCollapse[] = {"\A3\ui_f\data\sound\RscCombo\soundCollapse", 0.1, 1};
     maxHistoryDelay = 1;
     wholeHeight = 0.45;
     arrowFull = "\a3\3DEN\Data\Controls\ctrlCombo\arrowFull_ca.paa";
@@ -240,10 +240,10 @@ class TN_RscCheckboxCtrl
     tooltipColorText[] = {1, 1, 1, 1};
     tooltipColorBox[] = {1, 1, 1, 1};
     tooltipColorShade[] = {0, 0, 0, 0.65};
-    soundEnter[] = {"\a3\ui_f\data\Sound\RscButtonMenu\soundEnter",0.09,1};
-    soundPush[] = {"\a3\ui_f\data\Sound\RscButtonMenu\soundPush",0.09,1};
-    soundClick[] = {"\a3\ui_f\data\Sound\RscButtonMenu\soundClick",0.09,1};
-    soundEscape[] = {"\a3\ui_f\data\Sound\RscButtonMenu\soundEscape",0.09,1};
+    soundEnter[] = {"\a3\ui_f\data\Sound\RscButtonMenu\soundEnter", 0.09, 1};
+    soundPush[] = {"\a3\ui_f\data\Sound\RscButtonMenu\soundPush", 0.09, 1};
+    soundClick[] = {"\a3\ui_f\data\Sound\RscButtonMenu\soundClick", 0.09, 1};
+    soundEscape[] = {"\a3\ui_f\data\Sound\RscButtonMenu\soundEscape", 0.09, 1};
 };
 
 class TN_RscXSlider
@@ -264,7 +264,7 @@ class TN_RscXSlider
     {
         idc = -1;
         colorBase[] = {1, 1, 1, 1};
-        colorActive[] = {"(profilenamespace getvariable ['GUI_BCG_RGB_R',0.77])","(profilenamespace getvariable ['GUI_BCG_RGB_G',0.51])","(profilenamespace getvariable ['GUI_BCG_RGB_B',0.08])",1};
+        colorActive[] = {"(profilenamespace getvariable ['GUI_BCG_RGB_R',0.77])", "(profilenamespace getvariable ['GUI_BCG_RGB_G',0.51])", "(profilenamespace getvariable ['GUI_BCG_RGB_B',0.08])", 1};
     };
     class Value
     {
@@ -272,7 +272,7 @@ class TN_RscXSlider
         format = "%.f";
         type = "SPTPlain";
         colorBase[] = {1, 1, 1, 1};
-        colorActive[] = {"(profilenamespace getvariable ['GUI_BCG_RGB_R',0.77])","(profilenamespace getvariable ['GUI_BCG_RGB_G',0.51])","(profilenamespace getvariable ['GUI_BCG_RGB_B',0.08])",1};
+        colorActive[] = {"(profilenamespace getvariable ['GUI_BCG_RGB_R',0.77])", "(profilenamespace getvariable ['GUI_BCG_RGB_G',0.51])", "(profilenamespace getvariable ['GUI_BCG_RGB_B',0.08])", 1};
     };
     onCanDestroy = "";
     onDestroy = "";
@@ -363,8 +363,8 @@ class TN_RscControlsGroup
 
 class TN_RscStaticBackground : TN_RscText
 {
-    x = "1 *                    (           ((safezoneW / safezoneH) min 1.2) / 40) +       (safezoneX + (safezoneW -                   ((safezoneW / safezoneH) min 1.2))/2)";
-    w = "38 *                   (           ((safezoneW / safezoneH) min 1.2) / 40)";
+    x = "1 * (((safezoneW / safezoneH) min 1.2) / 40) + (safezoneX + (safezoneW - ((safezoneW / safezoneH) min 1.2)) / 2)";
+    w = "38 * (((safezoneW / safezoneH) min 1.2) / 40)";
 };
 
 class TN_TimeEdit : TN_RscEdit
@@ -395,7 +395,7 @@ class TN_settings_Row : TN_RscControlsGroup
             idc = 5010;
             style = 1;
             x = "((0) * (((safeZoneW / safeZoneH) min 1.2) / 40))";
-            y = "((0) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25)) + ((0.4) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25))/2";
+            y = "((0) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25)) + ((0.4) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25)) / 2";
             w = "((15.5) * (((safeZoneW / safeZoneH) min 1.2) / 40))";
             h = "((1) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25))";
         };
@@ -403,7 +403,7 @@ class TN_settings_Row : TN_RscControlsGroup
         {
             idc = 5020;
             x = "((27) * (((safeZoneW / safeZoneH) min 1.2) / 40))";
-            y = "((0) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25)) + ((0.4) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25))/2";
+            y = "((0) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25)) + ((0.4) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25)) / 2";
             w = "((1) * (((safeZoneW / safeZoneH) min 1.2) / 40))";
             h = "((1) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25))";
         };
@@ -424,7 +424,7 @@ class TN_settings_Row_Checkbox : TN_settings_Row
         {
             idc = 5100;
             x = "((16) * (((safeZoneW / safeZoneH) min 1.2) / 40))";
-            y = "((0) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25)) + ((0.4) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25))/2";
+            y = "((0) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25)) + ((0.4) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25)) / 2";
             w = "((1) * (((safeZoneW / safeZoneH) min 1.2) / 40))";
             h = "((1) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25))";
         };
@@ -442,7 +442,7 @@ class TN_settings_Row_List : TN_settings_Row
         {
             idc = 5110;
             x = "((16) * (((safeZoneW / safeZoneH) min 1.2) / 40))";
-            y = "((0) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25)) + ((0.4) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25))/2";
+            y = "((0) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25)) + ((0.4) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25)) / 2";
             w = "((10.5) * (((safeZoneW / safeZoneH) min 1.2) / 40))";
             h = "((1) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25))";
         };
@@ -460,7 +460,7 @@ class TN_settings_Row_Slider : TN_settings_Row
         {
             idc = 5120;
             x = "((16) * (((safeZoneW / safeZoneH) min 1.2) / 40))";
-            y = "((0) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25)) + ((0.4) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25))/2";
+            y = "((0) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25)) + ((0.4) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25)) / 2";
             w = "((8.2) * (((safeZoneW / safeZoneH) min 1.2) / 40))";
             h = "((1) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25))";
         };
@@ -468,7 +468,7 @@ class TN_settings_Row_Slider : TN_settings_Row
         {
             idc = 5121;
             x = "((24.3) * (((safeZoneW / safeZoneH) min 1.2) / 40))";
-            y = "((0) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25)) + ((0.4) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25))/2";
+            y = "((0) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25)) + ((0.4) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25)) / 2";
             w = "((2.2) * (((safeZoneW / safeZoneH) min 1.2) / 40))";
             h = "((1) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25))";
         };
@@ -553,44 +553,43 @@ class RscDisplayMissionOptions
         class Title : TN_RscText
         {
             shadow = 0;
-            sizeEx = "(         (           (           ((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
             colorText[] = {0.95, 0.95, 0.95, 1};
             font = "PuristaMedium";
             idc = 1000;
             text = "Mission Options";
-            x = "1 *                    (           ((safezoneW / safezoneH) min 1.2) / 40) +       (safezoneX + (safezoneW -                   ((safezoneW / safezoneH) min 1.2))/2)";
-            y = "1 *                    (           (           ((safezoneW / safezoneH) min 1.2) / 1.2) / 25) +        (safezoneY + (safezoneH -                   (           ((safezoneW / safezoneH) min 1.2) / 1.2))/2)";
-            w = "15 *                   (           ((safezoneW / safezoneH) min 1.2) / 40)";
-            h = "1 *                    (           (           ((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+            x = "1 * (((safezoneW / safezoneH) min 1.2) / 40) + (safezoneX + (safezoneW - ((safezoneW / safezoneH) min 1.2)) / 2)";
+            y = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + (safezoneY + (safezoneH - (((safezoneW / safezoneH) min 1.2) / 1.2)) / 2)";
+            w = "15 * (((safezoneW / safezoneH) min 1.2) / 40)";
+            h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
         };
         class ButtonCancel : TN_RscButtonMenu
         {
             idc = 2;
             shortcuts[] = {"0x00050000 + 1"};
             text = "Cancel";
-            x = "1 *                    (           ((safezoneW / safezoneH) min 1.2) / 40) +       (safezoneX + (safezoneW -                   ((safezoneW / safezoneH) min 1.2))/2)";
-            y = "23 *                   (           (           ((safezoneW / safezoneH) min 1.2) / 1.2) / 25) +        (safezoneY + (safezoneH -                   (           ((safezoneW / safezoneH) min 1.2) / 1.2))/2)";
-            w = "6.25 *                     (           ((safezoneW / safezoneH) min 1.2) / 40)";
-            h = "1 *                    (           (           ((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+            x = "1 * (((safezoneW / safezoneH) min 1.2) / 40) + (safezoneX + (safezoneW - ((safezoneW / safezoneH) min 1.2)) / 2)";
+            y = "23 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + (safezoneY + (safezoneH - (((safezoneW / safezoneH) min 1.2) / 1.2)) / 2)";
+            w = "6.25 * (((safezoneW / safezoneH) min 1.2) / 40)";
+            h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
         };
         class ButtonOKscripted : TN_RscButtonMenu
         {
             default = 1;
             idc = 999;
-            shortcuts[] = {"0x00050000 + 0",28,57,156};
+            shortcuts[] = {"0x00050000 + 0", 28, 57, 156};
             text = "OK";
-            soundPush[] = {"\A3\ui_f\data\sound\RscButtonMenuOK\soundPush",0.09,1};
-            x = "32.75 *                    (           ((safezoneW / safezoneH) min 1.2) / 40) +       (safezoneX + (safezoneW -                   ((safezoneW / safezoneH) min 1.2))/2)";
-            y = "23 *                   (           (           ((safezoneW / safezoneH) min 1.2) / 1.2) / 25) +        (safezoneY + (safezoneH -                   (           ((safezoneW / safezoneH) min 1.2) / 1.2))/2)";
-            w = "6.25 *                     (           ((safezoneW / safezoneH) min 1.2) / 40)";
-            h = "1 *                    (           (           ((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+            soundPush[] = {"\A3\ui_f\data\sound\RscButtonMenuOK\soundPush", 0.09, 1};
+            x = "32.75 * (((safezoneW / safezoneH) min 1.2) / 40) + (safezoneX + (safezoneW - ((safezoneW / safezoneH) min 1.2)) / 2)";
+            y = "23 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + (safezoneY + (safezoneH - (((safezoneW / safezoneH) min 1.2) / 1.2)) / 2)";
+            w = "6.25 * (((safezoneW / safezoneH) min 1.2) / 40)";
+            h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
         };
         class CBA_AddonsGroup : TN_RscControlsGroup
         {
             idc = 4301;
             enableDisplay = 0;
-            x = "((1) * (((safeZoneW / safeZoneH) min 1.2) / 40) + (safeZoneX + (safeZoneW - ((safeZoneW / safeZoneH) min 1.2))/2))";
-            y = "((3.1) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25) + (safeZoneY + (safeZoneH - (((safeZoneW / safeZoneH) min 1.2) / 1.2))/2))";
+            x = "((1) * (((safeZoneW / safeZoneH) min 1.2) / 40)) + (safeZoneX + (safeZoneW - ((safeZoneW / safeZoneH) min 1.2)) / 2)";
+            y = "((3.1) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25)) + (safeZoneY + (safeZoneH - (((safeZoneW / safeZoneH) min 1.2) / 1.2)) / 2)";
             w = "((38) * (((safeZoneW / safeZoneH) min 1.2) / 40))";
             h = "((17.3) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25))";
             class controls
@@ -614,14 +613,14 @@ class RscDisplayMissionOptions
                 };
                 class VolatileWarningText : TN_RscText
                 {
-                    y = "((2) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25))";
-                    h = "((2*3/4) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25))";
-                    sizeEx = "((3/4) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25))";
-                    onLoad = "(_this select 0) ctrlEnable true;";
                     idc = 9042;
                     text = "Changes will not persist after mission restart";
+                    onLoad = "(_this select 0) ctrlEnable true;";
                     x = "((1) * (((safeZoneW / safeZoneH) min 1.2) / 40))";
+                    y = "((2) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25))";
                     w = "((24) * (((safeZoneW / safeZoneH) min 1.2) / 40))";
+                    h = "((2 * 3/4) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25))";
+                    sizeEx = "((3/4) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25))";
                 };
             };
         };
@@ -757,24 +756,24 @@ class RscDisplayMissionOptions
         };
         class TitleBackground : TN_RscStaticBackground
         {
-            colorBackground[] = {"(profilenamespace getvariable ['GUI_BCG_RGB_R',0.13])","(profilenamespace getvariable ['GUI_BCG_RGB_G',0.54])","(profilenamespace getvariable ['GUI_BCG_RGB_B',0.21])","(profilenamespace getvariable ['GUI_BCG_RGB_A',0.8])"};
             idc = 1080;
-            y = "1 *                    (           (           ((safezoneW / safezoneH) min 1.2) / 1.2) / 25) +        (safezoneY + (safezoneH -                   (           ((safezoneW / safezoneH) min 1.2) / 1.2))/2)";
-            h = "1 *                    (           (           ((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+            colorBackground[] = {"(profilenamespace getvariable ['GUI_BCG_RGB_R',0.13])", "(profilenamespace getvariable ['GUI_BCG_RGB_G',0.54])", "(profilenamespace getvariable ['GUI_BCG_RGB_B',0.21])", "(profilenamespace getvariable ['GUI_BCG_RGB_A',0.8])"};
+            y = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + (safezoneY + (safezoneH - (((safezoneW / safezoneH) min 1.2) / 1.2)) / 2)";
+            h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
         };
         class TabsBackground : TN_RscStaticBackground
         {
-            colorBackground[] = {0, 0, 0, 1};
             idc = 1081;
-            y = "2.1 *                  (           (           ((safezoneW / safezoneH) min 1.2) / 1.2) / 25) +        (safezoneY + (safezoneH -                   (           ((safezoneW / safezoneH) min 1.2) / 1.2))/2)";
-            h = "1 *                    (           (           ((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+            colorBackground[] = {0, 0, 0, 1};
+            y = "2.1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + (safezoneY + (safezoneH - (((safezoneW / safezoneH) min 1.2) / 1.2)) / 2)";
+            h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
         };
         class MainBackground : TN_RscStaticBackground
         {
-            colorBackground[] = {0, 0, 0, 0.7};
             idc = 1082;
-            y = "3.1 *                  (           (           ((safezoneW / safezoneH) min 1.2) / 1.2) / 25) +        (safezoneY + (safezoneH -                   (           ((safezoneW / safezoneH) min 1.2) / 1.2))/2)";
-            h = "19.8 *                     (           (           ((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+            colorBackground[] = {0, 0, 0, 0.7};
+            y = "3.1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + (safezoneY + (safezoneH - (((safezoneW / safezoneH) min 1.2) / 1.2)) / 2)";
+            h = "19.8 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
         };
     };
     enableSimulation = 0;
