@@ -65,15 +65,14 @@ if (hasInterface) then
                     if (_key != 28 && _key != 156) exitWith { false };
 
                     private _text = ctrlText (_display displayCtrl 101);
-                    private _chatArr = toArray _text;
 
-                    if (_chatArr isEqualTo []) exitWith { false };
-                    if !((_chatArr select 0) isEqualTo ((toArray pvpfw_chatIntercept_commandMarker) select 0)) exitWith { false };
+                    if (_text isEqualTo "") exitWith { false };
+                    if !((_text select [0, 1]) isEqualTo pvpfw_chatIntercept_commandMarker) exitWith { false };
 
                     closeDialog 0;
                     _display closeDisplay 1;
 
-                    [_chatArr] call DOTT_commands_fnc_execute;
+                    [_text] call DOTT_commands_fnc_execute;
 
                     true
                 }];
