@@ -25,9 +25,10 @@
  *     call TN_commands_fnc_init;
  */
 
+#define COMMAND_MARKER "!"
+
 if (hasInterface) then
 {
-    TN_commands_commandMarker = "!"; //Character at the front of the chat input to intercept it
 
     #include "commands.sqf"
 
@@ -67,7 +68,7 @@ if (hasInterface) then
                     private _text = ctrlText (_display displayCtrl 101);
 
                     if (_text isEqualTo "") exitWith { false };
-                    if ((_text select [0, 1]) isNotEqualTo TN_commands_commandMarker) exitWith { false };
+                    if ((_text select [0, 1]) isNotEqualTo COMMAND_MARKER) exitWith { false };
 
                     closeDialog 0;
                     _display closeDisplay 1;

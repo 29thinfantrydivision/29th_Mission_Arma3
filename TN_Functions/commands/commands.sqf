@@ -45,7 +45,7 @@ TN_commands_allCommands = [
         {
             private _commands = "";
             {
-                _commands = _commands + (TN_commands_commandMarker + _x) + ", ";
+                _commands = _commands + (COMMAND_MARKER + _x) + ", ";
             } forEach (keys TN_commands_allCommands);
 
             systemChat format ["Available Commands: %1", _commands];
