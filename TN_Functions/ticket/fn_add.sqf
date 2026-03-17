@@ -21,7 +21,7 @@ params
     ["_ticketAmount", 0, [0]]
 ];
 
-if (TN_ticketEnabled == false) exitWith
+if (!TN_ticketEnabled) exitWith
 {
     systemChat "Error: Ticket system disabled!";
 };

@@ -32,7 +32,7 @@ private _eventIndex = 0;
 
 while
 {
-    _timeLeft > 0 || TN_round_overtimeEnabled == true
+    _timeLeft > 0 || TN_round_overtimeEnabled
 } do
 {
     // Reset event index when addTime extends the clock.
