@@ -22,7 +22,7 @@ params ["_unit"];
 // "r_Garrison_cap" prefix -- matches 29th ID BLUFOR garrison caps.
 // "rhs_weap_m1garand_sa43" -- standard 29th parade rifle.
 private _hasBluforParadeGear =
-    (headgear _unit) find "r_Garrison_cap" == 0
+    "r_Garrison_cap" in (headgear _unit)
     && primaryWeapon _unit == "rhs_weap_m1garand_sa43";
 
 // Officers typically have no primary weapon.

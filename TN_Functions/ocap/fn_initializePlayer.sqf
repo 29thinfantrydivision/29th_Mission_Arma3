@@ -37,7 +37,7 @@ if !(_player getVariable ["ocap_isInitialized", false]) then
         roleDescription _player, // 7
         typeOf _player, // 8 classname
         [configOf _player] call BIS_fnc_displayName, // 9 type displayname
-        if (isPlayer _player) then {getPlayerUID _player} else {""}, // 10 player uid
+        ["", getPlayerUID _player] select (isPlayer _player), // 10 player uid
         [squadParams _player] call CBA_fnc_encodeJSON // 11 squad params
     ];
     _player setVariable ["ocap_newUnitData", _newUnit];

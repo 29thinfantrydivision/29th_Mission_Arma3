@@ -65,8 +65,7 @@ private _fn_resolveInstigatorSide =
         // Might work improperly if zeus changed
         // player side.
         _side = getNumber (
-            configFile >> "CfgVehicles"
-                >> typeOf _instigator >> "side"
+            configOf _instigator >> "side"
         ) call BIS_fnc_sideType;
     };
     _side

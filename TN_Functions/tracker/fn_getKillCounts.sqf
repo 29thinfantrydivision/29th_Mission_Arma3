@@ -34,7 +34,7 @@ private _killCounts = createHashMap;
     {
         case INFANTRY_KILL_NUM:
         {
-            if !(count _eventInfo > 1) exitWith {};
+            if (count _eventInfo <= 1) exitWith {};
 
             private _unitIndex = _eventInfo select 0;
             private _unitSide = [
@@ -71,7 +71,7 @@ private _killCounts = createHashMap;
 
         case DELAY_KILL_NUM:
         {
-            if !(count _eventInfo > 1) exitWith {};
+            if (count _eventInfo <= 1) exitWith {};
 
             private _unitIndex = _eventInfo select 0;
             private _unitSide = [

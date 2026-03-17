@@ -140,8 +140,7 @@ TN_tracker_fnc_findSide =
         // Might work improperly if zeus changed
         // player side.
         _side = getNumber (
-            configFile >> "CfgVehicles"
-                >> typeOf _instigator >> "side"
+            configOf _instigator >> "side"
         ) call BIS_fnc_sideType;
     };
     _side
@@ -211,7 +210,7 @@ TN_tracker_fnc_findSide =
                     "GrenadeHand",
                     INFANTRY_GRENADE_DISTANCE
                 ];
-            if (count _grenades != 0) then
+            if (_grenades isNotEqualTo []) then
             {
                 {
                     if ((typeOf _x) == "ACE_G_M14")
@@ -294,7 +293,7 @@ TN_tracker_fnc_findSide =
                 "GrenadeHand",
                 INFANTRY_GRENADE_DISTANCE
             ];
-        if (count _grenades != 0) then
+        if (_grenades isNotEqualTo []) then
         {
             {
                 if ((typeOf _x) == "ACE_G_M14") exitWith

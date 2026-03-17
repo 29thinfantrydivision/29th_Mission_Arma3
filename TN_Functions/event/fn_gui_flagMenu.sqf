@@ -181,8 +181,8 @@ private _fnc_rebuild =
                     "_side", "_sideName", "_sideColor"
                 ];
 
-                if (({side group _x == _side}
-                    count _allPlayers) > 0) then
+                if (_allPlayers findIf
+                    {side group _x == _side} != -1) then
                 {
                     private _btn_code = compile format [
                         "params ['_ctrl'];"

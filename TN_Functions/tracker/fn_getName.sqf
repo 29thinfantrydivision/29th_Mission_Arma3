@@ -35,8 +35,7 @@ if (_unit isKindOf "Man") then
 else
 {
     _name = getText (
-        configFile >> "CfgVehicles"
-        >> typeOf _unit >> "displayName"
+        configOf _unit >> "displayName"
     );
     if (_name == "") then { _name = "Vehicle" };
 };

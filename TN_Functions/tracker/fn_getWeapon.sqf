@@ -92,8 +92,7 @@ else
     if !(_vehicle isKindOf "StaticWeapon") then
     {
         private _vehicleName = getText (
-            configFile >> "CfgVehicles"
-                >> typeOf _vehicle >> "displayName"
+            configOf _vehicle >> "displayName"
         );
         private _pos = _vehicleName find " (";
         if (_pos != -1) then
