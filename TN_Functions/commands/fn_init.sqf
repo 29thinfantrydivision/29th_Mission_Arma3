@@ -67,7 +67,7 @@ if (hasInterface) then
                     private _text = ctrlText (_display displayCtrl 101);
 
                     if (_text isEqualTo "") exitWith { false };
-                    if !((_text select [0, 1]) isEqualTo TN_commands_commandMarker) exitWith { false };
+                    if ((_text select [0, 1]) isNotEqualTo TN_commands_commandMarker) exitWith { false };
 
                     closeDialog 0;
                     _display closeDisplay 1;

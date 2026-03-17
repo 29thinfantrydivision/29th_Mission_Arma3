@@ -39,7 +39,7 @@ TN_loadout_fnc_cmdDispatch =
     private _displayName = "all";
     private _ok = true;
 
-    if (!(_sideName isEqualTo "")) then
+    if (_sideName isNotEqualTo "") then
     {
         private _entry = TN_loadout_cmdSideMap get _sideName;
         if (isNil "_entry") then
@@ -56,7 +56,7 @@ TN_loadout_fnc_cmdDispatch =
     if (!_ok) exitWith { false };
 
     _params remoteExec ["TN_loadout_fnc_flexibleReset", _target];
-    if (!(_msg isEqualTo "")) then { systemChat format [_msg, _displayName]; };
+    if (_msg isNotEqualTo "") then { systemChat format [_msg, _displayName]; };
     true
 };
 

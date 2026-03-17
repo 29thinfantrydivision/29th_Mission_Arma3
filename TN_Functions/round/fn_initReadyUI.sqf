@@ -325,7 +325,7 @@ TN_round_fnc_updateReadyUI =
     ];
     if (
         !isNull _createdOn
-        && {!(_activeDisplay isEqualTo _createdOn)}
+        && {_activeDisplay isNotEqualTo _createdOn}
     ) then
     {
         private _oldBg = uiNamespace getVariable [
