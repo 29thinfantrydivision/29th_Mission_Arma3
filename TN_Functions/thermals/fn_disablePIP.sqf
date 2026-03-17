@@ -54,8 +54,7 @@ private _disabledSomething = false;
     ]);
 
 } forEach (configProperties [
-    configFile >> "CfgVehicles" >> typeOf _veh
-        >> "RenderTargets",
+    configOf _veh >> "RenderTargets",
     "isClass _x", true
 ]);
 

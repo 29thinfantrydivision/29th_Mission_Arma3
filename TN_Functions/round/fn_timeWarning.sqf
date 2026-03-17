@@ -22,12 +22,10 @@ private _secondsLeft = call TN_round_fnc_getTime;
 private _minutes = ceil(_secondsLeft / 60);
 private _actualMinutes = _secondsLeft / 60;
 
-private _prefix = if (
-    (_minutes - _actualMinutes) > 0.25
-) then {"Less than "} else {""};
+private _prefix =
+    ["", "Less than "] select ((_minutes - _actualMinutes) > 0.25);
 
-private _plural = if (_minutes != 1) then
-    {"s"} else {""};
+private _plural = ["", "s"] select (_minutes != 1);
 
 private _message = format [
     "%1%2 minute%3 remaining!",

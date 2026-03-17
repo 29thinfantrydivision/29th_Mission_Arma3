@@ -538,7 +538,7 @@ switch _mode do {
                         _taskCurrent = if (_taskOrder) then {_sectorID == _sectorsModules - 1} else {_taskPrio = 1 - _taskPrio; _sectorID == 0};
                         _task = [_taskID,_side,[[_taskDescription,_nameLocalized,_taskDescriptionCapture,_taskDescriptionUnlocks],[_taskTitle,_nameLocalized],_nameLocalized],_taskPos,_taskCurrent,_taskPrio] call bis_fnc_setTask;
                     };
-                    _scoreDefault = if (_sideID == _defaultOwner) then {1} else {0};
+                    _scoreDefault = parseNumber (_sideID == _defaultOwner);
 
                     _sideUnits set [_sideID,[]];
                     _sectorScore set [_sideID,_scoreDefault];
@@ -597,7 +597,7 @@ switch _mode do {
             if (_ownerForced != _ownerOld && _ownerForced in _sides) then {
                 _ownerForcedID = _ownerForced call bis_fnc_sideID;
                 {
-                    _sideScore set [_foreachindex,if (_foreachindex == _ownerForcedID) then {1} else {0}];
+                    _sideScore set [_foreachindex, parseNumber (_foreachindex == _ownerForcedID)];
                 } foreach _sideScore;
             };
 

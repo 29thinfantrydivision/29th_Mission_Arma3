@@ -64,8 +64,7 @@ private _killCounts = createHashMap;
                 _killCounts getOrDefaultCall
                     [_key, {0}, true];
             private _addPoints =
-                if (_unitSide == _instigatorSide)
-                    then {-1} else {1};
+                [1, -1] select (_unitSide == _instigatorSide);
             _killCounts set
                 [_key, _curKills + _addPoints];
         };
@@ -103,8 +102,7 @@ private _killCounts = createHashMap;
                 _killCounts getOrDefaultCall
                     [_key, {0}, true];
             private _addPoints =
-                if (_unitSide == _instigatorSide)
-                    then {-1} else {1};
+                [1, -1] select (_unitSide == _instigatorSide);
             _killCounts set
                 [_key, _curKills + _addPoints];
         };
@@ -179,8 +177,7 @@ forEach _events;
     private _curKills =
         _killCounts getOrDefaultCall [_key, {0}, true];
     private _addPoints =
-        if (_unitSide == _instigatorSide)
-            then {-1} else {1};
+        [1, -1] select (_unitSide == _instigatorSide);
     _killCounts set [_key, _curKills + _addPoints];
 }
 forEach _unconsciousAtEnd;

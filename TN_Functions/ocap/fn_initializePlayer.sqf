@@ -16,7 +16,7 @@
 
 //Modified version from OCAP 2 Addon tweaked for this mission
 
-#define BOOL(_cond) ([0, 1] select (_cond))
+#define BOOL(_cond) (parseNumber (_cond))
 
 //if recording, let natural loop do below instead
 if (TN_ocap_recording) exitWith {};
