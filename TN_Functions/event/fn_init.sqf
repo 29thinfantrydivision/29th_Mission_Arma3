@@ -114,10 +114,10 @@ if (hasInterface) then
     } count (allMapMarkers select {
         private _marker = _x;
         !([east, west, civilian, independent] select {
-            _marker find toLower str _x != -1
+            toLower str _x in _marker
         } isEqualTo [])
         && {
-            _x find toLower str playerSide == -1
+            !(toLower str playerSide in _x)
         }
     });
 };

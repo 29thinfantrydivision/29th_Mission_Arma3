@@ -41,7 +41,7 @@ if (time == 0) exitWith
 
 _playerVarName = toLower _playerVarName;
 
-if (TN_curator_units find _playerVarName == -1) exitWith {};
+if !(_playerVarName in TN_curator_units) exitWith {};
 
 if !(isServer) exitWith
 {

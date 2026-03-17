@@ -97,8 +97,8 @@ _curInsignia = _target call BIS_fnc_getUnitInsignia;
 // so they can use their squad insignia.
 _targetRole = ((_sqdParams select 1) select 5);
 
-if (_targetRole find "Clerk" != -1
-    || _targetRole find "Sniper" != -1) then
+if ("Clerk" in _targetRole
+    || "Sniper" in _targetRole) then
 {
     if (_curInsignia != "") exitWith {};
 };

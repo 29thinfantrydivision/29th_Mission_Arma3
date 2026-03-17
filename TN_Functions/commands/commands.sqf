@@ -65,11 +65,11 @@ TN_commands_allCommands = [
                 private _restrictionStr =
                     switch (true) do
                 {
-                    case (TN_commands_adminCommands find _argument != -1):
+                    case (_argument in TN_commands_adminCommands):
                     {
                         "(ADMIN ONLY)";
                     };
-                    case (TN_commands_restrictedCommands find _argument != -1):
+                    case (_argument in TN_commands_restrictedCommands):
                     {
                         "(RESTRICTED)";
                     };

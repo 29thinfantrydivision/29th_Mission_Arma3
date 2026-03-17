@@ -236,7 +236,7 @@ if (isNil "TN_arsenal_centers") then
 ] call CBA_fnc_addBISPlayerEventHandler;
 
 //- Add Force Parade to BLUFOR Ammo Box, maybe belongs in parade module instead -//
-if (TN_MODULES find "parade" != -1) then
+if ("parade" in TN_MODULES) then
 {
     lastDebriefTime = -10;
     base_action_arsenal_blu addAction [
