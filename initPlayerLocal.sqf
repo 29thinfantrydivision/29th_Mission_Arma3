@@ -21,8 +21,7 @@ _theClient addEventHandler ["HandleRating", {0}];
 // ====== Misfire prevention. ==========
 [_theClient] spawn
 {
-    private ["_theMan"];
-    _theMan = _this select 0;
+    params ["_theMan"];
     waitUntil {currentWeapon _theMan != ""};
     if (!(weaponLowered _theMan)) then
     {

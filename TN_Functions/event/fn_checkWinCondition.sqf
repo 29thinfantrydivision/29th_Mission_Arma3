@@ -117,9 +117,8 @@ private _sideSettings =
 {
     if (_x isEqualType "") then { continue };
 
-    private _winCon = toLower (_x select 0);
-    private _winArgs = _x select 1;
-    private _atEnd = _x select 2;
+    _x params ["_winCon", "_winArgs", "_atEnd"];
+    _winCon = toLower _winCon;
 
     private _checkFn = switch (_winCon) do
     {
@@ -149,12 +148,7 @@ private _sideSettings =
     {
         private _endChecks = _thisArgs;
         {
-            private _fnCheck = _x select 0;
-            private _args = [];
-            if (count _x >= 2) then
-            {
-                _args = _x select 1;
-            };
+            _x params ["_fnCheck", ["_args", []]];
             if (_args call _fnCheck) exitWith
             {
                 private _winningSide = _forEachIndex call BIS_fnc_sideType;
@@ -176,12 +170,7 @@ while {call TN_round_fnc_isRoundActive} do
     sleep TN_event_winCheckInterval;
 
     {
-        private _fnCheck = _x select 0;
-        private _args = [];
-        if (count _x >= 2) then
-        {
-            _args = _x select 1;
-        };
+        _x params ["_fnCheck", ["_args", []]];
         if (_args call _fnCheck) exitWith
         {
             private _winningSide = _forEachIndex call BIS_fnc_sideType;

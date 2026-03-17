@@ -25,10 +25,7 @@ private _unconsciousAtEnd = [];
 private _killCounts = createHashMap;
 
 {
-    private _event = _x;
-    private _eventType = _event select 0;
-    private _eventTime = _event select 1;
-    private _eventInfo = _event select 2;
+    _x params ["_eventType", "_eventTime", "_eventInfo"];
 
     switch (_eventType) do
     {
@@ -165,12 +162,9 @@ private _killCounts = createHashMap;
 forEach _events;
 
 {
-    private _unit = _x select 0;
-    private _unitIndex = _unit select 0;
-    private _unitSide = _unit select 1;
-    private _instigator = _x select 1;
-    private _instigatorIndex = _instigator select 0;
-    private _instigatorSide = _instigator select 1;
+    _x params ["_unit", "_instigator"];
+    _unit params ["_unitIndex", "_unitSide"];
+    _instigator params ["_instigatorIndex", "_instigatorSide"];
     if (_unitIndex == _instigatorIndex) exitWith {};
 
     private _key = [_instigatorIndex, _instigatorSide];

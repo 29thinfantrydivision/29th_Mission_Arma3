@@ -19,10 +19,7 @@ if (!hasInterface) exitWith {};
 params ["_allRounds"];
 
 {
-    private _events = _x select 0;
-    private _names = _x select 1;
-    private _sides = _x select 2;
-    private _weapons = _x select 3;
+    _x params ["_events", "_names", "_sides", "_weapons"];
     private _roundNum = _forEachIndex + 1;
     [
         _events, _names, _sides,

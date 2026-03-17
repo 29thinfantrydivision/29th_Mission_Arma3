@@ -29,9 +29,7 @@ private _knockedUnconscious = [];
 private _numEvents = count _events;
 for "_i" from 0 to (_numEvents - 1) do
 {
-    private _event = _events select _i;
-    private _eventType = _event select 0;
-    private _eventInfo = _event select 2;
+    (_events select _i) params ["_eventType", "", "_eventInfo"];
     switch (_eventType) do
     {
         case ACE_CONSCIOUSNESS_NUM:

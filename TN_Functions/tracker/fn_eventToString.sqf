@@ -18,9 +18,7 @@
 
 #include "eventNumbers.hpp"
 params ["_event", "_names", "_sides", "_weapons"];
-private _eventType = _event select 0;
-private _eventTime = _event select 1;
-private _eventInfo = _event select 2;
+_event params ["_eventType", "_eventTime", "_eventInfo"];
 
 private _fn_formatTime =
 {

@@ -52,10 +52,8 @@ while
         }
     } do
     {
-        private _nextEvent = _events select _eventIndex;
-        private _eventTime = _nextEvent select 0;
-        private _fn = _nextEvent select 1;
-        private _params = _nextEvent select 2;
+        (_events select _eventIndex)
+            params ["_eventTime", "_fn", "_params"];
 
         // Avoid overlapping from addTime; always fire the last event if time > 0.
         if (

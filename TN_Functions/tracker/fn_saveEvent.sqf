@@ -17,9 +17,7 @@
 
 #include "eventNumbers.hpp"
 params ["_event"];
-private _eventType = _event select 0;
-private _eventTime = _event select 1;
-private _eventInfo = _event select 2;
+_event params ["_eventType", "_eventTime", "_eventInfo"];
 
 private _saveEvent = true;
 
@@ -30,8 +28,7 @@ private _fn_convertEventInfo =
     params ["_eventInfo", "_unitTime", "_instigatorTime", "_isKillType"];
 
     private _unit = _eventInfo select 0;
-    private _unitName = _unit select 0;
-    private _unitSide = _unit select 1;
+    _unit params ["_unitName", "_unitSide"];
     _eventInfo set [0, [_unitName, _unitSide, _unitTime] call TN_tracker_fnc_nameToNum];
 
     // Kill types: instigator at 1, weapon at 3.
@@ -42,8 +39,7 @@ private _fn_convertEventInfo =
     if (count _eventInfo > _instigatorIdx) then
     {
         private _instigator = _eventInfo select _instigatorIdx;
-        private _instigatorName = _instigator select 0;
-        private _instigatorSide = _instigator select 1;
+        _instigator params ["_instigatorName", "_instigatorSide"];
         private _weaponName = _eventInfo select _weaponIdx;
         _eventInfo set [_instigatorIdx,
             [_instigatorName, _instigatorSide, _instigatorTime] call TN_tracker_fnc_nameToNum
