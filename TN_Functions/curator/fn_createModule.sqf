@@ -34,7 +34,7 @@ if (time == 0) exitWith
 {
     [
         { time > 0 },
-        { _this call TN_curator_fnc_createModule },
+        { call TN_curator_fnc_createModule },
         _this
     ] call CBA_fnc_waitUntilAndExecute;
 };

@@ -66,7 +66,7 @@ if (isServer) then
         // frame later so wait.
         [
             {
-                _this call TN_tracker_fnc_recordKill;
+                call TN_tracker_fnc_recordKill;
             },
             _this, 0.75 // Delay to wait for info from clients.
         ] call CBA_fnc_waitAndExecute;
@@ -87,7 +87,7 @@ if (isServer) then
             // frame later so wait.
             [
                 {
-                    _this call TN_tracker_fnc_recordACEConscious;
+                    call TN_tracker_fnc_recordACEConscious;
                 },
                 _this, 0.5
             ] call CBA_fnc_waitAndExecute;
@@ -130,7 +130,7 @@ if (isServer) then
     {
         [_x, "ownerChanged",
         {
-            _this call TN_tracker_fnc_recordSectorCapture;
+            call TN_tracker_fnc_recordSectorCapture;
         }] call BIS_fnc_addScriptedEventHandler;
     } forEach (allMissionObjects "ModuleSector_F");
 
@@ -141,7 +141,7 @@ if (isServer) then
         {
             [_entity, "ownerChanged",
             {
-                _this call TN_tracker_fnc_recordSectorCapture;
+                call TN_tracker_fnc_recordSectorCapture;
             }] call BIS_fnc_addScriptedEventHandler;
         };
     }];

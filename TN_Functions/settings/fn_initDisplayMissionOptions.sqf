@@ -48,7 +48,7 @@ private _ctrlAddonList = _display ctrlCreate [
 
 _ctrlAddonList ctrlAddEventHandler [
     "LBSelChanged",
-    {_this call TN_settings_fnc_gui_addonChanged}
+    {call TN_settings_fnc_gui_addonChanged}
 ];
 
 _display setVariable ["cba_settings_lists", []];
