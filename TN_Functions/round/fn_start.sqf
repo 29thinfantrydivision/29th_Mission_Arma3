@@ -38,7 +38,7 @@ private _msgText = format [
 /* --- Schedule end-of-round check on server --- */
 [{
     [
-        {(call TN_round_fnc_getTime) <= 0},
+        {call TN_round_fnc_getTime <= 0},
         {call TN_round_fnc_end},
         []
     ] call CBA_fnc_waitUntilAndExecute;

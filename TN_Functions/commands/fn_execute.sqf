@@ -50,7 +50,7 @@ if !(isNil "_commandCode") then
         systemChat "You must be the logged in admin to do that!";
     };
 
-    if (_command in TN_commands_restrictedCommands && !_isAdmin && (call TN_round_fnc_isRoundActive)) exitWith
+    if (_command in TN_commands_restrictedCommands && !_isAdmin && call TN_round_fnc_isRoundActive) exitWith
     {
         systemChat "Restricted command! Round has started and you are not admin.";
     };

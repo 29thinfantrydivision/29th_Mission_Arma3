@@ -26,7 +26,7 @@ _unit addEventHandler ["HandleRating", {0}];
 {
     params ["_unit"];
     waitUntil {currentWeapon _unit != ""};
-    if (!(weaponLowered _unit)) then
+    if !(weaponLowered _unit) then
     {
         _unit action ["WeaponOnBack", _unit];
     };
