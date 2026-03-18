@@ -113,6 +113,7 @@ class TN_Curator
         class excludeObjects {};
         class addEditable {};
         class createModule {};
+        class handleAdminStateChanged {};
     };
 };
 
@@ -196,6 +197,8 @@ class TN_Tracker
         class sendAll {};
         class receiveAll {};
         class addEventHandlersClient {};
+        class handleFired {};
+        class handleVehicleKilled {};
         class hit {};
         class sendHit {};
     };

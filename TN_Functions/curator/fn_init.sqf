@@ -101,50 +101,8 @@ if (isServer) then
             diag_log text "zeus_admin not defined, skipping event handlers";
         };
 
-        addMissionEventHandler [
-            "OnUserAdminStateChanged",
-            {
-                params ["_networkId", "_loggedIn"];
-
-                private _userInfo = getUserInfo _networkId;
-                if (count _userInfo < 11) exitWith {};
-
-                private _unit = _userInfo select 10;
-                if (isNil "_unit") exitWith {};
-
-                if (_loggedIn) exitWith
-                {
-                    if (isNull getAssignedCuratorLogic _unit) then
-                    {
-                        [_unit] spawn
-                        {
-                            params ["_unit"];
-                            unassignCurator zeus_admin;
-                            sleep .1;
-                            _unit assignCurator zeus_admin;
-                        };
-                    };
-                };
-
-                //logging out
-                [_unit] spawn
-                {
-                    params ["_unit"];
-                    if (getAssignedCuratorLogic _unit == zeus_admin) then
-                    {
-                        [_unit] spawn
-                        {
-                            params ["_unit"];
-                            unassignCurator zeus_admin;
-                            sleep .1;
-                            isNil {
-                                CREATE_CURATOR_MODULE(_unit);
-                            };
-                        };
-                    };
-                };
-            }
-        ];
+        addMissionEventHandler ["OnUserAdminStateChanged",
+            { call TN_curator_fnc_handleAdminStateChanged }];
     };
 
     [] spawn TN_curator_fnc_excludeObjects;

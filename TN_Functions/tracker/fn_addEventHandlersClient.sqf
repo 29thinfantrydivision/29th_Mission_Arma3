@@ -18,37 +18,7 @@
 #define INFANTRY_GRENADE_DISTANCE 5
 
 player addEventHandler ["FiredMan",
-{
-    params [
-        "_unit", "_weapon", "_muzzle", "_mode",
-        "_ammo", "_magazine", "_projectile", "_vehicle"
-    ];
-    private _realWeapon =
-        TN_tracker_weaponNameCache getOrDefaultCall [
-            [_weapon, _muzzle, _magazine, _ammo, _vehicle],
-            { call TN_tracker_fnc_getWeapon },
-            true
-        ];
-
-    private _data = [
-        name _unit, side (group _unit),
-        getPosASL _unit, _realWeapon
-    ];
-    _projectile setVariable ["TN_instigatorInfo", _data];
-    _projectile addEventHandler ["HitPart", { call TN_tracker_fnc_hit }];
-    _projectile addEventHandler ["HitExplosion", { call TN_tracker_fnc_hit }];
-
-    _projectile addEventHandler ["SubmunitionCreated",
-    {
-        params ["_projectile", "_submunitionProjectile"];
-        _submunitionProjectile setVariable [
-            "TN_instigatorInfo",
-            _projectile getVariable "TN_instigatorInfo"
-        ];
-        _submunitionProjectile addEventHandler ["HitPart", { call TN_tracker_fnc_hit }];
-        _submunitionProjectile addEventHandler ["HitExplosion", { call TN_tracker_fnc_hit }];
-    }];
-}];
+    { call TN_tracker_fnc_handleFired }];
 
 ["ace_advanced_throwing_throwFiredXEH",
 {
@@ -467,35 +437,7 @@ TN_tracker_fnc_findSide =
 }] call CBA_fnc_addEventHandler;
 
 addMissionEventHandler ["EntityKilled",
-{
-    params ["_unit", "_killer", "_instigator"];
-    if !(_unit isKindOf "AllVehicles") exitWith {};
-    if (_unit isKindOf "Man") exitWith {};
-    // Delayed vehicle explosions seem to not have
-    // instigator.
-    if (isNull _instigator) then
-    {
-        _instigator = effectiveCommander _killer;
-    };
-    if (isNull _instigator) then
-    {
-        // Look for ACE/RHS incendiary grenade.
-        private _grenades = (position _unit) nearObjects ["GrenadeHand", VEHICLE_GRENADE_DISTANCE];
-        {
-            if (
-                (typeOf _x) == "ACE_G_M14"
-                || (typeOf _x) == "rhs_ammo_an_m14_th3"
-            ) exitWith
-            {
-                _instigator = (getShotParents _x) select 0;
-            };
-        }
-        forEach _grenades;
-    };
-    if (isNull _instigator) exitWith {};
-
-    TN_tracker_cookOffs pushBack [getPosASL _unit, _instigator];
-}];
+    { call TN_tracker_fnc_handleVehicleKilled }];
 
 player addEventHandler ["Respawn",
 {
