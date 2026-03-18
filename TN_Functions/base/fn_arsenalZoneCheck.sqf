@@ -54,7 +54,7 @@ if (_inZone) then
             arsenalActionId = player addAction [
                 "<img image='\A3\Ui_f\data\IGUI\Cfg\Actions\gear_ca.paa'/><t color='#bf3eff'>  Virtual Arsenal</t>",
                 {
-                    ["Open", true] spawn BIS_fnc_arsenal;
+                    ["Open", true] call BIS_fnc_arsenal;
                 },
                 nil, 1.5, true, true, "", "true"
             ];
