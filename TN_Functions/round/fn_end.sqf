@@ -9,13 +9,15 @@
  * 0: Manual overriding of round end (default: false) <BOOL>
  *
  * Return Value:
- * true <BOOL>
+ * true if round was active, false otherwise <BOOL>
  *
  * Example:
  * [true] call TN_round_fnc_end;
  */
 
 params [["_force", false, [false]]];
+
+if (NOT_ROUND_LIVE) exitWith {false};
 
 if (TN_round_overtimeEnabled && !_force) then
 {
@@ -45,19 +47,14 @@ if (TN_round_overtimeEnabled && !_force) then
 else
 {
     // Let waitUntilAndExecute in fn_start call end.
-    if (ROUND_LIVE) exitWith
+    if ((call TN_round_fnc_getTime) > 0) exitWith
     {
         // In case manual end was called.
         TN_round_overtimeEnabled = false;
         publicVariable "TN_round_overtimeEnabled";
         [-1] call BIS_fnc_countdown;
-        TN_round_state = 0;
-        publicVariable "TN_round_state";
         true
     };
-
-    // Implies called when round not running.
-    if (_force) exitWith {true};
 
     // Let round naturally end on non-forced case.
     [
