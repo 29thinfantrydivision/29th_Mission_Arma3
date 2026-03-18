@@ -21,7 +21,7 @@ if (hasInterface) then
 {
     ["visionMode",
     {
-        [] spawn TN_thermals_fnc_blackScreen;
+        call TN_thermals_fnc_blackScreen;
     }] call CBA_fnc_addPlayerEventHandler;
 
     ["TN_disablePIPThermalsEvent", "GetInMan",

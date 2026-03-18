@@ -45,11 +45,9 @@ private _scriptHandle =
 
 // Wait so that setInsignia does not correctly assume
 // non-combat loadout.
-[_unit, _scriptHandle] spawn
-{
-    params ["_unit", "_scriptHandle"];
-    waitUntil { scriptDone _scriptHandle };
+[{scriptDone (_this select 1)}, {
+    params ["_unit"];
     _unit spawn TN_loadout_fnc_setInsignia;
-};
+}, [_unit, _scriptHandle]] call CBA_fnc_waitUntilAndExecute;
 
 true

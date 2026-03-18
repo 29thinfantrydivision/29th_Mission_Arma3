@@ -11,7 +11,7 @@
         if (hasInterface) then
         {
             ace_javelin_ignoreVisionMode = _this;
-            [] spawn TN_thermals_fnc_blackScreen;
+            call TN_thermals_fnc_blackScreen;
 
             if (!alive player
                 || {isNull (objectParent player)}) exitWith {};

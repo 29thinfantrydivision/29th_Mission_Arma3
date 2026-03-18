@@ -20,11 +20,8 @@ if !(hasInterface) exitWith {};
 //do OCAP initalization on players outside of capture loop so we can save proper marker info
 if !(_autoStart) then
 {
-    [] spawn
-    {
-        waitUntil {!isNull player};
-        
+    [{!isNull player}, {
         [player] remoteExecCall
             ["TN_ocap_fnc_initializePlayer", 2];
-    };
+    }] call CBA_fnc_waitUntilAndExecute;
 };

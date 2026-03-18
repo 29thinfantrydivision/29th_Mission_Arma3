@@ -22,15 +22,13 @@ enableEnvironment [false, true];
 _unit addEventHandler ["HandleRating", {0}];
 
 // ====== Misfire prevention. ==========
-[_unit] spawn
-{
+[{currentWeapon (_this select 0) != ""}, {
     params ["_unit"];
-    waitUntil {currentWeapon _unit != ""};
     if !(weaponLowered _unit) then
     {
         _unit action ["WeaponOnBack", _unit];
     };
-};
+}, [_unit]] call CBA_fnc_waitUntilAndExecute;
 
 // ====== Prevent respawn showing up on old unit for split second.==========
 addMissionEventHandler ["EntityCreated",
@@ -46,10 +44,7 @@ addMissionEventHandler ["EntityCreated",
 
 // ====== Fix inconsistent bug where chat is no longer displayed after leaving main menu ======
 ["TN_exitedPauseMenu", {
-    [] spawn {
-        sleep CHAT_FIX_DELAY;
-        showChat true;
-    };
+    [{showChat true}, [], CHAT_FIX_DELAY] call CBA_fnc_waitAndExecute;
 }] call CBA_fnc_addEventHandler;
 
 diag_log text format [

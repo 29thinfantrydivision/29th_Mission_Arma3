@@ -43,10 +43,7 @@
 
 if (hasInterface) then
 {
-    [] spawn
-    {
-        waitUntil { !isNull player };
-
+    [{!isNull player}, {
         //Draw little skulls each time a player dies. Seen only by Zeus.
         player call BIS_fnc_drawCuratorDeaths;
 
@@ -62,7 +59,7 @@ if (hasInterface) then
         [[player]] remoteExecCall ["TN_curator_fnc_addEditable", 2];
 
         [vehicleVarName player, roleDescription player] remoteExecCall ["TN_curator_fnc_createModule", 2];
-    };
+    }] call CBA_fnc_waitUntilAndExecute;
 };
 
 if (isServer) then
@@ -91,19 +88,16 @@ if (isServer) then
         ] call CBA_fnc_waitUntilAndExecute;
     };
 
-    [] spawn
-    {
-        waitUntil { !isNil "zeus_admin" || time > 10 };
-
+    [{!isNil "zeus_admin" || time > 10}, {
         //failsafe if zeus_admin isn't defined by now
         if (time > 10) exitWith
         {
-            diag_log text "zeus_admin not defined, skipping event handlers";
+            diag_log text format ["zeus_admin not defined, skipping event handlers"];
         };
 
         addMissionEventHandler ["OnUserAdminStateChanged",
             { call TN_curator_fnc_handleAdminStateChanged }];
-    };
+    }] call CBA_fnc_waitUntilAndExecute;
 
     [] spawn TN_curator_fnc_excludeObjects;
 };

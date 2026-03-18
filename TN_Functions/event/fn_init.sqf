@@ -98,13 +98,11 @@ if (hasInterface) then
 /******* Everything else ********/
 if (hasInterface) then
 {
-    [] spawn
-    {
-        //Prevent error due to no saved respawn inventory
-        waitUntil { !isNull player };
+    //Prevent error due to no saved respawn inventory
+    [{!isNull player}, {
         [player, [missionNamespace, "Current Inventory"]] call BIS_fnc_saveInventory;
         [player, ["missionNamespace:Current Inventory"]] call BIS_fnc_setRespawnInventory;
-    };
+    }] call CBA_fnc_waitUntilAndExecute;
 
     //Hide map markers belonging to opposing sides
     {
