@@ -59,7 +59,7 @@ if (TN_event_hasAliveCheck) then
         [
             "TN_round_started",
             {
-                [] spawn TN_event_fnc_aliveCheck;
+                call TN_event_fnc_aliveCheck;
             }
         ] call CBA_fnc_addEventHandler;
     };

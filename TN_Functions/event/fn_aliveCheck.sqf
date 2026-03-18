@@ -20,28 +20,16 @@
 #include "..\..\data\roundState.hpp"
 
 #define RESPAWN_BIRD 1
-#define ALIVE_CHECK_INITIAL_DELAY 10
 #define ALIVE_CHECK_INTERVAL 5
 
 if (!isServer) exitWith {};
 
-scopeName "main";
-
-/************************/
-
 private _respawnType = 0 call BIS_fnc_missionRespawnType;
-// BIRD respawn = players remain dead.
 private _remainDead = (_respawnType == RESPAWN_BIRD);
 
-waitUntil {
-    sleep ALIVE_CHECK_INITIAL_DELAY;
-    ROUND_LIVE
-};
-
-
-while {ROUND_LIVE} do
-{
-    sleep ALIVE_CHECK_INTERVAL;
+[{
+    private _args = _this getVariable "params";
+    _args params ["_remainDead", "_notified"];
 
     private _allPlayers = call BIS_fnc_listPlayers;
 
@@ -98,17 +86,15 @@ while {ROUND_LIVE} do
     private _isOpforAlive = (count _opforPlayers) > _numOpforDead;
     private _isResistanceAlive = (count _resistancePlayers) > _numResistanceDead;
 
-
-    //if all sides are wiped out, return to start
-    //of loop. Prevents niche case of last player
-    //on either team trading causing an erroneous
-    //victory. Admin can call game manually in
-    //this case.
     if (!_isBluforAlive
         && !_isOpforAlive
-        && !_isResistanceAlive) then
+        && !_isResistanceAlive) exitWith
     {
-        continue;
+        if (!_notified) then
+        {
+            "All sides eliminated — admin should declare the winner." remoteExecCall ["systemChat", 0];
+            _args set [1, true];
+        };
     };
 
     private _winnerSide = civilian;
@@ -135,6 +121,5 @@ while {ROUND_LIVE} do
     if (_winnerSide != civilian) then
     {
         [true, _winnerSide] call TN_event_fnc_game;
-        breakTo "main";
     };
-};
+}, ALIVE_CHECK_INTERVAL, [_remainDead, false], {}, {}, {true}, {NOT_ROUND_LIVE}] call CBA_fnc_createPerFrameHandlerObject;
