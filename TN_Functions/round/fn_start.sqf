@@ -50,7 +50,7 @@ UNREADY_ALL_SIDES;
 TN_round_state = 2;
 publicVariable "TN_round_state";
 
-[] remoteExec ["TN_round_fnc_roundEvents"];
+[] remoteExecCall ["TN_round_fnc_roundEvents"];
 
 ["TN_round_started", []] call CBA_fnc_globalEvent;
 

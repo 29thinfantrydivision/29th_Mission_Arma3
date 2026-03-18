@@ -1,9 +1,9 @@
 /*
  * Author: Bae [29th ID]
- * Manages timed round events (time warnings). Polls each second and
- * fires events when the countdown crosses their trigger thresholds.
- * Handles addTime resets so events re-trigger after time is added.
- * Client-side only for now.
+ * Manages timed round events (time warnings). Registers a 1-second
+ * perFrameHandler that fires events when the countdown crosses their
+ * trigger thresholds. Handles addTime resets so events re-trigger
+ * after time is added. Client-side only for now.
  *
  * Arguments:
  * None
@@ -25,14 +25,17 @@ private _events = [
     [1 * 60, TN_round_fnc_timeWarning, []]
 ];
 
-private _timeLeft = call TN_round_fnc_getTime;
-private _eventIndex = 0;
+[{
+    params ["_args", "_handle"];
+    _args params ["_events", "_eventIndex"];
 
-while
-{
-    _timeLeft > 0 || TN_round_overtimeEnabled
-} do
-{
+    private _timeLeft = call TN_round_fnc_getTime;
+
+    if (_timeLeft <= 0 && !TN_round_overtimeEnabled) exitWith
+    {
+        _handle call CBA_fnc_removePerFrameHandler;
+    };
+
     // Reset event index when addTime extends the clock.
     if (TN_round_timeAdded) then
     {
@@ -68,6 +71,5 @@ while
         _eventIndex = _eventIndex + 1;
     };
 
-    uiSleep 1;
-    _timeLeft = call TN_round_fnc_getTime;
-};
+    _args set [1, _eventIndex];
+}, 1, [_events, 0]] call CBA_fnc_addPerFrameHandler;
