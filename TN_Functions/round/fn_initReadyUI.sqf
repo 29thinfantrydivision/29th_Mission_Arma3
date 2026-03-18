@@ -348,7 +348,7 @@ TN_round_fnc_updateReadyUI =
     private _isSafeStart =
         TN_round_safeStartActive;
     private _anyReady =
-        (TN_round_sideReady findIf {_x}) != -1;
+        true in TN_round_sideReady;
     private _isRoundActive =
         call TN_round_fnc_isRoundActive;
 
@@ -712,7 +712,7 @@ TN_round_fnc_flashReadyUI =
         TN_round_safeStartActive
         || {
             !(isNil "TN_round_sideReady")
-            && {(TN_round_sideReady findIf {_x}) != -1}
+            && {true in TN_round_sideReady}
         }
     ) then
     {
@@ -760,8 +760,7 @@ TN_round_fnc_flashReadyUI =
                 if (
                     !(isNil "TN_round_sideReady")
                     && {
-                        (TN_round_sideReady findIf
-                            {_x}) == -1
+                        !(true in TN_round_sideReady)
                     }
                     && !TN_round_safeStartActive
                 ) then
@@ -779,10 +778,7 @@ TN_round_fnc_flashReadyUI =
             TN_readyUI_dirty = true;
             if (
                 !(isNil "TN_round_sideReady")
-                && {
-                    (TN_round_sideReady findIf
-                        {_x}) != -1
-                }
+                && {true in TN_round_sideReady}
             ) then
             {
                 // Teams still ready — keep PFH alive to show their status

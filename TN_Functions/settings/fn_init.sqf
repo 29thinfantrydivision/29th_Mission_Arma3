@@ -42,9 +42,8 @@ if (isServer) then
             continue;
         };
 
-        if (_excludeList find (
-            _x select [_missionAddonStrLen + 1]
-        ) != -1) then
+        if ((_x select [_missionAddonStrLen + 1])
+            in _excludeList) then
         {
             continue;
         };
