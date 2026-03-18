@@ -267,5 +267,6 @@ class TN_Base
         file = "TN_Functions\base";
         class init {};
         class cleaner {};
+        class arsenalZoneCheck {};
     };
 };

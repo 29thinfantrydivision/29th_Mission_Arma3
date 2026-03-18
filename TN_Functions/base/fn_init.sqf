@@ -150,78 +150,13 @@ if (isNil "TN_arsenal_centers") then
     } forEach TN_base_arsenals;
 };
 
-[] spawn
+if (TN_arsenal_centers isNotEqualTo []) then
 {
-    if (TN_arsenal_centers isEqualTo []) exitWith {};
-
-    waitUntil { !isNull player };
-
-    private _radius =
-        if (isNil "TN_event_arsenalRadius") then
+    [{!isNull player},
     {
-        75
-    }
-    else
-    {
-        TN_event_arsenalRadius
-    };
-    private _radiusSquared = _radius * _radius;
-
-    while { true } do
-    {
-        private _inZone = false;
-        {
-            private _distSquared = (getPosASL player) distanceSqr _x;
-            if (_distSquared <= _radiusSquared) exitWith
-            {
-                _inZone = true;
-            };
-        } forEach TN_arsenal_centers;
-
-        if (_inZone) then
-        {
-            if (arsenalActionId == -1) then
-            {
-                //put inside arsenalActionId since I'm too lazy to put a check for inZone change
-                if !(TN_base_keepEnvironmentSounds) then
-                {
-                    ENV_OFF;
-                };
-
-                if (isClass (configFile >> "CfgPatches" >> "ace_main")) then
-                {
-                    arsenalActionId = player addAction [
-                        "<img image='\A3\Ui_f\data\IGUI\Cfg\Actions\gear_ca.paa'/><t color='#bf3eff'>  Ace Arsenal</t>",
-                        {
-                            [_this select 1, _this select 1, true] call ace_arsenal_fnc_openBox;
-                        },
-                        nil, 1.5, true, true, "", "true"
-                    ];
-                }
-                else
-                {
-                    arsenalActionId = player addAction [
-                        "<img image='\A3\Ui_f\data\IGUI\Cfg\Actions\gear_ca.paa'/><t color='#bf3eff'>  Virtual Arsenal</t>",
-                        {
-                            ["Open", true] spawn BIS_fnc_arsenal;
-                        },
-                        nil, 1.5, true, true, "", "true"
-                    ];
-                };
-            };
-        }
-        else
-        {
-            if (arsenalActionId != -1) then
-            {
-                ENV_ON;
-                player removeAction arsenalActionId;
-                arsenalActionId = -1;
-            };
-        };
-
-        sleep 1;
-    };
+        private _radius = if (isNil "TN_event_arsenalRadius") then { 75 } else { TN_event_arsenalRadius };
+        [{ call TN_base_fnc_arsenalZoneCheck }, 1, [_radius * _radius]] call CBA_fnc_addPerFrameHandler;
+    }] call CBA_fnc_waitUntilAndExecute;
 };
 
 [
