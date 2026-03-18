@@ -37,7 +37,7 @@ if (TN_event_hasTimer) then
         [
             "TN_round_started",
             {
-                [] spawn TN_event_fnc_checkWinCondition;
+                call TN_event_fnc_checkWinCondition;
             }
         ] call CBA_fnc_addEventHandler;
     };

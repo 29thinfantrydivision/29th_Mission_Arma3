@@ -14,7 +14,7 @@
  * Nothing
  *
  * Example:
- * [] spawn TN_event_fnc_checkWinCondition;
+ * call TN_event_fnc_checkWinCondition;
  */
 
 private _loopChecks = [[{ false }], [{ false }], [{ false }]];
@@ -159,9 +159,8 @@ if (isNil "TN_event_winCheckInterval") then
     TN_event_winCheckInterval = 0.5;
 };
 
-while {ROUND_LIVE} do
-{
-    sleep TN_event_winCheckInterval;
+[{
+    private _loopChecks = _this getVariable "params";
 
     {
         _x params ["_fnCheck", ["_args", []]];
@@ -171,4 +170,4 @@ while {ROUND_LIVE} do
             [true, _winningSide] call TN_event_fnc_game;
         };
     } forEach _loopChecks;
-};
+}, TN_event_winCheckInterval, _loopChecks, {}, {}, {true}, {NOT_ROUND_LIVE}] call CBA_fnc_createPerFrameHandlerObject;
