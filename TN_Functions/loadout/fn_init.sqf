@@ -54,7 +54,7 @@ if (hasInterface) then
         "TN_loadout_setInsigniaRespawn",
         "Respawn",
         {
-            (_this select 0) spawn TN_loadout_fnc_setInsignia;
+            (_this select 0) call TN_loadout_fnc_setInsignia;
         }
     ] call CBA_fnc_addBISPlayerEventHandler;
 };

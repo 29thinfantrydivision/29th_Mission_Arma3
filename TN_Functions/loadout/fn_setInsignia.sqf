@@ -11,7 +11,7 @@
  * True if insignia was applied, false otherwise <BOOL>
  *
  * Example:
- * player spawn TN_loadout_fnc_setInsignia;
+ * player call TN_loadout_fnc_setInsignia;
  */
 
 if !(TN_setInsignia) exitWith { false };
@@ -33,6 +33,13 @@ private _insigniaMap = createHashMapFromArray [
 
 params [["_target", objNull, [objNull]]];
 
+if (!alive _target) exitWith
+{
+    [{alive (_this select 0)}, {
+        (_this select 0) call TN_loadout_fnc_setInsignia;
+    }, [_target]] call CBA_fnc_waitUntilAndExecute;
+};
+
 if (isNull _target) exitWith
 {
     ["Invalid parameters."] call BIS_fnc_error;
@@ -50,8 +57,6 @@ if (!isClass (configFile >> "CfgPatches" >> "29th_Insignias"))
 {
     false;
 };
-
-waitUntil { sleep 0.5; !isNull _target && alive _target };
 
 private [
     "_sqdParams", "_targetRole", "_targetSquad",

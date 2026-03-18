@@ -51,7 +51,7 @@ else
     };
 };
 
-player spawn TN_loadout_fnc_setInsignia;
+player call TN_loadout_fnc_setInsignia;
 systemChat "Parade loadout applied.";
 
 true

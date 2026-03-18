@@ -48,7 +48,7 @@ resetLoadout = [player] call CBA_fnc_getLoadout;
     } forEach _primaryMags;
 };
 
-player spawn TN_loadout_fnc_setInsignia;
+player call TN_loadout_fnc_setInsignia;
 
 if !(weaponLowered player) then
 {

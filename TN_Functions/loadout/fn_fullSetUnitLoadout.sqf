@@ -47,7 +47,7 @@ private _scriptHandle =
 // non-combat loadout.
 [{scriptDone (_this select 1)}, {
     params ["_unit"];
-    _unit spawn TN_loadout_fnc_setInsignia;
+    _unit call TN_loadout_fnc_setInsignia;
 }, [_unit, _scriptHandle]] call CBA_fnc_waitUntilAndExecute;
 
 true
