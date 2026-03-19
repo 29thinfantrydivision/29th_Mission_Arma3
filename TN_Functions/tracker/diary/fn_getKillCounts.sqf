@@ -48,7 +48,7 @@ private _killCounts = createHashMap;
             {
                 _unconsciousAtEnd deleteAt _findUnconIdx;
             };
-            if (_unitIndex == _instigatorIndex)
+            if (_unitIndex isEqualTo _instigatorIndex)
                 exitWith {};
 
             private _key =
@@ -57,7 +57,7 @@ private _killCounts = createHashMap;
                 _killCounts getOrDefaultCall
                     [_key, {0}, true];
             private _addPoints =
-                [1, -1] select (_unitSide == _instigatorSide);
+                [1, -1] select (_unitSide isEqualTo _instigatorSide);
             _killCounts set
                 [_key, _curKills + _addPoints];
         };
@@ -86,7 +86,7 @@ private _killCounts = createHashMap;
             {
                 _unconsciousAtEnd deleteAt _findUnconIdx;
             };
-            if (_unitIndex == _instigatorIndex)
+            if (_unitIndex isEqualTo _instigatorIndex)
                 exitWith {};
 
             private _key =
@@ -95,7 +95,7 @@ private _killCounts = createHashMap;
                 _killCounts getOrDefaultCall
                     [_key, {0}, true];
             private _addPoints =
-                [1, -1] select (_unitSide == _instigatorSide);
+                [1, -1] select (_unitSide isEqualTo _instigatorSide);
             _killCounts set
                 [_key, _curKills + _addPoints];
         };
@@ -161,13 +161,13 @@ forEach _events;
     _x params ["_unit", "_instigator"];
     _unit params ["_unitIndex", "_unitSide"];
     _instigator params ["_instigatorIndex", "_instigatorSide"];
-    if (_unitIndex == _instigatorIndex) exitWith {};
+    if (_unitIndex isEqualTo _instigatorIndex) exitWith {};
 
     private _key = [_instigatorIndex, _instigatorSide];
     private _curKills =
         _killCounts getOrDefaultCall [_key, {0}, true];
     private _addPoints =
-        [1, -1] select (_unitSide == _instigatorSide);
+        [1, -1] select (_unitSide isEqualTo _instigatorSide);
     _killCounts set [_key, _curKills + _addPoints];
 }
 forEach _unconsciousAtEnd;

@@ -34,7 +34,7 @@ else
     _name = getText (
         configOf _unit >> "displayName"
     );
-    if (_name == "") then { _name = "Vehicle" };
+    if (_name isEqualTo "") then { _name = "Vehicle" };
 };
 
 _name

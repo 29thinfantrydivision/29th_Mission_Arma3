@@ -28,8 +28,8 @@ if (isNull _instigator) then
     private _grenades = (position _unit) nearObjects ["GrenadeHand", VEHICLE_GRENADE_DISTANCE];
     {
         if (
-            (typeOf _x) == "ACE_G_M14"
-            || (typeOf _x) == "rhs_ammo_an_m14_th3"
+            (typeOf _x) isEqualTo "ACE_G_M14"
+            || (typeOf _x) isEqualTo "rhs_ammo_an_m14_th3"
         ) exitWith
         {
             _instigator = (getShotParents _x) select 0;

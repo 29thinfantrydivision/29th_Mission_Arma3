@@ -309,7 +309,7 @@ _display displayAddEventHandler [
     "KeyDown",
     {
         params ["_display", "_key"];
-        if (_key == 1) then
+        if (_key isEqualTo 1) then
         {
             call TN_event_fnc_closeFlagMenu;
             true

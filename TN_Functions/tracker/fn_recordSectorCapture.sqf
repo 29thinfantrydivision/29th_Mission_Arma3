@@ -18,8 +18,8 @@ params ["_sector", "_owner"];
 
 // sideUnknown check to prevent logging when sector is
 // placed down.
-if (TN_tracker_startTime == -1
-    || _owner == sideUnknown) exitWith { false };
+if (TN_tracker_startTime isEqualTo -1
+    || _owner isEqualTo sideUnknown) exitWith { false };
 
 private _timeStamp =
     round(serverTime - TN_tracker_startTime);

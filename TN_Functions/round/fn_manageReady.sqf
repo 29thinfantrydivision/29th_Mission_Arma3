@@ -30,7 +30,7 @@ if (_sideIdx > 2) exitWith
 
 private _playerSideReady = TN_round_sideReady select _sideIdx;
 
-if (_playerSideReady == _isReady) exitWith {2};
+if (_playerSideReady isEqualTo _isReady) exitWith {2};
 
 TN_round_sideReady set [_sideIdx, _isReady];
 publicVariable "TN_round_sideReady";

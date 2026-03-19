@@ -125,7 +125,7 @@ if (
 // Every ~60 frames (~2s at 30fps) mark dirty to recheck team populations
 TN_readyUI_refreshCounter =
     (TN_readyUI_refreshCounter + 1) mod 60;
-if (TN_readyUI_refreshCounter == 0) then
+if (TN_readyUI_refreshCounter isEqualTo 0) then
 {
     TN_readyUI_dirty = true;
 };
@@ -152,7 +152,7 @@ if (TN_readyUI_dirty) then
             "_side", "_idx", "_name", "_color"
         ];
         if (
-            _side countSide allPlayers == 0
+            _side countSide allPlayers isEqualTo 0
             && {isNil "TN_readyUI_showAllSides"}
         ) then { continue };
 

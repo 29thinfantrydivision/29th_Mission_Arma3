@@ -27,7 +27,7 @@ private _timeParts = [];
 if (_hours > 0) then
 {
     private _hourWord = ["Hours", "Hour"]
-        select (_hours == 1 || _forceNoS);
+        select (_hours isEqualTo 1 || _forceNoS);
     _timeParts pushBack format [
         "%1 %2", _hours, _hourWord
     ];
@@ -37,7 +37,7 @@ if (_hours > 0) then
 if (_mins > 0) then
 {
     private _minWord = ["Minutes", "Minute"]
-        select (_mins == 1 || _forceNoS);
+        select (_mins isEqualTo 1 || _forceNoS);
     _timeParts pushBack format [
         "%1 %2", _mins, _minWord
     ];
@@ -47,7 +47,7 @@ if (_mins > 0) then
 if (_secs > 0 || _timeParts isEqualTo []) then
 {
     private _secWord = ["Seconds", "Second"]
-        select (_secs == 1 || _forceNoS);
+        select (_secs isEqualTo 1 || _forceNoS);
     _timeParts pushBack format [
         "%1 %2", _secs, _secWord
     ];

@@ -58,8 +58,8 @@ private _fn_scanRecentEvents =
         private _pastEvent = TN_tracker_events select _i;
         private _pastType = _pastEvent select 0;
         private _pastTime = _pastEvent select 1;
-        if (_pastType == DELAY_KILL_NUM
-            || _pastType == DELAY_ACE_CONSCIOUSNESS_NUM) then
+        if (_pastType isEqualTo DELAY_KILL_NUM
+            || _pastType isEqualTo DELAY_ACE_CONSCIOUSNESS_NUM) then
         {
             _pastTime = _pastTime select 0;
         };
@@ -68,7 +68,7 @@ private _fn_scanRecentEvents =
         if (_pastTime < _afterTime) exitWith {};
         if !(_pastType in _filterTypes) then { continue };
         private _pastUnitNum = (_pastEvent select 2) select 0;
-        if (_unitNum == _pastUnitNum) exitWith
+        if (_unitNum isEqualTo _pastUnitNum) exitWith
         {
             _i call _action;
         };

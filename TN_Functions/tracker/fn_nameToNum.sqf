@@ -17,7 +17,7 @@ params ["_name", "_side", "_eventTime"];
 
 private _num = TN_tracker_names find _name;
 
-if (_num == -1) then
+if (_num isEqualTo -1) then
 {
     TN_tracker_names pushBack _name;
     TN_tracker_sides pushBack

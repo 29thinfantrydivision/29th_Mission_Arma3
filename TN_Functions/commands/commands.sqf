@@ -98,7 +98,7 @@ TN_commands_allCommands = [
         {
             private _argument = _this select 0;
 
-            if (_argument == "") then //blank argument for actual measurement
+            if (_argument isEqualTo "") then //blank argument for actual measurement
             {
                 if (isNil "plyrRefPos") then
                 {
@@ -114,7 +114,7 @@ TN_commands_allCommands = [
             {
                 private _waypointPosCount = count customWaypointPosition;
 
-                if (_waypointPosCount == 3) then
+                if (_waypointPosCount isEqualTo 3) then
                 {
                     plyrRefPos = customWaypointPosition;
                     systemChat "Measurement reference point set";
@@ -142,8 +142,8 @@ TN_commands_allCommands = [
 
             {
                 if !(
-                    currentWeapon _x == "Throw"
-                    || currentWeapon _x == "Put"
+                    currentWeapon _x isEqualTo "Throw"
+                    || currentWeapon _x isEqualTo "Put"
                 ) then { continue };
                 _buggedPlayers pushBack (name _x);
             }

@@ -60,7 +60,7 @@ private _events = [
         if (
             _eventTime - _timeLeft < 30
             || (
-                _eventIndex == count _events - 1
+                _eventIndex isEqualTo count _events - 1
                 && _timeLeft > 0
             )
         ) then

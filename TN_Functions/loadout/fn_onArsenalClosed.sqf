@@ -32,7 +32,7 @@ resetLoadout = [player] call CBA_fnc_getLoadout;
     waitUntil
     {
         sleep 1;
-        (weaponState player) select 6 == 0
+        (weaponState player) select 6 isEqualTo 0
     };
 
     private _primaryMags = primaryWeaponMagazine player;

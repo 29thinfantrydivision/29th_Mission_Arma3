@@ -20,6 +20,6 @@ private _grnCount = resistance countSide allPlayers;
 TN_round_sideReady params ["_opfReady", "_bluReady", "_grnReady"];
 
 // A side passes if it is ready OR has no players.
-(_bluReady || _bluCount == 0)
-&& (_opfReady || _opfCount == 0)
-&& (_grnReady || _grnCount == 0)
+(_bluReady || _bluCount isEqualTo 0)
+&& (_opfReady || _opfCount isEqualTo 0)
+&& (_grnReady || _grnCount isEqualTo 0)

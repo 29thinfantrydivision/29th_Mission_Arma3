@@ -23,7 +23,7 @@
 
 if (!hasInterface) exitWith { false };
 
-if (currentVisionMode player == VISIONMODE_THERMAL && TN_disableTI) then
+if (currentVisionMode player isEqualTo VISIONMODE_THERMAL && TN_disableTI) then
 {
     BLOCK_LAYER cutText [MESSAGE, "BLACK", FADE_IN_TIME];
     playSound "FD_CP_Not_Clear_F";

@@ -37,7 +37,7 @@
                     missionNamespace getVariable
                         "BIS_EGSpectator_initialized"
                 }
-                && TN_limitSpectator == 0
+                && TN_limitSpectator isEqualTo 0
             ) exitWith {};
 
             showScoretable 0;

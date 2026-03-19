@@ -83,7 +83,7 @@ if (_foundInsignias isEqualTo []) exitWith
 _targetInsignia = _foundInsignias select 0;
 
 // Non-combat variant exists.
-if (count _foundInsignias == 2) then
+if (count _foundInsignias isEqualTo 2) then
 {
     // BLUFOR parade gear, dress blues, or no weapon.
     private _isNotCombatLoadout = _target call TN_parade_fnc_checkNonCombatLoadout;

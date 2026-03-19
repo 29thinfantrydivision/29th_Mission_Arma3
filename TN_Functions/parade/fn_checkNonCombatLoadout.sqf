@@ -19,9 +19,9 @@ params ["_unit"];
 // "rhs_weap_m1garand_sa43" -- standard 29th parade rifle.
 private _hasBluforParadeGear =
     "r_Garrison_cap" in (headgear _unit)
-    && primaryWeapon _unit == "rhs_weap_m1garand_sa43";
+    && primaryWeapon _unit isEqualTo "rhs_weap_m1garand_sa43";
 
 // Officers typically have no primary weapon.
-private _hasNoPrimary = primaryWeapon _unit == "";
+private _hasNoPrimary = primaryWeapon _unit isEqualTo "";
 
 _hasBluforParadeGear || _hasNoPrimary

@@ -38,7 +38,7 @@ private _disabledSomething = false;
         );
 
         // Skip gunner turret [0]; kill all other thermal PIPs.
-        if (_visionMode == 2
+        if (_visionMode isEqualTo 2
             && {_turret isEqualTo []
                 || {_turret select 0 != 0}}) exitWith
         {

@@ -25,7 +25,7 @@ if (!isServer) exitWith {};
 
 { //forEach object placed in editor
     // Skip local-only objects (not network-synced).
-    if (netId _x == "0:0") then { continue };
+    if (netId _x isEqualTo "0:0") then { continue };
 
     private _vicString = vehicleVarName _x;
     if (_vicString isEqualTo "") then { continue };

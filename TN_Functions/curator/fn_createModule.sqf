@@ -23,7 +23,7 @@
 params ["_playerVarName", "_roleDescription"];
 
 // Need to wait until after start to create modules.
-if (time == 0) exitWith
+if (time isEqualTo 0) exitWith
 {
     [
         { time > 0 },

@@ -47,7 +47,7 @@ if (isDedicated || !hasInterface) exitWith
 };
 
 // --- Spectator disabled by CBA setting ---
-if (TN_limitSpectator == 2) exitWith
+if (TN_limitSpectator isEqualTo 2) exitWith
 {
     hint "Spectator Disabled";
     false

@@ -170,7 +170,7 @@ private _fn_saveLrSettings =
         ] call TFAR_fnc_getVehicleConfigProperty;
 
         // Legacy alias -- may no longer be needed.
-        if (_correctCode == "tf_guer_radio_code") then
+        if (_correctCode isEqualTo "tf_guer_radio_code") then
         {
             _correctCode = "tf_independent_radio_code";
         };

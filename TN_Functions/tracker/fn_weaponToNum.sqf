@@ -15,7 +15,7 @@ params ["_weaponName"];
 
 private _num = TN_tracker_weapons find _weaponName;
 
-if (_num == -1) then
+if (_num isEqualTo -1) then
 {
     TN_tracker_weapons pushBack _weaponName;
     _num = count TN_tracker_weapons - 1;

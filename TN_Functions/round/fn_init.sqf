@@ -110,7 +110,7 @@ if (hasInterface) then
                 && TN_disableScoreboard
             ) then
             {
-                [{shownScoreTable == -1}, {
+                [{shownScoreTable isEqualTo -1}, {
                     showScoretable 0;
                 }] call CBA_fnc_waitUntilAndExecute;
             };
@@ -162,7 +162,7 @@ if (hasInterface) then
             if !(isNull (uiNamespace getVariable ["RscDisplayCurator", displayNull])) exitWith {};
             if (
                 !isNil {missionNamespace getVariable "BIS_EGSpectator_initialized"}
-                && TN_limitSpectator == 0
+                && TN_limitSpectator isEqualTo 0
             ) exitWith {};
             showScoretable 0;
         }
@@ -184,7 +184,7 @@ if (hasInterface) then
     [
         "enteredSpectator",
         {
-            if (TN_limitSpectator == 0) then
+            if (TN_limitSpectator isEqualTo 0) then
             {
                 showScoretable -1;
             };
@@ -260,8 +260,8 @@ if (hasInterface) then
 
                 {
                     if !(
-                        currentWeapon _x == "Throw"
-                        || currentWeapon _x == "Put"
+                        currentWeapon _x isEqualTo "Throw"
+                        || currentWeapon _x isEqualTo "Put"
                     ) then
                     {
                         continue;

@@ -15,7 +15,7 @@
 
 #include "eventNumbers.hpp"
 params ["_unit", "_state"];
-if (TN_tracker_startTime == -1) exitWith { false };
+if (TN_tracker_startTime isEqualTo -1) exitWith { false };
 if (!isPlayer _unit) exitWith { false };
 
 private _timeStamp =

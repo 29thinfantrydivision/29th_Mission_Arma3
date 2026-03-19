@@ -15,7 +15,7 @@
 
 #include "..\eventNumbers.hpp"
 params ["_playerIndex", "_events"];
-if (_playerIndex == -1) exitWith { [] };
+if (_playerIndex isEqualTo -1) exitWith { [] };
 
 private _playerEventIndexes = [];
 // Keep track of who the player knocked out so that if they
@@ -32,7 +32,7 @@ for "_i" from 0 to (_numEvents - 1) do
         {
             private _unitIndex = _eventInfo select 0;
             private _state = _eventInfo select 1;
-            if (_unitIndex == _playerIndex) exitWith
+            if (_unitIndex isEqualTo _playerIndex) exitWith
             {
                 _playerEventIndexes pushBack _i;
             };
@@ -64,7 +64,7 @@ for "_i" from 0 to (_numEvents - 1) do
         case DELAY_ACE_CONSCIOUSNESS_NUM:
         {
             private _unitIndex = _eventInfo select 0;
-            if (_unitIndex == _playerIndex) exitWith
+            if (_unitIndex isEqualTo _playerIndex) exitWith
             {
                 _playerEventIndexes pushBack _i;
             };
@@ -83,7 +83,7 @@ for "_i" from 0 to (_numEvents - 1) do
         case DELAY_KILL_NUM:
         {
             private _unitIndex = _eventInfo select 0;
-            if (_unitIndex == _playerIndex) exitWith
+            if (_unitIndex isEqualTo _playerIndex) exitWith
             {
                 _playerEventIndexes pushBack _i;
             };
@@ -101,7 +101,7 @@ for "_i" from 0 to (_numEvents - 1) do
             {
                 private _instigatorIndex =
                     _eventInfo select 1;
-                if (_instigatorIndex == _playerIndex)
+                if (_instigatorIndex isEqualTo _playerIndex)
                     exitWith
                 {
                     _playerEventIndexes pushBack _i;
@@ -115,7 +115,7 @@ for "_i" from 0 to (_numEvents - 1) do
             {
                 private _instigatorIndex =
                     _eventInfo select 1;
-                if (_instigatorIndex == _playerIndex)
+                if (_instigatorIndex isEqualTo _playerIndex)
                     exitWith
                 {
                     _playerEventIndexes pushBack _i;

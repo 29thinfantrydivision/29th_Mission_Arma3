@@ -23,7 +23,7 @@ if (hasInterface) then
     // Wait for default parade loadout, then apply initial
     // parade inventory.
     [
-        { primaryWeapon player == "rhs_weap_m1garand_sa43" },
+        { primaryWeapon player isEqualTo "rhs_weap_m1garand_sa43" },
         { call TN_parade_fnc_handleInitialInventory }
     ] call CBA_fnc_waitUntilAndExecute;
 };

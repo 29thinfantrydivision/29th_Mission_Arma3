@@ -23,7 +23,7 @@ private _endChecks = [[{ false }], [{ false }], [{ false }]];
 {
     private _pointValue = _x getVariable ["TN_pointValue", 0];
 
-    if (_pointValue == 0) then { continue };
+    if (_pointValue isEqualTo 0) then { continue };
 
     switch (typeOf _x) do
     {
