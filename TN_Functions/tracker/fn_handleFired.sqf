@@ -12,7 +12,7 @@
  */
 
 params [
-    "_unit", "_weapon", "_muzzle", "_mode",
+    "_unit", "_weapon", "_muzzle", "",
     "_ammo", "_magazine", "_projectile", "_vehicle"
 ];
 private _realWeapon =

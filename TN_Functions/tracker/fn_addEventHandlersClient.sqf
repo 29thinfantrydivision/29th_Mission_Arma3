@@ -57,7 +57,7 @@ player addEventHandler ["FiredMan",
 
 ["ace_explosives_place",
 {
-    params ["_explosive", "_dir", "_pitch", "_unit"];
+    params ["_explosive", "", "", "_unit"];
     // Global EH -- only run on the client who placed.
     if (!local _unit) exitWith {};
     private _explosiveName = getText (
@@ -197,18 +197,6 @@ TN_tracker_fnc_findSide =
             }
             forEach TN_tracker_cookOffs;
 
-            /*
-            if (_unit != _instigator) exitWith {};
-            //Case where walked away from incendiary grenade/cookoff fire but still on fire?
-            if (_weapon isEqualTo "?") then
-            {
-                private _burnInstigator = _unit getVariable ["TN_burnInstigator", objNull];
-                if (_burnInstigator == _instigator) then
-                {
-                    _weapon = _unit getVariable ["TN_burnWeapon", "Fire"];
-                };
-            };
-            */
         };
         private _sideInstigator =
             _instigator call TN_tracker_fnc_findSide;

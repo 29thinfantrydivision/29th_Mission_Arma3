@@ -14,7 +14,7 @@
  */
 
 #include "eventNumbers.hpp"
-params ["_sector", "_owner", "_ownerOld"];
+params ["_sector", "_owner"];
 
 // sideUnknown check to prevent logging when sector is
 // placed down.

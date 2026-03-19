@@ -9,9 +9,6 @@
  * 1: True to ACE full-heal the player <BOOL> (default: false)
  * 2: Position ASL to teleport to <ARRAY> (default: [])
  * 3: Skip teleport if player is already within this distance of position <NUMBER> (default: 50)
- * 4: CfgNotifications class, empty to auto-pick <STRING> (default: "")
- * 5: Notification title <STRING> (default: "")
- * 6: Notification description <STRING> (default: "")
  *
  * Return Value:
  * Nothing
@@ -25,10 +22,7 @@ params
     ["_inventory", [], [[], true]],
     ["_heal", false, [false]],
     ["_point", [], [[]]],
-    ["_pointRad", 50, [0]],
-    ["_msgClass", "", [""]],
-    ["_msgTitle", "", [""]],
-    ["_msgDesc", "", [""]]
+    ["_pointRad", 50, [0]]
 ];
 
 if (!hasInterface) exitWith {}; // Client only.
@@ -187,46 +181,43 @@ else
     };
 };
 
-if (_msgClass isEqualTo "") exitWith
+switch (true) do
 {
-    switch (true) do
+    case (_resetInventory && !_heal && !_teleport):
     {
-        case (_resetInventory && !_heal && !_teleport):
-        {
-            ["Reset", ["Rearmed", "Player is Rearmed!"]]
-                call BIS_fnc_showNotification;
-        };
-        case (_resetInventory && _heal && !_teleport):
-        {
-            ["Reset", ["Reset", "Rearmed and Healed!"]]
-                call BIS_fnc_showNotification;
-        };
-        case (_resetInventory && _heal && _teleport):
-        {
-            ["Reset",
-                ["Full Reset",
-                    "Rearmed, healed, and teleported!"]]
-                call BIS_fnc_showNotification;
-        };
-        case (!_resetInventory && _heal && _teleport):
-        {
-            ["Document",
-                ["Debrief", "Teleported for debrief!"]]
-                call BIS_fnc_showNotification;
-        };
-        case (!_resetInventory && !_heal && _teleport):
-        {
-            ["Document",
-                ["Teleported", "Player teleported!"]]
-                call BIS_fnc_showNotification;
-        };
-        case (!_resetInventory && _heal && !_teleport):
-        {
-            ["Health", ["Healed", "Player is healed!"]]
-                call BIS_fnc_showNotification;
-        };
-        default {};
+        ["Reset", ["Rearmed", "Player is Rearmed!"]]
+            call BIS_fnc_showNotification;
     };
+    case (_resetInventory && _heal && !_teleport):
+    {
+        ["Reset", ["Reset", "Rearmed and Healed!"]]
+            call BIS_fnc_showNotification;
+    };
+    case (_resetInventory && _heal && _teleport):
+    {
+        ["Reset",
+            ["Full Reset",
+                "Rearmed, healed, and teleported!"]]
+            call BIS_fnc_showNotification;
+    };
+    case (!_resetInventory && _heal && _teleport):
+    {
+        ["Document",
+            ["Debrief", "Teleported for debrief!"]]
+            call BIS_fnc_showNotification;
+    };
+    case (!_resetInventory && !_heal && _teleport):
+    {
+        ["Document",
+            ["Teleported", "Player teleported!"]]
+            call BIS_fnc_showNotification;
+    };
+    case (!_resetInventory && _heal && !_teleport):
+    {
+        ["Health", ["Healed", "Player is healed!"]]
+            call BIS_fnc_showNotification;
+    };
+    default {};
 };
 
 nil

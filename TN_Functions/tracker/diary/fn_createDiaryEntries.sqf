@@ -116,9 +116,8 @@ player createDiaryRecord
 
 if !(player diarySubjectExists "RoundScoreboard") then
 {
-    TN_tracker_diary_subject =
-        player createDiarySubject
-            ["RoundScoreboard", "Round Scoreboard"];
+    player createDiarySubject
+        ["RoundScoreboard", "Round Scoreboard"];
     private _infoLines = [
         "Lists how many infantry kills (no vehicles)"
         + " each player got during the round, from"

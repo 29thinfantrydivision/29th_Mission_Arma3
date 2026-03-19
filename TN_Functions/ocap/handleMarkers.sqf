@@ -18,7 +18,7 @@ ocap_listener_markers = ["ocap_handleMarker", {
 
   if !(ocap_recorder_recording && {ocap_recorder_startTime > -1}) exitWith {};
 
-  params["_eventType", "_mrk_name", "_mrk_owner", "_pos", "_type", "_shape", "_size", "_dir", "_brush", "_color", "_alpha", "_text", ["_forceGlobal", false], ["_creationTime", 0]];
+  params["_eventType", "_mrk_name", "_mrk_owner", "_pos", "_type", "_shape", "_size", "_dir", "_brush", "_color", "_alpha", "_text", ["_forceGlobal", false]];
 
   switch (_eventType) do {
 
