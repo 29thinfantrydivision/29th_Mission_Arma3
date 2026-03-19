@@ -99,3 +99,5 @@ _markerNum = 0;
     [_x, _markerNum] call _createMarker;
     _markerNum = _markerNum + 1;
 } forEach _objectsToMark;
+
+nil

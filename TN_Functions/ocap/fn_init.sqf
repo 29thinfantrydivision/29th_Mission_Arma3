@@ -158,3 +158,5 @@ if (isServer) then
         }] call CBA_fnc_addClassEventHandler;
     };
 };
+
+nil

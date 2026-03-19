@@ -68,3 +68,5 @@ forEach allMissionObjects "All";
         };
     } forEach allCurators;
 }, 3] call CBA_fnc_addPerFrameHandler;
+
+nil

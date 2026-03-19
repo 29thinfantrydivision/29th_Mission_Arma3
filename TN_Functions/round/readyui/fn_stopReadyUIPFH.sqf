@@ -43,3 +43,5 @@ if !(isNil "TN_readyUI_shinePFH") then
         call CBA_fnc_removePerFrameHandler;
     TN_readyUI_shinePFH = nil;
 };
+
+nil

@@ -39,3 +39,5 @@ private _value = [
     _x setVariable ["TN_hitMap", _hitMap];
 }
 forEach _units;
+
+nil

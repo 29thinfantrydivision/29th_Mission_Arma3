@@ -90,3 +90,5 @@ if (isServer) then {
     TN_commands_fnc_arsenalRegister = compileFinal preprocessFileLineNumbers
         "TN_Functions\commands\arsenal\fn_register.sqf";
 };
+
+nil

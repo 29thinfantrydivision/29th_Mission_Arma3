@@ -30,3 +30,5 @@ diag_log text format [
     "Server Set Weather: date=%1, overcast=%2, fog=%3",
     date, overcast, fogParams
 ];
+
+nil

@@ -61,3 +61,5 @@ switch (_ticketSide) do
         systemChat "Error: No side defined!";
     };
 };
+
+nil

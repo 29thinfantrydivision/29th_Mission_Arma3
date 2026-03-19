@@ -208,3 +208,5 @@ private _fn_fixVehicleRadio =
     "SeatSwitchedMan",
     _fn_fixVehicleRadio
 ] call CBA_fnc_addBISPlayerEventHandler;
+
+nil

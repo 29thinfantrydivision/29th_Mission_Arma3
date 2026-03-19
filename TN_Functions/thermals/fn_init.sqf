@@ -43,3 +43,5 @@ if (isServer) then
         _objectCreated disableTIEquipment TN_disableTI;
     }, true, ["Man"], true] call CBA_fnc_addClassEventHandler;
 };
+
+nil

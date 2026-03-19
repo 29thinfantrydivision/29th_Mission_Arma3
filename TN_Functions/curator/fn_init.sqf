@@ -101,3 +101,5 @@ if (isServer) then
 
     call TN_curator_fnc_excludeObjects;
 };
+
+nil

@@ -109,3 +109,5 @@ if (_playerDeaths >= TN_event_numberOfLives) then
         };
     };
 };
+
+nil

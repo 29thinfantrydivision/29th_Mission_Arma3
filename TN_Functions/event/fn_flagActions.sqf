@@ -132,3 +132,5 @@ private _allObjects =
         );
     }
 ] call CBA_fnc_addEventHandler;
+
+nil

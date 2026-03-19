@@ -279,3 +279,5 @@ _display displayAddEventHandler [
         (_key in [DIK_RETURN, DIK_NUMPADENTER]);
     }
 ];
+
+nil

@@ -133,3 +133,5 @@ if (isServer) then
         false //make sure true isn't the return, would make the units AI controlled
     }];
 };
+
+nil

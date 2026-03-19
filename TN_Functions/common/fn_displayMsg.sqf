@@ -39,3 +39,5 @@ else
 {
     titleText [_msgText, _msgEffect, _msgDur, true, true];
 };
+
+nil

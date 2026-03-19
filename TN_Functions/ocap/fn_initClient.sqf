@@ -25,3 +25,5 @@ if !(_autoStart) then
             ["TN_ocap_fnc_initializePlayer", 2];
     }] call CBA_fnc_waitUntilAndExecute;
 };
+
+nil

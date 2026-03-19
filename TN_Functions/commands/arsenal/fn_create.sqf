@@ -36,3 +36,5 @@ _arsenal enableSimulationGlobal false;
 [_arsenal, true] call ace_arsenal_fnc_initBox;
 
 [_arsenal] remoteExecCall ["TN_commands_fnc_arsenalRegister", 2];
+
+nil

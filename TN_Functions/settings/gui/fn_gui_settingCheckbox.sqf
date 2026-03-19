@@ -92,3 +92,5 @@ _controlsGroup setVariable [
         );
     }
 ];
+
+nil

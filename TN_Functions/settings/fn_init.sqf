@@ -69,3 +69,5 @@ if (isServer) then
 
     publicVariable "TN_settings_allSettings";
 };
+
+nil

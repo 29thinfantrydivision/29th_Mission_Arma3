@@ -106,3 +106,5 @@ _ctrlConfirm ctrlAddEventHandler [
     "ButtonClick",
     {call TN_settings_fnc_gui_saveTempData}
 ];
+
+nil

@@ -89,3 +89,5 @@ sleep WEAPON_SWITCH_DELAY;
 {
     [_unit, _x, "backpack"] call ace_common_fnc_addToInventory;
 } forEach _backpackItems;
+
+nil

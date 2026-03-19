@@ -438,3 +438,5 @@ if !(_display getVariable [_selectedAddon, false]) then
 } forEach (
     _display getVariable "cba_settings_lists"
 );
+
+nil

@@ -31,3 +31,5 @@ if (isNil "TN_cmd_arsenalObjects") then {
 TN_cmd_arsenalObjects pushBack _arsenal;
 
 [[_arsenal]] call TN_curator_fnc_addEditable;
+
+nil

@@ -56,3 +56,5 @@ if !(_player getVariable ["ocap_isInitialized", false]) then
 
     _player setVariable ["ocap_isInitialized", true, true];
 };
+
+nil

@@ -36,3 +36,5 @@ if (isClass (configFile >> "CfgPatches" >> "ace_main")) then
     clearItemCargoGlobal _objectCreated;
     clearBackpackCargoGlobal _objectCreated;
 }, true, ["Man"], true] call CBA_fnc_addClassEventHandler;
+
+nil

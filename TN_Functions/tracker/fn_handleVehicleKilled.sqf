@@ -40,3 +40,5 @@ if (isNull _instigator) then
 if (isNull _instigator) exitWith {};
 
 TN_tracker_cookOffs pushBack [getPosASL _unit, _instigator];
+
+nil

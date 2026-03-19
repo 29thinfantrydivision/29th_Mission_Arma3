@@ -40,3 +40,5 @@ _projectile addEventHandler ["SubmunitionCreated",
     _submunitionProjectile addEventHandler ["HitPart", { call TN_tracker_fnc_hit }];
     _submunitionProjectile addEventHandler ["HitExplosion", { call TN_tracker_fnc_hit }];
 }];
+
+nil

@@ -21,3 +21,5 @@ _objects = _objects select {!(_x isKindOf "HeadlessClient_F")};
 {
     _x addCuratorEditableObjects [_objects, true];
 } forEach allCurators;
+
+nil

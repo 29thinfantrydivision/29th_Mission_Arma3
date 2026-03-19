@@ -33,3 +33,5 @@ private _message = format [
 ];
 
 ["TimeWarning", [_message]] call BIS_fnc_showNotification;
+
+nil

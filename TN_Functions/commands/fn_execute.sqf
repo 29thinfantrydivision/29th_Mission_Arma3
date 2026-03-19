@@ -70,3 +70,5 @@ else
 {
     systemChat format ["Unknown command: !%1", _command];
 };
+
+nil

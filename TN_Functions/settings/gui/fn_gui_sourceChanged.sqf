@@ -42,3 +42,5 @@ private _selectedAddon =
 } forEach (
     _display getVariable "cba_settings_lists"
 );
+
+nil

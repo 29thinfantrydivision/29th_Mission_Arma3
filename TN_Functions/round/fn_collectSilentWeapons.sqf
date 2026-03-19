@@ -22,3 +22,5 @@ if (isNil "TN_round_clientSilentWeapons") then
 };
 
 TN_round_clientSilentWeapons set [_weaponHolder, true];
+
+nil

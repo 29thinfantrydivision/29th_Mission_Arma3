@@ -30,3 +30,5 @@ if (!hasInterface) exitWith {};
         };
     };
 }] call CBA_fnc_addBISPlayerEventHandler;
+
+nil

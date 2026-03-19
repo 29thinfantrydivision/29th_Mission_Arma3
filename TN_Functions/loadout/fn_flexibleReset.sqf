@@ -229,4 +229,4 @@ if (_msgClass isEqualTo "") exitWith
     };
 };
 
-//rest isn't implemented yet!
+nil

@@ -171,3 +171,5 @@ if (isNil "TN_event_winCheckInterval") then
         };
     } forEach _loopChecks;
 }, TN_event_winCheckInterval, _loopChecks, {}, {}, {true}, {NOT_ROUND_LIVE}] call CBA_fnc_createPerFrameHandlerObject;
+
+nil

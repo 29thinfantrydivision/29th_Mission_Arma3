@@ -123,3 +123,5 @@ private _remainDead = (_respawnType == RESPAWN_BIRD);
         [true, _winnerSide] call TN_event_fnc_game;
     };
 }, ALIVE_CHECK_INTERVAL, [_remainDead, false], {}, {}, {true}, {NOT_ROUND_LIVE}] call CBA_fnc_createPerFrameHandlerObject;
+
+nil

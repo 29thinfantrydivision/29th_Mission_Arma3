@@ -73,3 +73,5 @@ private _events = [
 
     _args set [1, _eventIndex];
 }, 1, [_events, 0]] call CBA_fnc_addPerFrameHandler;
+
+nil

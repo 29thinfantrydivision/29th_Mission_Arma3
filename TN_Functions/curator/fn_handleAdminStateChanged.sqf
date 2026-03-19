@@ -40,3 +40,5 @@ if (getAssignedCuratorLogic _unit == zeus_admin) then
             call TN_curator_fnc_createModule;
     }, _unit, 0.1] call CBA_fnc_waitAndExecute;
 };
+
+nil

@@ -305,3 +305,5 @@ if (!_flashActive) then
         _bg ctrlCommit 0;
     };
 };
+
+nil

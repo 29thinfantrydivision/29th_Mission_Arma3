@@ -146,3 +146,5 @@ TN_readyUI_shinePFH = [
         _fr, _fg, _fb, _fa
     ]
 ] call CBA_fnc_addPerFrameHandler;
+
+nil
