@@ -60,7 +60,7 @@ if (hasInterface) then
                     params ["_display", "_key"];
 
                     // 28 = Enter, 156 = Numpad Enter
-                    if (_key != 28 && _key != 156) exitWith { false };
+                    if (_key isNotEqualTo 28 && _key isNotEqualTo 156) exitWith { false };
 
                     private _text = ctrlText (_display displayCtrl 101);
 

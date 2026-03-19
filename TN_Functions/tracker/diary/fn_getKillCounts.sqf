@@ -44,7 +44,7 @@ private _killCounts = createHashMap;
                     (_x select 0) isEqualTo
                         [_unitIndex, _unitSide]
                 };
-            if (_findUnconIdx != -1) then
+            if (_findUnconIdx isNotEqualTo -1) then
             {
                 _unconsciousAtEnd deleteAt _findUnconIdx;
             };
@@ -82,7 +82,7 @@ private _killCounts = createHashMap;
                     (_x select 0) isEqualTo
                         [_unitIndex, _unitSide]
                 };
-            if (_findUnconIdx != -1) then
+            if (_findUnconIdx isNotEqualTo -1) then
             {
                 _unconsciousAtEnd deleteAt _findUnconIdx;
             };
@@ -126,7 +126,7 @@ private _killCounts = createHashMap;
                         (_x select 0) isEqualTo
                             [_unitIndex, _unitSide]
                     };
-                if (_findUnconIdx != -1) then
+                if (_findUnconIdx isNotEqualTo -1) then
                 {
                     _unconsciousAtEnd
                         deleteAt _findUnconIdx;

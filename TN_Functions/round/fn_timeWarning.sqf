@@ -23,7 +23,7 @@ private _actualMinutes = _secondsLeft / 60;
 private _prefix =
     ["", "Less than "] select ((_minutes - _actualMinutes) > 0.25);
 
-private _plural = ["", "s"] select (_minutes != 1);
+private _plural = ["", "s"] select (_minutes isNotEqualTo 1);
 
 private _message = format [
     "%1%2 minute%3 remaining!",

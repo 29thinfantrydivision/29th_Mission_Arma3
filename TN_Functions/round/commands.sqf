@@ -51,7 +51,7 @@
             {
                 private _argument = _this select 0;
                 private _timeAdd = parseNumber _argument;
-                if ([_timeAdd * 60] call TN_round_fnc_addTime != -1) then
+                if ([_timeAdd * 60] call TN_round_fnc_addTime isNotEqualTo -1) then
                 {
                     systemChat format ["Adding %1 Minutes to the time limit!", _timeAdd];
                 }

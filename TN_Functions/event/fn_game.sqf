@@ -45,7 +45,7 @@ TN_event_missionEnded = true;
 publicVariable "TN_event_missionEnded";
 ["TN_event_onMissionEnded", []] call CBA_fnc_globalEvent;
 
-if (_endingClass != "") then
+if (_endingClass isNotEqualTo "") then
 {
     [_endingClass] remoteExecCall ["BIS_fnc_endMission"];
 }

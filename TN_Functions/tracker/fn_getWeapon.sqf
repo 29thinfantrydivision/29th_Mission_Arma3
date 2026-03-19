@@ -15,7 +15,7 @@
 private _weaponCfg =
     configFile >> "CfgWeapons" >> _weapon;
 _weaponCfg = [_weaponCfg, _weaponCfg >> _muzzle]
-    select (_weapon != _muzzle);
+    select (_weapon isNotEqualTo _muzzle);
 private _weaponName =
     getText (_weaponCfg >> "displayName");
 

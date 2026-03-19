@@ -27,7 +27,7 @@ if (currentVisionMode player isEqualTo VISIONMODE_THERMAL && TN_disableTI) then
 {
     BLOCK_LAYER cutText [MESSAGE, "BLACK", FADE_IN_TIME];
     playSound "FD_CP_Not_Clear_F";
-    [{currentVisionMode player != VISIONMODE_THERMAL}, {
+    [{currentVisionMode player isNotEqualTo VISIONMODE_THERMAL}, {
         BLOCK_LAYER cutText ["", "PLAIN"];
     }] call CBA_fnc_waitUntilAndExecute;
 };

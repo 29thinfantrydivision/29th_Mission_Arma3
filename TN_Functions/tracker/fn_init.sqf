@@ -14,7 +14,7 @@
  * Nothing
  */
 
-if (("enableRoundEventLog" call BIS_fnc_getParamValue) != 1) exitWith {};
+if (("enableRoundEventLog" call BIS_fnc_getParamValue) isNotEqualTo 1) exitWith {};
 
 if (isServer) then
 {

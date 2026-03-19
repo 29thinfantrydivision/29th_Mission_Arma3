@@ -109,7 +109,7 @@ TN_loadout_fnc_cmdDispatch =
 
                 private _stayArg = _argArr find "stay";
 
-                if (_stayArg != -1) exitWith
+                if (_stayArg isNotEqualTo -1) exitWith
                 {
                     private _sideArg = if (count _argArr > 1) then { _argArr select (1 - _stayArg) } else { "" };
 

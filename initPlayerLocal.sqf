@@ -22,7 +22,7 @@ enableEnvironment [false, true];
 _unit addEventHandler ["HandleRating", {0}];
 
 // ====== Misfire prevention. ==========
-[{currentWeapon (_this select 0) != ""}, {
+[{currentWeapon (_this select 0) isNotEqualTo ""}, {
     params ["_unit"];
     if !(weaponLowered _unit) then
     {

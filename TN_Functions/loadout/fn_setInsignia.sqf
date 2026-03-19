@@ -104,11 +104,11 @@ _targetRole = ((_sqdParams select 1) select 5);
 if ("Clerk" in _targetRole
     || "Sniper" in _targetRole) then
 {
-    if (_curInsignia != "") exitWith {};
+    if (_curInsignia isNotEqualTo "") exitWith {};
 };
 
-if (_curInsignia != _targetInsignia
-    && _curInsignia != "") then
+if (_curInsignia isNotEqualTo _targetInsignia
+    && _curInsignia isNotEqualTo "") then
 {
     systemChat ("Insignia swapped to " + _targetInsignia + ".");
 };

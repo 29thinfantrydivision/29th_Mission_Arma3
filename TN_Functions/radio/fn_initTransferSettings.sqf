@@ -29,7 +29,7 @@ private _fn_saveSwSettings =
 {
     params ["_unit"];
     // Don't fire while Zeus remote-controlling a unit.
-    if (_unit != player) exitWith {};
+    if (_unit isNotEqualTo player) exitWith {};
 
     private _sw = call TFAR_fnc_activeSwRadio;
     if (isNil "_sw") exitWith {};
@@ -44,7 +44,7 @@ private _fn_saveSwSettings =
 private _fn_saveLrSettings =
 {
     params ["_unit"];
-    if (_unit != player) exitWith {};
+    if (_unit isNotEqualTo player) exitWith {};
 
     private _lr = player call TFAR_fnc_backpackLr;
     if (isNil "_lr") exitWith {};
@@ -80,7 +80,7 @@ private _fn_saveLrSettings =
     "TFAR_event_OnFrequencyChanged",
     {
         params ["_unit", "_radio"];
-        if (_unit != player) exitWith {};
+        if (_unit isNotEqualTo player) exitWith {};
 
         private _sw = call TFAR_fnc_activeSwRadio;
         if (_sw isEqualTo _radio) exitWith
@@ -112,7 +112,7 @@ private _fn_saveLrSettings =
     "OnRadiosReceived",
     {
         params ["_unit", "_radios"];
-        if (_unit != player) exitWith {};
+        if (_unit isNotEqualTo player) exitWith {};
 
         {
             private _settings = TN_saved_active_sr_settings;
@@ -138,7 +138,7 @@ private _fn_saveLrSettings =
             private _currentCode =
                 _x call TFAR_fnc_getSwRadioCode;
 
-            if (_currentCode != _correctCode) then
+            if (_currentCode isNotEqualTo _correctCode) then
             {
                 _settings set [TFAR_CODE_OFFSET, _correctCode];
             };
@@ -180,7 +180,7 @@ private _fn_saveLrSettings =
 
         private _currentCode = _lr call TFAR_fnc_getLrRadioCode;
 
-        if (_currentCode != _correctCode) then
+        if (_currentCode isNotEqualTo _correctCode) then
         {
             _settings set [TFAR_CODE_OFFSET, _correctCode];
         };

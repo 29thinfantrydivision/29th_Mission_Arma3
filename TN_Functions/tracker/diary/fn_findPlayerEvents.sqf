@@ -41,7 +41,7 @@ for "_i" from 0 to (_numEvents - 1) do
             // before.
             private _knockedIndex =
                 _knockedUnconscious find _unitIndex;
-            if (_knockedIndex != -1) exitWith
+            if (_knockedIndex isNotEqualTo -1) exitWith
             {
                 _playerEventIndexes pushBack _i;
                 _knockedUnconscious
@@ -54,7 +54,7 @@ for "_i" from 0 to (_numEvents - 1) do
             {
                 private _instigatorIndex =
                     _eventInfo select 2;
-                if (_instigatorIndex != _playerIndex)
+                if (_instigatorIndex isNotEqualTo _playerIndex)
                     exitWith {};
                 _playerEventIndexes pushBack _i;
                 _knockedUnconscious pushBack _unitIndex;
@@ -71,7 +71,7 @@ for "_i" from 0 to (_numEvents - 1) do
 
             private _instigatorIndex =
                 _eventInfo select 2;
-            if (_instigatorIndex != _playerIndex)
+            if (_instigatorIndex isNotEqualTo _playerIndex)
                 exitWith {};
             _playerEventIndexes pushBack _i;
             _knockedUnconscious pushBack _unitIndex;
@@ -91,7 +91,7 @@ for "_i" from 0 to (_numEvents - 1) do
                 _knockedUnconscious find _unitIndex;
             // Check if unit was knocked out by player
             // before.
-            if (_knockedIndex != -1) exitWith
+            if (_knockedIndex isNotEqualTo -1) exitWith
             {
                 _playerEventIndexes pushBack _i;
                 _knockedUnconscious
