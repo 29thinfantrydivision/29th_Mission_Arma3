@@ -255,6 +255,7 @@ class TN_Event
         class gui_setSafeStartTime {};
         class gui_flagMenu {};
         class markEditorPlacedObjects {};
+        class handleAdminEventMenu {};
     };
 };
 

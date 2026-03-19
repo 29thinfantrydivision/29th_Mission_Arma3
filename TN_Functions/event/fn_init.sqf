@@ -29,11 +29,34 @@ if (TN_event_hasTimer) then
     {
         [{!isNull player}, {
             call TN_event_fnc_flagActions;
+
+            if (serverCommandAvailable "#lock") then
+            {
+                [true]
+                    call TN_event_fnc_handleAdminEventMenu;
+            };
         }] call CBA_fnc_waitUntilAndExecute;
     };
 
     if (isServer) then
     {
+        addMissionEventHandler [
+            "OnUserAdminStateChanged",
+        {
+            params ["_networkId", "_loggedIn"];
+
+            private _userInfo = getUserInfo _networkId;
+            if (count _userInfo < 11) exitWith {};
+
+            private _unit = _userInfo select 10;
+            if (isNil "_unit") exitWith {};
+
+            [_loggedIn] remoteExecCall [
+                "TN_event_fnc_handleAdminEventMenu",
+                owner _unit
+            ];
+        }];
+
         [
             "TN_round_started",
             {

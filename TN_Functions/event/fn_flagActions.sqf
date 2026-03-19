@@ -2,14 +2,9 @@
 
 /*
  * Author: Bae [29th ID]
- * Adds a single "Event Menu" scroll-wheel action to timer
- * objects and the ending object. The action opens a GUI
- * dialog (TN_event_fnc_gui_flagMenu) that presents
- * context-sensitive options based on the current round state
- * and admin status.
- *
- * Adds Side Ready and Unready actions to players in
- * BLUFOR, OPFOR, or GRNFOR if round has not started.
+ * Adds Side Ready and Unready actions to timer objects and
+ * the ending object for BLUFOR, OPFOR, or GRNFOR players
+ * if round has not started.
  *
  * Arguments:
  * None
@@ -82,16 +77,6 @@ private _allObjects =
                 [_readyId, _unreadyId]
             ];
         };
-
-        _x addAction [
-            "<t color='#bf3eff'>"
-                + "Event Menu</t>",
-            { call TN_event_fnc_gui_flagMenu },
-            nil,
-            1.5, true, true, "",
-            "serverCommandAvailable '#lock'",
-            8
-        ];
     };
 } forEach _allObjects;
 
@@ -130,6 +115,12 @@ private _allObjects =
             TN_event_timerObjects
             + [TN_event_endingObject]
         );
+
+        if (!isNil "TN_event_adminMenuActionId") then
+        {
+            player removeAction TN_event_adminMenuActionId;
+            TN_event_adminMenuActionId = nil;
+        };
     }
 ] call CBA_fnc_addEventHandler;
 
