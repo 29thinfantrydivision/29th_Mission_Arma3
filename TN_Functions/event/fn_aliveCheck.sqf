@@ -25,7 +25,7 @@
 if (!isServer) exitWith {};
 
 private _respawnType = 0 call BIS_fnc_missionRespawnType;
-private _remainDead = (_respawnType == RESPAWN_BIRD);
+private _remainDead = (_respawnType isEqualTo RESPAWN_BIRD);
 
 [{
     private _args = _this getVariable "params";
@@ -118,7 +118,7 @@ private _remainDead = (_respawnType == RESPAWN_BIRD);
         _winnerSide = resistance;
     };
 
-    if (_winnerSide != civilian) then
+    if (_winnerSide isNotEqualTo civilian) then
     {
         [true, _winnerSide] call TN_event_fnc_game;
     };

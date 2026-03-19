@@ -15,8 +15,9 @@
  */
 
 #include "eventNumbers.hpp"
+#define VEHICLE_GRENADE_DISTANCE 10
 params ["_unit", "_killer", "_instigator"];
-if (TN_tracker_startTime == -1) exitWith { false };
+if (TN_tracker_startTime isEqualTo -1) exitWith { false };
 
 private _timeStamp =
     round (serverTime - TN_tracker_startTime);
@@ -46,7 +47,7 @@ if !(isNil "_lastHit") then
 // Player manual respawned without taking known damage.
 if (
     isNil "_lastHit"
-    && _killer == _unit
+    && _killer isEqualTo _unit
     && isNull _instigator
 ) exitWith { false };
 
@@ -56,8 +57,8 @@ private _fn_resolveInstigatorSide =
 {
     params ["_instigator"];
     private _side = side (group _instigator);
-    if (_side == sideUnknown
-        || _side == civilian) then // Dead man.
+    if (_side isEqualTo sideUnknown
+        || _side isEqualTo civilian) then // Dead man.
     {
         // Might work improperly if zeus changed
         // player side.
@@ -83,29 +84,20 @@ if (isNull _instigator) then // Backup for unknown cases.
 
 // Special case for incendiary grenades killing vehicles.
 private _override = false;
-if (_eventType == VEHICLE_KILL_NUM
+if (_eventType isEqualTo VEHICLE_KILL_NUM
     && isNull _instigator) then
 {
     // Look for ACE/RHS incendiary grenade.
-    private _grenades =
-        (position _unit) nearObjects ["GrenadeHand", 10];
+    private _grenadeResult = [position _unit, VEHICLE_GRENADE_DISTANCE]
+        call TN_tracker_fnc_findIncendiaryGrenade;
     private _weapon = "";
 
+    if (_grenadeResult isNotEqualTo []) then
     {
-        if ((typeOf _x) == "ACE_G_M14") exitWith
-        {
-            _weapon = "ACE AN-M14";
-            _instigator = (getShotParents _x) select 0;
-            _override = true;
-        };
-        if ((typeOf _x) == "rhs_ammo_an_m14_th3") exitWith
-        {
-            _weapon = "RHS AN-M14";
-            _instigator = (getShotParents _x) select 0;
-            _override = true;
-        };
-    }
-    forEach _grenades;
+        _instigator = _grenadeResult select 0;
+        _weapon = _grenadeResult select 1;
+        _override = true;
+    };
 
     if !(isNull _instigator) then
     {
@@ -174,7 +166,7 @@ if (!isNil "_lastHit" && !_override) then
         // bleeds out.
         if (
             (_timeStamp - _hitTime > DELAY_TIME)
-            && _eventType == INFANTRY_KILL_NUM
+            && _eventType isEqualTo INFANTRY_KILL_NUM
         ) then
         {
             _eventType = DELAY_KILL_NUM;
@@ -201,7 +193,7 @@ if (!isNil "_lastHit" && !_override) then
         // bleeds out.
         if (
             (_timeStamp - _hitTime > DELAY_TIME)
-            && _eventType == INFANTRY_KILL_NUM
+            && _eventType isEqualTo INFANTRY_KILL_NUM
         ) then
         {
             _eventType = DELAY_KILL_NUM;

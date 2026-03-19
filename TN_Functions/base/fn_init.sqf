@@ -120,7 +120,7 @@ TN_base_keepEnvironmentSounds = false;
     "TN_exitedZeus",
     {
         TN_base_keepEnvironmentSounds = false;
-        if (arsenalActionId != -1) then { ENV_OFF };
+        if (arsenalActionId isNotEqualTo -1) then { ENV_OFF };
     }
 ] call CBA_fnc_addEventHandler;
 
@@ -136,7 +136,7 @@ TN_base_keepEnvironmentSounds = false;
     "exitedSpectator",
     {
         TN_base_keepEnvironmentSounds = false;
-        if (arsenalActionId != -1) then { ENV_OFF };
+        if (arsenalActionId isNotEqualTo -1) then { ENV_OFF };
     }
 ] call CBA_fnc_addEventHandler;
 

@@ -18,12 +18,12 @@
 
 //anything that is a subtype of these classes and is
 //big enough will be marked
-_baseClasses = ["Static", "Cargo_base_F"];
+private _baseClasses = ["Static", "Cargo_base_F"];
 
 //checks bounding sphere value to see if object is
 //large enough, not in the blacklist, and not in an
 //excluded start zone
-_canMark =
+private _canMark =
 {
     params ["_obj"];
 
@@ -33,7 +33,7 @@ _canMark =
         true;
     };
 
-    _classBlacklist = [
+    private _classBlacklist = [
         "Land_DataTerminal_01_F",
         "Wreck_Base",
         "FlagCarrierCore",
@@ -46,7 +46,7 @@ _canMark =
         false;
     };
 
-    _size = (boundingBox _obj) select 2;
+    private _size = (boundingBox _obj) select 2;
 
     _size > MIN_MARK_SIZE
     && {
@@ -59,18 +59,18 @@ _canMark =
 
 //get buildings to create markers for - only include
 //objects large enough
-_objectsToMark = [];
+private _objectsToMark = [];
 {
     _objectsToMark append allMissionObjects _x;
 } forEach _baseClasses;
 _objectsToMark = _objectsToMark select { _x call _canMark };
 
-_createMarker =
+private _createMarker =
 {
     params ["_obj", "_markerNum"];
 
     // Create marker locally to save network bandwidth
-    _marker = createMarkerLocal [
+    private _marker = createMarkerLocal [
         "TN_ObjectMarker" + str _markerNum,
         _obj
     ];
@@ -80,11 +80,11 @@ _createMarker =
     _marker setMarkerColorLocal "ColorBlack";
     _marker setMarkerDirLocal getDir _obj;
 
-    _bbr = boundingBoxReal _obj;
-    _p1 = _bbr select 0;
-    _p2 = _bbr select 1;
-    _maxWidth = abs ((_p2 select 0) - (_p1 select 0));
-    _maxLength = abs ((_p2 select 1) - (_p1 select 1));
+    private _bbr = boundingBoxReal _obj;
+    private _p1 = _bbr select 0;
+    private _p2 = _bbr select 1;
+    private _maxWidth = abs ((_p2 select 0) - (_p1 select 0));
+    private _maxLength = abs ((_p2 select 1) - (_p1 select 1));
 
     _marker setMarkerSizeLocal [
         _maxWidth / 2,
@@ -93,7 +93,7 @@ _createMarker =
 };
 
 // Used for unique marker names
-_markerNum = 0;
+private _markerNum = 0;
 
 {
     [_x, _markerNum] call _createMarker;

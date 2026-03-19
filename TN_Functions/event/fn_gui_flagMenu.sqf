@@ -160,20 +160,18 @@ private _fnc_rebuild =
                 ];
 
                 if (_allPlayers findIf
-                    {side group _x == _side} != -1) then
+                    {side group _x isEqualTo _side} isNotEqualTo -1) then
                 {
-                    private _btn_code = compile format [
-                        "params ['_ctrl'];"
-                        + "[true, %1]"
-                        + " call TN_event_fnc_game;"
-                        + "call TN_event_fnc_closeFlagMenu;",
-                        _side
-                    ];
-
                     _actions pushBack [
                         _sideName + " Victory",
-                        _btn_code,
-                        _sideColor
+                        {
+                            params ["_ctrl"];
+                            private _side = _ctrl getVariable "TN_side";
+                            [true, _side] call TN_event_fnc_game;
+                            call TN_event_fnc_closeFlagMenu;
+                        },
+                        _sideColor,
+                        _side
                     ];
                 };
             } forEach _sides;
@@ -237,7 +235,8 @@ private _fnc_rebuild =
         _startY + _padding + _titleH + _padding;
 
     {
-        _x params ["_label", "_code", "_color"];
+        _x params ["_label", "_code", "_color",
+            ["_sideVar", sideUnknown]];
 
         private _btn =
             _display ctrlCreate ["RscButton", -1];
@@ -247,6 +246,10 @@ private _fnc_rebuild =
             _btnW, _btnH
         ];
         _btn ctrlSetBackgroundColor _color;
+        if (_sideVar isNotEqualTo sideUnknown) then
+        {
+            _btn setVariable ["TN_side", _sideVar];
+        };
         _btn ctrlCommit 0;
         _btn ctrlAddEventHandler [
             "ButtonClick", _code

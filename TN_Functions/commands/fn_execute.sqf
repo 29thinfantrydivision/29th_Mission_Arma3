@@ -28,7 +28,7 @@ _text = _text select [1, count _text - 1];
 private _spaceIdx = _text find " ";
 private ["_command", "_argument"];
 
-if (_spaceIdx == -1) then {
+if (_spaceIdx isEqualTo -1) then {
     _command = toLower _text;
     _argument = "";
 } else {

@@ -112,7 +112,7 @@ private _sideSettings =
     if (_x isEqualType "") then { continue };
 
     _x params ["_winCon", "_winArgs", "_atEnd"];
-    _winCon = toLower _winCon;
+    _winCon = toLowerANSI _winCon;
 
     private _checkFn = switch (_winCon) do
     {

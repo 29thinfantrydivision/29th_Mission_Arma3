@@ -198,6 +198,7 @@ class TN_Tracker
         class handleVehicleKilled {};
         class hit {};
         class sendHit {};
+        class findIncendiaryGrenade {};
     };
     class DiaryFunctions
     {

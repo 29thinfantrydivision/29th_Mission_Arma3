@@ -68,7 +68,7 @@ player addEventHandler ["FiredMan",
                     >> "defaultMagazine"
             ) >> "displayName"
     );
-    if (_explosiveName == "") then
+    if (_explosiveName isEqualTo "") then
     {
         _explosiveName = "Placed Explosive";
     };
@@ -101,8 +101,8 @@ TN_tracker_fnc_findSide =
 {
     params ["_instigator"];
     private _side = side (group _instigator);
-    if (_side == sideUnknown
-        || _side == civilian) then // Dead man.
+    if (_side isEqualTo sideUnknown
+        || _side isEqualTo civilian) then // Dead man.
     {
         // Might work improperly if zeus changed
         // player side.
@@ -120,7 +120,7 @@ TN_tracker_fnc_findSide =
 {
     params ["_unit", "", "_instigator", "_ammo"];
 
-    if (_ammo == "collision") then
+    if (_ammo isEqualTo "collision") then
     {
         private _driver = driver _instigator;
         private _sideInstigator =
@@ -146,7 +146,7 @@ TN_tracker_fnc_findSide =
         [[_unit], _instigatorInfo] remoteExecCall ["TN_tracker_fnc_sendHit", 2];
     };
 
-    if (_ammo == "burn") then
+    if (_ammo isEqualTo "burn") then
     {
         // NOTE: Instigator in this case if null means
         // the damage came from fire on person. Otherwise
@@ -172,33 +172,16 @@ TN_tracker_fnc_findSide =
         else
         {
             // Look for ACE/RHS incendiary grenade.
-            private _grenades = (position _unit)
-                nearObjects [
-                    "GrenadeHand",
-                    INFANTRY_GRENADE_DISTANCE
-                ];
-            if (_grenades isNotEqualTo []) then
+            private _grenadeResult = [position _unit,
+                INFANTRY_GRENADE_DISTANCE]
+                call TN_tracker_fnc_findIncendiaryGrenade;
+            if (_grenadeResult isNotEqualTo []) then
             {
-                {
-                    if ((typeOf _x) == "ACE_G_M14")
-                        exitWith
-                    {
-                        _weapon = "ACE AN-M14";
-                        _instigator =
-                            (getShotParents _x) select 0;
-                    };
-                    if ((typeOf _x)
-                        == "rhs_ammo_an_m14_th3") exitWith
-                    {
-                        _weapon = "RHS AN-M14";
-                        _instigator =
-                            (getShotParents _x) select 0;
-                    };
-                }
-                forEach _grenades;
+                _instigator = _grenadeResult select 0;
+                _weapon = _grenadeResult select 1;
             };
 
-            if (_weapon != "?") exitWith {};
+            if (_weapon isNotEqualTo "?") exitWith {};
 
             // Look through cookoffs.
             {
@@ -217,7 +200,7 @@ TN_tracker_fnc_findSide =
             /*
             if (_unit != _instigator) exitWith {};
             //Case where walked away from incendiary grenade/cookoff fire but still on fire?
-            if (_weapon == "?") then
+            if (_weapon isEqualTo "?") then
             {
                 private _burnInstigator = _unit getVariable ["TN_burnInstigator", objNull];
                 if (_burnInstigator == _instigator) then
@@ -247,7 +230,7 @@ TN_tracker_fnc_findSide =
     // with so we just want as a minimum backup for the
     // above case.
     // Instigator is always null.
-    if (_ammo == "fire") then
+    if (_ammo isEqualTo "fire") then
     {
         if (!alive _unit) exitWith {};
         // Throttle to avoid spam.
@@ -255,32 +238,16 @@ TN_tracker_fnc_findSide =
 
         private _weapon = "?";
         // Look for ACE/RHS incendiary grenade.
-        private _grenades = (position _unit)
-            nearObjects [
-                "GrenadeHand",
-                INFANTRY_GRENADE_DISTANCE
-            ];
-        if (_grenades isNotEqualTo []) then
+        private _grenadeResult = [position _unit,
+            INFANTRY_GRENADE_DISTANCE]
+            call TN_tracker_fnc_findIncendiaryGrenade;
+        if (_grenadeResult isNotEqualTo []) then
         {
-            {
-                if ((typeOf _x) == "ACE_G_M14") exitWith
-                {
-                    _weapon = "ACE AN-M14";
-                    _instigator =
-                        (getShotParents _x) select 0;
-                };
-                if ((typeOf _x)
-                    == "rhs_ammo_an_m14_th3") exitWith
-                {
-                    _weapon = "RHS AN-M14";
-                    _instigator =
-                        (getShotParents _x) select 0;
-                };
-            }
-            forEach _grenades;
+            _instigator = _grenadeResult select 0;
+            _weapon = _grenadeResult select 1;
         };
 
-        if (_weapon == "?") then
+        if (_weapon isEqualTo "?") then
         {
             // Look through cookoffs.
             {
@@ -299,7 +266,7 @@ TN_tracker_fnc_findSide =
 
         TN_tracker_lastFireCheck = time;
 
-        if (_weapon == "?") exitWith {};
+        if (_weapon isEqualTo "?") exitWith {};
 
         private _sideInstigator =
             _instigator call TN_tracker_fnc_findSide;
@@ -315,8 +282,8 @@ TN_tracker_fnc_findSide =
     };
 
     // Vehicle explosion.
-    if (_ammo == "FuelExplosion"
-        || _ammo == "FuelExplosionBig") then
+    if (_ammo isEqualTo "FuelExplosion"
+        || _ammo isEqualTo "FuelExplosionBig") then
     {
         if (isNull _instigator) then
         {

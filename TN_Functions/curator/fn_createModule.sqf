@@ -32,7 +32,7 @@ if (time == 0) exitWith
     ] call CBA_fnc_waitUntilAndExecute;
 };
 
-_playerVarName = toLower _playerVarName;
+_playerVarName = toLowerANSI _playerVarName;
 
 if !(_playerVarName in TN_curator_units) exitWith {};
 

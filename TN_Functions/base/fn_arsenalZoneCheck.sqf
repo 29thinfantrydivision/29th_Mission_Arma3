@@ -32,7 +32,7 @@ private _inZone = false;
 
 if (_inZone) then
 {
-    if (arsenalActionId == -1) then
+    if (arsenalActionId isEqualTo -1) then
     {
         if !(TN_base_keepEnvironmentSounds) then
         {
@@ -63,7 +63,7 @@ if (_inZone) then
 }
 else
 {
-    if (arsenalActionId != -1) then
+    if (arsenalActionId isNotEqualTo -1) then
     {
         ENV_ON;
         player removeAction arsenalActionId;

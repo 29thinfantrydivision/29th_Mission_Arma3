@@ -130,15 +130,16 @@ if (hasInterface) then
     }] call CBA_fnc_waitUntilAndExecute;
 
     //Hide map markers belonging to opposing sides
+    private _sideStrings = [east, west, civilian, independent]
+        apply { toLowerANSI str _x };
+    private _playerSideStr = toLowerANSI str playerSide;
     {
         _x setMarkerAlphaLocal 0;
     } count (allMapMarkers select {
         private _marker = _x;
-        !([east, west, civilian, independent] select {
-            toLower str _x in _marker
-        } isEqualTo [])
+        _sideStrings findIf { _x in _marker } > -1
         && {
-            !(toLower str playerSide in _x)
+            !(_playerSideStr in _x)
         }
     });
 };

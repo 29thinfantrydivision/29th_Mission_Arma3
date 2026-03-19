@@ -24,21 +24,7 @@ if (!isServer) exitWith {};
 
 private _clientOwner = remoteExecutedOwner;
 
-// Test each connected client for admin status.
-// Default is server, to avoid sending hints to clients when no
-// logged admin is present.
-private _adminClient = 2;
-{
-    private _currentID = owner _x;
-    private _adminStatus = admin _currentID;
-
-    // If player is logged admin, define their clientOwnerID
-    // as admin and exit forEach loop.
-    if (_adminStatus isEqualTo 2) exitWith
-    {
-        _adminClient = _currentID;
-    };
-} forEach (allPlayers - entities "HeadlessClient_F");
+private _adminClient = TN_ticket_adminClient;
 
 // Map the side to its global variable name and admin-facing label.
 // Civilian and unknown sides are ignored.

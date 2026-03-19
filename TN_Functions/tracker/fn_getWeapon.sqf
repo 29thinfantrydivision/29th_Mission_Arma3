@@ -22,7 +22,7 @@ private _weaponName =
 if (isNull _vehicle) then
 {
     // Hand grenade case.
-    if (_weapon == "Throw") exitWith
+    if (_weapon isEqualTo "Throw") exitWith
     {
         // Sometimes short is longer than non-short.
         private _fullName = getText (
@@ -43,19 +43,19 @@ if (isNull _vehicle) then
     };
 
     // RHS disposable launcher case.
-    if (getNumber (_weaponCfg >> "rhs_disposable") == 1)
+    if (getNumber (_weaponCfg >> "rhs_disposable") isEqualTo 1)
         exitWith { _weaponName };
 
     // Strip unneeded/misleading text if infantry weapon.
-    if (_weapon == _muzzle) then
+    if (_weapon isEqualTo _muzzle) then
     {
         private _pos = _weaponName find " (";
-        if (_pos != -1) then
+        if (_pos isNotEqualTo -1) then
         {
             _weaponName = _weaponName select [0, _pos];
         };
         _pos = _weaponName find " GL";
-        if (_pos != -1) then
+        if (_pos isNotEqualTo -1) then
         {
             _weaponName = _weaponName select [0, _pos];
         };
@@ -76,7 +76,7 @@ if (isNull _vehicle) then
                 >> _magazine >> "displayName"
         );
         private _ammoName = [_shortName, _longName]
-            select (_shortName == "");
+            select (_shortName isEqualTo "");
         _strs pushBack _ammoName;
     };
 
@@ -92,7 +92,7 @@ else
             configOf _vehicle >> "displayName"
         );
         private _pos = _vehicleName find " (";
-        if (_pos != -1) then
+        if (_pos isNotEqualTo -1) then
         {
             _vehicleName = _vehicleName select [0, _pos];
         };
@@ -105,7 +105,7 @@ else
         getText (
             configFile >> "CfgAmmo"
                 >> _ammo >> "simulation"
-        ) != "shotBullet"
+        ) isNotEqualTo "shotBullet"
         || count getArray (
             _weaponCfg >> "magazineWell"
         ) > 0
@@ -120,7 +120,7 @@ else
                 >> _magazine >> "displayName"
         );
         private _ammoName = [_shortName, _longName]
-            select (_shortName == "");
+            select (_shortName isEqualTo "");
         _strs pushBack _ammoName;
     };
 
