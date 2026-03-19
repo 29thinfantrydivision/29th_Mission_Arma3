@@ -27,7 +27,7 @@ Overall Future Goals
 
 ---
 v4.5.0
-14 MAR 2026
+19 MAR 2026
 ---
 * All "DOTT" tags in functions and variables converted to "TN", Dott_Functions folder
   renamed to TN_Functions per 1Lt. Ericksen request. Months of muscle memory wasted.
@@ -40,10 +40,11 @@ v4.5.0
   - Reformat function headers to ACE standard
   - Remove commented out code and unnecessary brackets
   - HEMTT linting pass: remove redundant bool comparisons, use `in` over `find`, `isNotEqualTo` over negated `isEqualTo`,
+    replace `==`/`!=` with `isEqualTo`/`isNotEqualTo`, `toLower` to `toLowerANSI` for non-user-input strings,
     remove redundant `_this` in call expressions, improve array emptiness checks, remove unnecessary short-circuit braces,
     use `parseNumber`/`configOf`, convert variable declarations to `params`
   - Define magic numbers and convert constant variables into `#define`
-  - Rename global variables for consistency
+  - Rename global variables for consistency, add module name prefix to base global variables
   - Move code from oversized addEventHandler and addMissionEventHandler blocks into separate function files
   - Move logic from oversized files into subfolders (readyui, tracker/diary)
   - Replace `findIf` with `in` where applicable
@@ -53,7 +54,7 @@ v4.5.0
 
 * Unscheduling Effort
   - Major pass to replace `spawn`/`waitUntil` patterns with unscheduled `call` and CBA alternatives (`perFrameHandler`, `waitAndExecute`).
-    Scheduled environment is slower and less predictable, so moving as much as possible to unscheduled.
+    Scheduled environment is less predictable, so moving as much as possible to unscheduled.
   - Round init, round events (via perFrameHandler), checkWinCondition, aliveCheck all now unscheduled
   - Spectator enter/exit no longer use scheduled environment
   - Tracker and parade init unscheduled
@@ -88,6 +89,9 @@ v4.5.0
   - fn_markEditorPlacedObjects: fix wrong variable (_x -> _obj) in boundingBox call
   - Delete disconnecting bodies if round has not started yet.
   - Rename `gameCalled` variable to `TN_event_missionEnded`.
+  - Fix oversight where starting deaths were not tracked before round start.
+  - Remove `_forceEnding` as a parameter from `fn_game`.
+  - Add `private` declarations for local variables in `fn_markEditorPlacedObjects`.
 
 * Loadout
   - Add additional failsafe for flexibleReset teleport, if player is not within 75 meters of teleport point
@@ -99,6 +103,7 @@ v4.5.0
 
 * Parade
   - Hopefully fix custom parade uniform not being applied on join by checking if respawn template parade loadout is applied first.
+  - Uniform message now states if loadout is not the default.
 
 * Round
   - Add safe start time to the Round Ready UI.
@@ -108,6 +113,7 @@ v4.5.0
   - Replace `fn_isRoundActive` function and `TN_round_safeStartActive` variable with a single `TN_round_state` integer enum.
     New `data/roundState.hpp` provides ROUND_IDLE, ROUND_SAFE, ROUND_LIVE defines so code reads cleaner than comparing raw numbers.
   - Rename vague `data/defines.hpp` to `templates.hpp`.
+  - Safe start helper now uses `perFrameHandler` instead of chained `waitAndExecute`.
 
 * Settings
   - Add check to exclude non-global settings from GUI.
@@ -117,12 +123,16 @@ v4.5.0
   - Fix hit not overwriting potentially saved hit time if projectile has hit other valid objects.
   - Batch vehicle and crew sendHit calls into a single remoteExecCall instead of one per unit by passing an array of objects instead to sendHit.
   - Fix burnSimulation EH searching for incendiary grenades around player instead of the burning unit when instigator is null.
+  - Move incendiary grenade find logic to separate function (`fn_findIncendiaryGrenade`).
   - Optimize burnSimulation EH by skipping all nearObjects searches if the burn instigator was cached within the last 5 seconds.
     The cache timestamp is reset whenever a new instigator is found, so the window stays fresh while the unit is actively burning.
     After 5 seconds the searches resume, allowing re-attribution if the unit walks into a new fire source.
   - Optimize woundReceived burn handler by removing a redundant _fn_findSide call in the null instigator path.
     The result was always immediately overwritten by the same call that runs unconditionally after the if/else block.
   - Temporary method of sending round history on join finally reworked, send all rounds in 1 remoteExec to new receiveAll function.
+
+* Ticket
+  - Cache current admin into `fn_init` to avoid repeated lookup in `fn_count`.
 
 ---
 v4.4.2
