@@ -37,6 +37,32 @@ v4.5.0
   - Fixed/standardized indentations and other standards
   - Deduplicate code and remove dead code
   - Reduce size of gui.hpp by using inheritance
+  - Reformat function headers to ACE standard
+  - Remove commented out code and unnecessary brackets
+  - HEMTT linting pass: remove redundant bool comparisons, use `in` over `find`, `isNotEqualTo` over negated `isEqualTo`,
+    remove redundant `_this` in call expressions, improve array emptiness checks, remove unnecessary short-circuit braces,
+    use `parseNumber`/`configOf`, convert variable declarations to `params`
+  - Define magic numbers and convert constant variables into `#define`
+  - Rename global variables for consistency
+  - Move code from oversized addEventHandler and addMissionEventHandler blocks into separate function files
+  - Move logic from oversized files into subfolders (readyui, tracker/diary)
+  - Replace `findIf` with `in` where applicable
+  - Replace `switch` with `select` for static literal cases
+  - Replace `entityCreated` eventHandlers with `addClassEventHandlers`
+  - Ensure all void functions explicitly return nil
+
+* Unscheduling Effort
+  - Major pass to replace `spawn`/`waitUntil` patterns with unscheduled `call` and CBA alternatives (`perFrameHandler`, `waitAndExecute`).
+    Scheduled environment is slower and less predictable, so moving as much as possible to unscheduled.
+  - Round init, round events (via perFrameHandler), checkWinCondition, aliveCheck all now unscheduled
+  - Spectator enter/exit no longer use scheduled environment
+  - Tracker and parade init unscheduled
+  - setInsignia and fullSetUnitLoadout now use call instead of spawn
+  - flexibleReset partially unscheduled (still needs scheduled for sleep)
+  - event/fn_respawn refactored to be callable by moving the spawn into the calling code
+  - excludeObjects loop replaced with perFrameHandler
+
+* Expanded logging in init.sqf and initPlayerLocal.sqf. Each module now logs its run time during initialization.
 
 * description.ext: Removed duplicate cfgNotifications include
 
@@ -57,9 +83,11 @@ v4.5.0
 * Event
   - Merged admin actions on flag into a single "Event Menu", which opens a GUI displaying actions that were formerly on the pole.
     Care taken to ensure new ready UI system is not hidden when GUI is opened.
+  - Event Menu now attached to player's admin object instead of the flags. Creates fn_handleAdminEventMenu.sqf.
   - New "Forced Safe Start" system implemented, admin can start long safe start and teams can ready to reduce to shorter safe start.
   - fn_markEditorPlacedObjects: fix wrong variable (_x -> _obj) in boundingBox call
   - Delete disconnecting bodies if round has not started yet.
+  - Rename `gameCalled` variable to `TN_event_missionEnded`.
 
 * Loadout
   - Add additional failsafe for flexibleReset teleport, if player is not within 75 meters of teleport point
@@ -77,6 +105,9 @@ v4.5.0
   - Safe start timer now restores to the remaining forced duration when a team unreadies after all teams had readied up early,
     adjusted for time passed.
   - Replace nil/true pattern for safeStartActive variable with false/true.
+  - Replace `fn_isRoundActive` function and `TN_round_safeStartActive` variable with a single `TN_round_state` integer enum.
+    New `data/roundState.hpp` provides ROUND_IDLE, ROUND_SAFE, ROUND_LIVE defines so code reads cleaner than comparing raw numbers.
+  - Rename vague `data/defines.hpp` to `templates.hpp`.
 
 * Settings
   - Add check to exclude non-global settings from GUI.
