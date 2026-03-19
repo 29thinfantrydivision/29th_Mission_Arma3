@@ -20,7 +20,7 @@
  * N/A
  */
 
-private _text = [_this, 0, ""] call BIS_fnc_param;
+params [["_text", "", [""]]];
 
 // Strip leading command marker
 _text = _text select [1, count _text - 1];
