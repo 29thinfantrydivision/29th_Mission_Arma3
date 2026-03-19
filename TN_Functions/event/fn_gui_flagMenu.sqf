@@ -137,7 +137,7 @@ private _fnc_rebuild =
                 "Neutral Ending",
                 {
                     params ["_ctrl"];
-                    [true] call TN_event_fnc_game;
+                    [] call TN_event_fnc_game;
                     call TN_event_fnc_closeFlagMenu;
                 },
                 [0.75, 0.25, 1, 1]
@@ -167,7 +167,7 @@ private _fnc_rebuild =
                         {
                             params ["_ctrl"];
                             private _side = _ctrl getVariable "TN_side";
-                            [true, _side] call TN_event_fnc_game;
+                            [_side] call TN_event_fnc_game;
                             call TN_event_fnc_closeFlagMenu;
                         },
                         _sideColor,

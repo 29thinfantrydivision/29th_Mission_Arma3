@@ -95,12 +95,6 @@ private _endChecks = [[{ false }], [{ false }], [{ false }]];
     };
 } forEach (allMissionObjects "all");
 
-fn_numPoints =
-{
-    params ["_sideId", "_pointsRequired"];
-    TN_event_score select _sideId >= _pointsRequired
-};
-
 private _sideSettings =
 [
     TN_event_opforWinConditions,
@@ -118,8 +112,10 @@ private _sideSettings =
     {
         case "points":
         {
-            [fn_numPoints,
-                [_forEachIndex, _winArgs]];
+            [{
+                params ["_sideId", "_pointsRequired"];
+                TN_event_score select _sideId >= _pointsRequired
+            }, [_forEachIndex, _winArgs]];
         };
         default
         {
@@ -146,11 +142,11 @@ private _sideSettings =
             if (_args call _fnCheck) exitWith
             {
                 private _winningSide = _forEachIndex call BIS_fnc_sideType;
-                [true, _winningSide] call TN_event_fnc_game;
+                [_winningSide] call TN_event_fnc_game;
             };
         } forEach _endChecks;
 
-        [true] call TN_event_fnc_game;
+        [] call TN_event_fnc_game;
     }, _endChecks
 ] call CBA_fnc_addEventHandlerArgs;
 
@@ -167,7 +163,7 @@ if (isNil "TN_event_winCheckInterval") then
         if (_args call _fnCheck) exitWith
         {
             private _winningSide = _forEachIndex call BIS_fnc_sideType;
-            [true, _winningSide] call TN_event_fnc_game;
+            [_winningSide] call TN_event_fnc_game;
         };
     } forEach _loopChecks;
 }, TN_event_winCheckInterval, _loopChecks, {}, {}, {true}, {NOT_ROUND_LIVE}] call CBA_fnc_createPerFrameHandlerObject;
