@@ -1,0 +1,35 @@
+#define DELAY_UNLOCK(_unit) [{ _this call TN_vehicle_fnc_unlockUnconsciousSeat }, _unit, 0.5] call CBA_fnc_waitAndExecute
+
+["CAManBase", "GetInMan", {
+    params ["_unit", "", "_vehicle"];
+
+    if (local _vehicle) then {
+        [_unit] call TN_vehicle_fnc_saveUnconsciousSeat;
+    };
+}] call CBA_fnc_addClassEventHandler;
+
+["CAManBase", "GetOutMan", {
+    params ["_unit", "", "_vehicle"];
+
+    if (local _vehicle) then {
+        DELAY_UNLOCK(_unit);
+    };
+}] call CBA_fnc_addClassEventHandler;
+
+["ace_unconscious", {
+    params ["_unit", "_unconscious"];
+    if (!isNull objectParent _unit && {local objectParent _unit}) then {
+        if (_unconscious) then {
+            [_unit] call TN_vehicle_fnc_saveUnconsciousSeat;
+        } else {
+            DELAY_UNLOCK(_unit);
+        };
+    };
+}] call CBA_fnc_addEventHandler;
+
+["ace_killed", { // global event
+    params ["_unit"];
+    if (!isNull objectParent _unit && {local objectParent _unit}) exitWith {
+        DELAY_UNLOCK(_unit);
+    };
+}] call CBA_fnc_addEventHandler;

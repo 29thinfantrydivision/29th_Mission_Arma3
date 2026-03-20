@@ -132,6 +132,14 @@ class TN_Vehicle
         file = "TN_Functions\vehicle";
         class init {};
     };
+
+    class ACELockFixFunctions
+    {
+        file = "TN_Functions\vehicle\ACELockFix";
+        class lockFixInit {};
+        class saveUnconsciousSeat {};
+        class unlockUnconsciousSeat {};
+    };    
 };
 
 class TN_OCAP

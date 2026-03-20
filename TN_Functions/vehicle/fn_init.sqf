@@ -15,6 +15,11 @@
  * call TN_vehicle_fnc_init;
  */
 
+if (isClass (configFile >> "CfgPatches" >> "ace_main")) then
+{
+    call TN_vehicle_fnc_lockFixInit;
+};
+
 if (!isServer) exitWith {};
 
 if (isClass (configFile >> "CfgPatches" >> "ace_main")) then

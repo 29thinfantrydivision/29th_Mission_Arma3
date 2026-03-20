@@ -135,6 +135,12 @@ v4.5.0
 * Ticket
   - Cache current admin into `fn_init` to avoid repeated lookup in `fn_count`.
 
+* Vehicle
+  - Added workaround for ACE bug that left vehicle seats locked when uncon -> dead players were moved out of the seat via ACE interaction.
+    While ACE has a variable toggle to turn this feature off, doing so causes various bugs that can cause confusion to players, so a workaround
+    was the best choice. Waits 0.5 seconds after ACE's potential failed attempt to unlock vehicle and tries it when (assume network race conditions)
+    should no longer cause the bug.
+
 ---
 v4.4.2
 06 MAR 2026
