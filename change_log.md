@@ -132,6 +132,9 @@ v4.5.0
     The result was always immediately overwritten by the same call that runs unconditionally after the if/else block.
   - Temporary method of sending round history on join finally reworked, send all rounds in 1 remoteExec to new receiveAll function.
 
+* Training
+  - Deleting bodies at base on disconnect no longer occurs during round live to reduce lag spikes caused by disconnecting.
+
 * Ticket
   - Cache current admin into `fn_init` to avoid repeated lookup in `fn_count`.
 

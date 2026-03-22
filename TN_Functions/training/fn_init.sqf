@@ -1,3 +1,5 @@
+#include "..\..\data\roundState.hpp"
+
 /*
  * Author: Bae [29th ID]
  * Initializes the training variation of the mission template.
@@ -124,7 +126,7 @@ if (isServer) then
         private _pos = getPosASL _unit;
 
         {
-            if (_pos distance _x < 75) exitWith
+            if (_pos distance _x < 75 && NOT_ROUND_LIVE) exitWith
             {
                 deleteVehicle _unit;
             };
