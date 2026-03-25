@@ -5,18 +5,6 @@ _seat params ["_vehicle", "_type", "_position"];
 
 if (_seat isEqualTo []) exitWith {};
 
-switch (_type) do {
-    case "driver": {
-        _vehicle lockDriver false;
-    };
+_unit setVariable ["ace_medical_engine_lockedSeat", _seat];
 
-    case "cargo": {
-        _vehicle lockCargo [_position, false];
-    };
-
-    case "turret": {
-        _vehicle lockTurret [_position, false];
-    };
-};
-
-_unit setVariable ["TN_vehicle_lockedSeat", nil, true];
+_unit call ace_medical_engine_fnc_unlockUnconsciousSeat;
