@@ -116,24 +116,6 @@ if (isServer) then
     private _forcedOvercast = 0.1;
     private _forcedFog = [0.1, 0.01, 0];
     [_forcedDate, _forcedOvercast, _forcedFog] call TN_training_fnc_initDateAndWeather;
-
-    addMissionEventHandler ["HandleDisconnect",
-    {
-        params ["_unit"];
-
-        if (isNull _unit) exitWith {}; //shouldn't be null but just in case
-
-        private _pos = getPosASL _unit;
-
-        {
-            if (_pos distance _x < 75 && NOT_ROUND_LIVE) exitWith
-            {
-                deleteVehicle _unit;
-            };
-        } forEach TN_arsenal_centers;
-
-        false //make sure true isn't the return, would make the units AI controlled
-    }];
 };
 
 nil

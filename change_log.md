@@ -89,7 +89,6 @@ v4.5.0
   - Event Menu now attached to player's admin object instead of the flags. Creates fn_handleAdminEventMenu.sqf.
   - New "Forced Safe Start" system implemented, admin can start long safe start and teams can ready to reduce to shorter safe start.
   - fn_markEditorPlacedObjects: fix wrong variable (_x -> _obj) in boundingBox call
-  - Delete disconnecting bodies if round has not started yet.
   - Rename `gameCalled` variable to `TN_event_missionEnded`.
   - Fix oversight where starting deaths were not tracked before round start.
   - Remove `_forceEnding` as a parameter from `fn_game`.
@@ -116,6 +115,9 @@ v4.5.0
     New `data/roundState.hpp` provides ROUND_IDLE, ROUND_SAFE, ROUND_LIVE defines so code reads cleaner than comparing raw numbers.
   - Rename vague `data/defines.hpp` to `templates.hpp`.
   - Safe start helper now uses `perFrameHandler` instead of chained `waitAndExecute`.
+  - Deleting disconnected bodies moved here from training, which means it also applies to event variation.
+    Now simply deletes all disconnecting bodies unless round is live.
+
 
 * Settings
   - Add check to exclude non-global settings from GUI.
@@ -135,6 +137,7 @@ v4.5.0
 
 * Training
   - Deleting bodies at base on disconnect no longer occurs during round live to reduce lag spikes caused by disconnecting.
+  - Moved deleting disconnecting bodies to round.
 
 * Ticket
   - Cache current admin into `fn_init` to avoid repeated lookup in `fn_count`.

@@ -149,21 +149,4 @@ if (hasInterface) then
     });
 };
 
-if (isServer) then
-{
-    addMissionEventHandler ["HandleDisconnect",
-    {
-        params ["_unit"];
-
-        if (isNull _unit) exitWith {};
-
-        if (NOT_ROUND_LIVE) then
-        {
-            deleteVehicle _unit;
-        };
-
-        false
-    }];
-};
-
 nil

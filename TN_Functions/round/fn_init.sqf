@@ -56,6 +56,21 @@ if (isServer) then
             } forEach [west, east, independent];
         }
     ] call CBA_fnc_addEventHandler;
+
+    //Delete disconnecting bodies when not LIVE
+    addMissionEventHandler ["HandleDisconnect",
+    {
+        params ["_unit"];
+
+        if (isNull _unit) exitWith {};
+
+        if (NOT_ROUND_LIVE) then
+        {
+            deleteVehicle _unit;
+        };
+
+        false
+    }];    
 };
 
 /* ---- Client-side initialization ---- */
