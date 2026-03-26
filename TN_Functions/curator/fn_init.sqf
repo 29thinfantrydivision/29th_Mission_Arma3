@@ -17,13 +17,10 @@
  *     TN_exitedZeus  - Fired when a player closes Zeus.
  *
  * Admin Login/Logout Handler:
- *     OnUserAdminStateChanged mission event handler manages
- *     the shared zeus_admin curator module. On login, the
- *     admin unit is assigned to zeus_admin (unassign first to
- *     handle edge cases). On logout, zeus_admin is unassigned
- *     and a personal curator module is recreated for the unit
- *     so they keep Zeus access if their role is in
- *     TN_curator_units.
+ *     Subscribes to "TN_adminStateChanged" CBA event. On login,
+ *     the admin unit is assigned to zeus_admin (unassign first
+ *     to handle edge cases). On logout, zeus_admin is unassigned
+ *     and the unit's personal curator module is reassigned.
  *
  * Arguments:
  * None
@@ -87,16 +84,14 @@ if (isServer) then
         ] call CBA_fnc_waitUntilAndExecute;
     };
 
-    [{!isNil "zeus_admin" || time > 10}, {
-        //failsafe if zeus_admin isn't defined by now
-        if (time > 10) exitWith
+    [
+        "TN_adminStateChanged",
         {
-            diag_log text format ["zeus_admin not defined, skipping event handlers"];
-        };
-
-        addMissionEventHandler ["OnUserAdminStateChanged",
-            { call TN_curator_fnc_handleAdminStateChanged }];
-    }] call CBA_fnc_waitUntilAndExecute;
+            params ["_unit", "_loggedIn"];
+            if (isNull _unit || isNil "zeus_admin") exitWith {};
+            [_unit, _loggedIn] call TN_curator_fnc_handleAdminStateChanged;
+        }
+    ] call CBA_fnc_addEventHandler;
 
     call TN_curator_fnc_excludeObjects;
 };

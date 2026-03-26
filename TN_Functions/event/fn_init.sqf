@@ -40,22 +40,17 @@ if (TN_event_hasTimer) then
 
     if (isServer) then
     {
-        addMissionEventHandler [
-            "OnUserAdminStateChanged",
-        {
-            params ["_networkId", "_loggedIn"];
-
-            private _userInfo = getUserInfo _networkId;
-            if (count _userInfo < 11) exitWith {};
-
-            private _unit = _userInfo select 10;
-            if (isNil "_unit") exitWith {};
-
-            [_loggedIn] remoteExecCall [
-                "TN_event_fnc_handleAdminEventMenu",
-                owner _unit
-            ];
-        }];
+        [
+            "TN_adminStateChanged",
+            {
+                params ["_unit", "_loggedIn"];
+                if (isNull _unit) exitWith {};
+                [_loggedIn] remoteExecCall [
+                    "TN_event_fnc_handleAdminEventMenu",
+                    owner _unit
+                ];
+            }
+        ] call CBA_fnc_addEventHandler;
 
         [
             "TN_round_started",

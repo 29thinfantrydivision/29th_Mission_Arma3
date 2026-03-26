@@ -43,26 +43,14 @@ if (isServer) then
         };
     } forEach (allPlayers - entities "HeadlessClient_F");
 
-    addMissionEventHandler [
-        "OnUserAdminStateChanged",
-    {
-        params ["_networkId", "_loggedIn"];
-
-        if (_loggedIn) then
+    [
+        "TN_adminStateChanged",
         {
-            private _userInfo = getUserInfo _networkId;
-            if (count _userInfo < 11) exitWith {};
-
-            private _unit = _userInfo select 10;
-            if (isNil "_unit") exitWith {};
-
-            TN_ticket_adminClient = owner _unit;
+            params ["_unit", "_loggedIn"];
+            if (isNull _unit) exitWith {};
+            TN_ticket_adminClient = [2, owner _unit] select _loggedIn;
         }
-        else
-        {
-            TN_ticket_adminClient = 2;
-        };
-    }];
+    ] call CBA_fnc_addEventHandler;
 };
 
 if (hasInterface) then

@@ -1,24 +1,21 @@
 /*
  * Author: Bae [29th ID]
- * Handles the OnUserAdminStateChanged mission event.
+ * Handles admin login/logout for the curator system.
  * On login, assigns the admin to zeus_admin curator module.
- * On logout, unassigns zeus_admin and recreates a personal
- * curator module if their role is in TN_curator_units.
+ * On logout, unassigns zeus_admin and reassigns the unit's
+ * personal curator module.
+ *
+ * Called via CBA event "TN_adminStateChanged".
  *
  * Arguments:
- * OnUserAdminStateChanged EH params
+ * 0: Admin unit <OBJECT>
+ * 1: Logged in <BOOL>
  *
  * Return Value:
  * Nothing
  */
 
-params ["_networkId", "_loggedIn"];
-
-private _userInfo = getUserInfo _networkId;
-if (count _userInfo < 11) exitWith {};
-
-private _unit = _userInfo select 10;
-if (isNil "_unit") exitWith {};
+params ["_unit", "_loggedIn"];
 
 if (_loggedIn) exitWith
 {

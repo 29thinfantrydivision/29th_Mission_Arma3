@@ -20,6 +20,8 @@ class TN_Common
     class CommonFunctions
     {
         file = "TN_Functions\common";
+        class init {};
+        class initAdminStateChanged {};
         class addDiaryRecord {};
         class diag_log {};
         class displayMsg {};

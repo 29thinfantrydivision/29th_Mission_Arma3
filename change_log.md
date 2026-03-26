@@ -78,6 +78,9 @@ v4.5.0
   - Rewrote arsenal command and moved logic into separate subfolder. 
     Arsenals created with this command are deleted automatically on round start.
 
+* Common (New Module)
+  - Deduplicate admin change event handlers by creating TN_adminStateChanged CBA event.
+
 * Curator
   - fn_addPlayerEditable generalized to fn_addEditable
   - Remove roleDescription param from createModule
