@@ -228,7 +228,7 @@ if (isServer) then
                 if (isNil "TN_round_clientSilentWeapons") exitWith {};
 
                 private _msg = format [
-                    "%1 has silent weapon.",
+                    "%1 has silent weapon. Drop and pickup your weapon.",
                     keys TN_round_clientSilentWeapons
                 ];
                 diag_log text _msg;
