@@ -205,11 +205,19 @@ class TN_Tracker
         class getSideAtTime {};
         class getWeapon {};
         class addEventHandlersClient {};
+    };
+    class EventHandlerFunctions
+    {
+        file = "TN_Functions\tracker\eventhandlers";
         class handleFired {};
-        class handleVehicleKilled {};
         class hit {};
         class sendHit {};
+        class handleVehicleKilled {};
         class findIncendiaryGrenade {};
+        class findSide {};
+        class handleExplosivePlace {};
+        class handleWoundReceived {};
+        class handleBurnSimulation {};
     };
     class DiaryFunctions
     {

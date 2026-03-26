@@ -13,7 +13,8 @@
 
 params [
     "_unit", "_weapon", "_muzzle", "",
-    "_ammo", "_magazine", "_projectile", "_vehicle"
+    "_ammo", "_magazine", "_projectile",
+    ["_vehicle", objNull]
 ];
 private _realWeapon =
     TN_tracker_weaponNameCache getOrDefaultCall [

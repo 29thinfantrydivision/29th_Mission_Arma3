@@ -45,7 +45,7 @@ v4.5.0
     use `parseNumber`/`configOf`, convert variable declarations to `params`
   - Define magic numbers and convert constant variables into `#define`
   - Rename global variables for consistency, add module name prefix to base global variables
-  - Move code from oversized addEventHandler and addMissionEventHandler blocks into separate function files
+  - Move code from oversized addEventHandler (incl. CBA) and addMissionEventHandler blocks into separate function files
   - Move logic from oversized files into subfolders (readyui, tracker/diary)
   - Replace `findIf` with `in` where applicable
   - Replace `switch` with `select` for static literal cases
@@ -137,6 +137,7 @@ v4.5.0
   - Optimize woundReceived burn handler by removing a redundant _fn_findSide call in the null instigator path.
     The result was always immediately overwritten by the same call that runs unconditionally after the if/else block.
   - Temporary method of sending round history on join finally reworked, send all rounds in 1 remoteExec to new receiveAll function.
+  - New subfolder eventHandlers that holds related code.
 
 * Training
   - Deleting bodies at base on disconnect no longer occurs during round live to reduce lag spikes caused by disconnecting.
