@@ -81,19 +81,17 @@ if (hasInterface) then
 
     /* --- JIP scoreboard suppression ---
      * showScoreTable silently fails if called too early. */
-    addMissionEventHandler [
-        "PreloadFinished",
+    [
+        "TN_preloadFinished",
         {
             if (
-                ROUND_LIVE
-                && TN_disableScoreboard
+                ROUND_LIVE && TN_disableScoreboard
             ) then
             {
                 showScoretable 0;
             };
-            removeMissionEventHandler ["PreloadFinished", _thisEventHandler];
         }
-    ];
+    ] call CBA_fnc_addEventHandler;
 
     /* --- Prevent scoreboard in respawn menu --- */
     [

@@ -1,7 +1,8 @@
 /*
  * Author: Bae [29th ID]
- * Initializes shared common utilities on the server.
- * Registers the centralized admin state change handler.
+ * Initializes shared common utilities.
+ * Registers centralized mission event handlers that fire
+ * CBA events for consumer modules.
  *
  * Arguments:
  * None
@@ -16,6 +17,12 @@
 if (isServer) then
 {
     call TN_common_fnc_initAdminStateChanged;
+};
+
+if (hasInterface) then
+{
+    //No point of having this on server since it can't JIP
+    call TN_common_fnc_initPreloadFinished;
 };
 
 nil

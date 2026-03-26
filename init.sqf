@@ -20,6 +20,19 @@ diag_log text format [
     diag_log text format ["(%1/%2) %3: init complete (%4ms)", _forEachIndex + 1, count TN_MODULES, _moduleInitName, _elapsed * 1000];
 } forEach TN_MODULES;
 
+["TN_initFinished", {}] call CBA_fnc_localEvent;
+
+// Clean up all TN_initFinished handlers — one-shot event, never fires again.
+private _eventHash = CBA_events_eventHashes getVariable "TN_initFinished";
+if (!isNil "_eventHash") then
+{
+    private _lastId = [_eventHash, "#lastId"] call CBA_fnc_hashGet;
+    for "_i" from _lastId to 0 step -1 do
+    {
+        ["TN_initFinished", _i] call CBA_fnc_removeEventHandler;
+    };
+};
+
 diag_log text format [
     "|=============================   %1: init.sqf Finished   =============================|",
     missionName

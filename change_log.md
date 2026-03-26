@@ -80,6 +80,7 @@ v4.5.0
 
 * Common (New Module)
   - Deduplicate admin change event handlers by creating TN_adminStateChanged CBA event.
+  - Deduplicate preloadFinished event handlers by creating TN_preloadFinished CBA event.
 
 * Curator
   - fn_addPlayerEditable generalized to fn_addEditable

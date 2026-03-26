@@ -22,6 +22,7 @@ class TN_Common
         file = "TN_Functions\common";
         class init {};
         class initAdminStateChanged {};
+        class initPreloadFinished {};
         class addDiaryRecord {};
         class diag_log {};
         class displayMsg {};

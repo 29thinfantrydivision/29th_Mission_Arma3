@@ -39,25 +39,6 @@ private _fn_loadParade =
     };
 };
 
-if (isNil "bis_fnc_preload_init") then
-{
-    // JIP.
-    addMissionEventHandler
-    [
-        "PreloadFinished",
-        {
-            call (_thisArgs select 0);
-            removeMissionEventHandler [
-                "PreloadFinished", _thisEventHandler
-            ];
-        },
-        [_fn_loadParade]
-    ];
-}
-else
-{
-    // Non-JIP.
-    call _fn_loadParade;
-};
+["TN_preloadFinished", _fn_loadParade] call CBA_fnc_addEventHandler;
 
 nil

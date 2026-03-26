@@ -157,12 +157,13 @@ if (hasInterface) then
     TN_tracker_weaponNameCache = createHashMap;
     // --- Remove Statistics from Map, Send All
     //     Round Histories --- //
-    addMissionEventHandler ["PreloadFinished",
-    {
-        [player] remoteExecCall ["TN_tracker_fnc_sendAll", 2];
-        player removeDiarySubject "Statistics";
-        removeMissionEventHandler ["PreloadFinished", _thisEventHandler];
-    }];
+    [
+        "TN_preloadFinished",
+        {
+            [player] remoteExecCall ["TN_tracker_fnc_sendAll", 2];
+            player removeDiarySubject "Statistics";
+        }
+    ] call CBA_fnc_addEventHandler;
 
     // --- Fire/Burn Related Information --- //
     [
