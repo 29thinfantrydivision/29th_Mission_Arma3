@@ -14,7 +14,8 @@
  * call compile preprocessFileLineNumbers "TN_Functions\ocap\handleMarkers.sqf";
  */
 
-ocap_listener_markers = ["ocap_handleMarker", {
+TN_ocap_fnc_onHandleMarkers =
+{
 
   if !(ocap_recorder_recording && {ocap_recorder_startTime > -1}) exitWith {};
 
@@ -120,6 +121,8 @@ ocap_listener_markers = ["ocap_handleMarker", {
       };
     };
   };
-}] call CBA_fnc_addEventHandler;
+};
+
+ocap_listener_markers = ["ocap_handleMarker", { call TN_ocap_fnc_onHandleMarkers }] call CBA_fnc_addEventHandler;
 
 nil

@@ -78,24 +78,7 @@ private _fn_saveLrSettings =
 // Frequency changes apply to either SW or LR -- check both.
 [
     "TFAR_event_OnFrequencyChanged",
-    {
-        params ["_unit", "_radio"];
-        if (_unit isNotEqualTo player) exitWith {};
-
-        private _sw = call TFAR_fnc_activeSwRadio;
-        if (_sw isEqualTo _radio) exitWith
-        {
-            TN_saved_active_sr_settings =
-                _sw call TFAR_fnc_getSwSettings;
-        };
-
-        private _lr = call TFAR_fnc_activeLrRadio;
-        if (_lr isEqualTo _radio) exitWith
-        {
-            TN_saved_active_lr_settings =
-                _lr call TFAR_fnc_getLrSettings;
-        };
-    }
+    { call TN_radio_fnc_handleFrequencyChanged }
 ] call CBA_fnc_addEventHandler;
 
 // ------------------------------------------------------------------
@@ -153,40 +136,7 @@ private _fn_saveLrSettings =
 // ------------------------------------------------------------------
 [
     "loadout",
-    {
-        private _lr = player call TFAR_fnc_backpackLr;
-        if (isNil "_lr") exitWith {};
-
-        private _settings = TN_saved_active_lr_settings;
-        if (isNil "_settings") then
-        {
-            _settings = _lr call TFAR_fnc_getLrSettings;
-        };
-
-        // Resolve the correct encryption code for this radio.
-        private _correctCode = [
-            typeOf (_lr select 0),
-            "tf_encryptionCode", ""
-        ] call TFAR_fnc_getVehicleConfigProperty;
-
-        // Legacy alias -- may no longer be needed.
-        if (_correctCode isEqualTo "tf_guer_radio_code") then
-        {
-            _correctCode = "tf_independent_radio_code";
-        };
-        _correctCode = missionNamespace getVariable [
-            _correctCode, ""
-        ];
-
-        private _currentCode = _lr call TFAR_fnc_getLrRadioCode;
-
-        if (_currentCode isNotEqualTo _correctCode) then
-        {
-            _settings set [TFAR_CODE_OFFSET, _correctCode];
-        };
-
-        [_lr, _settings] call TFAR_fnc_setLrSettings;
-    }
+    { call TN_radio_fnc_handleLoadoutLr }
 ] call CBA_fnc_addPlayerEventHandler;
 
 // ------------------------------------------------------------------

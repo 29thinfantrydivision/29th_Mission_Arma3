@@ -61,6 +61,7 @@ class TN_Round
         class stopReadyUIPFH {};
         class updateReadyUI {};
         class flashReadyUI {};
+        class handleReadyChange {};
     };
 };
 
@@ -74,6 +75,8 @@ class TN_Radio
         class initTransferSettings {};
         class add {};
         class remove {};
+        class handleFrequencyChanged {};
+        class handleLoadoutLr {};
     };
 };
 
