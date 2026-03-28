@@ -1,8 +1,9 @@
+#include "script_component.hpp"
 #include "..\..\data\settingCategories.hpp"
 
 // --- Auto-spectate on respawn ---
 [
-    "TN_autoSpectate",
+    QGVARMAIN(autoSpectate),
     "CHECKBOX",
     "Automatic Spectate on Respawn",
     [GENERAL_SETTINGS_CATEGORY, SPECTATOR_SUBCATEGORY],
@@ -12,7 +13,7 @@
 
 // --- Spectator feature restrictions ---
 [
-    "TN_limitSpectator",
+    QGVARMAIN(limitSpectator),
     "LIST",
     "Limit Spectator Features",
     [GENERAL_SETTINGS_CATEGORY, SPECTATOR_SUBCATEGORY],
@@ -34,6 +35,6 @@
         systemChat
             "Spectator settings changed."
             + " Kicking out player to apply changes.";
-        call TN_spectator_fnc_exit;
+        call FUNC(exit);
     }
 ] call CBA_fnc_addSetting;

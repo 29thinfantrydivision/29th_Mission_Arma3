@@ -1,10 +1,11 @@
+#include "script_component.hpp"
 [
     [
         [
             "parade",
             {
                 // 125m hardcoded radius around the calling player.
-                [player, 125] call TN_parade_fnc_forceAll;
+                [player, 125] call FUNC(forceAll);
             }
         ]
     ],
@@ -14,4 +15,4 @@
             "Sets all players' loadout within 125m of your position to parade."
         ]
     ]
-] call TN_commands_fnc_addModule;
+] call EFUNC(commands,addModule);

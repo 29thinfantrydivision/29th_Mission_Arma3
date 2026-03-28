@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID]
  * Applies the parade loadout to the local player. If the player
@@ -51,7 +52,7 @@ else
     };
 };
 
-player call TN_loadout_fnc_setInsignia;
+player call EFUNC(loadout,setInsignia);
 systemChat (["Default parade loadout applied.", "Forced parade loadout applied."] select (_customParadeIdx isNotEqualTo -1));
 
 nil

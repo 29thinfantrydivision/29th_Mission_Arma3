@@ -1,3 +1,5 @@
+#include "script_component.hpp"
+
 /*
  * Author: Bae [29th ID]
  * Adds chat commands to the chat command system. Meant for modules to call on init.
@@ -10,14 +12,14 @@
  * Nothing
  *
  * Example:
- * call TN_commands_fnc_init;
+ * call TN_commands_fnc_addModule;
  */
 
-if (isNil "TN_commands_allCommands") exitWith { false };
+if (isNil QGVAR(allCommands)) exitWith { false };
 
 params [["_commands", [], [[]]], ["_helpInfo", [], [[]]]];
 
-TN_commands_allCommands append _commands;
-TN_commands_helpInfo append _helpInfo;
+GVAR(allCommands) append _commands;
+GVAR(helpInfo) append _helpInfo;
 
 nil

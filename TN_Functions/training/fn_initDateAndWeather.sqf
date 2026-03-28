@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID]
  * Sets date, overcast, and fog on the server. The engine

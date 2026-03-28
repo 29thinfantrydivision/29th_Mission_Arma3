@@ -1,3 +1,5 @@
+#include "script_component.hpp"
+
 /*
  * Author: Mallen [FNF], modified by Bae [29th ID]
  * Creates local map markers for editor-placed static objects
@@ -28,7 +30,7 @@ private _canMark =
     params ["_obj"];
 
     if (_obj getVariable
-        ["TN_autoMarkForceInclude", false]) exitWith
+        [QGVARMAIN(autoMarkForceInclude), false]) exitWith
     {
         true;
     };
@@ -41,7 +43,7 @@ private _canMark =
     ];
 
     if (_obj getVariable
-        ["TN_autoMarkExclude", false]) exitWith
+        [QGVARMAIN(autoMarkExclude), false]) exitWith
     {
         false;
     };

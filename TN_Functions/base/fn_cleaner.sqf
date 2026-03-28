@@ -1,3 +1,5 @@
+#include "script_component.hpp"
+
 /*
  * Author: Rellikplug AKA Hill [29th ID]
  * Removes all dead bodies globally and deletes loose
@@ -21,7 +23,7 @@ private _dead = allDeadMen;
 private _nearObjects = [];
 {
     _nearObjects append (nearestObjects [_x, ["WeaponHolder", "GroundWeaponHolder"], 250]);
-} forEach TN_base_garbages;
+} forEach GVAR(garbages);
 
 private _countObjects = count _nearObjects;
 private _countDead = count _dead;

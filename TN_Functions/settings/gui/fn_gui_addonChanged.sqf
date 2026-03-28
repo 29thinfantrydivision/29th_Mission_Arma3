@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID]
  * Fired when the user selects a different addon/category in
@@ -17,7 +18,7 @@
  */
 
 #define SERVER_TEMP \
-    (uiNamespace getVariable "TN_settings_serverTemp")
+    (uiNamespace getVariable QGVAR(serverTemp))
 
 params ["_control", "_index"];
 
@@ -30,12 +31,12 @@ if (isNil "_selectedAddon") exitWith {};
 if (_selectedAddon isEqualType "") then
 {
     uiNamespace setVariable [
-        "TN_settings_addon", _selectedAddon
+        QGVAR(addon), _selectedAddon
     ];
 };
 
 uiNamespace setVariable [
-    "TN_settings_addonIndex", _index
+    QGVAR(addonIndex), _index
 ];
 
 private _selectedSource = "server";
@@ -83,7 +84,7 @@ if !(_display getVariable [_selectedAddon, false]) then
     private _categorySettings = [];
 
     {
-        (TN_settings_default getVariable _x) params [
+        (GVAR(default) getVariable _x) params [
             "", "_setting", "", "",
             "_category", "", "", "", "",
             "_subCategory"
@@ -103,7 +104,7 @@ if !(_display getVariable [_selectedAddon, false]) then
                 _setting
             ];
         };
-    } forEach TN_settings_allSettings;
+    } forEach GVAR(allSettings);
 
     _categorySettings sort true;
     private _lastSubCategory = "$START";
@@ -121,7 +122,7 @@ if !(_display getVariable [_selectedAddon, false]) then
             _createHeader = true;
         };
 
-        (TN_settings_default getVariable _setting)
+        (GVAR(default) getVariable _setting)
             params [
                 "_defaultValue", "",
                 "_settingType", "_settingData",
@@ -175,7 +176,7 @@ if !(_display getVariable [_selectedAddon, false]) then
             };
 
             private _list = [
-                "TN_settings_list",
+                QGVAR(list),
                 toLower _category,
                 _source
             ] joinString "$";
@@ -415,7 +416,7 @@ if !(_display getVariable [_selectedAddon, false]) then
                 _ctrlSettingGroup, _setting,
                 _source, _currentValue, _defaultValue
             ] call
-                TN_settings_fnc_gui_settingDefault;
+                FUNC(gui_settingDefault);
         } forEach ["server"];
     } forEach _categorySettings;
 

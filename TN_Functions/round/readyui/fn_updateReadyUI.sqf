@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 #include "readyui_defines.hpp"
 #include "..\..\..\data\roundState.hpp"
 
@@ -20,9 +21,9 @@
 // === Phase A: Display transition (Zeus enter/exit) ===
 // If the active display changed, destroy old controls so they rebuild below.
 private _activeDisplay =
-    call TN_round_fnc_getActiveDisplay;
+    call FUNC(getActiveDisplay);
 private _createdOn = uiNamespace getVariable [
-    "TN_readyUI_display", displayNull
+    QGVAR(readyUI_display), displayNull
 ];
 if (
     !isNull _createdOn
@@ -30,10 +31,10 @@ if (
 ) then
 {
     private _oldBg = uiNamespace getVariable [
-        "TN_readyUI_bg", controlNull
+        QGVAR(readyUI_bg), controlNull
     ];
     private _oldContent = uiNamespace getVariable [
-        "TN_readyUI_content", controlNull
+        QGVAR(readyUI_content), controlNull
     ];
     if !(isNull _oldBg) then { ctrlDelete _oldBg };
     if !(isNull _oldContent) then
@@ -43,53 +44,53 @@ if (
     {
         if !(isNull _x) then { ctrlDelete _x };
     } forEach (uiNamespace getVariable [
-        "TN_readyUI_shineSlices", []
+        QGVAR(readyUI_shineSlices), []
     ]);
     uiNamespace setVariable [
-        "TN_readyUI_bg", controlNull
+        QGVAR(readyUI_bg), controlNull
     ];
     uiNamespace setVariable [
-        "TN_readyUI_content", controlNull
+        QGVAR(readyUI_content), controlNull
     ];
     uiNamespace setVariable [
-        "TN_readyUI_shineSlices", []
+        QGVAR(readyUI_shineSlices), []
     ];
     uiNamespace setVariable [
-        "TN_readyUI_display", displayNull
+        QGVAR(readyUI_display), displayNull
     ];
     // Kill in-flight shine — those slices no longer exist
-    if !(isNil "TN_readyUI_shinePFH") then
+    if !(isNil QGVAR(readyUI_shinePFH)) then
     {
-        [TN_readyUI_shinePFH]
+        [GVAR(readyUI_shinePFH)]
             call CBA_fnc_removePerFrameHandler;
-        TN_readyUI_shinePFH = nil;
+        GVAR(readyUI_shinePFH) = nil;
     };
     uiNamespace setVariable [
-        "TN_readyUI_flashActive", false
+        QGVAR(readyUI_flashActive), false
     ];
-    TN_readyUI_dirty = true;
+    GVAR(readyUI_dirty) = true;
 };
 
 private _bg = uiNamespace getVariable [
-    "TN_readyUI_bg", controlNull
+    QGVAR(readyUI_bg), controlNull
 ];
 private _content = uiNamespace getVariable [
-    "TN_readyUI_content", controlNull
+    QGVAR(readyUI_content), controlNull
 ];
 
 // Recreate controls if destroyed (display transitions, respawn, etc.)
 if (isNull _bg || isNull _content) then
 {
-    if !(call TN_round_fnc_createReadyUIControls)
+    if !(call FUNC(createReadyUIControls))
         exitWith {};
-    _bg = uiNamespace getVariable "TN_readyUI_bg";
+    _bg = uiNamespace getVariable QGVAR(readyUI_bg);
     _content = uiNamespace getVariable
-        "TN_readyUI_content";
-    TN_readyUI_dirty = true;
+        QGVAR(readyUI_content);
+    GVAR(readyUI_dirty) = true;
 };
 
 // Guard: sideReady array must exist (JIP race condition / init order)
-if (isNil "TN_round_sideReady") exitWith
+if (isNil QGVAR(sideReady)) exitWith
 {
     _bg ctrlShow false;
     _content ctrlShow false;
@@ -100,7 +101,7 @@ private _isSafeStart = ROUND_SAFE;
 // Safety net: hide if PFH is somehow still running when panel shouldn't show.
 // Primary lifecycle control is via external event handlers.
 if (
-    !(_isSafeStart || {true in TN_round_sideReady}) || ROUND_LIVE
+    !(_isSafeStart || {true in GVAR(sideReady)}) || ROUND_LIVE
 ) exitWith
 {
     _bg ctrlShow false;
@@ -108,32 +109,32 @@ if (
     {
         _x ctrlShow false;
     } forEach (uiNamespace getVariable [
-        "TN_readyUI_shineSlices", []
+        QGVAR(readyUI_shineSlices), []
     ]);
     uiNamespace setVariable [
-        "TN_readyUI_flashActive", false
+        QGVAR(readyUI_flashActive), false
     ];
-    if !(isNil "TN_readyUI_shinePFH") then
+    if !(isNil QGVAR(readyUI_shinePFH)) then
     {
-        [TN_readyUI_shinePFH]
+        [GVAR(readyUI_shinePFH)]
             call CBA_fnc_removePerFrameHandler;
-        TN_readyUI_shinePFH = nil;
+        GVAR(readyUI_shinePFH) = nil;
     };
 };
 
 // Periodic refresh — catches player count changes (join/leave/side switch)
 // Every ~60 frames (~2s at 30fps) mark dirty to recheck team populations
-TN_readyUI_refreshCounter =
-    (TN_readyUI_refreshCounter + 1) mod 60;
-if (TN_readyUI_refreshCounter isEqualTo 0) then
+GVAR(readyUI_refreshCounter) =
+    (GVAR(readyUI_refreshCounter) + 1) mod 60;
+if (GVAR(readyUI_refreshCounter) isEqualTo 0) then
 {
-    TN_readyUI_dirty = true;
+    GVAR(readyUI_dirty) = true;
 };
 
 // === Phase B: Content rebuild (only when dirty) ===
-if (TN_readyUI_dirty) then
+if (GVAR(readyUI_dirty)) then
 {
-    TN_readyUI_dirty = false;
+    GVAR(readyUI_dirty) = false;
 
     private _lines = [];
 
@@ -153,17 +154,17 @@ if (TN_readyUI_dirty) then
         ];
         if (
             _side countSide allPlayers isEqualTo 0
-            && {isNil "TN_readyUI_showAllSides"}
+            && {isNil QGVAR(readyUI_showAllSides)}
         ) then { continue };
 
         // Bounds check sideReady array before accessing
-        if (_idx >= count TN_round_sideReady) then
+        if (_idx >= count GVAR(sideReady)) then
         {
             continue;
         };
 
         private _ready =
-            TN_round_sideReady select _idx;
+            GVAR(sideReady) select _idx;
         private _status = if (_ready) then
         {
             "<t color='#8BC34A' size='0.85' align='right'>READY</t>"
@@ -231,7 +232,7 @@ if (TN_readyUI_dirty) then
 if !(ctrlShown _bg) exitWith {};
 
 private _flashActive = uiNamespace getVariable [
-    "TN_readyUI_flashActive", false
+    QGVAR(readyUI_flashActive), false
 ];
 
 // Flash overrides pulse — don't touch background color while shine is active
@@ -247,15 +248,15 @@ if (!_flashActive) then
             ];
             if (
                 _side countSide allPlayers > 0
-                || {!(isNil "TN_readyUI_showAllSides")}
+                || {!(isNil QGVAR(readyUI_showAllSides))}
             ) then
             {
                 if (
-                    _idx < count TN_round_sideReady
+                    _idx < count GVAR(sideReady)
                 ) then
                 {
                     if !(
-                        TN_round_sideReady select _idx
+                        GVAR(sideReady) select _idx
                     ) then
                     {
                         _unreadyTints pushBack

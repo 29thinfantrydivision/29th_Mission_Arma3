@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID]
  * Restores LR radio settings and fixes encryption after a
@@ -20,7 +21,7 @@
 private _lr = player call TFAR_fnc_backpackLr;
 if (isNil "_lr") exitWith {};
 
-private _settings = TN_saved_active_lr_settings;
+private _settings = GVAR(savedActiveLrSettings);
 if (isNil "_settings") then
 {
     _settings = _lr call TFAR_fnc_getLrSettings;

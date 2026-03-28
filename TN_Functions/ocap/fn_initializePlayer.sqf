@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID], modified from OCAP Addon
  * Registers a player unit with the OCAP recording system by
@@ -20,7 +21,7 @@
 #define BOOL(_cond) (parseNumber (_cond))
 
 //if recording, let natural loop do below instead
-if (TN_ocap_recording) exitWith {};
+if (GVAR(recording)) exitWith {};
 
 params ["_player"];
 

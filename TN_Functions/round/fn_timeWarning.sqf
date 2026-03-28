@@ -1,3 +1,5 @@
+#include "script_component.hpp"
+
 /*
  * Author: Bae [29th ID], modified from Dott [29th ID]
  * Displays a time remaining notification via BIS notification system.
@@ -16,7 +18,7 @@
 // Admin-only for now.
 if (!serverCommandAvailable "#lock") exitWith {};
 
-private _secondsLeft = call TN_round_fnc_getTime;
+private _secondsLeft = call FUNC(getTime);
 private _minutes = ceil(_secondsLeft / 60);
 private _actualMinutes = _secondsLeft / 60;
 

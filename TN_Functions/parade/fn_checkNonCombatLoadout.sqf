@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID]
  * Checks if a unit is in a non-combat loadout (suitable for

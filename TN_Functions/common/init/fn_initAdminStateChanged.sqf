@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID]
  * Registers a single OnUserAdminStateChanged mission event
@@ -29,5 +30,5 @@ addMissionEventHandler [
     private _unit = if (count _userInfo > 10) then
         { _userInfo select 10 } else { objNull };
 
-    ["TN_adminStateChanged", [_unit, _loggedIn]] call CBA_fnc_localEvent;
+    [QGVARMAIN(adminStateChanged), [_unit, _loggedIn]] call CBA_fnc_localEvent;
 }];

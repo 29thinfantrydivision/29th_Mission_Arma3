@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID]
  * Sets up automatic TFAR radio settings persistence across
@@ -34,7 +35,7 @@ private _fn_saveSwSettings =
     private _sw = call TFAR_fnc_activeSwRadio;
     if (isNil "_sw") exitWith {};
 
-    TN_saved_active_sr_settings =
+    GVAR(savedActiveSrSettings) =
         _sw call TFAR_fnc_getSwSettings;
 };
 
@@ -49,7 +50,7 @@ private _fn_saveLrSettings =
     private _lr = player call TFAR_fnc_backpackLr;
     if (isNil "_lr") exitWith {};
 
-    TN_saved_active_lr_settings =
+    GVAR(savedActiveLrSettings) =
         _lr call TFAR_fnc_getLrSettings;
 };
 
@@ -78,7 +79,7 @@ private _fn_saveLrSettings =
 // Frequency changes apply to either SW or LR -- check both.
 [
     "TFAR_event_OnFrequencyChanged",
-    { call TN_radio_fnc_handleFrequencyChanged }
+    { call FUNC(handleFrequencyChanged) }
 ] call CBA_fnc_addEventHandler;
 
 // ------------------------------------------------------------------
@@ -98,7 +99,7 @@ private _fn_saveLrSettings =
         if (_unit isNotEqualTo player) exitWith {};
 
         {
-            private _settings = TN_saved_active_sr_settings;
+            private _settings = GVAR(savedActiveSrSettings);
             if (isNil "_settings") then
             {
                 _settings = _x call TFAR_fnc_getSwSettings;
@@ -136,7 +137,7 @@ private _fn_saveLrSettings =
 // ------------------------------------------------------------------
 [
     "loadout",
-    { call TN_radio_fnc_handleLoadoutLr }
+    { call FUNC(handleLoadoutLr) }
 ] call CBA_fnc_addPlayerEventHandler;
 
 // ------------------------------------------------------------------
@@ -148,13 +149,13 @@ private _fn_fixVehicleRadio =
 };
 
 [
-    "TN_getInVicRadio",
+    QGVAR(getInVicRadio),
     "GetInMan",
     _fn_fixVehicleRadio
 ] call CBA_fnc_addBISPlayerEventHandler;
 
 [
-    "TN_seatSwitchVicRadio",
+    QGVAR(seatSwitchVicRadio),
     "SeatSwitchedMan",
     _fn_fixVehicleRadio
 ] call CBA_fnc_addBISPlayerEventHandler;

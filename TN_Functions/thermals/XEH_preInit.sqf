@@ -1,7 +1,8 @@
+#include "script_component.hpp"
 #include "..\..\data\settingCategories.hpp"
 
 [
-    "TN_disableTI",
+    QGVARMAIN(disableTI),
     "CHECKBOX",
     "Disable thermal imaging optics",
     [GENERAL_SETTINGS_CATEGORY, THERMALS_SUBCATEGORY],
@@ -11,14 +12,14 @@
         if (hasInterface) then
         {
             ace_javelin_ignoreVisionMode = _this;
-            call TN_thermals_fnc_blackScreen;
+            call FUNC(blackScreen);
 
             if (!alive player
                 || {isNull (objectParent player)}) exitWith {};
 
             if (_this) then
             {
-                call TN_thermals_fnc_disablePIP;
+                call FUNC(disablePIP);
             }
             else
             {

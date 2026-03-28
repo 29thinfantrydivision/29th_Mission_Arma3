@@ -1,8 +1,9 @@
+#include "script_component.hpp"
 #include "..\..\data\settingCategories.hpp"
 
 // Whether and how to auto-add an SR radio on arsenal close.
 [
-    "TN_addRadio",
+    QGVARMAIN(addRadio),
     "LIST",
     [
         "Add SR Radio",
@@ -19,7 +20,7 @@
 
 // Whether to strip all radios from a player on death.
 [
-    "TN_removeRadiosOnDeath",
+    QGVARMAIN(removeRadiosOnDeath),
     "CHECKBOX",
     "Remove radios on death",
     [GENERAL_SETTINGS_CATEGORY, RADIO_SUBCATEGORY],
@@ -29,7 +30,7 @@
 
 // Force the vehicle LR encryption to match the player's side.
 [
-    "TN_forceSideLRVic",
+    QGVARMAIN(forceSideLRVic),
     "CHECKBOX",
     [
         "Force Side LR Vehicle",

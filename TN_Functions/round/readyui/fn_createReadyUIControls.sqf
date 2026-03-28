@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 #include "readyui_defines.hpp"
 
 /*
@@ -16,7 +17,7 @@
  * call TN_round_fnc_createReadyUIControls;
  */
 
-private _display = call TN_round_fnc_getActiveDisplay;
+private _display = call FUNC(getActiveDisplay);
 if (isNull _display) exitWith {false};
 
 private _bg = _display ctrlCreate ["RscText", -1];
@@ -41,18 +42,18 @@ for "_i" from 0 to (SHINE_SLICES - 1) do
 };
 
 uiNamespace setVariable [
-    "TN_readyUI_bg", _bg
+    QGVAR(readyUI_bg), _bg
 ];
 uiNamespace setVariable [
-    "TN_readyUI_content", _content
+    QGVAR(readyUI_content), _content
 ];
 uiNamespace setVariable [
-    "TN_readyUI_shineSlices", _shineSlices
+    QGVAR(readyUI_shineSlices), _shineSlices
 ];
 uiNamespace setVariable [
-    "TN_readyUI_display", _display
+    QGVAR(readyUI_display), _display
 ];
 uiNamespace setVariable [
-    "TN_readyUI_flashActive", false
+    QGVAR(readyUI_flashActive), false
 ];
 true

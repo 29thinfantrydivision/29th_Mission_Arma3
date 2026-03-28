@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 #include "..\..\data\roundState.hpp"
 
 /*
@@ -120,12 +121,12 @@ _btnOK ctrlAddEventHandler [
             [
                 format [
                     "<t color='#ffffff' size='2.5'>Safe Start Time changed to %1!</t>",
-                    (round _newTime) call TN_round_fnc_formatTime
+                    (round _newTime) call EFUNC(round,formatTime)
                 ],
                 "PLAIN",
                 0.5,
                 false
-            ] remoteExecCall ["TN_common_fnc_displayMsg"];
+            ] remoteExecCall [QEFUNC(common,displayMsg)];
         };
         (ctrlParent _ctrl) closeDisplay 1;
     }

@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID]
  * Waits for ACE to set the locked-seat variable on an
@@ -23,7 +24,7 @@ if (alive _unit && {lifeState _unit != "INCAPACITATED"}) exitWith {};
 
 [
     { !isNil { _this getVariable "ace_medical_engine_lockedSeat" } },
-    { _this setVariable ["TN_vehicle_lockedSeat", _this getVariable "ace_medical_engine_lockedSeat", true] },
+    { _this setVariable [QGVAR(lockedSeat), _this getVariable "ace_medical_engine_lockedSeat", true] },
     _unit,
     10
 ] call CBA_fnc_waitUntilAndExecute;

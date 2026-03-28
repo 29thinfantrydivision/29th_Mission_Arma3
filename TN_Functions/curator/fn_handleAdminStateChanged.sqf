@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID]
  * Handles admin login/logout for the curator system.
@@ -34,7 +35,7 @@ if (getAssignedCuratorLogic _unit isEqualTo zeus_admin) then
     unassignCurator zeus_admin;
     [{
         [vehicleVarName _this]
-            call TN_curator_fnc_createModule;
+            call FUNC(createModule);
     }, _unit, 0.1] call CBA_fnc_waitAndExecute;
 };
 

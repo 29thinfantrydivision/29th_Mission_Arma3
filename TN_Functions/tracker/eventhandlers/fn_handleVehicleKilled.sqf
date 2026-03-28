@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID]
  * Handles EntityKilled for vehicle cookoff tracking.
@@ -39,6 +40,6 @@ if (isNull _instigator) then
 };
 if (isNull _instigator) exitWith {};
 
-TN_tracker_cookOffs pushBack [getPosASL _unit, _instigator];
+GVAR(cookOffs) pushBack [getPosASL _unit, _instigator];
 
 nil

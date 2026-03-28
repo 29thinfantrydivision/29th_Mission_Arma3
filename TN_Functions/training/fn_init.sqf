@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 #include "..\..\data\roundState.hpp"
 
 /*
@@ -30,7 +31,7 @@
 //for curator module, make sure training init is put before curator
 //maybe not the cleanest way, but won't break anything if curator module isn't used
 //all lower case
-TN_curator_units =
+EGVAR(curator,units) =
 [
     "#adminlogged",
     "blu_reg_o_1", "blu_reg_o_2",
@@ -49,7 +50,7 @@ private _findCenterObjs =
     [base_res_blu, base_action_arsenal_blu],
     [base_res_grn, base_action_arsenal_grn]
 ];
-TN_arsenal_centers = [];
+EGVAR(base,arsenalCenters) = [];
 
 {
     private _respawnPos = getPosASL (_x select 0);
@@ -61,20 +62,20 @@ TN_arsenal_centers = [];
         (_respawnPos#1 + _arsenalPos#1) / 2,
         (_respawnPos#2 + _arsenalPos#2) / 2
     ];
-    TN_arsenal_centers pushBack _centerPos;
+    EGVAR(base,arsenalCenters) pushBack _centerPos;
 } forEach _findCenterObjs;
 
 if (hasInterface) then
 {
     /* Draw base locations on map for curator */
-    TN_training_curatorBaseLogic = objNull;
+    GVAR(curatorBaseLogic) = objNull;
 
-    ["TN_enteredZeus",
+    [QGVARMAIN(enteredZeus),
     {
         //check if curator module changes (admin swap), if so we need to do this to new module
-        if (TN_training_curatorBaseLogic isEqualTo getAssignedCuratorLogic player) exitWith {};
+        if (GVAR(curatorBaseLogic) isEqualTo getAssignedCuratorLogic player) exitWith {};
 
-        TN_training_curatorBaseLogic = getAssignedCuratorLogic player;
+        GVAR(curatorBaseLogic) = getAssignedCuratorLogic player;
 
         private _locationColors =
         [
@@ -85,7 +86,7 @@ if (hasInterface) then
 
         {
             [
-                TN_training_curatorBaseLogic,
+                GVAR(curatorBaseLogic),
                 [
                     "\A3\ui_f\data\map\markers\nato\b_unknown.paa",
                     _locationColors select _forEachIndex,
@@ -100,12 +101,12 @@ if (hasInterface) then
                 true,
                 true
             ] call bis_fnc_addcuratoricon;
-        } forEach TN_arsenal_centers;
+        } forEach EGVAR(base,arsenalCenters);
     }
     ] call CBA_fnc_addEventHandler;
     /* ---------------------------------- */
 
-    call TN_training_fnc_initDefaultLoadouts;
+    call FUNC(initDefaultLoadouts);
 };
 
 if (isServer) then
@@ -115,7 +116,7 @@ if (isServer) then
     private _forcedDate = [2018, 3, 30, 12, 0];
     private _forcedOvercast = 0.1;
     private _forcedFog = [0.1, 0.01, 0];
-    [_forcedDate, _forcedOvercast, _forcedFog] call TN_training_fnc_initDateAndWeather;
+    [_forcedDate, _forcedOvercast, _forcedFog] call FUNC(initDateAndWeather);
 };
 
 nil

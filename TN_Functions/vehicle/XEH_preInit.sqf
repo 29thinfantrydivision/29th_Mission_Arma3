@@ -1,8 +1,9 @@
+#include "script_component.hpp"
 #include "..\..\data\settingCategories.hpp"
 
 // --- Remove default vehicle inventories ---
 [
-    "TN_removeDefaultVehicleInventories",
+    QGVARMAIN(removeDefaultVehicleInventories),
     "CHECKBOX",
     "Remove default inventories from vehicles",
     [GENERAL_SETTINGS_CATEGORY, VEHICLE_SUBCATEGORY],
@@ -12,7 +13,7 @@
 
 // --- RHS engine warmup bypass ---
 [
-    "TN_disableRHSEngineWarmup",
+    QGVARMAIN(disableRHSEngineWarmup),
     "CHECKBOX",
     [
         "Disable RHS engine warmup",
@@ -28,7 +29,7 @@
 
 // --- Auto-equip FRIES on helicopters ---
 [
-    "TN_autoAddFRIES",
+    QGVARMAIN(autoAddFRIES),
     "CHECKBOX",
     [
         "Auto add FRIES",
@@ -41,7 +42,7 @@
 
 // --- Artillery computer toggle ---
 [
-    "TN_artilleryComputer",
+    QGVARMAIN(artilleryComputer),
     "CHECKBOX",
     "Enable Artillery Computer",
     [GENERAL_SETTINGS_CATEGORY, VEHICLE_SUBCATEGORY],

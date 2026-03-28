@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID]
  * Handles the ace_medical_woundReceived event for tracking
@@ -20,7 +21,7 @@ if (_ammo isEqualTo "collision") then
 {
     private _driver = driver _instigator;
     private _sideInstigator =
-        _driver call TN_tracker_fnc_findSide;
+        _driver call FUNC(findSide);
     if (
         isNull _driver
         || { _driver isEqualTo _instigator }
@@ -29,17 +30,17 @@ if (_ammo isEqualTo "collision") then
     // Seems no need to use vehicle/objectParent.
     private _weapon =
         ([_instigator]
-            call TN_tracker_fnc_getName)
+            call FUNC(getName))
         + " - Roadkill";
     private _instigatorInfo = [
-        _driver call TN_tracker_fnc_getName,
+        _driver call FUNC(getName),
         _sideInstigator,
         getPosASL _driver,
         _weapon,
-        round (serverTime - TN_tracker_startTime)
+        round (serverTime - GVAR(startTime))
     ];
 
-    [[_unit], _instigatorInfo] remoteExecCall ["TN_tracker_fnc_sendHit", 2];
+    [[_unit], _instigatorInfo] remoteExecCall [QFUNC(sendHit), 2];
 };
 
 if (_ammo isEqualTo "burn") then
@@ -61,16 +62,16 @@ if (_ammo isEqualTo "burn") then
     if (isNull _instigator) then
     {
         _instigator = _unit getVariable
-            ["TN_burnInstigator", objNull];
+            [QGVAR(burnInstigator), objNull];
         _weapon = _unit getVariable
-            ["TN_burnWeapon", "Fire"];
+            [QGVAR(burnWeapon), "Fire"];
     }
     else
     {
         // Look for ACE/RHS incendiary grenade.
         private _grenadeResult = [position _unit,
             INFANTRY_GRENADE_DISTANCE]
-            call TN_tracker_fnc_findIncendiaryGrenade;
+            call FUNC(findIncendiaryGrenade);
         if (_grenadeResult isNotEqualTo []) then
         {
             _instigator = _grenadeResult select 0;
@@ -91,20 +92,20 @@ if (_ammo isEqualTo "burn") then
                 _weapon = "Cookoff Fire";
             };
         }
-        forEach TN_tracker_cookOffs;
+        forEach GVAR(cookOffs);
 
     };
     private _sideInstigator =
-        _instigator call TN_tracker_fnc_findSide;
+        _instigator call FUNC(findSide);
     private _instigatorInfo = [
-        _instigator call TN_tracker_fnc_getName,
+        _instigator call FUNC(getName),
         _sideInstigator,
         getPosASL _instigator,
         _weapon,
-        round (serverTime - TN_tracker_startTime)
+        round (serverTime - GVAR(startTime))
     ];
 
-    [[_unit], _instigatorInfo] remoteExecCall ["TN_tracker_fnc_sendHit", 2];
+    [[_unit], _instigatorInfo] remoteExecCall [QFUNC(sendHit), 2];
 };
 
 // Burn has a delay of 1 second so if someone dies
@@ -118,13 +119,13 @@ if (_ammo isEqualTo "fire") then
 {
     if (!alive _unit) exitWith {};
     // Throttle to avoid spam.
-    if (time - TN_tracker_lastFireCheck < 2) exitWith {};
+    if (time - GVAR(lastFireCheck) < 2) exitWith {};
 
     private _weapon = "?";
     // Look for ACE/RHS incendiary grenade.
     private _grenadeResult = [position _unit,
         INFANTRY_GRENADE_DISTANCE]
-        call TN_tracker_fnc_findIncendiaryGrenade;
+        call FUNC(findIncendiaryGrenade);
     if (_grenadeResult isNotEqualTo []) then
     {
         _instigator = _grenadeResult select 0;
@@ -145,24 +146,24 @@ if (_ammo isEqualTo "fire") then
                 _weapon = "Cookoff Fire";
             };
         }
-        forEach TN_tracker_cookOffs;
+        forEach GVAR(cookOffs);
     };
 
-    TN_tracker_lastFireCheck = time;
+    GVAR(lastFireCheck) = time;
 
     if (_weapon isEqualTo "?") exitWith {};
 
     private _sideInstigator =
-        _instigator call TN_tracker_fnc_findSide;
+        _instigator call FUNC(findSide);
     private _instigatorInfo = [
-        _instigator call TN_tracker_fnc_getName,
+        _instigator call FUNC(getName),
         _sideInstigator,
         getPosASL _instigator,
         _weapon,
-        round (serverTime - TN_tracker_startTime)
+        round (serverTime - GVAR(startTime))
     ];
 
-    [[_unit], _instigatorInfo] remoteExecCall ["TN_tracker_fnc_sendHit", 2];
+    [[_unit], _instigatorInfo] remoteExecCall [QFUNC(sendHit), 2];
 };
 
 // Vehicle explosion.
@@ -181,21 +182,21 @@ if (_ammo isEqualTo "FuelExplosion"
                 _instigator = _x select 1;
             };
         }
-        forEach TN_tracker_cookOffs;
+        forEach GVAR(cookOffs);
     };
     if (isNull _instigator) exitWith {};
     private _weapon = "Vehicle Explosion";
     private _sideInstigator =
-        _instigator call TN_tracker_fnc_findSide;
+        _instigator call FUNC(findSide);
     private _instigatorInfo = [
-        _instigator call TN_tracker_fnc_getName,
+        _instigator call FUNC(getName),
         _sideInstigator,
         getPosASL _instigator,
         _weapon,
-        round (serverTime - TN_tracker_startTime)
+        round (serverTime - GVAR(startTime))
     ];
 
-    [[_unit], _instigatorInfo] remoteExecCall ["TN_tracker_fnc_sendHit", 2];
+    [[_unit], _instigatorInfo] remoteExecCall [QFUNC(sendHit), 2];
 };
 
 nil

@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: OCAP Addon very slightly modified by Bae [29th ID]
  * Overwrite default event handler in OCAP Addon to support
@@ -14,7 +15,7 @@
  * call compile preprocessFileLineNumbers "TN_Functions\ocap\handleMarkers.sqf";
  */
 
-TN_ocap_fnc_onHandleMarkers =
+GVAR(fnc_onHandleMarkers) =
 {
 
   if !(ocap_recorder_recording && {ocap_recorder_startTime > -1}) exitWith {};
@@ -123,6 +124,6 @@ TN_ocap_fnc_onHandleMarkers =
   };
 };
 
-ocap_listener_markers = ["ocap_handleMarker", { call TN_ocap_fnc_onHandleMarkers }] call CBA_fnc_addEventHandler;
+ocap_listener_markers = ["ocap_handleMarker", { call GVAR(fnc_onHandleMarkers) }] call CBA_fnc_addEventHandler;
 
 nil

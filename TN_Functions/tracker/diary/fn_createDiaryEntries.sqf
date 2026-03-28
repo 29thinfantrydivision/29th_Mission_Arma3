@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID]
  * Client-side function that creates diary entries after
@@ -55,14 +56,14 @@ for "_i" from (_numEvents - 1) to 0 step -1 do
     private _event = _events select _i;
     private _eventString = [
         _event, _names, _sides, _weapons
-    ] call TN_tracker_fnc_eventToString;
+    ] call FUNC(eventToString);
     _eventStrings pushBack _eventString;
 };
 
 // Find all player relevant events.
 private _playerEventIndexes =
     [_playerIndex, _events]
-        call TN_tracker_fnc_findPlayerEvents;
+        call FUNC(findPlayerEvents);
 
 // "Reverse" numbers so they conform with _eventStrings indexes.
 for "_i" from 0
@@ -141,10 +142,10 @@ if !(player diarySubjectExists "RoundScoreboard") then
 
 private _killCounts =
     [_events, _sides]
-        call TN_tracker_fnc_getKillCounts;
+        call FUNC(getKillCounts);
 _title = format ["Round %1", _roundNum];
 _text = [_killCounts, _names]
-    call TN_tracker_fnc_killCountsToString;
+    call FUNC(killCountsToString);
 _copyButton = format [
     "<br /><execute expression='[""%1"",""%2""]"
     + " call TN_tracker_fnc_copyRecordToClipboard;'>"

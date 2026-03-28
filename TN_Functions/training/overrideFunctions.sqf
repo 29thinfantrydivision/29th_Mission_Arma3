@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 //Alters sector module behavior
 BIS_fnc_moduleSector = compileFinal
     preprocessFileLineNumbers

@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID]
  * Initializes the curator (Zeus) system for both clients
@@ -12,9 +13,9 @@
  * perFrameHandler.
  *
  * Events Used:
- *     TN_enteredZeus - Fired by cfgEventHandlers when a
+ *     "TN_enteredZeus" - Fired by cfgEventHandlers when a
  *         player opens the Zeus interface. Logged to server.
- *     TN_exitedZeus  - Fired when a player closes Zeus.
+ *     "TN_exitedZeus"  - Fired when a player closes Zeus.
  *
  * Admin Login/Logout Handler:
  *     Subscribes to "TN_adminStateChanged" CBA event. On login,
@@ -35,7 +36,7 @@
 //Note: Events TN_enteredZeus and TN_exitedZeus are defined in cfgEventHandlers
 
 #define CREATE_CURATOR_MODULE(_obj) \
-    [vehicleVarName _obj] call TN_curator_fnc_createModule
+    [vehicleVarName _obj] call FUNC(createModule)
 
 if (hasInterface) then
 {
@@ -44,31 +45,31 @@ if (hasInterface) then
         player call BIS_fnc_drawCuratorDeaths;
 
         [
-            "TN_enteredZeus",
+            QGVARMAIN(enteredZeus),
             {
                 private _curatorName = name player;
                 private _msg = format ["CURATOR INTERFACE OPENED: %1", _curatorName];
-                _msg remoteExecCall ["TN_common_fnc_diag_log", 2];
+                _msg remoteExecCall [QEFUNC(common,diag_log), 2];
             }
         ] call CBA_fnc_addEventHandler;
 
-        [[player]] remoteExecCall ["TN_curator_fnc_addEditable", 2];
+        [[player]] remoteExecCall [QFUNC(addEditable), 2];
 
-        [vehicleVarName player] remoteExecCall ["TN_curator_fnc_createModule", 2];
+        [vehicleVarName player] remoteExecCall [QFUNC(createModule), 2];
     }] call CBA_fnc_waitUntilAndExecute;
 };
 
 if (isServer) then
 {
-    if (isNil "TN_curator_units") then //in case curator units aren't defined for some reason
+    if (isNil QGVAR(units)) then //in case curator units aren't defined for some reason
     {
-        TN_curator_units = ["#adminLogged"];
+        GVAR(units) = ["#adminLogged"];
     };
 
     //add curator modules that exist in sqm to unit list to fix Zeus not working for JIP players until they die or respawn (primarily for event template)
     {
         private _owner = _x getVariable "owner";
-        TN_curator_units pushBackUnique _owner;
+        GVAR(units) pushBackUnique _owner;
     }
     forEach (allMissionObjects "ModuleCurator_F");
 
@@ -79,21 +80,21 @@ if (isServer) then
         [
             { time > 0 },
             {
-                zeus_admin = ["#adminLogged"] call TN_curator_fnc_createModule;
+                zeus_admin = ["#adminLogged"] call FUNC(createModule);
             }
         ] call CBA_fnc_waitUntilAndExecute;
     };
 
     [
-        "TN_adminStateChanged",
+        QGVARMAIN(adminStateChanged),
         {
             params ["_unit", "_loggedIn"];
             if (isNull _unit || isNil "zeus_admin") exitWith {};
-            [_unit, _loggedIn] call TN_curator_fnc_handleAdminStateChanged;
+            [_unit, _loggedIn] call FUNC(handleAdminStateChanged);
         }
     ] call CBA_fnc_addEventHandler;
 
-    call TN_curator_fnc_excludeObjects;
+    call FUNC(excludeObjects);
 };
 
 nil

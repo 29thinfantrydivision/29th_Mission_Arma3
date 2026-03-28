@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID]
  * Initializes shared common utilities.
@@ -16,13 +17,13 @@
 
 if (isServer) then
 {
-    call TN_common_fnc_initAdminStateChanged;
+    call FUNC(initAdminStateChanged);
 };
 
 if (hasInterface) then
 {
     //No point of having this on server since it can't JIP
-    call TN_common_fnc_initPreloadFinished;
+    call FUNC(initPreloadFinished);
 };
 
 nil

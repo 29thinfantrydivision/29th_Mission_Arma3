@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID]
  * Server-side function that stores hit attribution data on
@@ -29,14 +30,14 @@ private _value = [
 
 {
     private _hitMap =
-        _x getVariable "TN_hitMap";
+        _x getVariable QGVAR(hitMap);
     if (isNil "_hitMap") then
     {
         _hitMap = createHashMap;
     };
     _hitMap set [_key, _value];
-    _x setVariable ["TN_lastHit", _key];
-    _x setVariable ["TN_hitMap", _hitMap];
+    _x setVariable [QGVAR(lastHit), _key];
+    _x setVariable [QGVAR(hitMap), _hitMap];
 }
 forEach _units;
 

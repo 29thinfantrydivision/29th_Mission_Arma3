@@ -1,3 +1,5 @@
+#include "script_component.hpp"
+
 /*
  * Author: Bae [29th ID], modified from Dott [29th ID]
  * Sets the overtime period duration. Rejects non-positive values.
@@ -16,7 +18,7 @@ params ["_time"];
 
 if (_time <= 0) exitWith {false};
 
-TN_round_overtimePeriod = _time;
-publicVariable "TN_round_overtimePeriod";
+GVAR(overtimePeriod) = _time;
+publicVariable QGVAR(overtimePeriod);
 
 true

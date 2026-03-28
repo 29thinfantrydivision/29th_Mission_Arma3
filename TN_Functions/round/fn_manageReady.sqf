@@ -28,36 +28,36 @@ if (_sideIdx > 2) exitWith
     systemChat "Error: Invalid side to change ready state.";
 };
 
-private _playerSideReady = TN_round_sideReady select _sideIdx;
+private _playerSideReady = GVAR(sideReady) select _sideIdx;
 
 if (_playerSideReady isEqualTo _isReady) exitWith {2};
 
-TN_round_sideReady set [_sideIdx, _isReady];
-publicVariable "TN_round_sideReady";
+GVAR(sideReady) set [_sideIdx, _isReady];
+publicVariable QGVAR(sideReady);
 
-["TN_round_manageReadyChange", _this] call CBA_fnc_globalEvent;
+[QGVAR(manageReadyChange), _this] call CBA_fnc_globalEvent;
 
 /* --- Check if all sides ready and handle safe start --- */
-if (call TN_round_fnc_checkAllSidesReady) then
+if (call FUNC(checkAllSidesReady)) then
 {
     if (NOT_ROUND_SAFE) then
     {
-        [] call TN_round_fnc_initSafeStart;
+        [] call FUNC(initSafeStart);
     }
     else
     {
         // Already in forced safe start; shorten timer if it exceeds safe start time.
         if (
-            [0] call BIS_fnc_countdown <= TN_safeStartTime
+            [0] call BIS_fnc_countdown <= GVARMAIN(safeStartTime)
         ) exitWith {};
 
         // Save forced timer state so we can restore if a team unreadies.
-        TN_round_forcedTimeRemaining = [0] call BIS_fnc_countdown;
-        TN_round_shortenedAt = serverTime;
+        GVAR(forcedTimeRemaining) = [0] call BIS_fnc_countdown;
+        GVAR(shortenedAt) = serverTime;
 
         private _msgText = format [
             "<t color='#ffffff'><t size='3'>All teams ready! Shortening safe start.</t><br/><t size='2'>Live in %1!</t></t>",
-            [TN_safeStartTime] call TN_round_fnc_formatTime
+            [GVARMAIN(safeStartTime)] call FUNC(formatTime)
         ];
 
         [
@@ -65,9 +65,9 @@ if (call TN_round_fnc_checkAllSidesReady) then
             "PLAIN",
             0.5,
             false
-        ] remoteExecCall ["TN_common_fnc_displayMsg"];
+        ] remoteExecCall [QEFUNC(common,displayMsg)];
 
-        [TN_safeStartTime] call BIS_fnc_countdown;
+        [GVARMAIN(safeStartTime)] call BIS_fnc_countdown;
     };
 }
 else
@@ -76,16 +76,16 @@ else
     // restore the original forced timer adjusted for total elapsed time.
     if (
         ROUND_SAFE
-        && TN_round_ignoreReadiness
-        && {!(isNil "TN_round_shortenedAt")}
+        && GVAR(ignoreReadiness)
+        && {!(isNil QGVAR(shortenedAt))}
     ) then
     {
-        private _elapsed = serverTime - TN_round_shortenedAt;
-        private _restoredTime = (TN_round_forcedTimeRemaining - _elapsed) max 1;
+        private _elapsed = serverTime - GVAR(shortenedAt);
+        private _restoredTime = (GVAR(forcedTimeRemaining) - _elapsed) max 1;
         private _currentTime = [0] call BIS_fnc_countdown;
 
-        TN_round_shortenedAt = nil;
-        TN_round_forcedTimeRemaining = nil;
+        GVAR(shortenedAt) = nil;
+        GVAR(forcedTimeRemaining) = nil;
 
         // Don't restore if the adjusted original would be shorter than current.
         if (_restoredTime <= _currentTime) exitWith {};
@@ -94,7 +94,7 @@ else
 
         private _msgText = format [
             "<t color='#ffffff'><t size='2.5'>Team unreadied! Restoring longer safe start.</t><br/><t size='2'>Live in %1!</t></t>",
-            [round _restoredTime] call TN_round_fnc_formatTime
+            [round _restoredTime] call FUNC(formatTime)
         ];
 
         [
@@ -102,7 +102,7 @@ else
             "PLAIN",
             0.5,
             false
-        ] remoteExecCall ["TN_common_fnc_displayMsg"];
+        ] remoteExecCall [QEFUNC(common,displayMsg)];
     };
 };
 

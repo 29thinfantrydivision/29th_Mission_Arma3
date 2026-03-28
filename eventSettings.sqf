@@ -1,37 +1,38 @@
+#include "script_macros.hpp"
+
 //Use the variables below to customize your event mission
 
-TN_event_hasTimer = true; //Use timer/ready system
-TN_event_forcedSafeStart = 15 * 60;//Safe start time before all teams ready up in seconds
-TN_event_readySafeStart = 30; //Safe start time after all teams ready up in seconds
-TN_event_timerLength = 45 * 60; //Length of round in seconds
-TN_event_timerObjects = [
+EGVAR(event,hasTimer) = true; //Use timer/ready system
+EGVAR(event,forcedSafeStart) = 15 * 60; //Safe start time before all teams ready up in seconds
+EGVAR(event,readySafeStart) = 30; //Safe start time after all teams ready up in seconds
+EGVAR(event,timerLength) = 45 * 60; //Length of round in seconds
+EGVAR(event,timerObjects) = [
     base_timerFlagWest,
     base_timerFlagEast,
     base_timerFlagGuer
-]; //Objects players can interact with to ready up their team
-TN_event_endingObject = base_endFlag; //Object admin can interact with to force safestart/end mission early
+]; //Objects players can interact with to ready up their team, default colored flags in editor
+EGVAR(event,endingObject) = base_endFlag; //Object admin can interact with to force safestart/end mission early
 
-TN_event_numberOfLives = 1; //0 for unlimited lives
-TN_event_spectateArea = base_endFlag; //Point where players will be teleported to spectate from when out of lives.
-TN_event_spectateAreaRadius = 200; //Radius around TN_event_spectateArea that is used to determine which players are spectating/lost all lives
-TN_event_respawnDisarmPlayers = true; //Disarm players when they are out of lives and teleported to spectateArea
+EGVAR(event,numberOfLives) = 1; //0 for unlimited lives
+EGVAR(event,spectateArea) = base_endFlag; //Point where players will be teleported to spectate from when out of lives.
+EGVAR(event,spectateAreaRadius) = 200; //Radius around EGVAR(event,spectateArea) that is used to determine which players are spectating/lost all lives
+EGVAR(event,respawnDisarmPlayers) = true; //Disarm players when they are out of lives and teleported to spectateArea
+EGVAR(event,timeAcc) = 1; //Time acceleration multiplier for the event (1 = normal time, 2 = 2x faster, 0.5 = half speed, etc)
 
-TN_event_timeAcc = 1; //Time acceleration multiplier for the event (1 = normal time, 2 = 2x faster, 0.5 = half speed, etc)
+EGVAR(event,hasAliveCheck) = true; //Automatically end mission if only one side has players alive with them as the winner
 
-TN_event_hasAliveCheck = true; //Automatically end mission if only one side has players alive with them as the winner
+EGVAR(event,arsenalRadius) = 20; //Radius around arsenal object where players can access the arsenal
 
-TN_event_arsenalRadius = 20; //Radius around arsenal object where players can access the arsenal
-
-TN_event_autoMarkObjects = true;
+EGVAR(event,autoMarkObjects) = true; //Mark static editor placed objects on map for all players
 
 //Win conditions
 //Leave "" for no win condition for that side
-TN_event_score = [0, 0, 0]; //Starting score for each side [OPFOR, BLUFOR, GRNFOR]
-TN_event_bluforWinConditions = ""; //Conditions for BLUFOR to win the game
-TN_event_opforWinConditions = ""; //Conditions for OPFOR to win the game
-TN_event_grnforWinConditions = ""; //Conditions for GRNFOR to win the game
+EGVAR(event,score) = [0, 0, 0]; //Starting score for each side [OPFOR, BLUFOR, GRNFOR]
+EGVAR(event,bluforWinConditions) = ""; //Conditions for BLUFOR to win the game
+EGVAR(event,opforWinConditions) = ""; //Conditions for OPFOR to win the game
+EGVAR(event,grnforWinConditions) = ""; //Conditions for GRNFOR to win the game
 
-TN_event_winCheckInterval = 3; //Interval in seconds between win condition checks
+EGVAR(event,winCheckInterval) = 3; //Interval in seconds between win condition checks
 /*
 Examples
 TN_event_bluforWinConditions = ""; //No win condition for BLUFOR (except only team standing at end if hasAliveCheck = true)
@@ -64,10 +65,10 @@ Available Win Condition Functions:
 */
 
 /*** Do Not Edit Anything Below This Line ***/
-["TN_safeStartTime", TN_event_readySafeStart,
+[QGVARMAIN(safeStartTime), EGVAR(event,readySafeStart),
     nil, "server", false] call cba_settings_fnc_set;
-["TN_notifyFinalCheck", false,
+[QGVARMAIN(notifyFinalCheck), false,
     nil, "server", false] call cba_settings_fnc_set;
-["TN_addRadio", 0,
+[QGVARMAIN(addRadio), 0,
     nil, "server", false] call cba_settings_fnc_set;
-[TN_event_timerLength] call TN_round_fnc_setTimer;
+[EGVAR(event,timerLength)] call EFUNC(round,setTimer);

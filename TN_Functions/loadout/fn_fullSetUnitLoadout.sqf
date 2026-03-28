@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID]
  * Wrapper around CBA_fnc_setLoadout that also resets weapon
@@ -36,13 +37,13 @@ if (primaryWeapon _unit isEqualTo "") then
 };
 
 private _scriptHandle =
-    [_unit] spawn TN_loadout_fnc_resetWeaponState;
+    [_unit] spawn FUNC(resetWeaponState);
 
 // Wait so that setInsignia does not correctly assume
 // non-combat loadout.
 [{scriptDone (_this select 1)}, {
     params ["_unit"];
-    _unit call TN_loadout_fnc_setInsignia;
+    _unit call FUNC(setInsignia);
 }, [_unit, _scriptHandle]] call CBA_fnc_waitUntilAndExecute;
 
 true

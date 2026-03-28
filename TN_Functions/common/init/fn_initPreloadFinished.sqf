@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID]
  * Waits for all module inits to finish, then either registers
@@ -19,20 +20,20 @@
  * call TN_common_fnc_initPreloadFinished;
  */
 
-["TN_initFinished",
+[QGVARMAIN(initFinished),
 {
     if (isNil "bis_fnc_preload_init") then
     {
         // JIP — preload hasn't finished for this client yet.
         addMissionEventHandler ["PreloadFinished",
         {
-            ["TN_preloadFinished"] call CBA_fnc_localEvent;
+            [QGVARMAIN(preloadFinished)] call CBA_fnc_localEvent;
             removeMissionEventHandler ["PreloadFinished", _thisEventHandler];
         }];
     }
     else
     {
         // Non-JIP — preload already complete.
-        ["TN_preloadFinished"] call CBA_fnc_localEvent;
+        [QGVARMAIN(preloadFinished)] call CBA_fnc_localEvent;
     };
 }] call CBA_fnc_addEventHandler;

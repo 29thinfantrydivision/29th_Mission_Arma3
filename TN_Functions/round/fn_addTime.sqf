@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 #include "..\..\data\roundState.hpp"
 
 /*
@@ -20,11 +21,11 @@ params ["_timeDelta"];
 
 if (NOT_ROUND_LIVE) exitWith {-1};
 
-private _timeLeft = call TN_round_fnc_getTime;
+private _timeLeft = call FUNC(getTime);
 [_timeDelta + _timeLeft] call BIS_fnc_countdown;
 
-TN_round_timeAdded = true;
-publicVariable "TN_round_timeAdded";
+GVAR(timeAdded) = true;
+publicVariable QGVAR(timeAdded);
 
 private _hintMsg = format [
     "Added %1 minutes to the time limit!",
@@ -32,4 +33,4 @@ private _hintMsg = format [
 ];
 [_hintMsg] remoteExecCall ["hint"];
 
-call TN_round_fnc_getTime
+call FUNC(getTime)

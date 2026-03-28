@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID]
  * Entry point for the DOTT mission-settings dialog.
@@ -32,7 +33,7 @@ the cba mission settings.
 */
 params ["_display"];
 uiNamespace setVariable [
-    "TN_settings_display", _display
+    QGVAR(display), _display
 ];
 #include "fn_initClient.inc.sqf"
 
@@ -41,7 +42,7 @@ private _ctrlAddonsGroup =
 
 with uiNamespace do
 {
-    TN_settings_serverTemp =
+    GVAR(serverTemp) =
         _display ctrlCreate ["RscText", -1];
 };
 
@@ -51,14 +52,14 @@ private _ctrlAddonList = _display ctrlCreate [
 
 _ctrlAddonList ctrlAddEventHandler [
     "LBSelChanged",
-    {call TN_settings_fnc_gui_addonChanged}
+    {call FUNC(gui_addonChanged)}
 ];
 
 _display setVariable ["cba_settings_lists", []];
 
 private _categories = [];
 {
-    (TN_settings_default getVariable _x) params [
+    (GVAR(default) getVariable _x) params [
         "", "", "", "", "_category"
     ];
     private _categoryLower = toLower _category;
@@ -80,17 +81,17 @@ private _categories = [];
 
         _categories pushBack _categoryLower;
     };
-} forEach TN_settings_allSettings;
+} forEach GVAR(allSettings);
 
 lbSort _ctrlAddonList;
 _ctrlAddonList lbSetCurSel (
     uiNamespace getVariable [
-        "TN_settings_addonIndex", 0
+        QGVAR(addonIndex), 0
     ]
 );
 
 _ctrlAddonsGroup
-    call TN_settings_fnc_gui_sourceChanged;
+    call FUNC(gui_sourceChanged);
 
 private _ctrlScriptedOK = _display displayCtrl 999;
 _ctrlScriptedOK ctrlEnable false;
@@ -104,7 +105,7 @@ _ctrlConfirm ctrlSetPosition
 _ctrlConfirm ctrlCommit 0;
 _ctrlConfirm ctrlAddEventHandler [
     "ButtonClick",
-    {call TN_settings_fnc_gui_saveTempData}
+    {call FUNC(gui_saveTempData)}
 ];
 
 nil

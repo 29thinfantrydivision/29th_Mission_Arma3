@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 #include "readyui_defines.hpp"
 
 /*
@@ -20,10 +21,10 @@
 params [["_flashColor", [0.91, 0.78, 0.25, 0.8]]];
 
 private _bg = uiNamespace getVariable [
-    "TN_readyUI_bg", controlNull
+    QGVAR(readyUI_bg), controlNull
 ];
 private _shineSlices = uiNamespace getVariable [
-    "TN_readyUI_shineSlices", []
+    QGVAR(readyUI_shineSlices), []
 ];
 if (
     isNull _bg || _shineSlices isEqualTo []
@@ -33,15 +34,15 @@ if (
 if !(ctrlShown _bg) exitWith {};
 
 // Cancel any in-progress shine animation
-if !(isNil "TN_readyUI_shinePFH") then
+if !(isNil QGVAR(readyUI_shinePFH)) then
 {
-    [TN_readyUI_shinePFH]
+    [GVAR(readyUI_shinePFH)]
         call CBA_fnc_removePerFrameHandler;
-    TN_readyUI_shinePFH = nil;
+    GVAR(readyUI_shinePFH) = nil;
 };
 
 uiNamespace setVariable [
-    "TN_readyUI_flashActive", true
+    QGVAR(readyUI_flashActive), true
 ];
 
 // Get current panel bounds
@@ -66,7 +67,7 @@ _flashColor params ["_fr", "_fg", "_fb", "_fa"];
 } forEach _shineSlices;
 
 // Per-frame animation: sweep the diagonal band across the panel
-TN_readyUI_shinePFH = [
+GVAR(readyUI_shinePFH) = [
     {
         params ["_args", "_pfhHandle"];
         _args params [
@@ -129,9 +130,9 @@ TN_readyUI_shinePFH = [
                 _x ctrlCommit 0;
             } forEach _shineSlices;
             uiNamespace setVariable [
-                "TN_readyUI_flashActive", false
+                QGVAR(readyUI_flashActive), false
             ];
-            TN_readyUI_shinePFH = nil;
+            GVAR(readyUI_shinePFH) = nil;
             [_pfhHandle]
                 call CBA_fnc_removePerFrameHandler;
         };

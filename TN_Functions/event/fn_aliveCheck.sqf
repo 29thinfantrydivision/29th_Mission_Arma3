@@ -17,6 +17,7 @@
  * Nothing
  */
 
+#include "script_component.hpp"
 #include "..\..\data\roundState.hpp"
 
 #define RESPAWN_BIRD 1
@@ -70,15 +71,15 @@ private _remainDead = (_respawnType isEqualTo RESPAWN_BIRD);
     else
     {
         _numBluforDead = {
-            (_x distance2D TN_event_spectateArea) < TN_event_spectateAreaRadius
+            (_x distance2D GVAR(spectateArea)) < GVAR(spectateAreaRadius)
         } count _bluforPlayers;
 
         _numOpforDead = {
-            (_x distance2D TN_event_spectateArea) < TN_event_spectateAreaRadius
+            (_x distance2D GVAR(spectateArea)) < GVAR(spectateAreaRadius)
         } count _opforPlayers;
 
         _numResistanceDead = {
-            (_x distance2D TN_event_spectateArea) < TN_event_spectateAreaRadius
+            (_x distance2D GVAR(spectateArea)) < GVAR(spectateAreaRadius)
         } count _resistancePlayers;
     };
 
@@ -120,7 +121,7 @@ private _remainDead = (_respawnType isEqualTo RESPAWN_BIRD);
 
     if (_winnerSide isNotEqualTo civilian) then
     {
-        [_winnerSide] call TN_event_fnc_game;
+        [_winnerSide] call FUNC(game);
     };
 }, ALIVE_CHECK_INTERVAL, [_remainDead, false], {}, {}, {true}, {NOT_ROUND_LIVE}] call CBA_fnc_createPerFrameHandlerObject;
 

@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID]
  * Searches for a nearby ACE or RHS incendiary grenade and

@@ -1,3 +1,5 @@
+#include "script_component.hpp"
+
 /*
  * Author: Bae [29th ID]
  * Collects the name of a player detected with the silent weapon bug
@@ -16,11 +18,11 @@
 
 params ["_weaponHolder"];
 
-if (isNil "TN_round_clientSilentWeapons") then
+if (isNil QGVAR(clientSilentWeapons)) then
 {
-    TN_round_clientSilentWeapons = createHashMap;
+    GVAR(clientSilentWeapons) = createHashMap;
 };
 
-TN_round_clientSilentWeapons set [_weaponHolder, true];
+GVAR(clientSilentWeapons) set [_weaponHolder, true];
 
 nil

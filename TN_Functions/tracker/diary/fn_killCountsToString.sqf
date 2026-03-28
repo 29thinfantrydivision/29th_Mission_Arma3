@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID]
  * Converts a sorted kill-counts array into an HTML string
@@ -20,7 +21,7 @@ private _lines = [];
     _unit params ["_unitIndex", "_unitSide"];
     private _unitName = _names select _unitIndex;
     _unitName = [_unitName, _unitSide]
-        call TN_tracker_fnc_colorNameWithSide;
+        call FUNC(colorNameWithSide);
     private _line =
         format ["%1 (%2)", _unitName, _killCount];
     _lines pushBack _line;

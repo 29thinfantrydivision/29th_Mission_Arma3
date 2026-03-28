@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 #include "..\..\data\roundState.hpp"
 
 /*
@@ -21,7 +22,7 @@ private _loopChecks = [[{ false }], [{ false }], [{ false }]];
 private _endChecks = [[{ false }], [{ false }], [{ false }]];
 
 {
-    private _pointValue = _x getVariable ["TN_pointValue", 0];
+    private _pointValue = _x getVariable [QGVARMAIN(pointValue), 0];
 
     if (_pointValue isEqualTo 0) then { continue };
 
@@ -36,24 +37,24 @@ private _endChecks = [[{ false }], [{ false }], [{ false }]];
                         "_newOwner",
                         "_oldOwner"
                     ];
-                    private _pointValue = _sector getVariable ["TN_pointValue", 0];
+                    private _pointValue = _sector getVariable [QGVARMAIN(pointValue), 0];
                     private _newOwnerId = _newOwner call BIS_fnc_sideId;
                     private _oldOwnerId = _oldOwner call BIS_fnc_sideId;
 
                     if (_newOwnerId <= 2) then
                     {
-                        TN_event_score set [
+                        GVAR(score) set [
                             _newOwnerId,
-                            (TN_event_score
+                            (GVAR(score)
                                 select _newOwnerId)
                                 + _pointValue
                         ];
                     };
                     if (_oldOwnerId <= 2) then
                     {
-                        TN_event_score set [
+                        GVAR(score) set [
                             _oldOwnerId,
-                            (TN_event_score
+                            (GVAR(score)
                                 select _oldOwnerId)
                                 - _pointValue
                         ];
@@ -65,9 +66,9 @@ private _endChecks = [[{ false }], [{ false }], [{ false }]];
             private _idx = _owner call BIS_fnc_sideID;
             if (_idx <= 2) then
             {
-                TN_event_score set [
+                GVAR(score) set [
                     _idx,
-                    (TN_event_score select _idx)
+                    (GVAR(score) select _idx)
                         + _pointValue
                 ];
             };
@@ -79,14 +80,14 @@ private _endChecks = [[{ false }], [{ false }], [{ false }]];
                 params [
                     "_unit", "_killer", "_instigator"
                 ];
-                private _pointValue = _unit getVariable ["TN_pointValue", 0];
-                private _awardTeam = _unit getVariable ["TN_awardTeam", sideUnknown];
+                private _pointValue = _unit getVariable [QGVARMAIN(pointValue), 0];
+                private _awardTeam = _unit getVariable [QGVARMAIN(awardTeam), sideUnknown];
                 private _idx = _awardTeam call BIS_fnc_sideID;
                 if (_idx <= 2) then
                 {
-                    TN_event_score set [
+                    GVAR(score) set [
                         _idx,
-                        (TN_event_score select _idx)
+                        (GVAR(score) select _idx)
                             + _pointValue
                     ];
                 };
@@ -97,9 +98,9 @@ private _endChecks = [[{ false }], [{ false }], [{ false }]];
 
 private _sideSettings =
 [
-    TN_event_opforWinConditions,
-    TN_event_bluforWinConditions,
-    TN_event_grnforWinConditions
+    GVAR(opforWinConditions),
+    GVAR(bluforWinConditions),
+    GVAR(grnforWinConditions)
 ];
 
 {
@@ -114,7 +115,7 @@ private _sideSettings =
         {
             [{
                 params ["_sideId", "_pointsRequired"];
-                TN_event_score select _sideId >= _pointsRequired
+                GVAR(score) select _sideId >= _pointsRequired
             }, [_forEachIndex, _winArgs]];
         };
         default
@@ -134,7 +135,7 @@ private _sideSettings =
 } forEach _sideSettings;
 
 [
-    "TN_round_ended",
+    QEGVAR(round,ended),
     {
         private _endChecks = _thisArgs;
         {
@@ -142,17 +143,17 @@ private _sideSettings =
             if (_args call _fnCheck) exitWith
             {
                 private _winningSide = _forEachIndex call BIS_fnc_sideType;
-                [_winningSide] call TN_event_fnc_game;
+                [_winningSide] call FUNC(game);
             };
         } forEach _endChecks;
 
-        [] call TN_event_fnc_game;
+        [] call FUNC(game);
     }, _endChecks
 ] call CBA_fnc_addEventHandlerArgs;
 
-if (isNil "TN_event_winCheckInterval") then
+if (isNil QGVAR(winCheckInterval)) then
 {
-    TN_event_winCheckInterval = 0.5;
+    GVAR(winCheckInterval) = 0.5;
 };
 
 [{
@@ -163,9 +164,9 @@ if (isNil "TN_event_winCheckInterval") then
         if (_args call _fnCheck) exitWith
         {
             private _winningSide = _forEachIndex call BIS_fnc_sideType;
-            [_winningSide] call TN_event_fnc_game;
+            [_winningSide] call FUNC(game);
         };
     } forEach _loopChecks;
-}, TN_event_winCheckInterval, _loopChecks, {}, {}, {true}, {NOT_ROUND_LIVE}] call CBA_fnc_createPerFrameHandlerObject;
+}, GVAR(winCheckInterval), _loopChecks, {}, {}, {true}, {NOT_ROUND_LIVE}] call CBA_fnc_createPerFrameHandlerObject;
 
 nil

@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID]
  * Initializes a list (dropdown) setting row and wires the
@@ -19,7 +20,7 @@
  */
 
 #define SERVER_TEMP \
-    (uiNamespace getVariable "TN_settings_serverTemp")
+    (uiNamespace getVariable QGVAR(serverTemp))
 
 params [
     "_controlsGroup", "_setting", "_source",
@@ -95,7 +96,7 @@ _ctrlList ctrlAddEventHandler [
         private _ctrlDefault =
             _controlsGroup controlsGroupCtrl 5020;
         private _defaultValue =
-            (TN_settings_default
+            (GVAR(default)
                 getVariable _setting) select 0;
         _ctrlDefault ctrlEnable (
             _value isNotEqualTo _defaultValue
@@ -129,7 +130,7 @@ _controlsGroup setVariable [
         private _ctrlDefault =
             _controlsGroup controlsGroupCtrl 5020;
         private _defaultValue =
-            (TN_settings_default
+            (GVAR(default)
                 getVariable _setting) select 0;
         _ctrlDefault ctrlEnable (
             _value isNotEqualTo _defaultValue

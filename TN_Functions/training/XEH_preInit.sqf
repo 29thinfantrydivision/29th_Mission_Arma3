@@ -1,7 +1,8 @@
+#include "script_component.hpp"
 #include "..\..\data\settingCategories.hpp"
 
 [
-    "TN_costInfantry", // Internal setting name, should always contain a tag! This will be the global variable which takes the value of the setting.
+    QGVARMAIN(costInfantry), // Internal setting name, should always contain a tag! This will be the global variable which takes the value of the setting.
     "SLIDER", // setting type
     ["Infantry Weight", "Capture Weight of Infantry"], // Pretty name shown inside the ingame settings menu. Can be stringtable entry.
     SECTOR_SETTINGS_CATEGORY, // Pretty name of the category where the setting can be found. Can be stringtable entry.
@@ -10,7 +11,7 @@
 ] call CBA_fnc_addSetting;
 
 [
-    "TN_costWheeled",
+    QGVARMAIN(costWheeled),
     "SLIDER",
     ["Wheeled Weight", "Capture Weight of Wheeled Vehicles"],
     SECTOR_SETTINGS_CATEGORY,
@@ -19,7 +20,7 @@
 ] call CBA_fnc_addSetting;
 
 [
-    "TN_costTracked",
+    QGVARMAIN(costTracked),
     "SLIDER",
     ["Tracked Weight", "Capture Weight of Tracked Vehicles"],
     SECTOR_SETTINGS_CATEGORY,
@@ -28,7 +29,7 @@
 ] call CBA_fnc_addSetting;
 
 [
-    "TN_costStatic",
+    QGVARMAIN(costStatic),
     "SLIDER",
     ["Static Weight", "Capture Weight of Static Weapons"],
     SECTOR_SETTINGS_CATEGORY,
@@ -37,7 +38,7 @@
 ] call CBA_fnc_addSetting;
 
 [
-    "TN_costWater",
+    QGVARMAIN(costWater),
     "SLIDER",
     ["Water Weight", "Capture Weight of Naval Vehicles"],
     SECTOR_SETTINGS_CATEGORY,
@@ -46,7 +47,7 @@
 ] call CBA_fnc_addSetting;
 
 [
-    "TN_costAir",
+    QGVARMAIN(costAir),
     "SLIDER",
     ["Air Weight", "Capture Weight of Air Vehicles"],
     SECTOR_SETTINGS_CATEGORY,
@@ -55,7 +56,7 @@
 ] call CBA_fnc_addSetting;
 
 [
-    "TN_captureCoef",
+    QGVARMAIN(captureCoef),
     "SLIDER",
     "Capture Speed",
     SECTOR_SETTINGS_CATEGORY,
@@ -64,7 +65,7 @@
 ] call CBA_fnc_addSetting;
 
 [
-    "TN_checkCrew",
+    QGVARMAIN(checkCrew),
     "LIST",
     ["Count Vehicle Crew Weight",
         "Units inside vehicle types contribute weight towards capture"],
@@ -78,7 +79,7 @@
 ] call CBA_fnc_addSetting;
 
 [
-    "TN_useThreat",
+    QGVARMAIN(useThreat),
     "CHECKBOX",
     ["Use Vehicle Threat Value",
         "Vehicle capture weight is further modified by config threat values."],

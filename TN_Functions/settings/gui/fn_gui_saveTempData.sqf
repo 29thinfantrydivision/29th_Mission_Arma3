@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID]
  * Applies every pending setting override stored in the
@@ -15,7 +16,7 @@
  */
 
 #define SERVER_TEMP \
-    (uiNamespace getVariable "TN_settings_serverTemp")
+    (uiNamespace getVariable QGVAR(serverTemp))
 
 {
     private _setting = _x;
@@ -42,6 +43,6 @@
         [_setting, _value, _priority, _source, false]
             call cba_settings_fnc_set;
     };
-} forEach TN_settings_allSettings;
+} forEach GVAR(allSettings);
 
 nil

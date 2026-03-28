@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID]
  * Wires the "Reset to default" button for a single setting
@@ -20,7 +21,7 @@
 
 #define DEFAULT_INDEX 0
 #define SERVER_TEMP \
-    (uiNamespace getVariable "TN_settings_serverTemp")
+    (uiNamespace getVariable QGVAR(serverTemp))
 
 params [
     "_controlsGroup", "_setting", "_source",
@@ -39,7 +40,7 @@ _ctrlDefault ctrlAddEventHandler [
         params ["_ctrlDefault"];
         (_ctrlDefault getVariable "cba_settings_params") params ["_setting", "_source"];
 
-        private _defaultValue = (TN_settings_default getVariable _setting) select DEFAULT_INDEX;
+        private _defaultValue = (GVAR(default) getVariable _setting) select DEFAULT_INDEX;
         SERVER_TEMP setVariable [
             _setting,
             [

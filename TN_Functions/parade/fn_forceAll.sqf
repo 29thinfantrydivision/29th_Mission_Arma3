@@ -1,7 +1,8 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID]
  * Forces all players within a given radius of an object into
- * parade loadout by remotely executing fn_load on each client.
+ * parade loadout by remotely executing TN_parade_fnc_load on each client.
  *
  * Arguments:
  * 0: Center object to measure distance from <OBJECT>
@@ -25,7 +26,7 @@ private _targets = _allPlayers select
 };
 
 {
-    [] remoteExecCall ["TN_parade_fnc_load", _x];
+    [] remoteExecCall [QFUNC(load), _x];
 } forEach _targets;
 
 nil

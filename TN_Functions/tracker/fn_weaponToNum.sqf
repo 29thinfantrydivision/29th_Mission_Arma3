@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID]
  * Server-side function that registers or looks up a weapon name
@@ -13,12 +14,12 @@
 
 params ["_weaponName"];
 
-private _num = TN_tracker_weapons find _weaponName;
+private _num = GVAR(weapons) find _weaponName;
 
 if (_num isEqualTo -1) then
 {
-    TN_tracker_weapons pushBack _weaponName;
-    _num = count TN_tracker_weapons - 1;
+    GVAR(weapons) pushBack _weaponName;
+    _num = count GVAR(weapons) - 1;
 };
 
 _num

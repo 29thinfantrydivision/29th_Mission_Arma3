@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Dott [29th ID]
  * Optionally loads saved inventory, heals player, teleports
@@ -41,12 +42,12 @@ if (_inventory isNotEqualTo []) then
         systemChat "Player in spectator, skipping rearm.";
     };
 
-    if (TN_base_arsenalActionId isNotEqualTo -1) exitWith
+    if (EGVAR(base,arsenalActionId) isNotEqualTo -1) exitWith
     {
         systemChat "Player in base, skipping rearm.";
     };
 
-    [player, _inventory, true] call TN_loadout_fnc_fullSetUnitLoadout;
+    [player, _inventory, true] call FUNC(fullSetUnitLoadout);
 
     _resetInventory = true;
 };
@@ -83,9 +84,9 @@ else
             || (!isNull player && alive player)
     };
 
-    call TN_spectator_fnc_exit;
+    call EFUNC(spectator,exit);
 
-    TN_loadout_teleporting = true;
+    GVAR(teleporting) = true;
 
     private _tries = 0;
 
@@ -159,7 +160,7 @@ else
 
     [{
         player allowDamage true;
-        TN_loadout_teleporting = nil;
+        GVAR(teleporting) = nil;
     }, [], 2] call CBA_fnc_waitAndExecute;
 
     _teleport = _tries > 0;

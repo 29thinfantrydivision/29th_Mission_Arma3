@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Dott [29th ID]
  * Counts tickets and displays them discretly to each team and
@@ -24,7 +25,7 @@ if (!isServer) exitWith {};
 
 private _clientOwner = remoteExecutedOwner;
 
-private _adminClient = TN_ticket_adminClient;
+private _adminClient = GVAR(adminClient);
 
 // Map the side to its global variable name and admin-facing label.
 // Civilian and unknown sides are ignored.
@@ -35,17 +36,17 @@ switch (_playerSide) do
 {
     case west:
     {
-        _varName = "TN_ticket_WEST";
+        _varName = QGVAR(WEST);
         _adminLabel = "Blufor";
     };
     case east:
     {
-        _varName = "TN_ticket_EAST";
+        _varName = QGVAR(EAST);
         _adminLabel = "Opfor";
     };
     case resistance:
     {
-        _varName = "TN_ticket_GUER";
+        _varName = QGVAR(GUER);
         _adminLabel = "Grnfor";
     };
     case civilian: {};
@@ -64,7 +65,7 @@ if (_tickets isEqualTo 0) then
         "PLAIN",
         0.8
     ] remoteExecCall [
-        "TN_common_fnc_displayMsg",
+        QEFUNC(common,displayMsg),
         _clientOwner
     ];
 }
@@ -84,7 +85,7 @@ else
             "<t color='#ffffff' size='2'>You are the last player allowed to leave spawn!</t>",
             "PLAIN",
             0.8
-        ] remoteExecCall ["TN_common_fnc_displayMsg", _clientOwner];
+        ] remoteExecCall [QEFUNC(common,displayMsg), _clientOwner];
     }
     else
     {
@@ -97,7 +98,7 @@ else
             "<t color='#ffffff' size='2'>You may leave spawn!</t>",
             "PLAIN",
             0.5
-        ] remoteExecCall ["TN_common_fnc_displayMsg", _clientOwner];
+        ] remoteExecCall [QEFUNC(common,displayMsg), _clientOwner];
     };
 };
 

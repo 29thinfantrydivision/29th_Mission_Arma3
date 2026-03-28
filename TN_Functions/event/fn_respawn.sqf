@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 #include "..\..\data\roundState.hpp"
 
 /*
@@ -25,29 +26,29 @@ if (!hasInterface) exitWith {};
 
 //exit script if the number of lives setting should
 //permit unlimited respawns (just in case)
-if (TN_event_numberOfLives isEqualTo 0) exitWith {};
+if (GVAR(numberOfLives) isEqualTo 0) exitWith {};
 
 if (NOT_ROUND_LIVE) exitWith {};
 
 if (_storeDeaths) exitWith
 {
-    TN_event_liveDeaths = getPlayerScores Player select 4;
+    GVAR(liveDeaths) = getPlayerScores Player select 4;
 };
 
 private _playerDeaths = getPlayerScores player select 4;
 
-if (isNil "TN_event_liveDeaths") then
+if (isNil QGVAR(liveDeaths)) then
 {
-    TN_event_liveDeaths = 0;
+    GVAR(liveDeaths) = 0;
 };
 
-_playerDeaths = (_playerDeaths - TN_event_liveDeaths);
+_playerDeaths = (_playerDeaths - GVAR(liveDeaths));
 
-if (_playerDeaths >= TN_event_numberOfLives) then
+if (_playerDeaths >= GVAR(numberOfLives)) then
 {
     _playerDeaths spawn
     {
-        private _point = getPosASL TN_event_spectateArea;
+        private _point = getPosASL GVAR(spectateArea);
 
         titleText [
             "<t color='#ffffff' size='4'>"
@@ -103,7 +104,7 @@ if (_playerDeaths >= TN_event_numberOfLives) then
             "BLACK IN", 0.5, true, true
         ];
 
-        if (TN_event_respawnDisarmPlayers) then
+        if (GVAR(respawnDisarmPlayers)) then
         {
             removeAllWeapons player;
         };

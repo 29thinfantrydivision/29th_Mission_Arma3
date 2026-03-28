@@ -6,7 +6,7 @@ private _radios = player call TFAR_fnc_vehicleLr;
 if (isNil "_radios") exitWith {};
 private _vehicle = _radios select 0;
 
-private _correctSide = switch (TN_forceSideLRVic) do
+private _correctSide = switch (GVARMAIN(forceSideLRVic)) do
 {
     case true: { side group player };
     case false: { _vehicle call TFAR_fnc_getVehicleSide };

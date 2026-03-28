@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 #include "..\..\data\templates.hpp"
 
 /*
@@ -39,9 +40,9 @@
 if !(hasInterface) exitWith {};
 
 //Add actions to spectator terminals
-TN_base_terminals = [];
-TN_base_arsenals = [];
-TN_base_garbages = []; //global variable for cleaner function
+GVAR(terminals) = [];
+GVAR(arsenals) = [];
+GVAR(garbages) = []; //global variable for cleaner function
 
 { //forEach object placed in editor
     private _vicString = vehicleVarName _x;
@@ -66,15 +67,15 @@ TN_base_garbages = []; //global variable for cleaner function
     {
         case "arsenal":
         {
-            TN_base_arsenals pushBack _x;
+            GVAR(arsenals) pushBack _x;
         };
         case "terminal":
         {
-            TN_base_terminals pushBack _x;
+            GVAR(terminals) pushBack _x;
         };
         case "garbage":
         {
-            TN_base_garbages pushBack _x;
+            GVAR(garbages) pushBack _x;
         };
         default {};
     };
@@ -84,7 +85,7 @@ forEach allMissionObjects "All";
 {
     _x addAction [
         "<img image='\A3\Ui_f\data\GUI\Rsc\RscDisplayEGSpectator\Follow.paa'/><t color='#00ff00'>  Spectator</t>",
-        "[] call TN_spectator_fnc_enter",
+        {[] call EFUNC(spectator,enter)},
         nil, 6, false, true, "", "true", 4
     ];
 
@@ -96,38 +97,38 @@ forEach allMissionObjects "All";
     private _activate = format ["[%1,3] call BIS_fnc_dataTerminalAnimate;", _x];
     private _deActivate = format ["[%1,0] call BIS_fnc_dataTerminalAnimate;", _x];
     _trg setTriggerStatements [_condition, _activate, _deActivate];
-} forEach TN_base_terminals;
+} forEach GVAR(terminals);
 
 //Very messy area below but I'm lazy
 //------- ACE Arsenal via radius from box -------//
 //------- Disable Environment Noises when in radius unless in specator or Zeus -------//
 
-TN_base_arsenalActionId = -1;
+GVAR(arsenalActionId) = -1;
 
 #define ENV_ON 1 fadeEnvironment 1
 #define ENV_OFF 1 fadeEnvironment 0
-TN_base_keepEnvironmentSounds = false;
+GVAR(keepEnvironmentSounds) = false;
 
 [
-    "TN_enteredZeus",
+    QGVARMAIN(enteredZeus),
     {
-        TN_base_keepEnvironmentSounds = true;
+        GVAR(keepEnvironmentSounds) = true;
         ENV_ON;
     }
 ] call CBA_fnc_addEventHandler;
 
 [
-    "TN_exitedZeus",
+    QGVARMAIN(exitedZeus),
     {
-        TN_base_keepEnvironmentSounds = false;
-        if (TN_base_arsenalActionId isNotEqualTo -1) then { ENV_OFF };
+        GVAR(keepEnvironmentSounds) = false;
+        if (GVAR(arsenalActionId) isNotEqualTo -1) then { ENV_OFF };
     }
 ] call CBA_fnc_addEventHandler;
 
 [
     "enteredSpectator",
     {
-        TN_base_keepEnvironmentSounds = true;
+        GVAR(keepEnvironmentSounds) = true;
         ENV_ON;
     }
 ] call CBA_fnc_addEventHandler;
@@ -135,54 +136,54 @@ TN_base_keepEnvironmentSounds = false;
 [
     "exitedSpectator",
     {
-        TN_base_keepEnvironmentSounds = false;
-        if (TN_base_arsenalActionId isNotEqualTo -1) then { ENV_OFF };
+        GVAR(keepEnvironmentSounds) = false;
+        if (GVAR(arsenalActionId) isNotEqualTo -1) then { ENV_OFF };
     }
 ] call CBA_fnc_addEventHandler;
 
 
-if (isNil "TN_arsenal_centers") then
+if (isNil QGVAR(arsenalCenters)) then
 {
-    TN_arsenal_centers = [];
+    GVAR(arsenalCenters) = [];
 
     {
-        TN_arsenal_centers pushBack (getPosASL _x);
-    } forEach TN_base_arsenals;
+        GVAR(arsenalCenters) pushBack (getPosASL _x);
+    } forEach GVAR(arsenals);
 };
 
-if (TN_arsenal_centers isNotEqualTo []) then
+if (GVAR(arsenalCenters) isNotEqualTo []) then
 {
     [{!isNull player},
     {
-        private _radius = if (isNil "TN_event_arsenalRadius") then { 75 } else { TN_event_arsenalRadius };
-        [{ call TN_base_fnc_arsenalZoneCheck }, 1, [_radius * _radius]] call CBA_fnc_addPerFrameHandler;
+        private _radius = if (isNil QEGVAR(event,arsenalRadius)) then { 75 } else { EGVAR(event,arsenalRadius) };
+        [{ call FUNC(arsenalZoneCheck) }, 1, [_radius * _radius]] call CBA_fnc_addPerFrameHandler;
     }] call CBA_fnc_waitUntilAndExecute;
 };
 
 [
-    "TN_base_respawnArsenalActionId",
+    QGVAR(respawnArsenalActionId),
     "Respawn",
     {
-        TN_base_arsenalActionId = -1;
+        GVAR(arsenalActionId) = -1;
     }
 ] call CBA_fnc_addBISPlayerEventHandler;
 
 //- Add Force Parade to BLUFOR Ammo Box, maybe belongs in parade module instead -//
 if ("parade" in TN_MODULES) then
 {
-    TN_loadout_lastDebriefTime = -10;
+    EGVAR(loadout,lastDebriefTime) = -10;
     base_action_arsenal_blu addAction [
         "<img image='\A3\Ui_f\data\IGUI\Cfg\Actions\gear_ca.paa'/><t color='#3f8eff'>  Force Parade</t>",
         {
             params ["_target"];
-            [_target, 125] call TN_parade_fnc_forceAll;
+            [_target, 125] call EFUNC(parade,forceAll);
         },
         nil,
         0.9,
         true,
         true,
         "",
-        "serverCommandAvailable '#lock' && ((player distance base_action_arsenal_blu) < 5 || (time - TN_loadout_lastDebriefTime) < 10)",
+        'serverCommandAvailable "#lock" && ((player distance base_action_arsenal_blu) < 5 || (time - EGVAR(loadout,lastDebriefTime)) < 10)',
         50
     ];
 };
@@ -192,9 +193,9 @@ if ("parade" in TN_MODULES) then
 {
     _x addAction [
         "<img image='\A3\Ui_f\data\IGUI\Cfg\simpleTasks\types\repair_ca.paa'/><t color='#FF0080'>  Clean-Up</t>",
-        "call TN_base_fnc_cleaner",
+        {call FUNC(cleaner)},
         nil, 1, false, true, "", "true", 2
     ];
-} forEach TN_base_garbages;
+} forEach GVAR(garbages);
 
 nil

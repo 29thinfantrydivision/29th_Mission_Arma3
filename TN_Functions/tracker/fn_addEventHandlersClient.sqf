@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID]
  * Adds client-side event handlers for the tracker system.
@@ -13,39 +14,39 @@
  */
 
 player addEventHandler ["FiredMan",
-    { call TN_tracker_fnc_handleFired }];
+    { call FUNC(handleFired) }];
 
 ["ace_advanced_throwing_throwFiredXEH",
 {
     if (!local (_this select 0)) exitWith {};
-    call TN_tracker_fnc_handleFired;
+    call FUNC(handleFired);
 }] call CBA_fnc_addEventHandler;
 
 ["ace_explosives_place",
-    { call TN_tracker_fnc_handleExplosivePlace }] call CBA_fnc_addEventHandler;
+    { call FUNC(handleExplosivePlace) }] call CBA_fnc_addEventHandler;
 
-TN_tracker_lastFireCheck = 0;
+GVAR(lastFireCheck) = 0;
 
 // Easiest way to detect roadkill event.
 // Will arrive on server later than projectile hit events
 // however.
 ["ace_medical_woundReceived",
-    { call TN_tracker_fnc_handleWoundReceived }] call CBA_fnc_addEventHandler;
+    { call FUNC(handleWoundReceived) }] call CBA_fnc_addEventHandler;
 
 ["ace_fire_burnSimulation",
 // We broadcast these variables since burning bodies can
 // set people on fire and we need to track that too.
-    { call TN_tracker_fnc_handleBurnSimulation }] call CBA_fnc_addEventHandler;
+    { call FUNC(handleBurnSimulation) }] call CBA_fnc_addEventHandler;
 
 addMissionEventHandler ["EntityKilled",
-    { call TN_tracker_fnc_handleVehicleKilled }];
+    { call FUNC(handleVehicleKilled) }];
 
 player addEventHandler ["Respawn",
 {
     params ["_unit"];
-    _unit setVariable ["TN_burnInstigator", nil];
-    _unit setVariable ["TN_burnInstigatorTime", nil];
-    _unit setVariable ["TN_burnWeapon", nil];
+    _unit setVariable [QGVAR(burnInstigator), nil];
+    _unit setVariable [QGVAR(burnInstigatorTime), nil];
+    _unit setVariable [QGVAR(burnWeapon), nil];
 }];
 
 nil

@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID]
  * Wrapper for createDiaryRecord intended to be remoteExec'd.

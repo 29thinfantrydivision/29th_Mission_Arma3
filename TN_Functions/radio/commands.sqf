@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 [
     [
         [
@@ -61,4 +62,4 @@
             "Checks radio encryption codes for TFAR radios."
         ]
     ]
-] call TN_commands_fnc_addModule;
+] call EFUNC(commands,addModule);

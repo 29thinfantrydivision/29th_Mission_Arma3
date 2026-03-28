@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Rellikplug AKA Hill [29th ID]
  * Deletes the SR radio in the linked slot and the LR backpack

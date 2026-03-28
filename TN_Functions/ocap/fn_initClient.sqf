@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID]
  * Client-side OCAP initialization.
@@ -22,7 +23,7 @@ if !(_autoStart) then
 {
     [{!isNull player}, {
         [player] remoteExecCall
-            ["TN_ocap_fnc_initializePlayer", 2];
+            [QFUNC(initializePlayer), 2];
     }] call CBA_fnc_waitUntilAndExecute;
 };
 

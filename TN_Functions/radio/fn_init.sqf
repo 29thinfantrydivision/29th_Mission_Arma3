@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID]
  * Initializes the radio module. Registers arsenal-close handlers
@@ -27,7 +28,7 @@ if (hasInterface) then
         {
             // Skip if Zeus is open (ZEN loadout editing).
             if !(isNull (findDisplay 312)) exitWith {};
-            call TN_radio_fnc_add;
+            call FUNC(add);
         }
     ] call BIS_fnc_addScriptedEventHandler;
 
@@ -39,25 +40,25 @@ if (hasInterface) then
             {
                 // Skip if Zeus is open (ZEN loadout editing).
                 if !(isNull (findDisplay 312)) exitWith {};
-                call TN_radio_fnc_add;
+                call FUNC(add);
             }
         ] call CBA_fnc_addEventHandler;
     };
 
     // Strip radios on death when the setting is enabled.
     [
-        "TN_radio_removeOnDeath",
+        QGVAR(removeOnDeath),
         "Killed",
         {
-            if (TN_removeRadiosOnDeath) then
+            if (GVARMAIN(removeRadiosOnDeath)) then
             {
-                (_this select 0) call TN_radio_fnc_remove;
+                (_this select 0) call FUNC(remove);
             };
         }
     ] call CBA_fnc_addBISPlayerEventHandler;
 
     // Persist TFAR radio settings across respawn / loadout swap.
-    call TN_radio_fnc_initTransferSettings;
+    call FUNC(initTransferSettings);
 };
 
 if (isServer) then
@@ -70,9 +71,9 @@ if (isServer) then
 
             if (isNull _unit) exitWith {};
 
-            if (TN_removeRadiosOnDeath) then
+            if (GVARMAIN(removeRadiosOnDeath)) then
             {
-                _unit call TN_radio_fnc_remove;
+                _unit call FUNC(remove);
             };
         }
     ];

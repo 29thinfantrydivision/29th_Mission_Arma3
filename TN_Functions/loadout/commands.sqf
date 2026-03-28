@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Loadout Commands Module
  *
@@ -7,14 +8,14 @@
  */
 
 // Maps lowercase side name -> [engineSide, displayName].
-TN_loadout_cmdSideMap = createHashMapFromArray [
+GVAR(sideMap) = createHashMapFromArray [
     ["blufor",  [west,       "Blufor"]],
     ["opfor",   [east,       "Opfor"]],
     ["grnfor",  [resistance, "Grnfor"]]
 ];
 
 // Maps side name -> reset spawn object variable name.
-TN_loadout_cmdResetBases = createHashMapFromArray [
+GVAR(resetBases) = createHashMapFromArray [
     ["blufor",  "base_res_blu"],
     ["opfor",   "base_res_red"],
     ["grnfor",  "base_res_grn"]
@@ -31,7 +32,7 @@ TN_loadout_cmdResetBases = createHashMapFromArray [
  *
  * Returns false if side is invalid, true otherwise.
  */
-TN_loadout_fnc_cmdDispatch =
+FUNC(cmdDispatch) =
 {
     params ["_sideName", "_params", "_msg"];
 
@@ -41,7 +42,7 @@ TN_loadout_fnc_cmdDispatch =
 
     if (_sideName isNotEqualTo "") then
     {
-        private _entry = TN_loadout_cmdSideMap get _sideName;
+        private _entry = GVAR(sideMap) get _sideName;
         if (isNil "_entry") then
         {
             _ok = false;
@@ -55,7 +56,7 @@ TN_loadout_fnc_cmdDispatch =
 
     if (!_ok) exitWith { false };
 
-    _params remoteExec ["TN_loadout_fnc_flexibleReset", _target];
+    _params remoteExec [QFUNC(flexibleReset), _target];
     if (_msg isNotEqualTo "") then { systemChat format [_msg, _displayName]; };
     true
 };
@@ -68,7 +69,7 @@ TN_loadout_fnc_cmdDispatch =
             {
                 private _side = toLower (_this select 0);
 
-                private _ok = [_side, [[], true], "Healing %1 players!"] call TN_loadout_fnc_cmdDispatch;
+                private _ok = [_side, [[], true], "Healing %1 players!"] call FUNC(cmdDispatch);
 
                 if (!_ok) then
                 {
@@ -81,7 +82,7 @@ TN_loadout_fnc_cmdDispatch =
             {
                 private _side = toLower (_this select 0);
 
-                private _ok = [_side, [true], "Rearming %1 players!"] call TN_loadout_fnc_cmdDispatch;
+                private _ok = [_side, [true], "Rearming %1 players!"] call FUNC(cmdDispatch);
 
                 if (!_ok) then
                 {
@@ -98,9 +99,9 @@ TN_loadout_fnc_cmdDispatch =
                 if (_argument isEqualTo "") exitWith
                 {
                     {
-                        private _baseName = TN_loadout_cmdResetBases get _x;
+                        private _baseName = GVAR(resetBases) get _x;
                         private _baseObj = missionNamespace getVariable [_baseName, objNull];
-                        [_x, [true, true, getPosASL _baseObj], ""] call TN_loadout_fnc_cmdDispatch;
+                        [_x, [true, true, getPosASL _baseObj], ""] call FUNC(cmdDispatch);
                     } forEach ["blufor", "opfor", "grnfor"];
                     systemChat "Rearming, healing, and teleporting all players to spawn!";
                 };
@@ -113,7 +114,7 @@ TN_loadout_fnc_cmdDispatch =
                 {
                     private _sideArg = if (count _argArr > 1) then { _argArr select (1 - _stayArg) } else { "" };
 
-                    private _ok = [_sideArg, [true, true], "Rearming and healing %1 players!"] call TN_loadout_fnc_cmdDispatch;
+                    private _ok = [_sideArg, [true, true], "Rearming and healing %1 players!"] call FUNC(cmdDispatch);
 
                     if (!_ok) then
                     {
@@ -123,7 +124,7 @@ TN_loadout_fnc_cmdDispatch =
 
                 // Side only = full reset + teleport.
                 private _side = toLower _argument;
-                private _baseName = TN_loadout_cmdResetBases get _side;
+                private _baseName = GVAR(resetBases) get _side;
 
                 if (isNil "_baseName") exitWith
                 {
@@ -131,7 +132,7 @@ TN_loadout_fnc_cmdDispatch =
                 };
 
                 private _baseObj = missionNamespace getVariable [_baseName, objNull];
-                [_side, [true, true, getPosASL _baseObj], "Rearming, healing, and teleporting %1 players to spawn!"] call TN_loadout_fnc_cmdDispatch;
+                [_side, [true, true, getPosASL _baseObj], "Rearming, healing, and teleporting %1 players to spawn!"] call FUNC(cmdDispatch);
             }
         ],
         [
@@ -142,7 +143,7 @@ TN_loadout_fnc_cmdDispatch =
                 if (_argument isEqualTo "") then
                 {
                     private _pos = getPosASL base_res_blu;
-                    ["", [true, true, _pos], "Healing, rearming, and teleporting all players to Blufor base!"] call TN_loadout_fnc_cmdDispatch;
+                    ["", [true, true, _pos], "Healing, rearming, and teleporting all players to Blufor base!"] call FUNC(cmdDispatch);
                 }
                 else
                 {
@@ -158,11 +159,11 @@ TN_loadout_fnc_cmdDispatch =
                         _pos select 2
                     ];
 
-                    ["", [true, true, _telePos], "Healing, rearming, and teleporting all players to you!"] call TN_loadout_fnc_cmdDispatch;
+                    ["", [true, true, _telePos], "Healing, rearming, and teleporting all players to you!"] call FUNC(cmdDispatch);
                 };
 
                 // Timestamp used by baseObjectsInit for Force Parade triggers.
-                TN_loadout_lastDebriefTime = time;
+                GVAR(lastDebriefTime) = time;
             }
         ],
         [
@@ -177,7 +178,7 @@ TN_loadout_fnc_cmdDispatch =
                     ["grnfor", "base_action_arsenal_grn"]
                 ];
 
-                private _entry = TN_loadout_cmdSideMap get _argument;
+                private _entry = GVAR(sideMap) get _argument;
                 private _baseName = _arsenalBases get _argument;
 
                 if (isNil "_entry" || isNil "_baseName") exitWith
@@ -188,7 +189,7 @@ TN_loadout_fnc_cmdDispatch =
                 _entry params ["_target", "_displayName"];
 
                 private _baseObj = missionNamespace getVariable [_baseName, objNull];
-                [[], false, getPosASL _baseObj] spawn TN_loadout_fnc_flexibleReset;
+                [[], false, getPosASL _baseObj] spawn FUNC(flexibleReset);
                 systemChat format ["Teleporting to %1 spawn!", _displayName];
             }
         ]
@@ -220,4 +221,4 @@ TN_loadout_fnc_cmdDispatch =
             "Teleports admin to side spawns. '!goto SIDE' (blufor, opfor, grnfor)"
         ]
     ]
-] call TN_commands_fnc_addModule;
+] call EFUNC(commands,addModule);

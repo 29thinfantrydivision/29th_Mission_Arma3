@@ -22,23 +22,23 @@
 // Server should own the perFrameHandler.
 if (!isServer) exitWith
 {
-    _this remoteExecCall ["TN_round_fnc_initSafeStart", 2];
+    _this remoteExecCall [QFUNC(initSafeStart), 2];
 };
 
 if (NOT_ROUND_IDLE) exitWith {false};
 
 params [
-    ["_safeStartTime", TN_safeStartTime],
+    ["_safeStartTime", GVARMAIN(safeStartTime)],
     ["_forced", false]
 ];
 
-TN_round_state = 1;
-publicVariable "TN_round_state";
+GVAR(state) = 1;
+publicVariable QGVAR(state);
 
 /* --- Notification --- */
 private _msgText = format [
     "<t color='#ffffff' size='3'>Live in %1!</t>",
-    [_safeStartTime] call TN_round_fnc_formatTime
+    [_safeStartTime] call FUNC(formatTime)
 ];
 
 if (_forced) then
@@ -52,18 +52,18 @@ if (_forced) then
     "PLAIN",
     0.5,
     false
-] remoteExecCall ["TN_common_fnc_displayMsg"];
+] remoteExecCall [QEFUNC(common,displayMsg)];
 
 if (_forced) then
 {
-    TN_round_ignoreReadiness = true;
-    publicVariable "TN_round_ignoreReadiness";
+    GVAR(ignoreReadiness) = true;
+    publicVariable QGVAR(ignoreReadiness);
 };
 
-["TN_round_safeStartBegin", []] call CBA_fnc_globalEvent;
+[QGVAR(safeStartBegin), []] call CBA_fnc_globalEvent;
 
 [_safeStartTime] call BIS_fnc_countdown;
 
-call TN_round_fnc_initSafeStartHelper;
+call FUNC(initSafeStartHelper);
 
 true

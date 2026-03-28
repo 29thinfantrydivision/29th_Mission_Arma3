@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Dott [29th ID]
  * Handles adding tickets to either side. Does not use
@@ -17,43 +18,43 @@ params
     ["_ticketAmount", 0, [0]]
 ];
 
-if (!TN_ticket_enabled) exitWith
+if (!GVAR(enabled)) exitWith
 {
     systemChat "Error: Ticket system disabled!";
 };
 
-private _ticketWEST = TN_ticket_WEST;
-private _ticketEAST = TN_ticket_EAST;
-private _ticketGUER = TN_ticket_GUER;
+private _ticketWEST = GVAR(WEST);
+private _ticketEAST = GVAR(EAST);
+private _ticketGUER = GVAR(GUER);
 
 switch (_ticketSide) do
 {
     case "WEST":
     {
-        TN_ticket_WEST = _ticketWEST + _ticketAmount;
-        publicVariable "TN_ticket_WEST";
-        format ["Blufor tickets set to %1", TN_ticket_WEST] remoteExecCall ["hint"];
+        GVAR(WEST) = _ticketWEST + _ticketAmount;
+        publicVariable QGVAR(WEST);
+        format ["Blufor tickets set to %1", GVAR(WEST)] remoteExecCall ["hint"];
     };
     case "EAST":
     {
-        TN_ticket_EAST = _ticketEAST + _ticketAmount;
-        publicVariable "TN_ticket_EAST";
-        format ["Opfor tickets set to %1", TN_ticket_EAST] remoteExecCall ["hint"];
+        GVAR(EAST) = _ticketEAST + _ticketAmount;
+        publicVariable QGVAR(EAST);
+        format ["Opfor tickets set to %1", GVAR(EAST)] remoteExecCall ["hint"];
     };
     case "GUER":
     {
-        TN_ticket_GUER = _ticketGUER + _ticketAmount;
-        publicVariable "TN_ticket_GUER";
-        format ["Grnfor tickets set to %1", TN_ticket_GUER] remoteExecCall ["hint"];
+        GVAR(GUER) = _ticketGUER + _ticketAmount;
+        publicVariable QGVAR(GUER);
+        format ["Grnfor tickets set to %1", GVAR(GUER)] remoteExecCall ["hint"];
     };
     case "reset":
     {
-        TN_ticket_WEST = 0;
-        publicVariable "TN_ticket_WEST";
-        TN_ticket_EAST = 0;
-        publicVariable "TN_ticket_EAST";
-        TN_ticket_GUER = 0;
-        publicVariable "TN_ticket_GUER";
+        GVAR(WEST) = 0;
+        publicVariable QGVAR(WEST);
+        GVAR(EAST) = 0;
+        publicVariable QGVAR(EAST);
+        GVAR(GUER) = 0;
+        publicVariable QGVAR(GUER);
         "All tickets reset to zero!" remoteExecCall ["hint"];
     };
     default

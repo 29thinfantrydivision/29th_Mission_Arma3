@@ -1,3 +1,5 @@
+#include "script_component.hpp"
+
 /*
  * Author: Bae [29th ID]
  * Registers an arsenal object on the server for curator
@@ -17,19 +19,19 @@
 
 params ["_arsenal"];
 
-if (isNil "TN_cmd_arsenalObjects") then {
-    TN_cmd_arsenalObjects = [];
+if (isNil QGVAR(arsenalObjects)) then {
+    GVAR(arsenalObjects) = [];
 
-    ["TN_round_started", {
+    [QEGVAR(round,started), {
         {
             deleteVehicle _x;
-        } forEach TN_cmd_arsenalObjects;
-        TN_cmd_arsenalObjects = [];
+        } forEach GVAR(arsenalObjects);
+        GVAR(arsenalObjects) = [];
     }] call CBA_fnc_addEventHandler;
 };
 
-TN_cmd_arsenalObjects pushBack _arsenal;
+GVAR(arsenalObjects) pushBack _arsenal;
 
-[[_arsenal]] call TN_curator_fnc_addEditable;
+[[_arsenal]] call EFUNC(curator,addEditable);
 
 nil

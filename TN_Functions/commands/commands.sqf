@@ -11,7 +11,7 @@
     created in XEH_preInit.sqf
 */
 
-TN_commands_helpInfo = [
+GVAR(helpInfo) = [
     [
         "help",
         "Gives help on how to use commands"
@@ -39,14 +39,14 @@ TN_commands_helpInfo = [
 ];
 
 
-TN_commands_allCommands = [
+GVAR(allCommands) = [
     [
         "commands",
         {
             private _commands = "";
             {
                 _commands = _commands + (COMMAND_MARKER + _x) + ", ";
-            } forEach (keys TN_commands_allCommands);
+            } forEach (keys GVAR(allCommands));
 
             systemChat format ["Available Commands: %1", _commands];
             systemChat "Use !help followed by the command name to see how to use it";
@@ -58,18 +58,18 @@ TN_commands_allCommands = [
             private _argument = _this select 0;
             _argument = toLower _argument;
 
-            private _helpInfo = TN_commands_helpInfo get _argument;
+            private _helpInfo = GVAR(helpInfo) get _argument;
 
             if !(isNil "_helpInfo") then
             {
                 private _restrictionStr =
                     switch (true) do
                 {
-                    case (_argument in TN_commands_adminCommands):
+                    case (_argument in GVAR(adminCommands)):
                     {
                         "(ADMIN ONLY)";
                     };
-                    case (_argument in TN_commands_restrictedCommands):
+                    case (_argument in GVAR(restrictedCommands)):
                     {
                         "(RESTRICTED)";
                     };
@@ -90,7 +90,7 @@ TN_commands_allCommands = [
     [
         "arsenal",
         {
-            [getPosATL player, getDir player, 3] call TN_commands_fnc_arsenalCreate;
+            [getPosATL player, getDir player, 3] call FUNC(arsenalCreate);
         }
     ],
     [

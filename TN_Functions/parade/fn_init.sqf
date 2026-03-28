@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID]
  * Initializes the parade loadout module. Applies the correct
@@ -24,7 +25,7 @@ if (hasInterface) then
     // parade inventory.
     [
         { primaryWeapon player isEqualTo "rhs_weap_m1garand_sa43" },
-        { call TN_parade_fnc_handleInitialInventory }
+        { call FUNC(handleInitialInventory) }
     ] call CBA_fnc_waitUntilAndExecute;
 };
 

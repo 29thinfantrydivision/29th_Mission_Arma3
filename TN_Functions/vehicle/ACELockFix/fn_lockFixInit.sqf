@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID]
  * Workaround for ACE bug where vehicle seats stay locked
@@ -16,13 +17,13 @@
  * call TN_vehicle_fnc_lockFixInit;
  */
 
-#define DELAY_UNLOCK(_unit) [{ _this call TN_vehicle_fnc_unlockUnconsciousSeat }, _unit, 0.5] call CBA_fnc_waitAndExecute
+#define DELAY_UNLOCK(_unit) [{ _this call FUNC(unlockUnconsciousSeat) }, _unit, 0.5] call CBA_fnc_waitAndExecute
 
 ["CAManBase", "GetInMan", {
     params ["_unit", "", "_vehicle"];
 
     if (local _vehicle) then {
-        [_unit] call TN_vehicle_fnc_saveUnconsciousSeat;
+        [_unit] call FUNC(saveUnconsciousSeat);
     };
 }] call CBA_fnc_addClassEventHandler;
 
@@ -38,7 +39,7 @@
     params ["_unit", "_unconscious"];
     if (!isNull objectParent _unit && {local objectParent _unit}) then {
         if (_unconscious) then {
-            [_unit] call TN_vehicle_fnc_saveUnconsciousSeat;
+            [_unit] call FUNC(saveUnconsciousSeat);
         } else {
             DELAY_UNLOCK(_unit);
         };

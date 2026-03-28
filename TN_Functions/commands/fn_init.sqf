@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 #include "..\..\data\templates.hpp"
 
 /*
@@ -39,22 +40,22 @@ if (hasInterface) then
     forEach (TN_MODULES - ["commands"]);
 
     // Convert flat arrays to HashMaps for fast lookup.
-    TN_commands_allCommands = createHashMapFromArray TN_commands_allCommands;
-    TN_commands_helpInfo = createHashMapFromArray TN_commands_helpInfo;
+    GVAR(allCommands) = createHashMapFromArray GVAR(allCommands);
+    GVAR(helpInfo) = createHashMapFromArray GVAR(helpInfo);
 
-    TN_commands_finishedInit = true;
-    ["TN_commands_initCompleted", []] call CBA_fnc_localEvent;
+    GVAR(finishedInit) = true;
+    [QGVAR(initCompleted), []] call CBA_fnc_localEvent;
 
-    TN_commands_chatOpen = false;
+    GVAR(chatOpen) = false;
 
     [{
         private _display = findDisplay 24;
 
         if (isNull _display) then {
-            TN_commands_chatOpen = false;
+            GVAR(chatOpen) = false;
         } else {
-            if (!TN_commands_chatOpen) then {
-                TN_commands_chatOpen = true;
+            if (!GVAR(chatOpen)) then {
+                GVAR(chatOpen) = true;
 
                 _display displayAddEventHandler ["KeyDown", {
                     params ["_display", "_key"];
@@ -70,7 +71,7 @@ if (hasInterface) then
                     closeDialog 0;
                     _display closeDisplay 1;
 
-                    [_text] call TN_commands_fnc_execute;
+                    [_text] call FUNC(execute);
 
                     true
                 }];
@@ -82,12 +83,12 @@ if (hasInterface) then
 /* --- Compile command subfolder functions (not in CfgFunctions) --- */
 
 if (hasInterface) then {
-    TN_commands_fnc_arsenalCreate = compileFinal preprocessFileLineNumbers
+    FUNC(arsenalCreate) = compileFinal preprocessFileLineNumbers
         "TN_Functions\commands\arsenal\fn_create.sqf";
 };
 
 if (isServer) then {
-    TN_commands_fnc_arsenalRegister = compileFinal preprocessFileLineNumbers
+    FUNC(arsenalRegister) = compileFinal preprocessFileLineNumbers
         "TN_Functions\commands\arsenal\fn_register.sqf";
 };
 

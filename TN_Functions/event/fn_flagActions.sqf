@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 #include "..\..\data\roundState.hpp"
 
 /*
@@ -19,14 +20,14 @@
 {
     if (isNil {_x}) then
     {
-        TN_event_timerObjects set
+        GVAR(timerObjects) set
             [_forEachIndex, objNull];
     };
-} forEach TN_event_timerObjects;
+} forEach GVAR(timerObjects);
 
-if (isNil "TN_event_endingObject") then
+if (isNil QGVAR(endingObject)) then
 {
-    TN_event_endingObject = objNull;
+    GVAR(endingObject) = objNull;
     systemChat "WARNING: Admin object (endingObject) not found!";
 };
 
@@ -36,7 +37,7 @@ private _validSide =
     playerSide in [west, east, resistance];
 
 private _allObjects =
-    TN_event_timerObjects + [TN_event_endingObject];
+    GVAR(timerObjects);
 
 {
     if (!isNull _x) then
@@ -49,11 +50,11 @@ private _allObjects =
                     + "Side Ready</t>",
                 {
                     [playerSide, true]
-                        call TN_round_fnc_manageReady;
+                        call EFUNC(round,manageReady);
                 },
                 nil,
                 1.5, true, true, "",
-                "!(TN_round_sideReady select"
+                "!(" + QEGVAR(round,sideReady) + " select"
                 + " (playerSide call BIS_fnc_sideID))",
                 8
             ];
@@ -63,17 +64,17 @@ private _allObjects =
                     + "Side Unready</t>",
                 {
                     [playerSide, false]
-                        call TN_round_fnc_manageReady;
+                        call EFUNC(round,manageReady);
                 },
                 nil,
                 1.5, true, true, "",
-                "TN_round_sideReady select"
+                QEGVAR(round,sideReady) + " select"
                 + " (playerSide call BIS_fnc_sideID)",
                 8
             ];
 
             _x setVariable [
-                "TN_event_readyActionIds",
+                QGVAR(readyActionIds),
                 [_readyId, _unreadyId]
             ];
         };
@@ -83,17 +84,16 @@ private _allObjects =
 /* --- Remove ready actions on round start --- */
 
 [
-    "TN_round_started",
+    QEGVAR(round,started),
     {
         private _objects =
-            TN_event_timerObjects
-            + [TN_event_endingObject];
+            GVAR(timerObjects);
         {
             if (!isNull _x) then
             {
                 private _obj = _x;
                 private _ids = _obj getVariable
-                    ["TN_event_readyActionIds", []];
+                    [QGVAR(readyActionIds), []];
                 { _obj removeAction _x }
                     forEach _ids;
             };
@@ -104,7 +104,7 @@ private _allObjects =
 /* --- Remove actions after game is called --- */
 
 [
-    "TN_event_onMissionEnded",
+    QGVAR(onMissionEnded),
     {
         {
             if (!isNull _x) then
@@ -112,14 +112,13 @@ private _allObjects =
                 removeAllActions _x;
             };
         } forEach (
-            TN_event_timerObjects
-            + [TN_event_endingObject]
+            GVAR(timerObjects)
         );
 
-        if (!isNil "TN_event_adminMenuActionId") then
+        if (!isNil QGVAR(adminMenuActionId)) then
         {
-            player removeAction TN_event_adminMenuActionId;
-            TN_event_adminMenuActionId = nil;
+            player removeAction GVAR(adminMenuActionId);
+            GVAR(adminMenuActionId) = nil;
         };
     }
 ] call CBA_fnc_addEventHandler;

@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Hill [29th ID]
  * Adds the given objects as editable for every active

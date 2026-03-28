@@ -1,3 +1,5 @@
+#include "script_component.hpp"
+
 /*
  * Author: Bae [29th ID]
  * Checks if all sides with active players are ready. Sides with zero
@@ -17,7 +19,7 @@ private _bluCount = west countSide allPlayers;
 private _opfCount = east countSide allPlayers;
 private _grnCount = resistance countSide allPlayers;
 
-TN_round_sideReady params ["_opfReady", "_bluReady", "_grnReady"];
+GVAR(sideReady) params ["_opfReady", "_bluReady", "_grnReady"];
 
 // A side passes if it is ready OR has no players.
 (_bluReady || _bluCount isEqualTo 0)

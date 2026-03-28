@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
     This file is almost an exact copy of BIS_fnc_moduleSector.sqf from Arma 3, but with certain parameters changed.
 */
@@ -125,16 +126,16 @@ switch _mode do {
         _useDefaultSides = !isnil {_logic getvariable "sides"};
 
         //backup default values - ex. CBA not used
-        if (isNil "TN_costStatic") then {
-            TN_costInfantry = 1;
-            TN_costWheeled = 1;
-            TN_costTracked = 2;
-            TN_costStatic = 1;
-            TN_costWater = 1;
-            TN_costAir = 1;
-            TN_captureCoef = 0.05;
-            TN_checkCrew = [false, false]; //[Land/Naval, Air]
-            TN_useThreat = false;
+        if (isNil QGVARMAIN(costStatic)) then {
+            GVARMAIN(costInfantry) = 1;
+            GVARMAIN(costWheeled) = 1;
+            GVARMAIN(costTracked) = 2;
+            GVARMAIN(costStatic) = 1;
+            GVARMAIN(costWater) = 1;
+            GVARMAIN(costAir) = 1;
+            GVARMAIN(captureCoef) = 0.05;
+            GVARMAIN(checkCrew) = [false, false]; //[Land/Naval, Air]
+            GVARMAIN(useThreat) = false;
         }; //Custom code
 
         //--- Register the expression as a scripted event handler
@@ -379,14 +380,14 @@ switch _mode do {
             _threat = getarray (configfile >> "cfgvehicles" >> typeof _veh >> "threat");
 
             _score = 0.1; //--- Use non-zero value, so even objects with threat[]={0,0,0} can capture
-            if (TN_useThreat) then {{_score = _score + _x} foreach _threat} else {_score = 1};
+            if (GVARMAIN(useThreat)) then {{_score = _score + _x} foreach _threat} else {_score = 1};
             _score = _score * _coef;
             if (isplayer _veh) then {_score = _score * _costPlayersLocal;};
 
             if (_scanCrew) then {
                 {
                     if (!alive _x) then {continue};
-                    _score = _score + ([_x,TN_costInfantry,false] call _fnc_threat); //custom change
+                    _score = _score + ([_x,GVARMAIN(costInfantry),false] call _fnc_threat); //custom change
                     if (isplayer _x) then {_score = _score * _costPlayersLocal;};
                 } foreach (crew _veh - [_veh]);
             };
@@ -577,7 +578,7 @@ switch _mode do {
 
             //--- Detect leading side
             _owner = sideUnknown;
-            _timeCoef = TN_captureCoef * (time - _time); //Custom code change
+            _timeCoef = GVARMAIN(captureCoef) * (time - _time); //Custom code change
 
             _sectorScore = [_sectorScore,1] call _fnc_conversion;
             _sectorScoreSorted = _sectorScore call _fnc_sort;
@@ -802,27 +803,27 @@ switch _mode do {
 
                                 _xScore = switch (tolower _simulation) do {
                                     case "soldier": {
-                                        [_x,TN_costInfantry,false] call _fnc_threat;
+                                        [_x,GVARMAIN(costInfantry),false] call _fnc_threat;
                                     };
                                     // Custom code begin
                                     case "carx": {
-                                        [_x,TN_costWheeled,TN_checkCrew#0] call _fnc_threat;
+                                        [_x,GVARMAIN(costWheeled),GVARMAIN(checkCrew)#0] call _fnc_threat;
                                     };
                                     case "tankx": {
                                         if (_x isKindOf "StaticWeapon") then {
-                                            [_x,TN_costStatic,TN_checkCrew#0] call _fnc_threat;
+                                            [_x,GVARMAIN(costStatic),GVARMAIN(checkCrew)#0] call _fnc_threat;
                                         } else {
-                                            [_x,TN_costTracked,TN_checkCrew#0] call _fnc_threat;
+                                            [_x,GVARMAIN(costTracked),GVARMAIN(checkCrew)#0] call _fnc_threat;
                                         };
                                     };
                                     case "shipx";
                                     case "submarinex": {
-                                        [_x,TN_costWater,TN_checkCrew#0] call _fnc_threat;
+                                        [_x,GVARMAIN(costWater),GVARMAIN(checkCrew)#0] call _fnc_threat;
                                     };
                                     case "helicopterrtd";
                                     case "airplanex";
                                     case "helicopterx": {
-                                        [_x,TN_costAir,TN_checkCrew#1] call _fnc_threat;
+                                        [_x,GVARMAIN(costAir),GVARMAIN(checkCrew)#1] call _fnc_threat;
                                     };
                                     // Custom code end
                                     default {
@@ -900,7 +901,7 @@ switch _mode do {
         ("RscMPProgress" call bis_fnc_rscLayer) cutrsc ["RscMPProgress","plain"];
 
         // Custom code begin
-        if (isNil "TN_training_sectorLastVic") then {TN_training_sectorLastVic = ""};
+        if (isNil QGVAR(sectorLastVic)) then {GVAR(sectorLastVic) = ""};
 
         [_logic] spawn {
             params ["_logic"];
@@ -912,7 +913,7 @@ switch _mode do {
                 if !(alive player && {(side group player) in _sides}) then { continue }; //don't show if player not in a side that can capture
 
                 private _vehicle = objectParent player;
-                if (isNull _vehicle || {typeOf _vehicle == TN_training_sectorLastVic}) then { continue };
+                if (isNull _vehicle || {typeOf _vehicle == GVAR(sectorLastVic)}) then { continue };
 
                 _simulation = tolower (gettext (configfile >> "cfgvehicles" >> typeof _vehicle >> "simulation"));
 
@@ -922,12 +923,12 @@ switch _mode do {
                     case "tankx";
                     case "shipx";
                     case "submarinex": {
-                        !(TN_checkCrew#0)
+                        !(GVARMAIN(checkCrew)#0)
                     };
                     case "helicopterrtd";
                     case "airplanex";
                     case "helicopterx": {
-                        !(TN_checkCrew#1)
+                        !(GVARMAIN(checkCrew)#1)
                     };
                     default {
                         false;
@@ -935,29 +936,29 @@ switch _mode do {
                 };
 
                 //case where infantry cost is 0, player weight in vehicle doesn't matter
-                _checkWarning = _checkWarning || (TN_costInfantry == 0);
+                _checkWarning = _checkWarning || (GVARMAIN(costInfantry) == 0);
                 if !(_checkWarning) then { continue };
 
                 //check vehicle costs
                 _checkWarning = switch (_simulation) do {
                     case "carx": {
-                        TN_costWheeled == 0;
+                        GVARMAIN(costWheeled) == 0;
                     };
                     case "tankx": {
                         if (_vehicle isKindOf "StaticWeapon") then {
-                            TN_costStatic == 0;
+                            GVARMAIN(costStatic) == 0;
                         } else {
-                            TN_costTracked == 0;
+                            GVARMAIN(costTracked) == 0;
                         };
                     };
                     case "shipx";
                     case "submarinex": {
-                        TN_costWater == 0;
+                        GVARMAIN(costWater) == 0;
                     };
                     case "helicopterrtd";
                     case "airplanex";
                     case "helicopterx": {
-                        TN_costAir == 0;
+                        GVARMAIN(costAir) == 0;
                     };
                     default {
                         false;
@@ -969,7 +970,7 @@ switch _mode do {
                 {
                     if (player inArea _x) exitWith {
                         systemChat "Warning: You cannot capture or hold a sector while in this vehicle.";
-                        TN_training_sectorLastVic = typeOf _vehicle;
+                        GVAR(sectorLastVic) = typeOf _vehicle;
                     };
                 } forEach _areas;
             };

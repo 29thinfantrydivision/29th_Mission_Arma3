@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 #include "..\..\data\roundState.hpp"
 
 /*
@@ -31,21 +32,21 @@ if (isNull _display) exitWith {};
 
 /* --- Close function (define once) --- */
 
-if (isNil "TN_event_fnc_closeFlagMenu") then {
-    TN_event_fnc_closeFlagMenu =
+if (isNil QFUNC(closeFlagMenu)) then {
+    FUNC(closeFlagMenu) =
     {
         // Remove CBA event handlers
         {
             _x call CBA_fnc_removeEventHandler;
         } forEach (uiNamespace getVariable [
-            "TN_flagMenu_ehIds", []
+            QGVAR(flagMenu_ehIds), []
         ]);
 
         uiNamespace setVariable [
-            "TN_flagMenu_ehIds", nil
+            QGVAR(flagMenu_ehIds), nil
         ];
         uiNamespace setVariable [
-            "TN_flagMenu_rebuild", nil
+            QGVAR(flagMenu_rebuild), nil
         ];
 
         // Close the dialog — destroys all controls with it
@@ -62,7 +63,7 @@ private _fnc_rebuild =
 
     /* Delete old menu controls */
     private _oldControls = uiNamespace getVariable [
-        "TN_flagMenu_controls", []
+        QGVAR(flagMenu_controls), []
     ];
     { ctrlDelete _x } forEach _oldControls;
 
@@ -70,7 +71,7 @@ private _fnc_rebuild =
 
     private _actions = [];
 
-    switch (TN_round_state) do
+    switch (EGVAR(round,state)) do
     {
         case 0:
         {
@@ -78,9 +79,9 @@ private _fnc_rebuild =
                 "Begin Safe Start",
                 {
                     params ["_ctrl"];
-                    [TN_event_forcedSafeStart, true]
-                        call TN_round_fnc_initSafeStart;
-                    call TN_event_fnc_closeFlagMenu;
+                    [GVAR(forcedSafeStart), true]
+                        call EFUNC(round,initSafeStart);
+                    call FUNC(closeFlagMenu);
                 },
                 [0.75, 0.25, 1, 1]
             ];
@@ -93,16 +94,16 @@ private _fnc_rebuild =
                 "Cancel Safestart",
                 {
                     params ["_ctrl"];
-                    [0] call TN_round_fnc_changeForcedSafeStart;
-                    if (call TN_round_fnc_checkAllSidesReady) then
+                    [0] call EFUNC(round,changeForcedSafeStart);
+                    if (call EFUNC(round,checkAllSidesReady)) then
                     {
                         {
-                            [_x, false] call TN_round_fnc_manageReady;
+                            [_x, false] call EFUNC(round,manageReady);
                         }
                         forEach [west, east, resistance];
                         systemChat "Unreadied all sides!";
                     };
-                    call TN_event_fnc_closeFlagMenu;
+                    call FUNC(closeFlagMenu);
                 },
                 [0.75, 0.25, 1, 1]
             ];
@@ -112,8 +113,8 @@ private _fnc_rebuild =
                 "Change Safestart Time",
                 {
                     params ["_ctrl"];
-                    call TN_event_fnc_closeFlagMenu;
-                    call TN_event_fnc_gui_setSafeStartTime;
+                    call FUNC(closeFlagMenu);
+                    call FUNC(gui_setSafeStartTime);
                 },
                 [0.75, 0.25, 1, 1]
             ];
@@ -123,9 +124,9 @@ private _fnc_rebuild =
                 "Force Live",
                 {
                     params ["_ctrl"];
-                    [TN_event_timerLength]
-                        call TN_round_fnc_start;
-                    call TN_event_fnc_closeFlagMenu;
+                    [GVAR(timerLength)]
+                        call EFUNC(round,start);
+                    call FUNC(closeFlagMenu);
                 },
                 [0.75, 0.25, 1, 1]
             ];
@@ -137,8 +138,8 @@ private _fnc_rebuild =
                 "Neutral Ending",
                 {
                     params ["_ctrl"];
-                    [] call TN_event_fnc_game;
-                    call TN_event_fnc_closeFlagMenu;
+                    [] call FUNC(game);
+                    call FUNC(closeFlagMenu);
                 },
                 [0.75, 0.25, 1, 1]
             ];
@@ -166,9 +167,9 @@ private _fnc_rebuild =
                         _sideName + " Victory",
                         {
                             params ["_ctrl"];
-                            private _side = _ctrl getVariable "TN_side";
-                            [_side] call TN_event_fnc_game;
-                            call TN_event_fnc_closeFlagMenu;
+                            private _side = _ctrl getVariable QGVAR(side);
+                            [_side] call FUNC(game);
+                            call FUNC(closeFlagMenu);
                         },
                         _sideColor,
                         _side
@@ -180,7 +181,7 @@ private _fnc_rebuild =
 
     if (_actions isEqualTo []) exitWith
     {
-        call TN_event_fnc_closeFlagMenu;
+        call FUNC(closeFlagMenu);
     };
 
     /* --- Layout constants --- */
@@ -248,7 +249,7 @@ private _fnc_rebuild =
         _btn ctrlSetBackgroundColor _color;
         if (_sideVar isNotEqualTo sideUnknown) then
         {
-            _btn setVariable ["TN_side", _sideVar];
+            _btn setVariable [QGVAR(side), _sideVar];
         };
         _btn ctrlCommit 0;
         _btn ctrlAddEventHandler [
@@ -260,14 +261,14 @@ private _fnc_rebuild =
     } forEach _actions;
 
     uiNamespace setVariable [
-        "TN_flagMenu_controls", _controls
+        QGVAR(flagMenu_controls), _controls
     ];
 };
 
 /* --- Store rebuild fn in uiNamespace for CBA handlers --- */
 
 uiNamespace setVariable [
-    "TN_flagMenu_rebuild", _fnc_rebuild
+    QGVAR(flagMenu_rebuild), _fnc_rebuild
 ];
 
 /* --- Initial build --- */
@@ -277,10 +278,10 @@ uiNamespace setVariable [
 /* --- Subscribe to round-state CBA events --- */
 
 private _stateEvents = [
-    "TN_round_safeStartBegin",
-    "TN_round_safeStartAborted",
-    "TN_round_started",
-    "TN_round_ended"
+    QEGVAR(round,safeStartBegin),
+    QEGVAR(round,safeStartAborted),
+    QEGVAR(round,started),
+    QEGVAR(round,ended)
 ];
 
 private _ehIds = [];
@@ -292,7 +293,7 @@ private _ehIds = [];
         if !(isNull _dlg) then
         {
             [_dlg] call (uiNamespace getVariable
-                "TN_flagMenu_rebuild");
+                QGVAR(flagMenu_rebuild));
         };
     }] call CBA_fnc_addEventHandler;
 
@@ -300,7 +301,7 @@ private _ehIds = [];
 } forEach _stateEvents;
 
 uiNamespace setVariable [
-    "TN_flagMenu_ehIds", _ehIds
+    QGVAR(flagMenu_ehIds), _ehIds
 ];
 
 /* --- Close on ESC --- */
@@ -311,7 +312,7 @@ _display displayAddEventHandler [
         params ["_display", "_key"];
         if (_key isEqualTo 1) then
         {
-            call TN_event_fnc_closeFlagMenu;
+            call FUNC(closeFlagMenu);
             true
         }
         else
@@ -329,17 +330,17 @@ _display displayAddEventHandler [
         {
             _x call CBA_fnc_removeEventHandler;
         } forEach (uiNamespace getVariable [
-            "TN_flagMenu_ehIds", []
+            QGVAR(flagMenu_ehIds), []
         ]);
 
         uiNamespace setVariable [
-            "TN_flagMenu_controls", nil
+            QGVAR(flagMenu_controls), nil
         ];
         uiNamespace setVariable [
-            "TN_flagMenu_ehIds", nil
+            QGVAR(flagMenu_ehIds), nil
         ];
         uiNamespace setVariable [
-            "TN_flagMenu_rebuild", nil
+            QGVAR(flagMenu_rebuild), nil
         ];
     }
 ];

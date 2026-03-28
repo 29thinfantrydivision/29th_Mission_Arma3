@@ -1,7 +1,8 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID]
  * Returns the display name for a unit. For infantry, uses the
- * player name (falling back to cached TN_name if dead). For
+ * player name (falling back to cached TN_tracker_name if dead). For
  * vehicles, uses the config display name.
  *
  * Arguments:
@@ -26,7 +27,7 @@ if (_unit isKindOf "Man") then
     }
     else
     {
-        _name = _unit getVariable ["TN_name", "?"];
+        _name = _unit getVariable [QGVAR(name), "?"];
     };
 }
 else

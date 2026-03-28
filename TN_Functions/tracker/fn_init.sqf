@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID]
  * Initializes the tracker system on both server and client.
@@ -18,33 +19,33 @@ if (("enableRoundEventLog" call BIS_fnc_getParamValue) isNotEqualTo 1) exitWith 
 
 if (isServer) then
 {
-    TN_tracker_previous = [];
-    TN_tracker_events = [];
-    TN_tracker_names = [];
-    TN_tracker_sides = [];
-    TN_tracker_weapons = [];
-    TN_tracker_currentRound = 1;
+    GVAR(previous) = [];
+    GVAR(events) = [];
+    GVAR(names) = [];
+    GVAR(sides) = [];
+    GVAR(weapons) = [];
+    GVAR(currentRound) = 1;
 
-    TN_tracker_startTime = -1;
-    publicVariable "TN_tracker_startTime";
+    GVAR(startTime) = -1;
+    publicVariable QGVAR(startTime);
 
     [
-        "TN_round_started",
+        QEGVAR(round,started),
         {
-            TN_tracker_startTime = serverTime;
-            publicVariable "TN_tracker_startTime";
+            GVAR(startTime) = serverTime;
+            publicVariable QGVAR(startTime);
 
-            TN_tracker_events = [];
-            TN_tracker_names = [];
-            TN_tracker_sides = [];
-            TN_tracker_weapons = [];
+            GVAR(events) = [];
+            GVAR(names) = [];
+            GVAR(sides) = [];
+            GVAR(weapons) = [];
 
             // Reset all hit info on players at start
             // of round.
             private _players = allPlayers - entities "HeadlessClient_F";
             {
-                _x setVariable ["TN_lastHit", nil];
-                _x setVariable ["TN_hitMap", createHashMap];
+                _x setVariable [QGVAR(lastHit), nil];
+                _x setVariable [QGVAR(hitMap), createHashMap];
             }
             forEach _players;
         }
@@ -63,7 +64,7 @@ if (isServer) then
         // frame later so wait.
         [
             {
-                call TN_tracker_fnc_recordKill;
+                call FUNC(recordKill);
             },
             _this, 0.75 // Delay to wait for info from clients.
         ] call CBA_fnc_waitAndExecute;
@@ -72,8 +73,8 @@ if (isServer) then
     addMissionEventHandler ["EntityRespawned",
     {
         params ["_unit"];
-        _unit setVariable ["TN_lastHit", nil];
-        _unit setVariable ["TN_hitMap", nil];
+        _unit setVariable [QGVAR(lastHit), nil];
+        _unit setVariable [QGVAR(hitMap), nil];
     }];
 
     // --- Consciousness --- //
@@ -84,7 +85,7 @@ if (isServer) then
             // frame later so wait.
             [
                 {
-                    call TN_tracker_fnc_recordACEConscious;
+                    call FUNC(recordACEConscious);
                 },
                 _this, 0.5
             ] call CBA_fnc_waitAndExecute;
@@ -93,31 +94,31 @@ if (isServer) then
 
     // --- Tracker Diary --- //
     [
-        "TN_round_ended",
+        QEGVAR(round,ended),
         {
-            TN_tracker_startTime = -1;
+            GVAR(startTime) = -1;
             // Wait for any last second events from
             // the network.
             [
                 {
-                    publicVariable "TN_tracker_startTime";
+                    publicVariable QGVAR(startTime);
                     [
-                        TN_tracker_events,
-                        TN_tracker_names,
-                        TN_tracker_sides,
-                        TN_tracker_weapons,
-                        TN_tracker_currentRound
-                    ] remoteExecCall ["TN_tracker_fnc_createDiaryEntries"];
+                        GVAR(events),
+                        GVAR(names),
+                        GVAR(sides),
+                        GVAR(weapons),
+                        GVAR(currentRound)
+                    ] remoteExecCall [QFUNC(createDiaryEntries)];
 
-                    TN_tracker_previous pushBack
+                    GVAR(previous) pushBack
                     [
-                        +TN_tracker_events,
-                        +TN_tracker_names,
-                        +TN_tracker_sides,
-                        +TN_tracker_weapons
+                        +GVAR(events),
+                        +GVAR(names),
+                        +GVAR(sides),
+                        +GVAR(weapons)
                     ];
 
-                    TN_tracker_currentRound = TN_tracker_currentRound + 1;
+                    GVAR(currentRound) = GVAR(currentRound) + 1;
                 },
                 [], 1
             ] call CBA_fnc_waitAndExecute;
@@ -128,7 +129,7 @@ if (isServer) then
     ["ModuleSector_F", "Init", {
         params ["_entity"];
         [_entity, "ownerChanged", {
-            call TN_tracker_fnc_recordSectorCapture;
+            call FUNC(recordSectorCapture);
         }] call BIS_fnc_addScriptedEventHandler;
     }, true, [], true] call CBA_fnc_addClassEventHandler;
 
@@ -139,7 +140,7 @@ if (isServer) then
         if (_unit isKindOf "Man") then
         {
 
-            _unit setVariable ["TN_name", name _unit, true];
+            _unit setVariable [QGVAR(name), name _unit, true];
         };
     }];
 };
@@ -147,32 +148,32 @@ if (isServer) then
 if (hasInterface) then
 {
     // --- Attacker Info --- //
-    TN_tracker_cookOffs = [];
+    GVAR(cookOffs) = [];
 
     [
         { !isNull player },
-        { call TN_tracker_fnc_addEventHandlersClient }
+        { call FUNC(addEventHandlersClient) }
     ] call CBA_fnc_waitUntilAndExecute;
 
-    TN_tracker_weaponNameCache = createHashMap;
+    GVAR(weaponNameCache) = createHashMap;
     // --- Remove Statistics from Map, Send All
     //     Round Histories --- //
     [
-        "TN_preloadFinished",
+        QGVARMAIN(preloadFinished),
         {
-            [player] remoteExecCall ["TN_tracker_fnc_sendAll", 2];
+            [player] remoteExecCall [QFUNC(sendAll), 2];
             player removeDiarySubject "Statistics";
         }
     ] call CBA_fnc_addEventHandler;
 
     // --- Fire/Burn Related Information --- //
     [
-        "TN_round_started",
+        QEGVAR(round,started),
         {
-            TN_tracker_cookOffs = [];
-            player setVariable ["TN_burnInstigator", nil];
-            player setVariable ["TN_burnInstigatorTime", nil];
-            player setVariable ["TN_burnWeapon", nil];
+            GVAR(cookOffs) = [];
+            player setVariable [QGVAR(burnInstigator), nil];
+            player setVariable [QGVAR(burnInstigatorTime), nil];
+            player setVariable [QGVAR(burnWeapon), nil];
             // Burn info of other players locally is not
             // reset, but should be fine.
         }

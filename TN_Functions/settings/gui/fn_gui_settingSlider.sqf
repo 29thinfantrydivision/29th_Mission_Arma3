@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID]
  * Initializes a slider setting row. Wires the slider drag,
@@ -16,7 +17,7 @@
  */
 
 #define SERVER_TEMP \
-    (uiNamespace getVariable "TN_settings_serverTemp")
+    (uiNamespace getVariable QGVAR(serverTemp))
 #define IDC_SLIDER 5120
 #define IDC_SLIDER_EDIT 5121
 #define IDC_NAME 5010
@@ -42,9 +43,9 @@ _ctrlSlider sliderSetSpeed [
 ];
 
 // Shared formatter stored in uiNamespace so event handlers can access it.
-if (isNil {uiNamespace getVariable "TN_fnc_formatEditText"}) then
+if (isNil {uiNamespace getVariable QGVARMAIN(fnc_formatEditText)}) then
 {
-    uiNamespace setVariable ["TN_fnc_formatEditText",
+    uiNamespace setVariable [QGVARMAIN(fnc_formatEditText),
     {
         params ["_val", "_decimals", "_pct"];
         if (_pct) then
@@ -81,7 +82,7 @@ _ctrlSlider ctrlAddEventHandler [
 
         private _editText = [
             _value, _trailingDecimals, _isPercentage
-        ] call (uiNamespace getVariable "TN_fnc_formatEditText");
+        ] call (uiNamespace getVariable QGVARMAIN(fnc_formatEditText));
 
         private _controlsGroup = ctrlParentControlsGroup _ctrlSlider;
         private _ctrlSliderEdit = _controlsGroup controlsGroupCtrl IDC_SLIDER_EDIT;
@@ -98,7 +99,7 @@ _ctrlSlider ctrlAddEventHandler [
         ];
 
         private _ctrlDefault = _controlsGroup controlsGroupCtrl IDC_DEFAULT;
-        private _defaultValue = (TN_settings_default getVariable _setting) select 0;
+        private _defaultValue = (GVAR(default) getVariable _setting) select 0;
         _ctrlDefault ctrlEnable (_value isNotEqualTo _defaultValue);
 
         private _ctrlSettingName = _controlsGroup controlsGroupCtrl IDC_NAME;
@@ -108,7 +109,7 @@ _ctrlSlider ctrlAddEventHandler [
 
 private _editText = [
     _currentValue, _trailingDecimals, _isPercentage
-] call (uiNamespace getVariable "TN_fnc_formatEditText");
+] call (uiNamespace getVariable QGVARMAIN(fnc_formatEditText));
 
 private _ctrlSliderEdit = _controlsGroup controlsGroupCtrl IDC_SLIDER_EDIT;
 _ctrlSliderEdit ctrlSetText _editText;
@@ -161,7 +162,7 @@ _ctrlSliderEdit ctrlAddEventHandler [
         ];
 
         private _ctrlDefault = _controlsGroup controlsGroupCtrl IDC_DEFAULT;
-        private _defaultValue = (TN_settings_default getVariable _setting) select 0;
+        private _defaultValue = (GVAR(default) getVariable _setting) select 0;
         _ctrlDefault ctrlEnable (_value isNotEqualTo _defaultValue);
 
         private _ctrlSettingName = _controlsGroup controlsGroupCtrl IDC_NAME;
@@ -185,12 +186,12 @@ _ctrlSliderEdit ctrlAddEventHandler [
 
         private _editText = [
             _value, _trailingDecimals, _isPercentage
-        ] call (uiNamespace getVariable "TN_fnc_formatEditText");
+        ] call (uiNamespace getVariable QGVARMAIN(fnc_formatEditText));
 
         _ctrlSliderEdit ctrlSetText _editText;
 
         private _ctrlDefault = _controlsGroup controlsGroupCtrl IDC_DEFAULT;
-        private _defaultValue = (TN_settings_default getVariable _setting) select 0;
+        private _defaultValue = (GVAR(default) getVariable _setting) select 0;
         _ctrlDefault ctrlEnable (_value isNotEqualTo _defaultValue);
 
         private _ctrlSettingName = _controlsGroup controlsGroupCtrl IDC_NAME;
@@ -214,12 +215,12 @@ _controlsGroup setVariable [
 
         private _editText = [
             _value, _trailingDecimals, _isPercentage
-        ] call (uiNamespace getVariable "TN_fnc_formatEditText");
+        ] call (uiNamespace getVariable QGVARMAIN(fnc_formatEditText));
 
         _ctrlSliderEdit ctrlSetText _editText;
 
         private _ctrlDefault = _controlsGroup controlsGroupCtrl IDC_DEFAULT;
-        private _defaultValue = (TN_settings_default getVariable _setting) select 0;
+        private _defaultValue = (GVAR(default) getVariable _setting) select 0;
         _ctrlDefault ctrlEnable (_value isNotEqualTo _defaultValue);
     }
 ];

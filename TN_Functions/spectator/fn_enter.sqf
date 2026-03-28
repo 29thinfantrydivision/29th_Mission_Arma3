@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID], modified from Hill [29th ID]
  * Places the player into BIS EG Spectator mode and registers a
@@ -47,7 +48,7 @@ if (isDedicated || !hasInterface) exitWith
 };
 
 // --- Spectator disabled by CBA setting ---
-if (TN_limitSpectator isEqualTo 2) exitWith
+if (GVARMAIN(limitSpectator) isEqualTo 2) exitWith
 {
     hint "Spectator Disabled";
     false
@@ -68,7 +69,7 @@ hintSilent "SPECTATOR\n----------\nPress RELOAD to exit";
 [_unit, true] remoteExecCall ["hideObjectGlobal", 2];
 
 // --- Build params based on spectator restriction level ---
-private _params = switch (TN_limitSpectator) do
+private _params = switch (GVARMAIN(limitSpectator)) do
 {
     case 0: { [_unit, [], false] };
     case 1:
@@ -83,26 +84,26 @@ private _params = switch (TN_limitSpectator) do
 // --- Per-frame exit checks ---
 private _startPos = getPosATL _unit;
 
-TN_spectator_exitPFH = [{
+GVAR(exitPFH) = [{
     params ["_args"];
     _args params ["_startPos", "_unit"];
 
     // Reload key pressed.
     if (inputAction "ReloadMagazine" > 0) exitWith
     {
-        call TN_spectator_fnc_exit;
+        call FUNC(exit);
     };
 
     // Player drifted away from start position.
     if (getPosATL _unit distanceSqr _startPos > 25) exitWith
     {
-        call TN_spectator_fnc_exit;
+        call FUNC(exit);
     };
 
     // Player respawned while in spectator (known issue).
     if (!alive _unit) exitWith
     {
-        call TN_spectator_fnc_exit;
+        call FUNC(exit);
     };
 }, 0, [_startPos, _unit]] call CBA_fnc_addPerFrameHandler;
 

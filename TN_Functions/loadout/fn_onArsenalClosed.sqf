@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Hill [29th ID]
  * Post-arsenal cleanup. Saves the player's current inventory
@@ -48,7 +49,7 @@ resetLoadout = [player] call CBA_fnc_getLoadout;
     } forEach _primaryMags;
 };
 
-player call TN_loadout_fnc_setInsignia;
+player call FUNC(setInsignia);
 
 if !(weaponLowered player) then
 {

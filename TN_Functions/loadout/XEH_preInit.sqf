@@ -1,7 +1,8 @@
+#include "script_component.hpp"
 #include "..\..\data\settingCategories.hpp"
 
 [
-    "TN_setInsignia",
+    QGVARMAIN(setInsignia),
     "CHECKBOX",
     "Automatically set 29th Insignia",
     [GENERAL_SETTINGS_CATEGORY, LOADOUT_SUBCATEGORY],

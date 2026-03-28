@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID]
  * Finds kill count at end of round from events. Units left
@@ -32,12 +33,12 @@ private _killCounts = createHashMap;
             private _unitIndex = _eventInfo select 0;
             private _unitSide = [
                 _unitIndex, _eventTime, _sides
-            ] call TN_tracker_fnc_getSideAtTime;
+            ] call FUNC(getSideAtTime);
             private _instigatorIndex =
                 _eventInfo select 1;
             private _instigatorSide = [
                 _instigatorIndex, _eventTime, _sides
-            ] call TN_tracker_fnc_getSideAtTime;
+            ] call FUNC(getSideAtTime);
 
             private _findUnconIdx =
                 _unconsciousAtEnd findIf {
@@ -69,13 +70,13 @@ private _killCounts = createHashMap;
             private _unitIndex = _eventInfo select 0;
             private _unitSide = [
                 _unitIndex, _eventTime select 0, _sides
-            ] call TN_tracker_fnc_getSideAtTime;
+            ] call FUNC(getSideAtTime);
             private _instigatorIndex =
                 _eventInfo select 1;
             private _instigatorSide = [
                 _instigatorIndex, _eventTime select 1,
                 _sides
-            ] call TN_tracker_fnc_getSideAtTime;
+            ] call FUNC(getSideAtTime);
 
             private _findUnconIdx =
                 _unconsciousAtEnd findIf {
@@ -105,7 +106,7 @@ private _killCounts = createHashMap;
             private _unitIndex = _eventInfo select 0;
             private _unitSide = [
                 _unitIndex, _eventTime, _sides
-            ] call TN_tracker_fnc_getSideAtTime;
+            ] call FUNC(getSideAtTime);
             private _state = _eventInfo select 1;
             if (_state && (count _eventInfo) > 2) then
             {
@@ -113,7 +114,7 @@ private _killCounts = createHashMap;
                     _eventInfo select 2;
                 private _instigatorSide = [
                     _instigatorIndex, _eventTime, _sides
-                ] call TN_tracker_fnc_getSideAtTime;
+                ] call FUNC(getSideAtTime);
                 _unconsciousAtEnd pushBack [
                     [_unitIndex, _unitSide],
                     [_instigatorIndex, _instigatorSide]
@@ -139,14 +140,14 @@ private _killCounts = createHashMap;
             private _unitIndex = _eventInfo select 0;
             private _unitSide = [
                 _unitIndex, _eventTime select 0, _sides
-            ] call TN_tracker_fnc_getSideAtTime;
+            ] call FUNC(getSideAtTime);
 
             private _instigatorIndex =
                 _eventInfo select 2;
             private _instigatorSide = [
                 _instigatorIndex, _eventTime select 1,
                 _sides
-            ] call TN_tracker_fnc_getSideAtTime;
+            ] call FUNC(getSideAtTime);
             _unconsciousAtEnd pushBack [
                 [_unitIndex, _unitSide],
                 [_instigatorIndex, _instigatorSide]

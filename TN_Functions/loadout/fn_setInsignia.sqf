@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID], modified from Hill [29th ID]
  * If a unit has a valid 29th squad.xml configuration, applies
@@ -14,7 +15,7 @@
  * player call TN_loadout_fnc_setInsignia;
  */
 
-if !(TN_setInsignia) exitWith { false };
+if !(GVARMAIN(setInsignia)) exitWith { false };
 
 // === Insignia Map ===
 // Alternate non-combat version as second element in value.
@@ -36,7 +37,7 @@ params [["_target", objNull, [objNull]]];
 if (!alive _target) exitWith
 {
     [{alive (_this select 0)}, {
-        (_this select 0) call TN_loadout_fnc_setInsignia;
+        (_this select 0) call FUNC(setInsignia);
     }, [_target]] call CBA_fnc_waitUntilAndExecute;
 };
 
@@ -86,7 +87,7 @@ _targetInsignia = _foundInsignias select 0;
 if (count _foundInsignias isEqualTo 2) then
 {
     // BLUFOR parade gear, dress blues, or no weapon.
-    private _isNotCombatLoadout = _target call TN_parade_fnc_checkNonCombatLoadout;
+    private _isNotCombatLoadout = _target call EFUNC(parade,checkNonCombatLoadout);
 
     // Use non-combat version.
     if (_isNotCombatLoadout) then

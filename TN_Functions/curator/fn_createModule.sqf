@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID]
  * Creates a curator (Zeus) module for the specified
@@ -27,24 +28,24 @@ if (time isEqualTo 0) exitWith
 {
     [
         { time > 0 },
-        { call TN_curator_fnc_createModule },
+        { call FUNC(createModule) },
         _this
     ] call CBA_fnc_waitUntilAndExecute;
 };
 
 _playerVarName = toLowerANSI _playerVarName;
 
-if !(_playerVarName in TN_curator_units) exitWith {};
+if !(_playerVarName in GVAR(units)) exitWith {};
 
 if !(isServer) exitWith
 {
     _this remoteExecCall [
-        "TN_curator_fnc_createModule", 2
+        QFUNC(createModule), 2
     ];
 };
 
 private _curatorModuleName = format [
-    "TN_curator_zeus_%1", _playerVarName
+    QGVAR(zeus_%1), _playerVarName
 ];
 
 if !(isNil _curatorModuleName) exitWith

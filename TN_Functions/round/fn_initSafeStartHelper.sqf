@@ -28,10 +28,10 @@
     };
 
     private _allSidesReady =
-        call TN_round_fnc_checkAllSidesReady;
+        call FUNC(checkAllSidesReady);
 
     /* --- Abort if a team unreadied and we're not forced --- */
-    if !(_allSidesReady || TN_round_ignoreReadiness) exitWith
+    if !(_allSidesReady || GVAR(ignoreReadiness)) exitWith
     {
         _handle call CBA_fnc_removePerFrameHandler;
 
@@ -39,12 +39,12 @@
             "<t color='#ffffff' size='4'>Timer Aborted!</t>",
             "PLAIN",
             0.5
-        ] remoteExecCall ["TN_common_fnc_displayMsg"];
+        ] remoteExecCall [QEFUNC(common,displayMsg)];
 
         RESET_SAFESTART_VARS;
         [-1] call BIS_fnc_countdown;
 
-        ["TN_round_safeStartAborted", []]
+        [QGVAR(safeStartAborted), []]
             call CBA_fnc_globalEvent;
     };
 
@@ -54,7 +54,7 @@
         _handle call CBA_fnc_removePerFrameHandler;
 
         RESET_SAFESTART_VARS;
-        [] call TN_round_fnc_start;
+        [] call FUNC(start);
     };
 }, SAFE_START_POLL_INTERVAL] call CBA_fnc_addPerFrameHandler;
 

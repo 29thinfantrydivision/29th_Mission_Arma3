@@ -1,3 +1,5 @@
+#include "script_component.hpp"
+
 /*
  * Author: Bae [29th ID]
  * Manages timed round events (time warnings). Registers a 1-second
@@ -17,30 +19,30 @@
 
 if (!hasInterface) exitWith {};
 
-TN_round_timeAdded = false;
+GVAR(timeAdded) = false;
 
 /* --- Event table: [triggerSeconds, function, args] --- */
 private _events = [
-    [5 * 60, TN_round_fnc_timeWarning, []],
-    [1 * 60, TN_round_fnc_timeWarning, []]
+    [5 * 60, FUNC(timeWarning), []],
+    [1 * 60, FUNC(timeWarning), []]
 ];
 
 [{
     params ["_args", "_handle"];
     _args params ["_events", "_eventIndex"];
 
-    private _timeLeft = call TN_round_fnc_getTime;
+    private _timeLeft = call FUNC(getTime);
 
-    if (_timeLeft <= 0 && !TN_round_overtimeEnabled) exitWith
+    if (_timeLeft <= 0 && !GVAR(overtimeEnabled)) exitWith
     {
         _handle call CBA_fnc_removePerFrameHandler;
     };
 
     // Reset event index when addTime extends the clock.
-    if (TN_round_timeAdded) then
+    if (GVAR(timeAdded)) then
     {
         _eventIndex = 0;
-        TN_round_timeAdded = false;
+        GVAR(timeAdded) = false;
     };
 
     /* --- Fire events whose trigger time has been reached --- */

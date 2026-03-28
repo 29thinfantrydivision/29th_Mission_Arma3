@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID]
  * Initializes the spectator module on clients.
@@ -17,16 +18,16 @@
 if (!hasInterface) exitWith {};
 
 // --- Auto-spectate on respawn ---
-["TN_spectator_autoSpectate", "Respawn",
+[QGVAR(autoSpectate), "Respawn",
 {
     params ["_newUnit", "_oldUnit"];
 
     if (!isNull _oldUnit) then
     {
-        if (TN_autoSpectate) then
+        if (GVARMAIN(autoSpectate)) then
         {
             systemChat "AutoSpectate is ON.";
-            [_newUnit] call TN_spectator_fnc_enter;
+            [_newUnit] call FUNC(enter);
         };
     };
 }] call CBA_fnc_addBISPlayerEventHandler;

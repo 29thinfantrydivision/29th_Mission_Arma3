@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 #include "..\..\data\roundState.hpp"
 
 /*
@@ -23,17 +24,17 @@
 call compile preprocessFileLineNumbers "eventSettings.sqf";
 
 /******* Timer ********/
-if (TN_event_hasTimer) then
+if (GVAR(hasTimer)) then
 {
     if (hasInterface) then
     {
         [{!isNull player}, {
-            call TN_event_fnc_flagActions;
+            call FUNC(flagActions);
 
             if (serverCommandAvailable "#lock") then
             {
                 [true]
-                    call TN_event_fnc_handleAdminEventMenu;
+                    call FUNC(handleAdminEventMenu);
             };
         }] call CBA_fnc_waitUntilAndExecute;
     };
@@ -41,61 +42,61 @@ if (TN_event_hasTimer) then
     if (isServer) then
     {
         [
-            "TN_adminStateChanged",
+            QGVARMAIN(adminStateChanged),
             {
                 params ["_unit", "_loggedIn"];
                 if (isNull _unit) exitWith {};
                 [_loggedIn] remoteExecCall [
-                    "TN_event_fnc_handleAdminEventMenu",
+                    QFUNC(handleAdminEventMenu),
                     owner _unit
                 ];
             }
         ] call CBA_fnc_addEventHandler;
 
         [
-            "TN_round_started",
+            QEGVAR(round,started),
             {
-                call TN_event_fnc_checkWinCondition;
+                call FUNC(checkWinCondition);
             }
         ] call CBA_fnc_addEventHandler;
     };
 };
 
 /******* AliveCheck ********/
-if (TN_event_hasAliveCheck || TN_event_numberOfLives > 0) then
+if (GVAR(hasAliveCheck) || GVAR(numberOfLives) > 0) then
 {
-    if (isNil "TN_event_spectateArea") then
+    if (isNil QGVAR(spectateArea)) then
     {
         systemChat "WARNING: Spectate area object (spectateArea) not found!";
     };
 };
 
-if (TN_event_hasAliveCheck) then
+if (GVAR(hasAliveCheck)) then
 {
     if (isServer) then
     {
         [
-            "TN_round_started",
+            QEGVAR(round,started),
             {
-                call TN_event_fnc_aliveCheck;
+                call FUNC(aliveCheck);
             }
         ] call CBA_fnc_addEventHandler;
     };
 };
 
-if (TN_event_numberOfLives > 0) then
+if (GVAR(numberOfLives) > 0) then
 {
     if (hasInterface) then
     {
         [
-            "TN_round_started",
-            { [true] call TN_event_fnc_respawn }
+            QEGVAR(round,started),
+            { [true] call FUNC(respawn) }
         ] call CBA_fnc_addEventHandler;
 
         [
-            "TN_event_respawn",
+            QGVAR(respawn),
             "Respawn",
-            { call TN_event_fnc_respawn }
+            { call FUNC(respawn) }
         ] call CBA_fnc_addBISPlayerEventHandler;
     };
 };
@@ -104,9 +105,9 @@ if (TN_event_numberOfLives > 0) then
 if (isServer) then
 {
     [
-        "TN_round_started",
+        QEGVAR(round,started),
         {
-            setTimeMultiplier TN_event_timeAcc;
+            setTimeMultiplier GVAR(timeAcc);
         }
     ] call CBA_fnc_addEventHandler;
 };
@@ -114,9 +115,9 @@ if (isServer) then
 /******* Auto Mark Editor Objects ********/
 if (hasInterface) then
 {
-    if (TN_event_autoMarkObjects) then
+    if (GVAR(autoMarkObjects)) then
     {
-        call TN_event_fnc_markEditorPlacedObjects;
+        call FUNC(markEditorPlacedObjects);
     };
 };
 

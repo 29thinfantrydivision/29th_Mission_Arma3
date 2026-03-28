@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 #include "..\..\data\roundState.hpp"
 
 [
@@ -8,7 +9,7 @@
             {
                 private _argument = _this select 0;
                 private _minutes = abs (parseNumber _argument);
-                [_minutes * 60] call TN_round_fnc_setTimer;
+                [_minutes * 60] call FUNC(setTimer);
                 systemChat format ["Timer set for %1 Minutes", _minutes];
             }
         ],
@@ -17,7 +18,7 @@
         [
             "live",
             {
-                if ([] call TN_round_fnc_start) then
+                if ([] call FUNC(start)) then
                 {
                     systemChat "Starting Round!";
                 }
@@ -34,7 +35,7 @@
             {
                 private _argument = _this select 0;
                 private _timerQuick = abs (parseNumber _argument);
-                if ([_timerQuick * 60] call TN_round_fnc_start) then
+                if ([_timerQuick * 60] call FUNC(start)) then
                 {
                     systemChat format ["Starting %1 Minute round!", _timerQuick];
                 }
@@ -51,7 +52,7 @@
             {
                 private _argument = _this select 0;
                 private _timeAdd = parseNumber _argument;
-                if ([_timeAdd * 60] call TN_round_fnc_addTime isNotEqualTo -1) then
+                if ([_timeAdd * 60] call FUNC(addTime) isNotEqualTo -1) then
                 {
                     systemChat format ["Adding %1 Minutes to the time limit!", _timeAdd];
                 }
@@ -72,12 +73,12 @@
                         "<t color='#ffffff' size='5'>GAME!</t>",
                         "PLAIN",
                         0.4
-                    ] remoteExecCall ["TN_common_fnc_displayMsg"];
+                    ] remoteExecCall [QEFUNC(common,displayMsg)];
                     systemChat "No timer running! Only displaying end game message!";
                 }
                 else
                 {
-                    [true] call TN_round_fnc_end;
+                    [true] call FUNC(end);
                     systemChat "Calling Game!";
                 };
             }
@@ -92,13 +93,13 @@
                 private _minutes = abs (parseNumber _argument);
                 if (_minutes > 0) then
                 {
-                    [true] call TN_round_fnc_setOvertimeEnabled;
-                    [_minutes * 60] call TN_round_fnc_setOverTimePeriod;
+                    [true] call FUNC(setOvertimeEnabled);
+                    [_minutes * 60] call FUNC(setOverTimePeriod);
                     systemChat format ["Overtime set for %1 Minutes", _minutes];
                 }
                 else
                 {
-                    [false] call TN_round_fnc_setOvertimeEnabled;
+                    [false] call FUNC(setOvertimeEnabled);
                     systemChat "Overtime Disabled";
                 };
             }
@@ -109,7 +110,7 @@
             "ready",
             {
                 // Works based off of local player's side.
-                private _result = [playerSide, true] call TN_round_fnc_manageReady;
+                private _result = [playerSide, true] call FUNC(manageReady);
                 systemChat (["Setting side ready!", "Error: Round already started!", "Error: Side is already ready!"] select _result);
             }
         ],
@@ -118,7 +119,7 @@
         [
             "unready",
             {
-                private _result = [playerSide, false] call TN_round_fnc_manageReady;
+                private _result = [playerSide, false] call FUNC(manageReady);
                 systemChat (["Setting side unready!", "Error: Round already started!", "Error: Side is already unready!"] select _result);
             }
         ],
@@ -140,23 +141,23 @@
                         };
                         case (NOT_ROUND_SAFE):
                         {
-                            [_minutes * 60, true] call TN_round_fnc_initSafeStart;
+                            [_minutes * 60, true] call FUNC(initSafeStart);
                             systemChat "Forcing Safe Start!";
                         };
                         default
                         {
-                            if (call TN_round_fnc_checkAllSidesReady) exitWith
+                            if (call FUNC(checkAllSidesReady)) exitWith
                             {
                                 systemChat "Error: All teams are already ready!";
                             };
-                            [_minutes * 60] call TN_round_fnc_changeForcedSafeStart;
+                            [_minutes * 60] call FUNC(changeForcedSafeStart);
                             systemChat "Changing forced safestart!";
                         };
                     };
                 }
                 else
                 {
-                    if ([0] call TN_round_fnc_changeForcedSafeStart) then
+                    if ([0] call FUNC(changeForcedSafeStart)) then
                     {
                         systemChat "Safe start is no longer forced and will end if all teams are not ready!";
                     }
@@ -179,4 +180,4 @@
         ["unready", "Cancels the ready status for the player's side"],
         ["safe", "Forces safe start with a specified time in minutes, or unforce safe start if given 0 (E.G. '!safe 1' forces a 1 minute safe start)"]
     ]
-] call TN_commands_fnc_addModule;
+] call EFUNC(commands,addModule);

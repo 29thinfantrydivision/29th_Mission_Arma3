@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID], modified from Dott/Hill [29th ID]
  * Prevents important mission objects (those whose

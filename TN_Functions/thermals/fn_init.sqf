@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID]
  * Initializes the thermal restriction module.
@@ -21,16 +22,16 @@ if (hasInterface) then
 {
     ["visionMode",
     {
-        call TN_thermals_fnc_blackScreen;
+        call FUNC(blackScreen);
     }] call CBA_fnc_addPlayerEventHandler;
 
-    ["TN_disablePIPThermalsEvent", "GetInMan",
+    [QGVAR(disablePIPThermalsEvent), "GetInMan",
     {
-        if !(TN_disableTI) exitWith {};
+        if !(GVARMAIN(disableTI)) exitWith {};
 
         // Brief delay required or PIP cameras won't shut off.
         [{
-            call TN_thermals_fnc_disablePIP;
+            call FUNC(disablePIP);
         }, [], 0.1] call CBA_fnc_waitAndExecute;
     }] call CBA_fnc_addBISPlayerEventHandler;
 };
@@ -40,7 +41,7 @@ if (isServer) then
 {
     ["AllVehicles", "Init", {
         params ["_objectCreated"];
-        _objectCreated disableTIEquipment TN_disableTI;
+        _objectCreated disableTIEquipment GVARMAIN(disableTI);
     }, true, ["Man"], true] call CBA_fnc_addClassEventHandler;
 };
 

@@ -1,8 +1,9 @@
+#include "script_component.hpp"
 #include "..\..\data\settingCategories.hpp"
 #include "..\..\data\roundState.hpp"
 
 [
-    "TN_disableScoreboard",
+    QGVARMAIN(disableScoreboard),
     "CHECKBOX",
     [
         "Disable Scoreboard",
@@ -37,7 +38,7 @@
                     missionNamespace getVariable
                         "BIS_EGSpectator_initialized"
                 }
-                && TN_limitSpectator isEqualTo 0
+                && GVARMAIN(limitSpectator) isEqualTo 0
             ) exitWith {};
 
             showScoretable 0;
@@ -50,7 +51,7 @@
                     if (
                         visibleScoretable
                         && ROUND_LIVE
-                        && TN_disableScoreboard
+                        && GVARMAIN(disableScoreboard)
                     ) then
                     {
                         showScoretable 0;
@@ -62,7 +63,7 @@
 ] call CBA_fnc_addSetting;
 
 [
-    "TN_safeStartTime",
+    QGVARMAIN(safeStartTime),
     "TIME",
     "Safe Start Time",
     [GENERAL_SETTINGS_CATEGORY, ROUND_SUBCATEGORY],
@@ -71,7 +72,7 @@
 ] call CBA_fnc_addSetting;
 
 [
-    "TN_notifyFinalCheck",
+    QGVARMAIN(notifyFinalCheck),
     "CHECKBOX",
     [
         "Final Check Notification",

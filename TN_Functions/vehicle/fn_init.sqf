@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID]
  * Initializes vehicle settings.
@@ -18,7 +19,7 @@
 
 if (isClass (configFile >> "CfgPatches" >> "ace_main")) then
 {
-    call TN_vehicle_fnc_lockFixInit;
+    call FUNC(lockFixInit);
 };
 
 if (!isServer) exitWith {};
@@ -27,7 +28,7 @@ if (isClass (configFile >> "CfgPatches" >> "ace_main")) then
 {
     //Note that we do not retroactively apply to editor placed helicopters.
     ["Helicopter", "Init", {
-        if (!TN_autoAddFRIES) exitWith {};
+        if (!GVARMAIN(autoAddFRIES)) exitWith {};
         params ["_objectCreated"];
         if !(isNumber ((configOf _objectCreated) >> "ace_fastroping_enabled")) exitWith {};
         [_objectCreated] call ace_fastroping_fnc_equipFRIES;
@@ -35,7 +36,7 @@ if (isClass (configFile >> "CfgPatches" >> "ace_main")) then
 };
 
 ["AllVehicles", "Init", {
-    if !(TN_removeDefaultVehicleInventories) exitWith {};
+    if !(GVARMAIN(removeDefaultVehicleInventories)) exitWith {};
     params ["_objectCreated"];
     clearWeaponCargoGlobal _objectCreated;
     clearMagazineCargoGlobal _objectCreated;

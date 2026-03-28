@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID]
  * Handles the ace_explosives_place event for projectile
@@ -30,19 +31,19 @@ private _data = [
     name _unit, side (group _unit),
     getPosASL _unit, _explosiveName
 ];
-_explosive setVariable ["TN_instigatorInfo", _data];
-_explosive addEventHandler ["HitPart", { call TN_tracker_fnc_handleHit }];
-_explosive addEventHandler ["HitExplosion", { call TN_tracker_fnc_handleHit }];
+_explosive setVariable [QGVAR(instigatorInfo), _data];
+_explosive addEventHandler ["HitPart", { call FUNC(handleHit) }];
+_explosive addEventHandler ["HitExplosion", { call FUNC(handleHit) }];
 
 _explosive addEventHandler ["SubmunitionCreated",
 {
     params ["_projectile", "_submunitionProjectile"];
     _submunitionProjectile setVariable [
-        "TN_instigatorInfo",
-        _projectile getVariable "TN_instigatorInfo"
+        QGVAR(instigatorInfo),
+        _projectile getVariable QGVAR(instigatorInfo)
     ];
-    _submunitionProjectile addEventHandler ["HitPart", { call TN_tracker_fnc_handleHit }];
-    _submunitionProjectile addEventHandler ["HitExplosion", { call TN_tracker_fnc_handleHit }];
+    _submunitionProjectile addEventHandler ["HitPart", { call FUNC(handleHit) }];
+    _submunitionProjectile addEventHandler ["HitExplosion", { call FUNC(handleHit) }];
 }];
 
 nil

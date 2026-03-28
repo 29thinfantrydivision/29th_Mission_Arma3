@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 #include "readyui\readyui_defines.hpp"
 #include "..\..\data\roundState.hpp"
 
@@ -35,7 +36,7 @@ if (!hasInterface) exitWith {};
 
 // Returns whichever display is on top — Zeus (312) if open, otherwise game (46).
 // Controls must live on the topmost display or they render behind it.
-TN_round_fnc_getActiveDisplay =
+FUNC(getActiveDisplay) =
 {
     private _zeus = findDisplay 312;
     if (!isNull _zeus) exitWith {_zeus};
@@ -44,13 +45,13 @@ TN_round_fnc_getActiveDisplay =
 
 // Starts the update PFH if it isn't already running.
 // Called from event handlers when conditions might require the panel.
-TN_round_fnc_startReadyUIPFH =
+FUNC(startReadyUIPFH) =
 {
-    if !(isNil "TN_readyUI_pfhHandle") exitWith {};
-    TN_readyUI_dirty = true;
-    TN_readyUI_refreshCounter = 0;
-    TN_readyUI_pfhHandle = [
-        {call TN_round_fnc_updateReadyUI}, 0
+    if !(isNil QGVAR(readyUI_pfhHandle)) exitWith {};
+    GVAR(readyUI_dirty) = true;
+    GVAR(readyUI_refreshCounter) = 0;
+    GVAR(readyUI_pfhHandle) = [
+        {call FUNC(updateReadyUI)}, 0
     ] call CBA_fnc_addPerFrameHandler;
 };
 
@@ -58,61 +59,61 @@ TN_round_fnc_startReadyUIPFH =
 [
     {!isNull findDisplay 46},
     {
-        call TN_round_fnc_createReadyUIControls;
+        call FUNC(createReadyUIControls);
 
         // Only start PFH at init if UI is actually needed right now (JIP into safe start, etc.)
         if (
             ROUND_SAFE
             || {
-                !(isNil "TN_round_sideReady")
-                && {true in TN_round_sideReady}
+                !(isNil QGVAR(sideReady))
+                && {true in GVAR(sideReady)}
             }
         ) then
         {
-            call TN_round_fnc_startReadyUIPFH;
+            call FUNC(startReadyUIPFH);
         };
 
         // --- Event handlers drive PFH lifecycle ---
 
         // Safe start begins -> wake PFH so panel appears
-        TN_readyUI_ehSafeStart = [
-            "TN_round_safeStartBegin",
+        GVAR(readyUI_ehSafeStart) = [
+            QGVAR(safeStartBegin),
             {
-                TN_readyUI_dirty = true;
-                call TN_round_fnc_startReadyUIPFH;
+                GVAR(readyUI_dirty) = true;
+                call FUNC(startReadyUIPFH);
             }
         ] call CBA_fnc_addEventHandler;
 
         // Ready state changes -> wake PFH, flash on ready, stop if nothing to show
-        TN_readyUI_ehReady = [
-            "TN_round_manageReadyChange",
-            { call TN_round_fnc_handleReadyChange }
+        GVAR(readyUI_ehReady) = [
+            QGVAR(manageReadyChange),
+            { call FUNC(handleReadyChange) }
         ] call CBA_fnc_addEventHandler;
 
         // Safe start aborted -> stop PFH if no teams are still ready
-        TN_readyUI_ehAborted = [
-            "TN_round_safeStartAborted",
+        GVAR(readyUI_ehAborted) = [
+            QGVAR(safeStartAborted),
             {
-                TN_readyUI_dirty = true;
+                GVAR(readyUI_dirty) = true;
                 if (
-                    !(isNil "TN_round_sideReady")
-                    && {true in TN_round_sideReady}
+                    !(isNil QGVAR(sideReady))
+                    && {true in GVAR(sideReady)}
                 ) then
                 {
                     // Teams still ready — keep PFH alive to show their status
                 }
                 else
                 {
-                    call TN_round_fnc_stopReadyUIPFH;
+                    call FUNC(stopReadyUIPFH);
                 };
             }
         ] call CBA_fnc_addEventHandler;
 
         // Round started -> unconditionally stop PFH (fn_start.sqf already unreadies all sides)
-        TN_readyUI_ehStarted = [
-            "TN_round_started",
+        GVAR(readyUI_ehStarted) = [
+            QGVAR(started),
             {
-                call TN_round_fnc_stopReadyUIPFH;
+                call FUNC(stopReadyUIPFH);
             }
         ] call CBA_fnc_addEventHandler;
     }

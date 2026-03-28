@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 #include "..\..\data\roundState.hpp"
 
 /*
@@ -36,34 +37,34 @@ if (_spaceIdx isEqualTo -1) then {
     _argument = _text select [_spaceIdx + 1, count _text - _spaceIdx - 1];
 };
 
-private _commandCode = TN_commands_allCommands get _command;
+private _commandCode = GVAR(allCommands) get _command;
 
 if !(isNil "_commandCode") then
 {
-    if (_command in TN_commands_removedCommands) exitWith
+    if (_command in GVAR(removedCommands)) exitWith
     {
         systemChat "Command has been disabled by server!";
     };
 
     private _isAdmin = serverCommandAvailable "#lock";
 
-    if (_command in TN_commands_adminCommands && !_isAdmin) exitWith
+    if (_command in GVAR(adminCommands) && !_isAdmin) exitWith
     {
         systemChat "You must be the logged in admin to do that!";
     };
 
-    if (_command in TN_commands_restrictedCommands && !_isAdmin && ROUND_LIVE) exitWith
+    if (_command in GVAR(restrictedCommands) && !_isAdmin && ROUND_LIVE) exitWith
     {
         systemChat "Restricted command! Round has started and you are not admin.";
     };
 
     [_argument] call _commandCode;
 
-    if !(_command in TN_commands_noLogCommands) then
+    if !(_command in GVAR(noLogCommands)) then
     {
         private _msg = format ["%1 executed command !%2 %3", name player, _command, _argument];
-        _msg remoteExecCall ["TN_common_fnc_diag_log", 2];
-        ["Log", ["Commands", _msg]] remoteExecCall ["TN_common_fnc_addDiaryRecord"];
+        _msg remoteExecCall [QEFUNC(common,diag_log), 2];
+        ["Log", ["Commands", _msg]] remoteExecCall [QEFUNC(common,addDiaryRecord)];
     };
 }
 else

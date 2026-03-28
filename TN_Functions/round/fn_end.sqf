@@ -19,39 +19,39 @@ params [["_force", false, [false]]];
 
 if (NOT_ROUND_LIVE) exitWith {false};
 
-if (TN_round_overtimeEnabled && !_force) then
+if (GVAR(overtimeEnabled) && !_force) then
 {
     [
         "<t color='#ffffff' size='3'><br/>%1 Minute OVERTIME</t>",
         "PLAIN",
         0.5,
         true,
-        TN_round_overtimePeriod / 60
-    ] remoteExecCall ["TN_common_fnc_displayMsg"];
+        GVAR(overtimePeriod) / 60
+    ] remoteExecCall [QEFUNC(common,displayMsg)];
 
-    [TN_round_overtimePeriod] call BIS_fnc_countdown;
+    [GVAR(overtimePeriod)] call BIS_fnc_countdown;
 
     // Prevents overtime from repeating forever.
-    TN_round_overtimeEnabled = false;
-    publicVariable "TN_round_overtimeEnabled";
+    GVAR(overtimeEnabled) = false;
+    publicVariable QGVAR(overtimeEnabled);
 
-    TN_round_timeAdded = true;
-    publicVariable "TN_round_timeAdded";
+    GVAR(timeAdded) = true;
+    publicVariable QGVAR(timeAdded);
 
     [
-        {(call TN_round_fnc_getTime) <= 0},
-        {call TN_round_fnc_end},
+        {(call FUNC(getTime)) <= 0},
+        {call FUNC(end)},
         []
     ] call CBA_fnc_waitUntilAndExecute;
 }
 else
 {
     // Let waitUntilAndExecute in fn_start call end.
-    if ((call TN_round_fnc_getTime) > 0) exitWith
+    if ((call FUNC(getTime)) > 0) exitWith
     {
         // In case manual end was called.
-        TN_round_overtimeEnabled = false;
-        publicVariable "TN_round_overtimeEnabled";
+        GVAR(overtimeEnabled) = false;
+        publicVariable QGVAR(overtimeEnabled);
         [-1] call BIS_fnc_countdown;
         true
     };
@@ -61,12 +61,12 @@ else
         "<t color='#ffffff' size='5'>GAME!</t>",
         "PLAIN",
         0.4
-    ] remoteExecCall ["TN_common_fnc_displayMsg"];
+    ] remoteExecCall [QEFUNC(common,displayMsg)];
 
     [-1] call BIS_fnc_countdown;
-    TN_round_state = 0;
-    publicVariable "TN_round_state";
-    ["TN_round_ended", []] call CBA_fnc_globalEvent;
+    GVAR(state) = 0;
+    publicVariable QGVAR(state);
+    [QGVAR(ended), []] call CBA_fnc_globalEvent;
 };
 
 true

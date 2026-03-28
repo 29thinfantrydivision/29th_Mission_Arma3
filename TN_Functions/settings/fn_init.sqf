@@ -15,16 +15,18 @@
  * call TN_settings_fnc_init
  */
 
+#include "script_component.hpp"
+
 #define MISSION_ADDON "tn"
 
 if (isServer) then
 {
     missionNamespace setVariable [
-        "TN_settings_default",
+        QGVAR(default),
         true call CBA_fnc_createNamespace,
         true
     ];
-    TN_settings_allSettings = [];
+    GVAR(allSettings) = [];
 
     private _missionAddonStrLen = count MISSION_ADDON;
 
@@ -61,13 +63,13 @@ if (isServer) then
             0,
             [_x, "server"] call CBA_settings_fnc_get
         ];
-        TN_settings_default setVariable [_x, _setting, true];
+        GVAR(default) setVariable [_x, _setting, true];
 
-        TN_settings_allSettings pushBack _x;
+        GVAR(allSettings) pushBack _x;
     }
     forEach cba_settings_allSettings;
 
-    publicVariable "TN_settings_allSettings";
+    publicVariable QGVAR(allSettings);
 };
 
 nil

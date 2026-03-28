@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 #include "readyui_defines.hpp"
 #include "..\..\..\data\roundState.hpp"
 
@@ -19,8 +20,8 @@
  */
 
 params ["_side", "_isReady"];
-TN_readyUI_dirty = true;
-call TN_round_fnc_startReadyUIPFH;
+GVAR(readyUI_dirty) = true;
+call FUNC(startReadyUIPFH);
 if (_isReady) then
 {
     // Find flash color for the team that just readied (index 5 in SIDE_DEFS)
@@ -36,19 +37,19 @@ if (_isReady) then
         };
     } forEach SIDE_DEFS;
     [_flashColor]
-        call TN_round_fnc_flashReadyUI;
+        call FUNC(flashReadyUI);
 }
 else
 {
     // Team unreadied — if no teams ready and no safe start, stop PFH
     if (
-        !(isNil "TN_round_sideReady")
+        !(isNil QGVAR(sideReady))
         && {
-            !(true in TN_round_sideReady)
+            !(true in GVAR(sideReady))
         }
         && NOT_ROUND_SAFE
     ) then
     {
-        call TN_round_fnc_stopReadyUIPFH;
+        call FUNC(stopReadyUIPFH);
     };
 };

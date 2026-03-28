@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID]
  * Client-side function that constructs a kill event array from
@@ -17,10 +18,10 @@
 #include "eventNumbers.hpp"
 #define VEHICLE_GRENADE_DISTANCE 10
 params ["_unit", "_killer", "_instigator"];
-if (TN_tracker_startTime isEqualTo -1) exitWith { false };
+if (GVAR(startTime) isEqualTo -1) exitWith { false };
 
 private _timeStamp =
-    round (serverTime - TN_tracker_startTime);
+    round (serverTime - GVAR(startTime));
 
 private _eventType =
     if (_unit isKindOf "Man")
@@ -28,7 +29,7 @@ private _eventType =
         else { VEHICLE_KILL_NUM };
 
 private _unitName =
-    [_unit] call TN_tracker_fnc_getName;
+    [_unit] call FUNC(getName);
 
 // Need group since ACE3? sets uncon men to CIV but not
 // the group.
@@ -36,11 +37,11 @@ private _unitSide = side (group _unit);
 
 private _killInfo = [[_unitName, _unitSide]];
 
-private _lastHit = _unit getVariable "TN_lastHit";
+private _lastHit = _unit getVariable QGVAR(lastHit);
 if !(isNil "_lastHit") then
 {
     _lastHit append (
-        (_unit getVariable "TN_hitMap") get _lastHit
+        (_unit getVariable QGVAR(hitMap)) get _lastHit
     );
 };
 
@@ -89,7 +90,7 @@ if (_eventType isEqualTo VEHICLE_KILL_NUM
 {
     // Look for ACE/RHS incendiary grenade.
     private _grenadeResult = [position _unit, VEHICLE_GRENADE_DISTANCE]
-        call TN_tracker_fnc_findIncendiaryGrenade;
+        call FUNC(findIncendiaryGrenade);
     private _weapon = "";
 
     if (_grenadeResult isNotEqualTo []) then
@@ -110,7 +111,7 @@ if (_eventType isEqualTo VEHICLE_KILL_NUM
         _killInfo append [
             [
                 _instigator
-                    call TN_tracker_fnc_getName,
+                    call FUNC(getName),
                 _side
             ],
             _distance,
@@ -118,7 +119,7 @@ if (_eventType isEqualTo VEHICLE_KILL_NUM
         ];
 
         private _instigatorInfo = [
-            _instigator call TN_tracker_fnc_getName,
+            _instigator call FUNC(getName),
             _side,
             getPosASL _instigator,
             _weapon,
@@ -126,7 +127,7 @@ if (_eventType isEqualTo VEHICLE_KILL_NUM
         ];
 
         [crew _unit, _instigatorInfo]
-            call TN_tracker_fnc_sendHit;
+            call FUNC(sendHit);
     };
 };
 
@@ -137,11 +138,11 @@ if (!isNil "_lastHit" && !_override) then
         private _side =
             [_instigator] call _fn_resolveInstigatorSide;
         _lastHit = [
-            _instigator call TN_tracker_fnc_getName,
+            _instigator call FUNC(getName),
             _side
         ];
         private _hitInfo =
-            (_unit getVariable "TN_hitMap")
+            (_unit getVariable QGVAR(hitMap))
                 get _lastHit;
         if (isNil "_hitInfo") then
         {
@@ -204,6 +205,6 @@ if (!isNil "_lastHit" && !_override) then
 
 private _event = [_eventType, _timeStamp, _killInfo];
 
-[_event] call TN_tracker_fnc_saveEvent;
+[_event] call FUNC(saveEvent);
 
 true

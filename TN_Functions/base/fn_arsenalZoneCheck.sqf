@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 #include "..\..\data\templates.hpp"
 
 /*
@@ -28,20 +29,20 @@ private _inZone = false;
     {
         _inZone = true;
     };
-} forEach TN_arsenal_centers;
+} forEach GVAR(arsenalCenters);
 
 if (_inZone) then
 {
-    if (TN_base_arsenalActionId isEqualTo -1) then
+    if (GVAR(arsenalActionId) isEqualTo -1) then
     {
-        if !(TN_base_keepEnvironmentSounds) then
+        if !(GVAR(keepEnvironmentSounds)) then
         {
             ENV_OFF;
         };
 
         if (isClass (configFile >> "CfgPatches" >> "ace_main")) then
         {
-            TN_base_arsenalActionId = player addAction [
+            GVAR(arsenalActionId) = player addAction [
                 "<img image='\A3\Ui_f\data\IGUI\Cfg\Actions\gear_ca.paa'/><t color='#bf3eff'>  Ace Arsenal</t>",
                 {
                     [_this select 1, _this select 1, true] call ace_arsenal_fnc_openBox;
@@ -51,7 +52,7 @@ if (_inZone) then
         }
         else
         {
-            TN_base_arsenalActionId = player addAction [
+            GVAR(arsenalActionId) = player addAction [
                 "<img image='\A3\Ui_f\data\IGUI\Cfg\Actions\gear_ca.paa'/><t color='#bf3eff'>  Virtual Arsenal</t>",
                 {
                     ["Open", true] call BIS_fnc_arsenal;
@@ -63,11 +64,11 @@ if (_inZone) then
 }
 else
 {
-    if (TN_base_arsenalActionId isNotEqualTo -1) then
+    if (GVAR(arsenalActionId) isNotEqualTo -1) then
     {
         ENV_ON;
-        player removeAction TN_base_arsenalActionId;
-        TN_base_arsenalActionId = -1;
+        player removeAction GVAR(arsenalActionId);
+        GVAR(arsenalActionId) = -1;
     };
 };
 

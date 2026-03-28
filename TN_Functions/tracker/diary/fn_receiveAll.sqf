@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID]
  * Client-side function that receives all previous round
@@ -20,7 +21,7 @@ params ["_allRounds"];
     [
         _events, _names, _sides,
         _weapons, _roundNum
-    ] call TN_tracker_fnc_createDiaryEntries;
+    ] call FUNC(createDiaryEntries);
 } forEach _allRounds;
 
 nil

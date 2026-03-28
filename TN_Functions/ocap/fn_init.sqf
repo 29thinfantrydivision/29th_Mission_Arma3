@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID]
  * Initializes OCAP event handlers that integrate with the round
@@ -33,14 +34,14 @@ if (isServer) then
 {
     if !(isClass (configFile >> "CfgPatches" >> "OCAP_recorder")) exitWith {};
 
-    TN_ocap_roundNum = 1;
+    GVAR(roundNum) = 1;
 
-    TN_ocap_recording = false;
+    GVAR(recording) = false;
 
     //Dont start/pause recordings if autoStart is forced by server config
     if !(OCAP_settings_autoStart && NEWER_OCAP) then
     {
-        TN_ocap_fnc_initializePlayer = compile
+        GVAR(fnc_initializePlayer) = compile
             preprocessFileLineNumbers
             "TN_Functions\ocap\fn_initializePlayer.sqf";
 
@@ -62,7 +63,7 @@ if (isServer) then
         {
             ocap_recorder_PFHObject setVariable
                 ["run_condition",
-                {SHOULD_SAVE_EVENTS && TN_ocap_recording}];
+                {SHOULD_SAVE_EVENTS && GVAR(recording)}];
         }, [],
         30,
         { diag_log text "OCAP: Timed out waiting for ocap_recorder_PFHObject"; }
@@ -80,47 +81,47 @@ if (isServer) then
             ] call CBA_fnc_waitUntilAndExecute;
 
         #define UPDATE_TIME [] call ocap_recorder_fnc_updateTime
-        #define START_RECORDING TN_ocap_recording = true; UPDATE_TIME
-        #define STOP_RECORDING TN_ocap_recording = false; UPDATE_TIME
+        #define START_RECORDING GVAR(recording) = true; UPDATE_TIME
+        #define STOP_RECORDING GVAR(recording) = false; UPDATE_TIME
 
         [
-            "TN_round_safeStartBegin",
+            QEGVAR(round,safeStartBegin),
             {
                 START_RECORDING;
             }
         ] call CBA_fnc_addEventHandler;
 
         [
-            "TN_round_started",
+            QEGVAR(round,started),
             {
                 START_RECORDING;
             }
         ] call CBA_fnc_addEventHandler;
 
         [
-            "TN_round_safeStartAborted",
+            QEGVAR(round,safeStartAborted),
             {
                 STOP_RECORDING;
             }
         ] call CBA_fnc_addEventHandler;
 
         [
-            "TN_round_ended",
+            QEGVAR(round,ended),
             {
                 STOP_RECORDING;
             }
-        ] call CBA_fnc_addEventHandler;        
+        ] call CBA_fnc_addEventHandler;
     } else
     {
         call ocap_recorder_fnc_startRecording;
     };
 
     [OCAP_settings_autoStart] remoteExecCall
-        ["TN_ocap_fnc_initClient",
+        [QFUNC(initClient),
         [0, -2] select isDedicated, true];
 
     [
-        "TN_round_safeStartBegin",
+        QEGVAR(round,safeStartBegin),
         {
             ["ocap_customEvent",
                 ["generalEvent", "Safe start began!"]]
@@ -129,7 +130,7 @@ if (isServer) then
     ] call CBA_fnc_addEventHandler;
 
     [
-        "TN_round_safeStartAborted",
+        QEGVAR(round,safeStartAborted),
         {
             ["ocap_customEvent",
                 ["generalEvent", "Safe start aborted!"]]
@@ -138,26 +139,26 @@ if (isServer) then
     ] call CBA_fnc_addEventHandler;
 
     [
-        "TN_round_started",
+        QEGVAR(round,started),
         {
             ["ocap_customEvent",
                 ["generalEvent",
                 format ["Round %1 started!",
-                    TN_ocap_roundNum]]]
+                    GVAR(roundNum)]]]
                 call CBA_fnc_serverEvent;
         }
     ] call CBA_fnc_addEventHandler;
 
     [
-        "TN_round_ended",
+        QEGVAR(round,ended),
         {
             ["ocap_customEvent",
                 ["generalEvent",
                 format ["Round %1 ended!",
-                    TN_ocap_roundNum]]]
+                    GVAR(roundNum)]]]
                 call CBA_fnc_serverEvent;
 
-            TN_ocap_roundNum = TN_ocap_roundNum + 1;
+            GVAR(roundNum) = GVAR(roundNum) + 1;
         }
     ] call CBA_fnc_addEventHandler;
 

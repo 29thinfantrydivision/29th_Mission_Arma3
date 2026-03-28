@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Dott [29th ID]
  * Displays titleText messages, typically remoteExec'd for global use.

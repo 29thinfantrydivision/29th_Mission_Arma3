@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID]
  * Handles the ace_fire_burnSimulation event.
@@ -19,9 +20,9 @@ if (!alive _unit) exitWith {};
 
 if (!isNull _instigator) then
 {
-    _unit setVariable ["TN_burnInstigator", _instigator, true];
-    _unit setVariable ["TN_burnInstigatorTime", time];
-    _unit setVariable ["TN_burnWeapon", "Fire", true];
+    _unit setVariable [QGVAR(burnInstigator), _instigator, true];
+    _unit setVariable [QGVAR(burnInstigatorTime), time];
+    _unit setVariable [QGVAR(burnWeapon), "Fire", true];
 }
 else
 {
@@ -29,10 +30,10 @@ else
     // cached who set this unit on fire.
     if (
         !isNull (_unit getVariable
-            ["TN_burnInstigator", objNull])
+            [QGVAR(burnInstigator), objNull])
         && {
             time - (_unit getVariable
-                ["TN_burnInstigatorTime", -999])
+                [QGVAR(burnInstigatorTime), -999])
             < 5
         }
     ) exitWith {};
@@ -46,12 +47,12 @@ else
     {
         private _grenade = _grenades select 0;
         _unit setVariable [
-            "TN_burnInstigator",
+            QGVAR(burnInstigator),
             (getShotParents _grenade) select 0,
             true
         ];
-        _unit setVariable ["TN_burnInstigatorTime", time];
-        _unit setVariable ["TN_burnWeapon", "ACE AN-M14", true];
+        _unit setVariable [QGVAR(burnInstigatorTime), time];
+        _unit setVariable [QGVAR(burnWeapon), "ACE AN-M14", true];
     }
     else
     {
@@ -64,32 +65,32 @@ else
             ) exitWith
             {
                 _unit setVariable [
-                    "TN_burnInstigator",
+                    QGVAR(burnInstigator),
                     _x select 1, true
                 ];
                 _unit setVariable [
-                    "TN_burnInstigatorTime", time
+                    QGVAR(burnInstigatorTime), time
                 ];
                 _unit setVariable [
-                    "TN_burnWeapon",
+                    QGVAR(burnWeapon),
                     "Cookoff Fire", true
                 ];
             };
         }
-        forEach TN_tracker_cookOffs;
+        forEach GVAR(cookOffs);
 
         // Look for nearby burning people.
         if (isNull _instigator) then
         {
             private _men = (position _unit) nearObjects ["Man", 5];
             {
-                private _burnInstigator = _x getVariable ["TN_burnInstigator", objNull];
+                private _burnInstigator = _x getVariable [QGVAR(burnInstigator), objNull];
                 if (!isNull _burnInstigator) exitWith
                 {
-                    private _burnWeapon = _x getVariable ["TN_burnWeapon", "Fire"];
-                    _unit setVariable ["TN_burnInstigator", _burnInstigator, true];
-                    _unit setVariable ["TN_burnInstigatorTime", time];
-                    _unit setVariable ["TN_burnWeapon", _burnWeapon, true];
+                    private _burnWeapon = _x getVariable [QGVAR(burnWeapon), "Fire"];
+                    _unit setVariable [QGVAR(burnInstigator), _burnInstigator, true];
+                    _unit setVariable [QGVAR(burnInstigatorTime), time];
+                    _unit setVariable [QGVAR(burnWeapon), _burnWeapon, true];
                 };
             }
             forEach _men;

@@ -16,7 +16,7 @@
  * [] call TN_round_fnc_start;
  */
 
-params [["_roundLength", TN_round_timerLength, [0]]];
+params [["_roundLength", GVAR(timerLength), [0]]];
 
 if (ROUND_LIVE) exitWith {false};
 
@@ -25,7 +25,7 @@ if (ROUND_LIVE) exitWith {false};
 /* --- LIVE notification --- */
 private _msgText = format [
     "<t color='#ffffff'><t size='4'>LIVE LIVE LIVE</t><br/><t size='2'>%1 Time Limit</t></t>",
-    [_roundLength, true] call TN_round_fnc_formatTime
+    [_roundLength, true] call FUNC(formatTime)
 ];
 
 [
@@ -33,13 +33,13 @@ private _msgText = format [
     "PLAIN",
     0.5,
     false
-] remoteExecCall ["TN_common_fnc_displayMsg"];
+] remoteExecCall [QEFUNC(common,displayMsg)];
 
 /* --- Schedule end-of-round check on server --- */
 [{
     [
-        {call TN_round_fnc_getTime <= 0},
-        {call TN_round_fnc_end},
+        {call FUNC(getTime) <= 0},
+        {call FUNC(end)},
         []
     ] call CBA_fnc_waitUntilAndExecute;
 }] remoteExecCall ["call", 2];
@@ -47,11 +47,11 @@ private _msgText = format [
 /* --- Reset state --- */
 UNREADY_ALL_SIDES;
 
-TN_round_state = 2;
-publicVariable "TN_round_state";
+GVAR(state) = 2;
+publicVariable QGVAR(state);
 
-[] remoteExecCall ["TN_round_fnc_roundEvents"];
+[] remoteExecCall [QFUNC(roundEvents)];
 
-["TN_round_started", []] call CBA_fnc_globalEvent;
+[QGVAR(started), []] call CBA_fnc_globalEvent;
 
 true

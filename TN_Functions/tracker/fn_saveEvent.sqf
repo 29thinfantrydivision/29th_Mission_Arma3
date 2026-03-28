@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID]
  * Server-side function that converts an event array's human-
@@ -26,7 +27,7 @@ private _fn_convertEventInfo =
 
     private _unit = _eventInfo select 0;
     _unit params ["_unitName", "_unitSide"];
-    _eventInfo set [0, [_unitName, _unitSide, _unitTime] call TN_tracker_fnc_nameToNum];
+    _eventInfo set [0, [_unitName, _unitSide, _unitTime] call FUNC(nameToNum)];
 
     // Kill types: instigator at 1, weapon at 3.
     // Consciousness types: instigator at 2, weapon at 4.
@@ -39,9 +40,9 @@ private _fn_convertEventInfo =
         _instigator params ["_instigatorName", "_instigatorSide"];
         private _weaponName = _eventInfo select _weaponIdx;
         _eventInfo set [_instigatorIdx,
-            [_instigatorName, _instigatorSide, _instigatorTime] call TN_tracker_fnc_nameToNum
+            [_instigatorName, _instigatorSide, _instigatorTime] call FUNC(nameToNum)
         ];
-        _eventInfo set [_weaponIdx, [_weaponName] call TN_tracker_fnc_weaponToNum];
+        _eventInfo set [_weaponIdx, [_weaponName] call FUNC(weaponToNum)];
     };
 };
 
@@ -52,10 +53,10 @@ private _fn_convertEventInfo =
 private _fn_scanRecentEvents =
 {
     params ["_filterTypes", "_afterTime", "_unitNum", "_action"];
-    for "_i" from (count TN_tracker_events - 1)
+    for "_i" from (count GVAR(events) - 1)
         to 0 step -1 do
     {
-        private _pastEvent = TN_tracker_events select _i;
+        private _pastEvent = GVAR(events) select _i;
         private _pastType = _pastEvent select 0;
         private _pastTime = _pastEvent select 1;
         if (_pastType isEqualTo DELAY_KILL_NUM
@@ -111,7 +112,7 @@ switch (_eventType) do
             [ACE_CONSCIOUSNESS_NUM, DELAY_ACE_CONSCIOUSNESS_NUM],
             _eventTime - 2,
             _eventInfo select 0,
-            { TN_tracker_events deleteAt _this }
+            { GVAR(events) deleteAt _this }
         ] call _fn_scanRecentEvents;
     };
 
@@ -123,7 +124,7 @@ switch (_eventType) do
             [ACE_CONSCIOUSNESS_NUM, DELAY_ACE_CONSCIOUSNESS_NUM],
             (_eventTime select 0) - 2,
             _eventInfo select 0,
-            { TN_tracker_events deleteAt _this }
+            { GVAR(events) deleteAt _this }
         ] call _fn_scanRecentEvents;
     };
 
@@ -137,6 +138,6 @@ switch (_eventType) do
 
 if (!_saveEvent) exitWith { false };
 
-TN_tracker_events pushBack _event;
+GVAR(events) pushBack _event;
 
 true

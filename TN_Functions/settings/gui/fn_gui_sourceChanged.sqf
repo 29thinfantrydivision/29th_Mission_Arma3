@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID]
  * Shows/hides the options-group controls so only the
@@ -24,7 +25,7 @@ uiNamespace setVariable [
 ];
 
 private _selectedAddon =
-    uiNamespace getVariable "TN_settings_addon";
+    uiNamespace getVariable QGVAR(addon);
 
 {
     (_x splitString "$") params [

@@ -1,3 +1,5 @@
+#include "script_component.hpp"
+
 /*
  * Author: Bae [29th ID]
  * Adds or removes the Event Menu self-action on the local
@@ -17,12 +19,12 @@ params ["_loggedIn"];
 
 if (_loggedIn) exitWith
 {
-    if (!isNil "TN_event_adminMenuActionId") exitWith {};
+    if (!isNil QGVAR(adminMenuActionId)) exitWith {};
 
-    TN_event_adminMenuActionId = player addAction [
+    GVAR(adminMenuActionId) = player addAction [
         "<t color='#bf3eff'>"
             + "Event Menu (Admin)</t>",
-        { call TN_event_fnc_gui_flagMenu },
+        { call FUNC(gui_flagMenu) },
         nil,
         1.5, false, true, "",
         "",
@@ -31,10 +33,10 @@ if (_loggedIn) exitWith
 };
 
 // logging out
-if (!isNil "TN_event_adminMenuActionId") then
+if (!isNil QGVAR(adminMenuActionId)) then
 {
-    player removeAction TN_event_adminMenuActionId;
-    TN_event_adminMenuActionId = nil;
+    player removeAction GVAR(adminMenuActionId);
+    GVAR(adminMenuActionId) = nil;
 };
 
 nil

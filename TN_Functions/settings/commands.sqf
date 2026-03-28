@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 [
     [
         [
@@ -16,4 +17,4 @@
     [],
     [],
     ["s"]
-] call TN_commands_fnc_addModule;
+] call EFUNC(commands,addModule);

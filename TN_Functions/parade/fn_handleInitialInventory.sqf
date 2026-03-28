@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Hill [29th ID]
  * Ensures joining player has correct loadout on joining the
@@ -23,7 +24,7 @@ private _fn_loadParade =
     {
         case WEST:
         {
-            call TN_parade_fnc_load;
+            call FUNC(load);
         };
         case EAST:
         {
@@ -39,6 +40,6 @@ private _fn_loadParade =
     };
 };
 
-["TN_preloadFinished", _fn_loadParade] call CBA_fnc_addEventHandler;
+[QGVARMAIN(preloadFinished), _fn_loadParade] call CBA_fnc_addEventHandler;
 
 nil

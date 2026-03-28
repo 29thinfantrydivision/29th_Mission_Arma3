@@ -1,7 +1,9 @@
-#define ROUND_IDLE (TN_round_state isEqualTo 0)
-#define ROUND_SAFE (TN_round_state isEqualTo 1)
-#define ROUND_LIVE (TN_round_state isEqualTo 2)
+#include "..\script_macros.hpp"
 
-#define NOT_ROUND_IDLE (TN_round_state isNotEqualTo 0)
-#define NOT_ROUND_SAFE (TN_round_state isNotEqualTo 1)
-#define NOT_ROUND_LIVE (TN_round_state isNotEqualTo 2)
+#define ROUND_IDLE (EGVAR(round,state) isEqualTo 0)
+#define ROUND_SAFE (EGVAR(round,state) isEqualTo 1)
+#define ROUND_LIVE (EGVAR(round,state) isEqualTo 2)
+
+#define NOT_ROUND_IDLE (EGVAR(round,state) isNotEqualTo 0)
+#define NOT_ROUND_SAFE (EGVAR(round,state) isNotEqualTo 1)
+#define NOT_ROUND_LIVE (EGVAR(round,state) isNotEqualTo 2)

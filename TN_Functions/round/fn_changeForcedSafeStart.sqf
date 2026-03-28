@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 #include "..\..\data\roundState.hpp"
 
 /*
@@ -30,7 +31,7 @@ if (_seconds > 0) then
     [_seconds] call BIS_fnc_countdown;
 
     private _formattedTime =
-        [_seconds] call TN_round_fnc_formatTime;
+        [_seconds] call FUNC(formatTime);
     private _text = format [
         "<t color='#ffffff' size='2'>Forced Safe Start changed to %1!</t>",
         _formattedTime
@@ -41,7 +42,7 @@ if (_seconds > 0) then
         "PLAIN",
         0.5,
         false
-    ] remoteExecCall ["TN_common_fnc_displayMsg"];
+    ] remoteExecCall [QEFUNC(common,displayMsg)];
 
     _changed = true;
 }
@@ -49,8 +50,8 @@ else
 {
     if (ROUND_SAFE) then
     {
-        TN_round_ignoreReadiness = false;
-        publicVariable "TN_round_ignoreReadiness";
+        GVAR(ignoreReadiness) = false;
+        publicVariable QGVAR(ignoreReadiness);
         _changed = true;
     };
 };

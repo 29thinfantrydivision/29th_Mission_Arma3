@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID]
  * Copies text from record to clipboard up to and excluding the
@@ -20,7 +21,7 @@ private _recordText =
     (_allRoundRecords select _idx) select 2;
 _recordText =
     _recordText select [0, _recordText find "<execute"];
-_recordText call TN_tracker_fnc_copyToClipboard;
+_recordText call FUNC(copyToClipboard);
 systemChat "Copied to clipboard. (HTML format)";
 
 nil

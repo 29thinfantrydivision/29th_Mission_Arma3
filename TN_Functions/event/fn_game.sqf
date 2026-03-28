@@ -1,3 +1,5 @@
+#include "script_component.hpp"
+
 /*
  * Author: Bae [29th ID], modified from Dott [29th ID]
  * Ends the mission with a specific side victory, neutral
@@ -24,7 +26,7 @@ params
 
 if (!isServer) exitWith
 {
-    _this remoteExecCall ["TN_event_fnc_game", 2];
+    _this remoteExecCall [QFUNC(game), 2];
 };
 
 /******** CONFIG ********/
@@ -36,14 +38,14 @@ private _endResistance = "EndGuerVictory";
 /************************/
 
 // Prevents duplicate endings.
-if (isNil "TN_event_missionEnded") then
+if (isNil QGVAR(missionEnded)) then
 {
-    TN_event_missionEnded = false;
+    GVAR(missionEnded) = false;
 };
-if (TN_event_missionEnded) exitWith {};
-TN_event_missionEnded = true;
-publicVariable "TN_event_missionEnded";
-["TN_event_onMissionEnded", []] call CBA_fnc_globalEvent;
+if (GVAR(missionEnded)) exitWith {};
+GVAR(missionEnded) = true;
+publicVariable QGVAR(missionEnded);
+[QGVAR(onMissionEnded), []] call CBA_fnc_globalEvent;
 
 if (_endingClass isNotEqualTo "") then
 {

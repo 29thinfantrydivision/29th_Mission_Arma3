@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID]
  * Initializes the loadout module on clients. Registers arsenal
@@ -33,7 +34,7 @@ if (hasInterface) then
         {
             // Don't do if Zeus Open (ZEN Loadout Editing).
             if !(isNull (findDisplay 312)) exitWith {};
-            call TN_loadout_fnc_onArsenalClosed;
+            call FUNC(onArsenalClosed);
         }
     ] call BIS_fnc_addScriptedEventHandler;
 
@@ -45,16 +46,16 @@ if (hasInterface) then
             {
                 // Don't do if Zeus Open (ZEN Loadout Editing).
                 if !(isNull (findDisplay 312)) exitWith {};
-                call TN_loadout_fnc_onArsenalClosed;
+                call FUNC(onArsenalClosed);
             }
         ] call CBA_fnc_addEventHandler;
     };
 
     [
-        "TN_loadout_setInsigniaRespawn",
+        QGVAR(setInsigniaRespawn),
         "Respawn",
         {
-            (_this select 0) call TN_loadout_fnc_setInsignia;
+            (_this select 0) call FUNC(setInsignia);
         }
     ] call CBA_fnc_addBISPlayerEventHandler;
 };

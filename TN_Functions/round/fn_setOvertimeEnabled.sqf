@@ -1,3 +1,5 @@
+#include "script_component.hpp"
+
 /*
  * Author: Bae [29th ID], modified from Dott [29th ID]
  * Enables or disables overtime for the current round.
@@ -14,7 +16,7 @@
 
 params ["_enabled"];
 
-TN_round_overtimeEnabled = _enabled;
-publicVariable "TN_round_overtimeEnabled";
+GVAR(overtimeEnabled) = _enabled;
+publicVariable QGVAR(overtimeEnabled);
 
 nil

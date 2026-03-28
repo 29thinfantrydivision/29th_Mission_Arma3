@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Hill [29th ID]
  * Removes the player from BIS EG Spectator mode and undoes all
@@ -35,14 +36,14 @@ player allowDamage false;
 
 [{
     // Don't conflict with the loadout teleport system.
-    if (!isNil "TN_loadout_teleporting") exitWith {};
+    if (!isNil QEGVAR(loadout,teleporting)) exitWith {};
 
     player allowDamage true;
 }, [], 2] call CBA_fnc_waitAndExecute;
 
 player switchCamera "internal";
 
-[TN_spectator_exitPFH] call CBA_fnc_removePerFrameHandler;
+[GVAR(exitPFH)] call CBA_fnc_removePerFrameHandler;
 
 if !(weaponLowered player) then
 {

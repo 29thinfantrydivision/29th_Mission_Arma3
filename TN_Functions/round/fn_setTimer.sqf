@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 #include "..\..\data\roundState.hpp"
 
 /*
@@ -21,7 +22,7 @@ if (
     _time <= 0 || ROUND_LIVE
 ) exitWith {false};
 
-TN_round_timerLength = _time;
-publicVariable "TN_round_timerLength";
+GVAR(timerLength) = _time;
+publicVariable QGVAR(timerLength);
 
 true

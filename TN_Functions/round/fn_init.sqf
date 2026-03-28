@@ -21,27 +21,27 @@
 /* ---- Server-side initialization ---- */
 if (isServer) then
 {
-    TN_round_state = 0;
-    publicVariable "TN_round_state";
+    GVAR(state) = 0;
+    publicVariable QGVAR(state);
 
-    TN_round_sideReady = [false, false, false];
-    publicVariable "TN_round_sideReady";
+    GVAR(sideReady) = [false, false, false];
+    publicVariable QGVAR(sideReady);
 
-    TN_round_timerLength = DEFAULT_TIMER;
-    publicVariable "TN_round_timerLength";
+    GVAR(timerLength) = DEFAULT_TIMER;
+    publicVariable QGVAR(timerLength);
 
-    TN_round_overtimeEnabled = false;
-    publicVariable "TN_round_overtimeEnabled";
+    GVAR(overtimeEnabled) = false;
+    publicVariable QGVAR(overtimeEnabled);
 
-    TN_round_overtimePeriod = DEFAULT_OVERTIME;
-    publicVariable "TN_round_overtimePeriod";
+    GVAR(overtimePeriod) = DEFAULT_OVERTIME;
+    publicVariable QGVAR(overtimePeriod);
 
-    TN_round_ignoreReadiness = false;
-    publicVariable "TN_round_ignoreReadiness";
+    GVAR(ignoreReadiness) = false;
+    publicVariable QGVAR(ignoreReadiness);
 
     /* --- Prevent scores showing up on right side UI --- */
     [
-        "TN_round_started",
+        QGVAR(started),
         {
             {
                 _x addScoreSide -SCORE_REDUCE_VALUE;
@@ -50,7 +50,7 @@ if (isServer) then
     ] call CBA_fnc_addEventHandler;
 
     [
-        "TN_round_ended",
+        QGVAR(ended),
         {
             {
                 _x addScoreSide SCORE_REDUCE_VALUE;
@@ -77,15 +77,15 @@ if (isServer) then
 /* ---- Client-side initialization ---- */
 if (hasInterface) then
 {
-    call TN_round_fnc_initReadyUI;
+    call FUNC(initReadyUI);
 
     /* --- JIP scoreboard suppression ---
      * showScoreTable silently fails if called too early. */
     [
-        "TN_preloadFinished",
+        QGVARMAIN(preloadFinished),
         {
             if (
-                ROUND_LIVE && TN_disableScoreboard
+                ROUND_LIVE && GVARMAIN(disableScoreboard)
             ) then
             {
                 showScoretable 0;
@@ -95,7 +95,7 @@ if (hasInterface) then
 
     /* --- Prevent scoreboard in respawn menu --- */
     [
-        "TN_round_scoreboardRespawnMenuStart",
+        QGVAR(scoreboardRespawnMenuStart),
         "Killed",
         {
             disableRespawnScoreboard = addMissionEventHandler [
@@ -104,7 +104,7 @@ if (hasInterface) then
                     if (
                         visibleScoretable
                         && ROUND_LIVE
-                        && TN_disableScoreboard
+                        && GVARMAIN(disableScoreboard)
                     ) then
                     {
                         showScoretable 0;
@@ -116,12 +116,12 @@ if (hasInterface) then
 
     // Re-added every life
     [
-        "TN_round_scoreboardRespawnMenuEnd",
+        QGVAR(scoreboardRespawnMenuEnd),
         "Respawn",
         {
             if (
                 ROUND_LIVE
-                && TN_disableScoreboard
+                && GVARMAIN(disableScoreboard)
             ) then
             {
                 [{shownScoreTable isEqualTo -1}, {
@@ -140,7 +140,7 @@ if (hasInterface) then
 
     /* --- Fix countdown not showing after leaving curator --- */
     [
-        "TN_exitedZeus",
+        QGVARMAIN(exitedZeus),
         {
             [{
                 ("RscMPProgress" call BIS_fnc_rscLayer)
@@ -151,16 +151,16 @@ if (hasInterface) then
 
     /* --- Allow player in Zeus to see scoreboard --- */
     [
-        "TN_enteredZeus",
+        QGVARMAIN(enteredZeus),
         {showScoretable -1}
     ] call CBA_fnc_addEventHandler;
 
     [
-        "TN_exitedZeus",
+        QGVARMAIN(exitedZeus),
         {
             if (
                 ROUND_LIVE
-                && TN_disableScoreboard
+                && GVARMAIN(disableScoreboard)
             ) then
             {
                 showScoretable 0;
@@ -170,13 +170,13 @@ if (hasInterface) then
 
     /* --- Hide scoreboard when round starts --- */
     [
-        "TN_round_started",
+        QGVAR(started),
         {
-            if !(TN_disableScoreboard) exitWith {};
+            if !(GVARMAIN(disableScoreboard)) exitWith {};
             if !(isNull (uiNamespace getVariable ["RscDisplayCurator", displayNull])) exitWith {};
             if (
                 !isNil {missionNamespace getVariable "BIS_EGSpectator_initialized"}
-                && TN_limitSpectator isEqualTo 0
+                && GVARMAIN(limitSpectator) isEqualTo 0
             ) exitWith {};
             showScoretable 0;
         }
@@ -187,7 +187,7 @@ if (hasInterface) then
         {
             if (
                 ROUND_LIVE
-                && TN_disableScoreboard
+                && GVARMAIN(disableScoreboard)
             ) then
             {
                 showScoretable 0;
@@ -198,7 +198,7 @@ if (hasInterface) then
     [
         "enteredSpectator",
         {
-            if (TN_limitSpectator isEqualTo 0) then
+            if (GVARMAIN(limitSpectator) isEqualTo 0) then
             {
                 showScoretable -1;
             };
@@ -206,7 +206,7 @@ if (hasInterface) then
     ] call CBA_fnc_addEventHandler;
 
     [
-        "TN_round_ended",
+        QGVAR(ended),
         {
             showScoretable -1;
         }
@@ -218,21 +218,21 @@ if (isServer) then
 {
     /* --- Collect client-side silent weapons and notify --- */
     [
-        "TN_round_started",
+        QGVAR(started),
         {
-            TN_round_clientSilentWeapons = nil;
+            GVAR(clientSilentWeapons) = nil;
 
             [{
-                if (isNil "TN_round_clientSilentWeapons") exitWith {};
+                if (isNil QGVAR(clientSilentWeapons)) exitWith {};
 
                 private _msg = format [
                     "%1 has silent weapon. Drop and pickup your weapon.",
-                    keys TN_round_clientSilentWeapons
+                    keys GVAR(clientSilentWeapons)
                 ];
                 diag_log text _msg;
                 [_msg] remoteExecCall ["systemChat"];
 
-                TN_round_clientSilentWeapons = nil;
+                GVAR(clientSilentWeapons) = nil;
             }, [], 3] call CBA_fnc_waitAndExecute;
         }
     ] call CBA_fnc_addEventHandler;
@@ -242,7 +242,7 @@ if (hasInterface) then
 {
     /* --- Fix invulnerable players at round start --- */
     [
-        "TN_round_started",
+        QGVAR(started),
         {
             if (
                 isDamageAllowed player
@@ -251,7 +251,7 @@ if (hasInterface) then
 
             player allowDamage true;
 
-            if (TN_notifyFinalCheck) then
+            if (GVARMAIN(notifyFinalCheck)) then
             {
                 private _msg = format [
                     "FIXED: %1 was invulnerable, can now take damage.",
@@ -264,9 +264,9 @@ if (hasInterface) then
 
     /* --- Detect silent weapon bug --- */
     [
-        "TN_round_started",
+        QGVAR(started),
         {
-            if !(TN_notifyFinalCheck) exitWith {};
+            if !(GVARMAIN(notifyFinalCheck)) exitWith {};
 
             [{
                 private _players = allPlayers - entities "HeadlessClient_F";
@@ -280,7 +280,7 @@ if (hasInterface) then
                     {
                         continue;
                     };
-                    [name _x] remoteExecCall ["TN_round_fnc_collectSilentWeapons", 2];
+                    [name _x] remoteExecCall [QFUNC(collectSilentWeapons), 2];
                 } forEach _players;
             }, [], 0.5] call CBA_fnc_waitAndExecute;
         }

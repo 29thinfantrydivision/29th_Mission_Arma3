@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID]
  * HitExplosion/HitPart projectile event handler for the tracker.
@@ -30,7 +31,7 @@ if !(alive _hitEntity
     && _hitEntity isKindOf "AllVehicles") exitWith {};
 
 private _instigatorInfo =
-    _projectile getVariable "TN_instigatorInfo";
+    _projectile getVariable QGVAR(instigatorInfo);
 
 // If projectile hits multiple things it can have time of
 // hit already.
@@ -39,12 +40,12 @@ if (count _instigatorInfo > INSTIGATOR_TIME_INDEX) then
     _instigatorInfo deleteAt INSTIGATOR_TIME_INDEX;
 };
 _instigatorInfo pushBack
-    round(serverTime - TN_tracker_startTime);
+    round(serverTime - GVAR(startTime));
 
 if (_hitEntity isKindOf "Man") exitWith
 {
     [[_hitEntity], _instigatorInfo] remoteExecCall
-        ["TN_tracker_fnc_sendHit", 2];
+        [QFUNC(sendHit), 2];
 };
 
 // If vehicle is already going to blow up don't record any
@@ -57,6 +58,6 @@ private _targets =
     (crew _hitEntity) select { alive _x };
 _targets pushBack _hitEntity;
 [_targets, _instigatorInfo] remoteExecCall
-    ["TN_tracker_fnc_sendHit", 2];
+    [QFUNC(sendHit), 2];
 
 nil

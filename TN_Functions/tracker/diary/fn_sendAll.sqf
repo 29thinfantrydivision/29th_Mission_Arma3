@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Bae [29th ID]
  * Server-side function (called via remoteExec from client) that
@@ -13,8 +14,8 @@
 
 params ["_player"];
 
-[TN_tracker_previous] remoteExecCall [
-    "TN_tracker_fnc_receiveAll",
+[GVAR(previous)] remoteExecCall [
+    QFUNC(receiveAll),
     _player
 ];
 
