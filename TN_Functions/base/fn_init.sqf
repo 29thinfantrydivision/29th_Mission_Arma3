@@ -110,7 +110,7 @@ GVAR(arsenalActionId) = -1;
 GVAR(keepEnvironmentSounds) = false;
 
 [
-    QEGVAR(curator,entered),
+    QGVARMAIN(enteredZeus),
     {
         GVAR(keepEnvironmentSounds) = true;
         ENV_ON;
@@ -118,7 +118,7 @@ GVAR(keepEnvironmentSounds) = false;
 ] call CBA_fnc_addEventHandler;
 
 [
-    QEGVAR(curator,exited),
+    QGVARMAIN(exitedZeus),
     {
         GVAR(keepEnvironmentSounds) = false;
         if (GVAR(arsenalActionId) isNotEqualTo -1) then { ENV_OFF };

@@ -42,7 +42,7 @@ _unit addEventHandler ["HandleRating", {0}];
 }] call CBA_fnc_addClassEventHandler;
 
 // ====== Fix inconsistent bug where chat is no longer displayed after leaving main menu ======
-[QEGVAR(common,exitedPauseMenu), {
+[QGVARMAIN(exitedPauseMenu), {
     [{showChat true}, [], CHAT_FIX_DELAY] call CBA_fnc_waitAndExecute;
 }] call CBA_fnc_addEventHandler;
 

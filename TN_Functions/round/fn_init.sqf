@@ -140,7 +140,7 @@ if (hasInterface) then
 
     /* --- Fix countdown not showing after leaving curator --- */
     [
-        QEGVAR(curator,exited),
+        QGVARMAIN(exitedZeus),
         {
             [{
                 ("RscMPProgress" call BIS_fnc_rscLayer)
@@ -151,12 +151,12 @@ if (hasInterface) then
 
     /* --- Allow player in Zeus to see scoreboard --- */
     [
-        QEGVAR(curator,entered),
+        QGVARMAIN(enteredZeus),
         {showScoretable -1}
     ] call CBA_fnc_addEventHandler;
 
     [
-        QEGVAR(curator,exited),
+        QGVARMAIN(exitedZeus),
         {
             if (
                 ROUND_LIVE

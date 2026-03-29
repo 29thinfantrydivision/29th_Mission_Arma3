@@ -12,7 +12,7 @@ class Extended_DisplayLoad_EventHandlers
 {
     class RscDisplayCurator
     {
-        TN_round = '[QEGVAR(curator,entered), []] call CBA_fnc_localEvent';
+        onLoad = '[QGVARMAIN(enteredZeus), []] call CBA_fnc_localEvent';
     };
 };
 
@@ -20,11 +20,11 @@ class Extended_DisplayUnload_EventHandlers
 {
     class RscDisplayCurator
     {
-        TN_round = '[QEGVAR(curator,exited), []] call CBA_fnc_localEvent';
+        onUnload = '[QGVARMAIN(exitedZeus), []] call CBA_fnc_localEvent';
     };
 
     class RscDisplayMPInterrupt
     {
-        TN = '[QEGVAR(common,exitedPauseMenu), []] call CBA_fnc_localEvent';
+        onUnload = '[QGVARMAIN(exitedPauseMenu), []] call CBA_fnc_localEvent';
     };
 };
