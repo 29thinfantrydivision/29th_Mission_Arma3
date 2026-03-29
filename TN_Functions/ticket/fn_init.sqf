@@ -37,7 +37,7 @@ if (isServer) then
     } forEach (allPlayers - entities "HeadlessClient_F");
 
     [
-        QGVARMAIN(adminStateChanged),
+        QEGVAR(common,adminStateChanged),
         {
             params ["_unit", "_loggedIn"];
             if (isNull _unit) exitWith {};

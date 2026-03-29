@@ -110,7 +110,7 @@ GVAR(arsenalActionId) = -1;
 GVAR(keepEnvironmentSounds) = false;
 
 [
-    QGVARMAIN(enteredZeus),
+    QEGVAR(curator,entered),
     {
         GVAR(keepEnvironmentSounds) = true;
         ENV_ON;
@@ -118,7 +118,7 @@ GVAR(keepEnvironmentSounds) = false;
 ] call CBA_fnc_addEventHandler;
 
 [
-    QGVARMAIN(exitedZeus),
+    QEGVAR(curator,exited),
     {
         GVAR(keepEnvironmentSounds) = false;
         if (GVAR(arsenalActionId) isNotEqualTo -1) then { ENV_OFF };
@@ -126,7 +126,7 @@ GVAR(keepEnvironmentSounds) = false;
 ] call CBA_fnc_addEventHandler;
 
 [
-    "enteredSpectator",
+    QEGVAR(spectator,entered),
     {
         GVAR(keepEnvironmentSounds) = true;
         ENV_ON;
@@ -134,7 +134,7 @@ GVAR(keepEnvironmentSounds) = false;
 ] call CBA_fnc_addEventHandler;
 
 [
-    "exitedSpectator",
+    QEGVAR(spectator,exited),
     {
         GVAR(keepEnvironmentSounds) = false;
         if (GVAR(arsenalActionId) isNotEqualTo -1) then { ENV_OFF };

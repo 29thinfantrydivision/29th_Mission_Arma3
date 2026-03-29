@@ -104,7 +104,7 @@ private _allObjects =
 /* --- Remove actions after game is called --- */
 
 [
-    QGVAR(onMissionEnded),
+    QGVAR(missionEnded),
     {
         {
             if (!isNull _x) then

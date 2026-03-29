@@ -6,7 +6,7 @@
  * On logout, unassigns zeus_admin and reassigns the unit's
  * personal curator module.
  *
- * Called via CBA event "TN_adminStateChanged".
+ * Called via CBA event "TN_common_adminStateChanged".
  *
  * Arguments:
  * 0: Admin unit <OBJECT>

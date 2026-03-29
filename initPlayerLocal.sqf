@@ -1,3 +1,4 @@
+#include "script_macros.hpp"
 #include "data\templates.hpp"
 
 #define HIDE_ENTITY_DELAY 1.0
@@ -41,7 +42,7 @@ _unit addEventHandler ["HandleRating", {0}];
 }] call CBA_fnc_addClassEventHandler;
 
 // ====== Fix inconsistent bug where chat is no longer displayed after leaving main menu ======
-["TN_exitedPauseMenu", {
+[QEGVAR(common,exitedPauseMenu), {
     [{showChat true}, [], CHAT_FIX_DELAY] call CBA_fnc_waitAndExecute;
 }] call CBA_fnc_addEventHandler;
 

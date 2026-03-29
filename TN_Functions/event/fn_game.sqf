@@ -5,7 +5,7 @@
  * Ends the mission with a specific side victory, neutral
  * ending, or named ending class. Redirects to server if
  * called on a client. Prevents duplicate endings via the
- * TN_event_missionEnded guard.
+ * TN_event_gameCalled guard.
  *
  * Arguments:
  * 0: Winning side, omit for neutral ending <SIDE> (default: sideUnknown)
@@ -38,14 +38,14 @@ private _endResistance = "EndGuerVictory";
 /************************/
 
 // Prevents duplicate endings.
-if (isNil QGVAR(missionEnded)) then
+if (isNil QGVAR(gameCalled)) then
 {
-    GVAR(missionEnded) = false;
+    GVAR(gameCalled) = false;
 };
-if (GVAR(missionEnded)) exitWith {};
-GVAR(missionEnded) = true;
-publicVariable QGVAR(missionEnded);
-[QGVAR(onMissionEnded), []] call CBA_fnc_globalEvent;
+if (GVAR(gameCalled)) exitWith {};
+GVAR(gameCalled) = true;
+publicVariable QGVAR(gameCalled);
+[QGVAR(missionEnded), []] call CBA_fnc_globalEvent;
 
 if (_endingClass isNotEqualTo "") then
 {

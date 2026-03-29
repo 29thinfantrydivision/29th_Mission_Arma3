@@ -42,7 +42,7 @@ if (GVAR(hasTimer)) then
     if (isServer) then
     {
         [
-            QGVARMAIN(adminStateChanged),
+            QEGVAR(common,adminStateChanged),
             {
                 params ["_unit", "_loggedIn"];
                 if (isNull _unit) exitWith {};

@@ -82,7 +82,7 @@ if (hasInterface) then
     /* --- JIP scoreboard suppression ---
      * showScoreTable silently fails if called too early. */
     [
-        QGVARMAIN(preloadFinished),
+        QEGVAR(common,preloadFinished),
         {
             if (
                 ROUND_LIVE && GVARMAIN(disableScoreboard)
@@ -140,7 +140,7 @@ if (hasInterface) then
 
     /* --- Fix countdown not showing after leaving curator --- */
     [
-        QGVARMAIN(exitedZeus),
+        QEGVAR(curator,exited),
         {
             [{
                 ("RscMPProgress" call BIS_fnc_rscLayer)
@@ -151,12 +151,12 @@ if (hasInterface) then
 
     /* --- Allow player in Zeus to see scoreboard --- */
     [
-        QGVARMAIN(enteredZeus),
+        QEGVAR(curator,entered),
         {showScoretable -1}
     ] call CBA_fnc_addEventHandler;
 
     [
-        QGVARMAIN(exitedZeus),
+        QEGVAR(curator,exited),
         {
             if (
                 ROUND_LIVE
@@ -183,7 +183,7 @@ if (hasInterface) then
     ] call CBA_fnc_addEventHandler;
 
     [
-        "exitedSpectator",
+        QEGVAR(spectator,exited),
         {
             if (
                 ROUND_LIVE
@@ -196,7 +196,7 @@ if (hasInterface) then
     ] call CBA_fnc_addEventHandler;
 
     [
-        "enteredSpectator",
+        QEGVAR(spectator,entered),
         {
             if (GVARMAIN(limitSpectator) isEqualTo 0) then
             {

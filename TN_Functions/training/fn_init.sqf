@@ -70,7 +70,7 @@ if (hasInterface) then
     /* Draw base locations on map for curator */
     GVAR(curatorBaseLogic) = objNull;
 
-    [QGVARMAIN(enteredZeus),
+    [QEGVAR(curator,entered),
     {
         //check if curator module changes (admin swap), if so we need to do this to new module
         if (GVAR(curatorBaseLogic) isEqualTo getAssignedCuratorLogic player) exitWith {};

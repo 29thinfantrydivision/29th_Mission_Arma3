@@ -107,6 +107,6 @@ GVAR(exitPFH) = [{
     };
 }, 0, [_startPos, _unit]] call CBA_fnc_addPerFrameHandler;
 
-["enteredSpectator", []] call CBA_fnc_localEvent;
+[QGVAR(entered), []] call CBA_fnc_localEvent;
 
 true

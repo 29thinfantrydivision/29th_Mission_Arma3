@@ -1,3 +1,5 @@
+#include "..\script_macros.hpp"
+
 class Extended_PreInit_EventHandlers
 {
     class TN_MissionSettings
@@ -10,7 +12,7 @@ class Extended_DisplayLoad_EventHandlers
 {
     class RscDisplayCurator
     {
-        TN_round = "[""TN_enteredZeus"", []] call CBA_fnc_localEvent";
+        TN_round = '[QEGVAR(curator,entered), []] call CBA_fnc_localEvent';
     };
 };
 
@@ -18,11 +20,11 @@ class Extended_DisplayUnload_EventHandlers
 {
     class RscDisplayCurator
     {
-        TN_round = "[""TN_exitedZeus"", []] call CBA_fnc_localEvent";
+        TN_round = '[QEGVAR(curator,exited), []] call CBA_fnc_localEvent';
     };
 
     class RscDisplayMPInterrupt
     {
-        DOTT = "[""TN_exitedPauseMenu"", []] call CBA_fnc_localEvent";
+        DOTT = '[QEGVAR(common,exitedPauseMenu), []] call CBA_fnc_localEvent';
     };
 };

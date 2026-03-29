@@ -13,12 +13,12 @@
  * perFrameHandler.
  *
  * Events Used:
- *     "TN_enteredZeus" - Fired by cfgEventHandlers when a
+ *     "TN_curator_entered" - Fired by cfgEventHandlers when a
  *         player opens the Zeus interface. Logged to server.
- *     "TN_exitedZeus"  - Fired when a player closes Zeus.
+ *     "TN_curator_exited"  - Fired when a player closes Zeus.
  *
  * Admin Login/Logout Handler:
- *     Subscribes to "TN_adminStateChanged" CBA event. On login,
+ *     Subscribes to "TN_common_adminStateChanged" CBA event. On login,
  *     the admin unit is assigned to zeus_admin (unassign first
  *     to handle edge cases). On logout, zeus_admin is unassigned
  *     and the unit's personal curator module is reassigned.
@@ -33,7 +33,7 @@
  * call TN_curator_fnc_init;
  */
 
-//Note: Events TN_enteredZeus and TN_exitedZeus are defined in cfgEventHandlers
+//Note: Events TN_curator_entered and TN_curator_exited are defined in cfgEventHandlers
 
 #define CREATE_CURATOR_MODULE(_obj) \
     [vehicleVarName _obj] call FUNC(createModule)
@@ -45,7 +45,7 @@ if (hasInterface) then
         player call BIS_fnc_drawCuratorDeaths;
 
         [
-            QGVARMAIN(enteredZeus),
+            QGVAR(entered),
             {
                 private _curatorName = name player;
                 private _msg = format ["CURATOR INTERFACE OPENED: %1", _curatorName];
@@ -86,7 +86,7 @@ if (isServer) then
     };
 
     [
-        QGVARMAIN(adminStateChanged),
+        QEGVAR(common,adminStateChanged),
         {
             params ["_unit", "_loggedIn"];
             if (isNull _unit || isNil "zeus_admin") exitWith {};

@@ -159,7 +159,7 @@ if (hasInterface) then
     // --- Remove Statistics from Map, Send All
     //     Round Histories --- //
     [
-        QGVARMAIN(preloadFinished),
+        QEGVAR(common,preloadFinished),
         {
             [player] remoteExecCall [QFUNC(sendAll), 2];
             player removeDiarySubject "Statistics";

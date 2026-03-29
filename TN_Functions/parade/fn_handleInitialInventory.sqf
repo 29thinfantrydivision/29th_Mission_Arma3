@@ -40,6 +40,6 @@ private _fn_loadParade =
     };
 };
 
-[QGVARMAIN(preloadFinished), _fn_loadParade] call CBA_fnc_addEventHandler;
+[QEGVAR(common,preloadFinished), _fn_loadParade] call CBA_fnc_addEventHandler;
 
 nil

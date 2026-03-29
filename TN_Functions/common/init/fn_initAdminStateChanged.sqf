@@ -3,10 +3,10 @@
  * Author: Bae [29th ID]
  * Registers a single OnUserAdminStateChanged mission event
  * handler that extracts the admin unit and fires a CBA event
- * ("TN_adminStateChanged") for all consumer modules.
+ * ("TN_common_adminStateChanged") for all consumer modules.
  *
  * Consumers subscribe via:
- *     ["TN_adminStateChanged", { params ["_unit", "_loggedIn"]; ... }]
+ *     ["TN_common_adminStateChanged", { params ["_unit", "_loggedIn"]; ... }]
  *         call CBA_fnc_addEventHandler;
  *
  * _unit may be objNull if user info was unavailable.
@@ -30,5 +30,5 @@ addMissionEventHandler [
     private _unit = if (count _userInfo > 10) then
         { _userInfo select 10 } else { objNull };
 
-    [QGVARMAIN(adminStateChanged), [_unit, _loggedIn]] call CBA_fnc_localEvent;
+    [QGVAR(adminStateChanged), [_unit, _loggedIn]] call CBA_fnc_localEvent;
 }];
