@@ -34,7 +34,7 @@
 
 /*
  * Editor-placed objects referenced in this module:
- *     base_action_arsenal_blu - Conitionally if parade module in DOTT_MODULES
+ *     base_action_arsenal_blu - Conitionally if parade module in TN_MODULES
  */
 
 if !(hasInterface) exitWith {};

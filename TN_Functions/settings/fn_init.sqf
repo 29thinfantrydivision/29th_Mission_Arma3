@@ -1,6 +1,6 @@
 /*
  * Author: Bae [29th ID]
- * Server-side initialization for the DOTT settings system.
+ * Server-side initialization for the TN settings system.
  * Snapshots each CBA mission setting's server value as the
  * "default" baseline and builds the global settings list,
  * skipping any non-global settings.

@@ -1,7 +1,7 @@
 #include "script_component.hpp"
 /*
  * Author: Bae [29th ID]
- * Entry point for the DOTT mission-settings dialog.
+ * Entry point for the TN mission-settings dialog.
  * Builds the addon/category sidebar, wires the OK button
  * to save temporary overrides, and lazy-compiles client
  * GUI helpers on first open.

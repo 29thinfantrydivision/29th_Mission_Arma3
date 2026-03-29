@@ -25,6 +25,6 @@ class Extended_DisplayUnload_EventHandlers
 
     class RscDisplayMPInterrupt
     {
-        DOTT = '[QEGVAR(common,exitedPauseMenu), []] call CBA_fnc_localEvent';
+        TN = '[QEGVAR(common,exitedPauseMenu), []] call CBA_fnc_localEvent';
     };
 };
