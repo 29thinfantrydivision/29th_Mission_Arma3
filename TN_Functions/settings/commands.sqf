@@ -3,6 +3,7 @@
     [
         [
             "s", {
+                if !(isServer || IS_ADMIN_LOGGED) exitWith { systemChat "You must be logged in admin, not voted in." };
                 createDialog [
                     "RscDisplayMissionOptions",
                     true

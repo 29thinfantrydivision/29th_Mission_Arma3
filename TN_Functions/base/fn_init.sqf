@@ -168,7 +168,7 @@ if ("parade" in TN_MODULES) then {
         true,
         true,
         "",
-        'serverCommandAvailable "#lock" && ((player distance base_action_arsenal_blu) < 5 || (time - EGVAR(loadout,lastDebriefTime)) < 10)',
+        'IS_ADMIN && ((player distance base_action_arsenal_blu) < 5 || (time - EGVAR(loadout,lastDebriefTime)) < 10)',
         50
     ];
 };

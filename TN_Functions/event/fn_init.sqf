@@ -29,7 +29,7 @@ if (GVAR(hasTimer)) then {
         [{!isNull player}, {
             call FUNC(flagActions);
 
-            if (serverCommandAvailable "#lock") then {
+            if (IS_ADMIN) then {
                 [true]
                     call FUNC(handleAdminEventMenu);
             };

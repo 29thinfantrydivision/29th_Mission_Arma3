@@ -44,13 +44,11 @@ if !(isNil "_commandCode") then {
         systemChat "Command has been disabled by server!";
     };
 
-    private _isAdmin = serverCommandAvailable "#lock";
-
-    if (_command in GVAR(adminCommands) && !_isAdmin) exitWith {
+    if (_command in GVAR(adminCommands) && !IS_ADMIN) exitWith {
         systemChat "You must be the logged in admin to do that!";
     };
 
-    if (_command in GVAR(restrictedCommands) && !_isAdmin && ROUND_LIVE) exitWith {
+    if (_command in GVAR(restrictedCommands) && !IS_ADMIN && ROUND_LIVE) exitWith {
         systemChat "Restricted command! Round has started and you are not admin.";
     };
 

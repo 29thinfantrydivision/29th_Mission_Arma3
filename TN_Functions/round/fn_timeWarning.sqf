@@ -16,7 +16,7 @@
  */
 
 // Admin-only for now.
-if (!serverCommandAvailable "#lock") exitWith {};
+if (!IS_ADMIN) exitWith {};
 
 private _secondsLeft = call FUNC(getTime);
 private _minutes = ceil(_secondsLeft / 60);
