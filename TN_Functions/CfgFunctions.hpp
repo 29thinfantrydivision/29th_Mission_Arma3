@@ -21,6 +21,7 @@ class TN_Common {
         class diag_log {};
         class displayMsg {};
         class convertSide {};
+        class notifyAdmin {};
     };
     class InitFunctions {
         file = "TN_Functions\common\init";

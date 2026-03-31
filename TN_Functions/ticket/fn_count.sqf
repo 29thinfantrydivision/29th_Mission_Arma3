@@ -25,8 +25,6 @@ if (!isServer) exitWith {};
 
 private _clientOwner = remoteExecutedOwner;
 
-private _adminClient = GVAR(adminClient);
-
 // Map the side to its ID and admin-facing label.
 // Civilian and unknown sides are ignored.
 private _adminLabel = [_playerSide] call EFUNC(common,convertSide);
@@ -56,7 +54,7 @@ if (_tickets isEqualTo 0) then {
         "Your team is out of tickets!" remoteExecCall ["hint", _playerSide];
         format [
             "ADMIN: %1 is out of tickets!", _adminLabel
-        ] remoteExecCall ["hint", _adminClient];
+        ] remoteExecCall ["hint", EGVAR(common,adminClient)];
         [
             "<t color='#ffffff' size='2'>You are the last player allowed to leave spawn!</t>",
             "PLAIN",

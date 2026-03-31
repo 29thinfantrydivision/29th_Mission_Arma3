@@ -28,6 +28,23 @@ GVAR(sideToStrMap) set [resistance, "GRNFOR"];
 
 if (isServer) then {
     call FUNC(initAdminStateChanged);
+
+    GVAR(adminClient) = 2;
+
+    // Catch any admin already logged in before this runs.
+    {
+        if (admin (owner _x) isEqualTo 2) exitWith {
+            GVAR(adminClient) = owner _x;
+        };
+    } forEach (allPlayers - entities "HeadlessClient_F");
+
+    [
+        QGVAR(adminStateChanged), {
+            params ["_unit", "_loggedIn"];
+            if (isNull _unit) exitWith {};
+            GVAR(adminClient) = [2, owner _unit] select _loggedIn;
+        }
+    ] call CBA_fnc_addEventHandler;    
 };
 
 if (hasInterface) then {
