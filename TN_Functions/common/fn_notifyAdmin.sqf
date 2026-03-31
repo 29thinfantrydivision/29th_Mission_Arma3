@@ -17,14 +17,14 @@
 
 params [["_msg", "", [""]], ["_notifySelf", false, [true]]];
 
-if !(isServer) exitWith {
+if (hasInterface && !isServer) exitWith {
     if (!IS_ADMIN || _notifySelf) then {
         _this remoteExecCall [QFUNC(notifyAdmin), 2]
-    }
+    };
+    nil
 };
 
-//Local hosting support for testing
-if (GVAR(adminClient) IsEqualTo 2 && isDedicated) exitWith {};
+if (hasInterface && !_notifySelf) exitWith { nil }; //local hosted case
 
 _msg remoteExecCall ["systemChat", GVAR(adminClient)];
 
