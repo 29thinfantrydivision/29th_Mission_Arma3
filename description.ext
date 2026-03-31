@@ -28,8 +28,7 @@ dev = "29th Engineers";
 OnLoadMissionTime = 1;
 loadScreen = "Pictures\116Inf InsigniaAlpha.paa";
 
-class Header
-{
+class Header {
     gameType = SANDBOX;
     minPlayers = 1;
     maxPlayers = 167; //Total number of playable units placed in the editor including virtual entities
@@ -63,30 +62,25 @@ allowFunctionsRecompile = 1;
 
 #include "data\cfgEventHandlers.hpp"
 
-class CfgNotifications
-{
+class CfgNotifications {
     #include "data\cfgNotifications.hpp"
 };
 
-class Params
-{
+class Params {
     #include "data\params.hpp"
 };
 
 #include "data\gui.hpp"
 
-class CfgRespawnInventory
-{
+class CfgRespawnInventory {
     #include "data\cfgInventories.hpp"
 };
 
-class CfgRoles
-{
+class CfgRoles {
     #include "data\cfgRoles.hpp"
 };
 
-class CfgFunctions
-{
+class CfgFunctions {
     #include "TN_Functions\CfgFunctions.hpp"
 };
 

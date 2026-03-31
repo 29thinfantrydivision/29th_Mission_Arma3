@@ -1,9 +1,7 @@
 //no #include defines needed, inherited from description.ext
-class TN_Loadout
-{
+class TN_Loadout {
     tag = "TN_loadout";
-    class LoadoutFunctions
-    {
+    class LoadoutFunctions {
         file = "TN_Functions\loadout";
         class init {};
         class fullSetUnitLoadout {};
@@ -14,11 +12,9 @@ class TN_Loadout
     };
 };
 
-class TN_Common
-{
+class TN_Common {
     tag = "TN_common";
-    class CommonFunctions
-    {
+    class CommonFunctions {
         file = "TN_Functions\common";
         class init {};
         class addDiaryRecord {};
@@ -26,19 +22,16 @@ class TN_Common
         class displayMsg {};
         class convertSide {};
     };
-    class InitFunctions
-    {
+    class InitFunctions {
         file = "TN_Functions\common\init";
         class initAdminStateChanged {};
         class initPreloadFinished {};
     };
 };
 
-class TN_Round
-{
+class TN_Round {
     tag = "TN_round";
-    class RoundFunctions
-    {
+    class RoundFunctions {
         file = "TN_Functions\round";
         class init {};
         class manageReady {};
@@ -59,8 +52,7 @@ class TN_Round
         class collectSilentWeapons {};
         class initReadyUI {};
     };
-    class ReadyUI
-    {
+    class ReadyUI {
         file = "TN_Functions\round\readyui";
         class createReadyUIControls {};
         class stopReadyUIPFH {};
@@ -70,11 +62,9 @@ class TN_Round
     };
 };
 
-class TN_Radio
-{
+class TN_Radio {
     tag = "TN_radio";
-    class RadioFunctions
-    {
+    class RadioFunctions {
         file = "TN_Functions\radio";
         class init {};
         class initTransferSettings {};
@@ -85,11 +75,9 @@ class TN_Radio
     };
 };
 
-class TN_Thermals
-{
+class TN_Thermals {
     tag = "TN_thermals";
-    class ThermalFunctions
-    {
+    class ThermalFunctions {
         file = "TN_Functions\thermals";
         class init {};
         class disablePIP {};
@@ -97,11 +85,9 @@ class TN_Thermals
     };
 };
 
-class TN_Ticket
-{
+class TN_Ticket {
     tag = "TN_ticket";
-    class TicketFunctions
-    {
+    class TicketFunctions {
         file = "TN_Functions\ticket";
         class init {};
         class add {};
@@ -109,11 +95,9 @@ class TN_Ticket
     };
 };
 
-class TN_Spectator
-{
+class TN_Spectator {
     tag = "TN_spectator";
-    class SpectatorFunctions
-    {
+    class SpectatorFunctions {
         file = "TN_Functions\spectator";
         class init {};
         class enter {};
@@ -121,11 +105,9 @@ class TN_Spectator
     };
 };
 
-class TN_Curator
-{
+class TN_Curator {
     tag = "TN_curator";
-    class CuratorFunctions
-    {
+    class CuratorFunctions {
         file = "TN_Functions\curator";
         class init {};
         class excludeObjects {};
@@ -135,17 +117,14 @@ class TN_Curator
     };
 };
 
-class TN_Vehicle
-{
+class TN_Vehicle {
     tag = "TN_vehicle";
-    class VehicleFunctions
-    {
+    class VehicleFunctions {
         file = "TN_Functions\vehicle";
         class init {};
     };
 
-    class ACELockFixFunctions
-    {
+    class ACELockFixFunctions {
         file = "TN_Functions\vehicle\ACELockFix";
         class lockFixInit {};
         class saveUnconsciousSeat {};
@@ -153,22 +132,18 @@ class TN_Vehicle
     };
 };
 
-class TN_OCAP
-{
+class TN_OCAP {
     tag = "TN_ocap";
-    class OCAPFunctions
-    {
+    class OCAPFunctions {
         file = "TN_Functions\ocap";
         class init {};
         class initClient {};
     };
 };
 
-class TN_Commands
-{
+class TN_Commands {
     tag = "TN_commands";
-    class CommandFunctions
-    {
+    class CommandFunctions {
         file = "TN_Functions\commands";
         class init {};
         class execute {};
@@ -176,31 +151,25 @@ class TN_Commands
     };
 };
 
-class TN_Training
-{
+class TN_Training {
     tag = "TN_training";
-    class TrainingFunctions
-    {
+    class TrainingFunctions {
         file = "TN_Functions\training";
         class init {};
         class initDateAndWeather {};
         class initDefaultLoadouts {};
     };
-    class Override
-    {
-        class overrideFunctions
-        {
+    class Override {
+        class overrideFunctions {
             file = "TN_Functions\training\overrideFunctions.sqf";
             preInit = 1;
         };
     };
 };
 
-class TN_Tracker
-{
+class TN_Tracker {
     tag = "TN_tracker";
-    class TrackerFunctions
-    {
+    class TrackerFunctions {
         file = "TN_Functions\tracker";
         class init {};
         class recordKill {};
@@ -217,8 +186,7 @@ class TN_Tracker
         class findSide {};
         class sendHit {};
     };
-    class EventHandlerFunctions
-    {
+    class EventHandlerFunctions {
         file = "TN_Functions\tracker\eventhandlers";
         class handleFired {};
         class handleHit {};
@@ -227,8 +195,7 @@ class TN_Tracker
         class handleWoundReceived {};
         class handleBurnSimulation {};
     };
-    class DiaryFunctions
-    {
+    class DiaryFunctions {
         file = "TN_Functions\tracker\diary";
         class createDiaryEntries {};
         class eventToString {};
@@ -243,22 +210,18 @@ class TN_Tracker
     };
 };
 
-class TN_Settings
-{
+class TN_Settings {
     tag = "TN_settings";
-    class SettingsFunctions
-    {
+    class SettingsFunctions {
         file = "TN_Functions\settings";
         class init {};
         class initDisplayMissionOptions {};
     };
 };
 
-class TN_Parade
-{
+class TN_Parade {
     tag = "TN_parade";
-    class ParadeFunctions
-    {
+    class ParadeFunctions {
         file = "TN_Functions\parade";
         class init {};
         class handleInitialInventory {};
@@ -268,11 +231,9 @@ class TN_Parade
     };
 };
 
-class TN_Event
-{
+class TN_Event {
     tag = "TN_event";
-    class EventFunctions
-    {
+    class EventFunctions {
         file = "TN_Functions\event";
         class init {};
         class game {};
@@ -287,11 +248,9 @@ class TN_Event
     };
 };
 
-class TN_Base
-{
+class TN_Base {
     tag = "TN_base";
-    class BaseFunctions
-    {
+    class BaseFunctions {
         file = "TN_Functions\base";
         class init {};
         class cleaner {};

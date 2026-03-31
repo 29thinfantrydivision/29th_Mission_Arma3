@@ -1,7 +1,5 @@
-class CfgDebriefing
-{
-    class EndNeutral
-    {
+class CfgDebriefing {
+    class EndNeutral {
         title = "Game Over!";
         subtitle = "";
         description = "Game Over";
@@ -10,8 +8,7 @@ class CfgDebriefing
         pictureColor[] = {0.0, 0.0, 0.0, 1};
     };
 
-    class EndWestVictory
-    {
+    class EndWestVictory {
         title = "Blufor Wins!";
         subtitle = "";
         description = "Blufor Wins";
@@ -20,8 +17,7 @@ class CfgDebriefing
         pictureColor[] = {0.0, 0.0, 0.0, 1};
     };
 
-    class EndEastVictory
-    {
+    class EndEastVictory {
         title = "Opfor Wins!";
         subtitle = "";
         description = "Opfor Wins";
@@ -30,8 +26,7 @@ class CfgDebriefing
         pictureColor[] = {0.0, 0.0, 0.0, 1};
     };
 
-    class EndGuerVictory
-    {
+    class EndGuerVictory {
         title = "Grnfor Wins!";
         subtitle = "";
         description = "Grnfor Wins";

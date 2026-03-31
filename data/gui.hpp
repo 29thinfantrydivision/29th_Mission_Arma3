@@ -2,8 +2,7 @@
 // Base Control Classes
 // ============================================================================
 
-class TN_RscText
-{
+class TN_RscText {
     deletable = 0;
     fade = 0;
     type = 0;
@@ -23,8 +22,7 @@ class TN_RscText
     idc = -1;
 };
 
-class TN_RscButton
-{
+class TN_RscButton {
     deletable = 0;
     fade = 0;
     type = 1;
@@ -53,12 +51,10 @@ class TN_RscButton
     borderSize = 0;
 };
 
-class TN_RscButtonMenu
-{
+class TN_RscButtonMenu {
     deletable = 0;
     fade = 0;
-    class HitZone
-    {
+    class HitZone {
         left = 0;
         top = 0;
         right = 0;
@@ -68,8 +64,7 @@ class TN_RscButtonMenu
     font = "RobotoCondensed";
     url = "";
     action = "";
-    class AttributesImage
-    {
+    class AttributesImage {
         font = "RobotoCondensed";
         color = "#E5E5E5";
         align = "left";
@@ -107,22 +102,19 @@ class TN_RscButtonMenu
     tooltipColorText[] = {1, 1, 1, 1};
     tooltipColorBox[] = {1, 1, 1, 1};
     tooltipColorShade[] = {0, 0, 0, 0.65};
-    class TextPos
-    {
+    class TextPos {
         left = "0.25 * (((safezoneW / safezoneH) min 1.2) / 40)";
         top = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) - ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)) / 2";
         right = 0.005;
         bottom = 0;
     };
-    class Attributes
-    {
+    class Attributes {
         font = "PuristaLight";
         color = "#E5E5E5";
         align = "left";
         shadow = "false";
     };
-    class ShortcutPos
-    {
+    class ShortcutPos {
         left = "5.25 * (((safezoneW / safezoneH) min 1.2) / 40)";
         top = 0;
         w = "1 * (((safezoneW / safezoneH) min 1.2) / 40)";
@@ -134,8 +126,7 @@ class TN_RscButtonMenu
     soundEscape[] = {"\A3\ui_f\data\sound\RscButtonMenu\soundEscape", 0.09, 1};
 };
 
-class TN_RscEdit
-{
+class TN_RscEdit {
     deletable = 0;
     fade = 0;
     type = 2;
@@ -156,8 +147,7 @@ class TN_RscEdit
     tooltipColorShade[] = {0, 0, 0, 0.65};
 };
 
-class TN_RscCombo
-{
+class TN_RscCombo {
     deletable = 0;
     fade = 0;
     type = 4;
@@ -191,8 +181,7 @@ class TN_RscCombo
     wholeHeight = 0.45;
     arrowFull = "\a3\3DEN\Data\Controls\ctrlCombo\arrowFull_ca.paa";
     arrowEmpty = "\a3\3DEN\Data\Controls\ctrlCombo\arrowEmpty_ca.paa";
-    class ComboScrollBar
-    {
+    class ComboScrollBar {
         thumb = "\a3\3DEN\Data\Controls\ctrlDefault\thumb_ca.paa";
         border = "\a3\3DEN\Data\Controls\ctrlDefault\border_ca.paa";
         arrowFull = "\a3\3DEN\Data\Controls\ctrlDefault\arrowFull_ca.paa";
@@ -211,8 +200,7 @@ class TN_RscCombo
     };
 };
 
-class TN_RscCheckboxCtrl
-{
+class TN_RscCheckboxCtrl {
     type = 77;
     deletable = 0;
     style = 0;
@@ -246,8 +234,7 @@ class TN_RscCheckboxCtrl
     soundEscape[] = {"\a3\ui_f\data\Sound\RscButtonMenu\soundEscape", 0.09, 1};
 };
 
-class TN_RscXSlider
-{
+class TN_RscXSlider {
     style = 1024;
     type = 43;
     color[] = {1, 1, 1, 0.6};
@@ -260,14 +247,12 @@ class TN_RscXSlider
     arrowFull = "\a3\3DEN\Data\Controls\CtrlXSlider\arrowFull_ca.paa";
     border = "\a3\3DEN\Data\Controls\CtrlXSlider\border_ca.paa";
     thumb = "\a3\3DEN\Data\Controls\CtrlXSlider\thumb_ca.paa";
-    class Title
-    {
+    class Title {
         idc = -1;
         colorBase[] = {1, 1, 1, 1};
         colorActive[] = {"(profilenamespace getvariable ['GUI_BCG_RGB_R',0.77])", "(profilenamespace getvariable ['GUI_BCG_RGB_G',0.51])", "(profilenamespace getvariable ['GUI_BCG_RGB_B',0.08])", 1};
     };
-    class Value
-    {
+    class Value {
         idc = -1;
         format = "%.f";
         type = "SPTPlain";
@@ -298,8 +283,7 @@ class TN_RscXSlider
     tooltipColorShade[] = {0, 0, 0, 1};
     tooltipColorText[] = {1, 1, 1, 1};
     tooltipColorBox[] = {0, 0, 0, 0};
-    class ScrollBar
-    {
+    class ScrollBar {
         width = 0;
         height = 0;
         scrollSpeed = 0.06;
@@ -311,16 +295,14 @@ class TN_RscXSlider
     };
 };
 
-class TN_RscControlsGroup
-{
+class TN_RscControlsGroup {
     deletable = 0;
     fade = 0;
     type = 15;
     idc = -1;
     shadow = 0;
     style = 16;
-    class VScrollbar
-    {
+    class VScrollbar {
         width = 0;
         color[] = {1, 1, 1, 1};
         autoScrollEnabled = 1;
@@ -337,8 +319,7 @@ class TN_RscControlsGroup
         autoScrollDelay = 5;
         autoScrollRewind = 0;
     };
-    class HScrollbar
-    {
+    class HScrollbar {
         height = 0;
         color[] = {1, 1, 1, 1};
         colorActive[] = {1, 1, 1, 1};
@@ -361,14 +342,12 @@ class TN_RscControlsGroup
 // Derived Base Classes
 // ============================================================================
 
-class TN_RscStaticBackground : TN_RscText
-{
+class TN_RscStaticBackground : TN_RscText {
     x = "1 * (((safezoneW / safezoneH) min 1.2) / 40) + (safezoneX + (safezoneW - ((safezoneW / safezoneH) min 1.2)) / 2)";
     w = "38 * (((safezoneW / safezoneH) min 1.2) / 40)";
 };
 
-class TN_TimeEdit : TN_RscEdit
-{
+class TN_TimeEdit : TN_RscEdit {
     style = 514;
     font = "EtelkaMonospaceProBold";
     y = "((1.1) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25)) + ((0.4) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25)) / 2";
@@ -382,16 +361,13 @@ class TN_TimeEdit : TN_RscEdit
 // Settings Row Base Class
 // ============================================================================
 
-class TN_settings_Row : TN_RscControlsGroup
-{
+class TN_settings_Row : TN_RscControlsGroup {
     x = "((1) * (((safeZoneW / safeZoneH) min 1.2) / 40))";
     y = "((0) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25))";
     w = "((37) * (((safeZoneW / safeZoneH) min 1.2) / 40))";
     h = "((1) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25)) + ((0.4) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25))";
-    class controls
-    {
-        class Name : TN_RscText
-        {
+    class controls {
+        class Name : TN_RscText {
             idc = 5010;
             style = 1;
             x = "((0) * (((safeZoneW / safeZoneH) min 1.2) / 40))";
@@ -399,8 +375,7 @@ class TN_settings_Row : TN_RscControlsGroup
             w = "((15.5) * (((safeZoneW / safeZoneH) min 1.2) / 40))";
             h = "((1) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25))";
         };
-        class Default : TN_RscButton
-        {
+        class Default : TN_RscButton {
             idc = 5020;
             x = "((27) * (((safeZoneW / safeZoneH) min 1.2) / 40))";
             y = "((0) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25)) + ((0.4) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25)) / 2";
@@ -414,14 +389,11 @@ class TN_settings_Row : TN_RscControlsGroup
 // Settings Row Types
 // ============================================================================
 
-class TN_settings_Row_Checkbox : TN_settings_Row
-{
+class TN_settings_Row_Checkbox : TN_settings_Row {
     cba_settings_script = "TN_settings_fnc_gui_settingCheckbox";
-    class controls : controls
-    {
+    class controls : controls {
         class Name : Name {};
-        class Checkbox : TN_RscCheckboxCtrl
-        {
+        class Checkbox : TN_RscCheckboxCtrl {
             idc = 5100;
             x = "((16) * (((safeZoneW / safeZoneH) min 1.2) / 40))";
             y = "((0) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25)) + ((0.4) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25)) / 2";
@@ -432,14 +404,11 @@ class TN_settings_Row_Checkbox : TN_settings_Row
     };
 };
 
-class TN_settings_Row_List : TN_settings_Row
-{
+class TN_settings_Row_List : TN_settings_Row {
     cba_settings_script = "TN_settings_fnc_gui_settingList";
-    class controls : controls
-    {
+    class controls : controls {
         class Name : Name {};
-        class List : TN_RscCombo
-        {
+        class List : TN_RscCombo {
             idc = 5110;
             x = "((16) * (((safeZoneW / safeZoneH) min 1.2) / 40))";
             y = "((0) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25)) + ((0.4) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25)) / 2";
@@ -450,22 +419,18 @@ class TN_settings_Row_List : TN_settings_Row
     };
 };
 
-class TN_settings_Row_Slider : TN_settings_Row
-{
+class TN_settings_Row_Slider : TN_settings_Row {
     cba_settings_script = "TN_settings_fnc_gui_settingSlider";
-    class controls : controls
-    {
+    class controls : controls {
         class Name : Name {};
-        class Slider : TN_RscXSlider
-        {
+        class Slider : TN_RscXSlider {
             idc = 5120;
             x = "((16) * (((safeZoneW / safeZoneH) min 1.2) / 40))";
             y = "((0) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25)) + ((0.4) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25)) / 2";
             w = "((8.2) * (((safeZoneW / safeZoneH) min 1.2) / 40))";
             h = "((1) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25))";
         };
-        class Edit : TN_RscEdit
-        {
+        class Edit : TN_RscEdit {
             idc = 5121;
             x = "((24.3) * (((safeZoneW / safeZoneH) min 1.2) / 40))";
             y = "((0) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25)) + ((0.4) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25)) / 2";
@@ -476,26 +441,21 @@ class TN_settings_Row_Slider : TN_settings_Row
     };
 };
 
-class TN_settings_Row_Time : TN_settings_Row
-{
+class TN_settings_Row_Time : TN_settings_Row {
     cba_settings_script = "TN_settings_fnc_gui_settingTime";
     h = "((2) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25)) + ((0.4) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25))";
-    class controls : controls
-    {
-        class Name : Name
-        {
+    class controls : controls {
+        class Name : Name {
             y = "((0.5) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25)) + ((0.4) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25)) / 2";
         };
-        class Slider : TN_RscXSlider
-        {
+        class Slider : TN_RscXSlider {
             idc = 5140;
             x = "((16) * (((safeZoneW / safeZoneH) min 1.2) / 40))";
             y = "((0) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25)) + ((0.4) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25)) / 2";
             w = "((10.5) * (((safeZoneW / safeZoneH) min 1.2) / 40))";
             h = "((1) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25))";
         };
-        class Frame : TN_RscText
-        {
+        class Frame : TN_RscText {
             x = "((18.25) * (((safeZoneW / safeZoneH) min 1.2) / 40))";
             y = "((1.1) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25)) + ((0.4) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25)) / 2";
             w = "((6) * (((safeZoneW / safeZoneH) min 1.2) / 40))";
@@ -504,8 +464,7 @@ class TN_settings_Row_Time : TN_settings_Row
             shadow = 2;
             sizeEx = 0.02;
         };
-        class Separator : TN_RscText
-        {
+        class Separator : TN_RscText {
             style = 2;
             text = ":   :";
             font = "EtelkaMonospaceProBold";
@@ -515,26 +474,22 @@ class TN_settings_Row_Time : TN_settings_Row
             h = "((0.9) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25))";
             colorBackground[] = {0, 0, 0, 0.2};
         };
-        class Hours : TN_TimeEdit
-        {
+        class Hours : TN_TimeEdit {
             idc = 5141;
             tooltip = "Hours";
             x = "((18.25) * (((safeZoneW / safeZoneH) min 1.2) / 40))";
         };
-        class Minutes : TN_TimeEdit
-        {
+        class Minutes : TN_TimeEdit {
             idc = 5142;
             tooltip = "Minutes";
             x = "((20.25) * (((safeZoneW / safeZoneH) min 1.2) / 40))";
         };
-        class Seconds : TN_TimeEdit
-        {
+        class Seconds : TN_TimeEdit {
             idc = 5143;
             tooltip = "Seconds";
             x = "((22.25) * (((safeZoneW / safeZoneH) min 1.2) / 40))";
         };
-        class Default : Default
-        {
+        class Default : Default {
             y = "((0.5) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25)) + ((0.4) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25)) / 2";
         };
     };
@@ -544,14 +499,11 @@ class TN_settings_Row_Time : TN_settings_Row
 // Main Mission Options Dialog
 // ============================================================================
 
-class RscDisplayMissionOptions
-{
+class RscDisplayMissionOptions {
     idd = 2913;
     movingEnable = 1;
-    class controls
-    {
-        class Title : TN_RscText
-        {
+    class controls {
+        class Title : TN_RscText {
             shadow = 0;
             colorText[] = {0.95, 0.95, 0.95, 1};
             font = "PuristaMedium";
@@ -562,8 +514,7 @@ class RscDisplayMissionOptions
             w = "15 * (((safezoneW / safezoneH) min 1.2) / 40)";
             h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
         };
-        class ButtonCancel : TN_RscButtonMenu
-        {
+        class ButtonCancel : TN_RscButtonMenu {
             idc = 2;
             shortcuts[] = {"0x00050000 + 1"};
             text = "Cancel";
@@ -572,8 +523,7 @@ class RscDisplayMissionOptions
             w = "6.25 * (((safezoneW / safezoneH) min 1.2) / 40)";
             h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
         };
-        class ButtonOKscripted : TN_RscButtonMenu
-        {
+        class ButtonOKscripted : TN_RscButtonMenu {
             default = 1;
             idc = 999;
             shortcuts[] = {"0x00050000 + 0", 28, 57, 156};
@@ -584,26 +534,22 @@ class RscDisplayMissionOptions
             w = "6.25 * (((safezoneW / safezoneH) min 1.2) / 40)";
             h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
         };
-        class CBA_AddonsGroup : TN_RscControlsGroup
-        {
+        class CBA_AddonsGroup : TN_RscControlsGroup {
             idc = 4301;
             enableDisplay = 0;
             x = "((1) * (((safeZoneW / safeZoneH) min 1.2) / 40)) + (safeZoneX + (safeZoneW - ((safeZoneW / safeZoneH) min 1.2)) / 2)";
             y = "((3.1) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25)) + (safeZoneY + (safeZoneH - (((safeZoneW / safeZoneH) min 1.2) / 1.2)) / 2)";
             w = "((38) * (((safeZoneW / safeZoneH) min 1.2) / 40))";
             h = "((17.3) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25))";
-            class controls
-            {
-                class Background : TN_RscText
-                {
+            class controls {
+                class Background : TN_RscText {
                     colorBackground[] = {0, 0, 0, 0.4};
                     x = "((0.5) * (((safeZoneW / safeZoneH) min 1.2) / 40))";
                     y = "((3.5) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25))";
                     w = "((37) * (((safeZoneW / safeZoneH) min 1.2) / 40))";
                     h = "((13.8) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25))";
                 };
-                class AddonText : TN_RscText
-                {
+                class AddonText : TN_RscText {
                     style = 1;
                     text = "Category:";
                     x = "((0.5) * (((safeZoneW / safeZoneH) min 1.2) / 40))";
@@ -611,8 +557,7 @@ class RscDisplayMissionOptions
                     w = "((4) * (((safeZoneW / safeZoneH) min 1.2) / 40))";
                     h = "((1) * ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25))";
                 };
-                class VolatileWarningText : TN_RscText
-                {
+                class VolatileWarningText : TN_RscText {
                     idc = 9042;
                     text = "Changes will not persist after mission restart";
                     onLoad = "(_this select 0) ctrlEnable true;";
@@ -628,10 +573,8 @@ class RscDisplayMissionOptions
     enableDisplay = 1;
     onLoad = "_this call TN_settings_fnc_initDisplayMissionOptions;";
     onUnload = "";
-    class controlsBackground
-    {
-        class BackgroundDisable
-        {
+    class controlsBackground {
+        class BackgroundDisable {
             idc = -1;
             style = 0;
             default = 0;
@@ -644,8 +587,7 @@ class RscDisplayMissionOptions
             tooltipColorShade[] = {0, 0, 0, 1};
             tooltipColorText[] = {1, 1, 1, 1};
             tooltipColorBox[] = {0, 0, 0, 0};
-            class ScrollBar
-            {
+            class ScrollBar {
                 width = 0;
                 height = 0;
                 scrollSpeed = 0.06;
@@ -692,8 +634,7 @@ class RscDisplayMissionOptions
             colorBackground[] = {1, 1, 1, 0.5};
             onLoad = "(_this select 0) ctrlshow is3DEN;";
         };
-        class BackgroundDisableTiles
-        {
+        class BackgroundDisableTiles {
             idc = -1;
             default = 0;
             show = 1;
@@ -705,8 +646,7 @@ class RscDisplayMissionOptions
             tooltipColorShade[] = {0, 0, 0, 1};
             tooltipColorText[] = {1, 1, 1, 1};
             tooltipColorBox[] = {0, 0, 0, 0};
-            class ScrollBar
-            {
+            class ScrollBar {
                 width = 0;
                 height = 0;
                 scrollSpeed = 0.06;
@@ -754,22 +694,19 @@ class RscDisplayMissionOptions
             colorText[] = {1, 1, 1, 0.05};
             onLoad = "(_this select 0) ctrlshow is3DEN;";
         };
-        class TitleBackground : TN_RscStaticBackground
-        {
+        class TitleBackground : TN_RscStaticBackground {
             idc = 1080;
             colorBackground[] = {"(profilenamespace getvariable ['GUI_BCG_RGB_R',0.13])", "(profilenamespace getvariable ['GUI_BCG_RGB_G',0.54])", "(profilenamespace getvariable ['GUI_BCG_RGB_B',0.21])", "(profilenamespace getvariable ['GUI_BCG_RGB_A',0.8])"};
             y = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + (safezoneY + (safezoneH - (((safezoneW / safezoneH) min 1.2) / 1.2)) / 2)";
             h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
         };
-        class TabsBackground : TN_RscStaticBackground
-        {
+        class TabsBackground : TN_RscStaticBackground {
             idc = 1081;
             colorBackground[] = {0, 0, 0, 1};
             y = "2.1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + (safezoneY + (safezoneH - (((safezoneW / safezoneH) min 1.2) / 1.2)) / 2)";
             h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
         };
-        class MainBackground : TN_RscStaticBackground
-        {
+        class MainBackground : TN_RscStaticBackground {
             idc = 1082;
             colorBackground[] = {0, 0, 0, 0.7};
             y = "3.1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + (safezoneY + (safezoneH - (((safezoneW / safezoneH) min 1.2) / 1.2)) / 2)";
@@ -783,16 +720,14 @@ class RscDisplayMissionOptions
 // Simple Dialogs
 // ============================================================================
 
-class TN_RscDisplayFlagMenu
-{
+class TN_RscDisplayFlagMenu {
     idd = 29140;
     movingEnable = 0;
     enableSimulation = 1;
     class controls {};
 };
 
-class TN_RscDisplaySafeStartTime
-{
+class TN_RscDisplaySafeStartTime {
     idd = 29141;
     movingEnable = 0;
     enableSimulation = 1;

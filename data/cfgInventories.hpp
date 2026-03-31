@@ -1,5 +1,4 @@
-class 29TH_PARADE_WEST
-{
+class 29TH_PARADE_WEST {
     displayName = "Parade"; // Name visible in the menu
     icon = "\A3\Ui_f\data\IGUI\Cfg\Actions\gear_ca.paa"; // Icon displayed next to the name
     role = "PARADE";
@@ -37,8 +36,7 @@ class 29TH_PARADE_WEST
 //  insignia = "";
 };
 
-class 29TH_PARADE_EAST
-{
+class 29TH_PARADE_EAST {
     displayName = "Parade"; // Name visible in the menu
     icon = "\A3\Ui_f\data\IGUI\Cfg\Actions\gear_ca.paa"; // Icon displayed next to the name
     role = "PARADE";
@@ -73,8 +71,7 @@ class 29TH_PARADE_EAST
 //  insignia = "";
 };
 
-class 29TH_PARADE_INDEPENDENT
-{
+class 29TH_PARADE_INDEPENDENT {
     displayName = "Parade"; // Name visible in the menu
     icon = "\A3\Ui_f\data\IGUI\Cfg\Actions\gear_ca.paa"; // Icon displayed next to the name
     role = "PARADE";
