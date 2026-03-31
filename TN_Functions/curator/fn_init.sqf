@@ -46,7 +46,7 @@ if (hasInterface) then {
             QGVARMAIN(enteredZeus), {
                 private _curatorName = name player;
                 private _msg = format ["CURATOR INTERFACE OPENED: %1", _curatorName];
-                _msg remoteExecCall [QEFUNC(common,diag_log), 2];
+                SERVER_LOG(_msg);
             }
         ] call CBA_fnc_addEventHandler;
 

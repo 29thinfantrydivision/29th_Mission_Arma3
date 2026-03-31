@@ -56,7 +56,7 @@ if !(isNil "_commandCode") then {
 
     if !(_command in GVAR(noLogCommands)) then {
         private _msg = format ["%1 executed command !%2 %3", name player, _command, _argument];
-        _msg remoteExecCall [QEFUNC(common,diag_log), 2];
+        SERVER_LOG(_msg);
         ["Log", ["Commands", _msg]] remoteExecCall [QEFUNC(common,addDiaryRecord)];
         _msg call EFUNC(common,notifyAdmin);
     };
