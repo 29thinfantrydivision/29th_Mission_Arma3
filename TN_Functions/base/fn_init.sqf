@@ -155,22 +155,50 @@ if (GVAR(arsenalCenters) isNotEqualTo []) then {
     }
 ] call CBA_fnc_addBISPlayerEventHandler;
 
-//- Add Force Parade to BLUFOR Ammo Box, maybe belongs in parade module instead -//
+//- Add Force Parade to BLUFOR Ammo Box -//
 if ("parade" in TN_MODULES) then {
-    EGVAR(loadout,lastDebriefTime) = -10;
-    base_action_arsenal_blu addAction [
-        "<img image='\A3\Ui_f\data\IGUI\Cfg\Actions\gear_ca.paa'/><t color='#3f8eff'>  Force Parade</t>", {
-            params ["_target"];
-            [_target, 125] call EFUNC(parade,forceAll);
-        },
-        nil,
-        0.9,
-        true,
-        true,
-        "",
-        'IS_ADMIN && ((player distance base_action_arsenal_blu) < 5 || (time - EGVAR(loadout,lastDebriefTime)) < 10)',
-        50
-    ];
+    GVAR(forceParadeActionId) = -1;
+
+    FUNC(addForceParadeAction) = {
+        params ["_range"];
+        if (GVAR(forceParadeActionId) isNotEqualTo -1) then {
+            base_action_arsenal_blu removeAction GVAR(forceParadeActionId);
+        };
+        GVAR(forceParadeActionId) = base_action_arsenal_blu addAction [
+            "<img image='\A3\Ui_f\data\IGUI\Cfg\Actions\gear_ca.paa'/><t color='#3f8eff'>  Force Parade</t>",
+            { params ["_target"]; [_target, 125] call EFUNC(parade,forceAll) },
+            nil, 0.9, true, true, "",
+            "true",
+            _range
+        ];
+    };
+
+    [
+        QEGVAR(common,adminStateChanged), {
+            params ["_unit", "_loggedIn"];
+            if (_unit isNotEqualTo player) exitWith {};
+            if (_loggedIn) then {
+                [5] call FUNC(addForceParadeAction);
+            } else {
+                if (GVAR(forceParadeActionId) isNotEqualTo -1) then {
+                    base_action_arsenal_blu removeAction GVAR(forceParadeActionId);
+                    GVAR(forceParadeActionId) = -1;
+                };
+            };
+        }
+    ] call CBA_fnc_addEventHandler;
+
+    [
+        QGVAR(debrief), {
+            if (GVAR(forceParadeActionId) isEqualTo -1) exitWith {};
+            [50] call FUNC(addForceParadeAction);
+            [{
+                if (GVAR(forceParadeActionId) isNotEqualTo -1) then {
+                    [5] call FUNC(addForceParadeAction);
+                };
+            }, [], 10] call CBA_fnc_waitAndExecute;
+        }
+    ] call CBA_fnc_addEventHandler;
 };
 
 

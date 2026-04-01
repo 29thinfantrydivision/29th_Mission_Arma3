@@ -137,8 +137,7 @@ FUNC(flexibleResetHelper) = {
                     ["", [true, true, _telePos], "Healing, rearming, and teleporting all players to you!"] call FUNC(flexibleResetHelper);
                 };
 
-                // Timestamp used by baseObjectsInit for Force Parade triggers.
-                GVAR(lastDebriefTime) = time;
+                [QEGVAR(base,debrief)] call CBA_fnc_globalEvent;
             }
         ],
         [
