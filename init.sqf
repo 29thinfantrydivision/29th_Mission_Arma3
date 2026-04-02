@@ -19,7 +19,7 @@ diag_log text format [
         _elapsed = diag_tickTime - _startTime;
     };
     
-    diag_log text format ["(%1/%2) %3: init complete (%4ms)", _forEachIndex + 1, count TN_MODULES, _moduleInitName, _elapsed * 1000];
+    diag_log text format ["(%1/%2) %3: init complete (%4ms)", _forEachIndex + 1, count TN_MODULES, _x, _elapsed * 1000];
 } forEach TN_MODULES;
 
 [QGVARMAIN(initFinished), {}] call CBA_fnc_localEvent;
