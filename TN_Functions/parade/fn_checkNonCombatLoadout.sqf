@@ -14,15 +14,13 @@
  * [player] call TN_parade_fnc_checkNonCombatLoadout;
  */
 
+// "r_Garrison_cap" prefix -- matches 29th ID BLUFOR garrison caps.
+#define PARADE "r_Garrison_cap" in (headgear _unit)
+// "U_US_class_A" prefix -- matches 29th ID Class A uniforms.
+#define CLASS_A "U_US_class_A" in (uniform _unit)
+// Officers typically have no primary weapon.
+#define OFFICER primaryWeapon _unit isEqualTo "";
+
 params ["_unit"];
 
-// "r_Garrison_cap" prefix -- matches 29th ID BLUFOR garrison caps.
-// "rhs_weap_m1garand_sa43" -- standard 29th parade rifle.
-private _hasBluforParadeGear =
-    "r_Garrison_cap" in (headgear _unit)
-    && primaryWeapon _unit isEqualTo "rhs_weap_m1garand_sa43";
-
-// Officers typically have no primary weapon.
-private _hasNoPrimary = primaryWeapon _unit isEqualTo "";
-
-_hasBluforParadeGear || _hasNoPrimary
+PARADE || CLASS_A || OFFICER
