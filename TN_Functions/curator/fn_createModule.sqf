@@ -21,6 +21,8 @@
  * [vehicleVarName player] call TN_curator_fnc_createModule;
  */
 
+FORCE_UNSCHEDULED(createModule);
+
 params ["_playerVarName"];
 
 // Need to wait until after start to create modules.
