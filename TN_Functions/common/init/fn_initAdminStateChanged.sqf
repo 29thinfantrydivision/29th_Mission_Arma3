@@ -30,7 +30,7 @@ if (isServer) then {
     [
         QGVAR(adminStateChanged), {
             params ["_unit", "_loggedIn"];
-            if (isNull _unit) exitWith {};
+            if (_loggedIn && isNull _unit) exitWith {};
             GVAR(adminClient) = [2, owner _unit] select _loggedIn;
         }
     ] call CBA_fnc_addEventHandler;
@@ -45,6 +45,17 @@ if (isServer) then {
             { _userInfo select 10 } else { objNull };
 
         [QGVAR(adminStateChanged), [_unit, _loggedIn]] call CBA_fnc_localEvent;
+    }];
+
+    //Reset adminClient when admin disconnects
+    //hardcoded objNull in params, no listeners have an issue due to this currently
+    addMissionEventHandler [
+        "PlayerDisconnected", {
+        params ["", "", "", "", "_owner"];
+
+        if (_owner isEqualTo GVAR(adminClient)) then {
+            [QGVAR(adminStateChanged), [objNull, false]] call CBA_fnc_localEvent;
+        };
     }];
 };
 

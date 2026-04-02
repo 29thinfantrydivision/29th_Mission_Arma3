@@ -198,8 +198,7 @@ if (USING_MODULE(parade)) then {
     ] call CBA_fnc_addEventHandler;
 };
 
-
-
+//- Add Cleanup to Trashcans -//
 {
     _x addAction [
         "<img image='\A3\Ui_f\data\IGUI\Cfg\simpleTasks\types\repair_ca.paa'/><t color='#FF0080'>  Clean-Up</t>",
