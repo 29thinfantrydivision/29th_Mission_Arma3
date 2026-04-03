@@ -39,7 +39,7 @@ if (GVAR(overtimeEnabled) && !_force) then {
 
     [
         {(call FUNC(getTime)) <= 0},
-        {call FUNC(end)},
+        FUNC(end),
         []
     ] call CBA_fnc_waitUntilAndExecute;
 } else {

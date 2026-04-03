@@ -35,9 +35,7 @@ private _insigniaMap = createHashMapFromArray [
 params [["_target", objNull, [objNull]]];
 
 if (!alive _target) exitWith {
-    [{alive (_this select 0)}, {
-        (_this select 0) call FUNC(setInsignia);
-    }, [_target]] call CBA_fnc_waitUntilAndExecute;
+    [{alive _this}, FUNC(setInsignia), _target] call CBA_fnc_waitUntilAndExecute;
 };
 
 if (isNull _target) exitWith {

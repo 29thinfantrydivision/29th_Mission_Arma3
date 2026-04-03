@@ -29,7 +29,7 @@ params ["_playerVarName"];
 if (time isEqualTo 0) exitWith {
     [
         { time > 0 },
-        { call FUNC(createModule) },
+        FUNC(createModule),
         _this
     ] call CBA_fnc_waitUntilAndExecute;
 };

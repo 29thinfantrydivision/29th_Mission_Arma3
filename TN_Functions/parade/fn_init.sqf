@@ -24,7 +24,7 @@ if (hasInterface) then {
     // parade inventory.
     [
         { primaryWeapon player isEqualTo "rhs_weap_m1garand_sa43" },
-        { call FUNC(handleInitialInventory) }
+        FUNC(handleInitialInventory)
     ] call CBA_fnc_waitUntilAndExecute;
 
     [QEGVAR(loadout,afterArsenalClosed), {
@@ -37,9 +37,8 @@ if (hasInterface) then {
 
     [
         QGVAR(setInsigniaRespawn),
-        "Respawn", {
-            (_this select 0) call FUNC(setInsignia);
-        }
+        "Respawn",
+        FUNC(setInsignia)
     ] call CBA_fnc_addBISPlayerEventHandler;
 };
 

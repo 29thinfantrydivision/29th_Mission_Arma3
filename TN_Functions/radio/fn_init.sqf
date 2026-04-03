@@ -46,7 +46,7 @@ if (hasInterface) then {
         QGVAR(removeOnDeath),
         "Killed", {
             if (GVARMAIN(removeRadiosOnDeath)) then {
-                (_this select 0) call FUNC(remove);
+                call FUNC(remove);
             };
         }
     ] call CBA_fnc_addBISPlayerEventHandler;

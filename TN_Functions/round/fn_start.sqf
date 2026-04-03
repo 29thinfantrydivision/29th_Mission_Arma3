@@ -39,7 +39,7 @@ private _msgText = format [
 [{
     [
         {call FUNC(getTime) <= 0},
-        {call FUNC(end)},
+        FUNC(end),
         []
     ] call CBA_fnc_waitUntilAndExecute;
 }] remoteExecCall ["call", 2];
