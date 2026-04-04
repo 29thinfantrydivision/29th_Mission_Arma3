@@ -41,7 +41,7 @@ if !(hasInterface) exitWith {};
 //Add actions to spectator terminals
 GVAR(terminals) = [];
 GVAR(arsenals) = [];
-GVAR(garbages) = []; //global variable for cleaner function
+GVAR(garbages) = []; //global variable for cleanup function
 
 { //forEach object placed in editor
     private _vicString = vehicleVarName _x;
@@ -202,7 +202,7 @@ if (USING_MODULE(parade)) then {
 {
     _x addAction [
         "<img image='\A3\Ui_f\data\IGUI\Cfg\simpleTasks\types\repair_ca.paa'/><t color='#FF0080'>  Clean-Up</t>",
-        {call FUNC(cleaner)},
+        {call EFUNC(common,cleanup)},
         nil, 1, false, true, "", "true", 2
     ];
 } forEach GVAR(garbages);

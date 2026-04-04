@@ -1,11 +1,9 @@
 #include "script_component.hpp"
 
 /*
- * Author: Rellikplug AKA Hill [29th ID]
- * Removes all dead bodies globally and deletes loose
- * ground items (weapons, magazines) within 250 meters
- * of each garbage can object in TN_base_garbages. Intended
- * to be attached to garbage cans via addAction.
+ * Author: Hill [29th ID]
+ * Removes all dead bodies and loose ground items
+ * (weapons, magazines) globally.
  *
  * Arguments:
  * None
@@ -14,29 +12,25 @@
  * false if nothing was deleted, true otherwise <BOOL>
  *
  * Example:
- * call TN_base_fnc_cleaner;
+ * call TN_common_fnc_cleanup;
  */
 
 private _dead = allDeadMen;
 
-//  get items around trash cans
-private _nearObjects = [];
-{
-    _nearObjects append (nearestObjects [_x, ["WeaponHolder", "GroundWeaponHolder"], 250]);
-} forEach GVAR(garbages);
+private _groundItems = entities [["WeaponHolder", "GroundWeaponHolder"], [], true, true];
 
-private _countObjects = count _nearObjects;
+private _countItems = count _groundItems;
 private _countDead = count _dead;
-private _countAllNear = _countObjects + _countDead;
+private _countAll = _countItems + _countDead;
 
-if (_countAllNear < 1) exitWith {
+if (_countAll < 1) exitWith {
     hintSilent "Nothing to delete.";
     false
 };
 
 { deleteVehicle _x; } forEach _dead;
-{ deleteVehicle _x; } forEach _nearObjects;
+{ deleteVehicle _x; } forEach _groundItems;
 
-private _text = format ["Cleaned:\n%1 Objects\n%2 Dead Bodies", _countObjects, _countDead];
+private _text = format ["Cleaned:\n%1 Items\n%2 Dead Bodies", _countItems, _countDead];
 hintSilent _text;
 true

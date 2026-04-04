@@ -4,7 +4,6 @@ class TN_Base {
     class BaseFunctions {
         file = "TN_Functions\base";
         class arsenalZoneCheck {};
-        class cleaner {};
         class init {};
     };
 };
@@ -24,6 +23,7 @@ class TN_Common {
     class CommonFunctions {
         file = "TN_Functions\common";
         class addDiaryRecord {};
+        class cleanup {};
         class convertSide {};
         class diag_log {};
         class displayMsg {};

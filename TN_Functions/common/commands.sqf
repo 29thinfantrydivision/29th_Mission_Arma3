@@ -4,7 +4,7 @@
 	[
 		[
 			"cleanup", {
-				call FUNC(cleaner);
+				call FUNC(cleanup);
 				systemChat "Cleaning up!"
 			}
 		]
