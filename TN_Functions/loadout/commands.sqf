@@ -192,5 +192,10 @@ FUNC(flexibleResetHelper) = {
             "goto",
             "Teleports admin to side spawns. '!goto SIDE' (blufor, opfor, grnfor)"
         ]
+    ],
+    [
+        ["heal", 1],
+        ["rearm", 1],
+        ["reset", 1]
     ]
 ] call EFUNC(commands,addModule);

@@ -7,6 +7,7 @@
  * Arguments:
  * 0: Command definitions to add (see commands.sqf for format) <ARRAY>
  * 1: Help info definitions to add (see commands.sqf for format) <ARRAY>
+ * 2: Level of notification to send to admin (see commands.sqf for format) <ARRAY>
  *
  * Return Value:
  * Nothing
@@ -17,9 +18,9 @@
 
 if (isNil QGVAR(allCommands)) exitWith { false };
 
-params [["_commands", [], [[]]], ["_helpInfo", [], [[]]]];
+params [["_commands", [], [[]]], ["_helpInfo", [], [[]]], ["_adminNotificationLevel", [], [[]]]];
 
 GVAR(allCommands) append _commands;
 GVAR(helpInfo) append _helpInfo;
-
+GVAR(adminNotificationLevel) append _adminNotificationLevel;
 nil

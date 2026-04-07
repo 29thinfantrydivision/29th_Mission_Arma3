@@ -25,7 +25,7 @@
 
 if (hasInterface) then {
 
-    #include "commands.sqf"
+    #include "commands.sqf" //Initalize GVAR(helpInfo) and GVAR(allCommands)
 
     // Load each module's commands.sqf if it exists.
     {
@@ -40,6 +40,7 @@ if (hasInterface) then {
     [QGVARMAIN(initFinished), {
         GVAR(allCommands) = createHashMapFromArray GVAR(allCommands);
         GVAR(helpInfo) = createHashMapFromArray GVAR(helpInfo);
+        GVAR(adminNotificationLevel) = createHashMapFromArray GVAR(adminNotificationLevel);
     }] call CBA_fnc_addEventHandler;
 
     GVAR(chatOpen) = false;

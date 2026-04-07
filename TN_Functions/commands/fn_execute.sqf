@@ -58,7 +58,8 @@ if !(isNil "_commandCode") then {
         private _msg = format ["%1 executed command !%2 %3", name player, _command, _argument];
         SERVER_LOG(_msg);
         ["Log", ["Commands", _msg]] remoteExecCall [QEFUNC(common,addDiaryRecord)];
-        _msg call EFUNC(common,notifyAdmin);
+        private _useNotificationSystem = (GVAR(adminNotificationLevel) getOrDefault [_command, 2]) isEqualTo 2;
+        [_msg, false, _useNotificationSystem] call EFUNC(common,notifyAdmin);
     };
 } else {
     systemChat format ["Unknown command: !%1", _command];

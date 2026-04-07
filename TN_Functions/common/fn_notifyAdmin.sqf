@@ -7,6 +7,7 @@
  * Arguments:
  * 0: Message to send <STRING> (default: "")
  * 1: Whether the admin should self-send message if applicable <BOOL> (default: false)
+ * 2: Whether to also send notification via vanilla system <BOOL> (default: true)
  *
  * Return Value:
  * Nothing
@@ -15,7 +16,7 @@
  * ["Someone did something", true] call TN_common_fnc_notifyAdmin;
  */
 
-params [["_msg", "", [""]], ["_notifySelf", false, [true]]];
+params [["_msg", "", [""]], ["_notifySelf", false, [true]], ["_alsoNotify", true, [true]]];
 
 if (hasInterface && !isServer) exitWith {
     if (!IS_ADMIN || _notifySelf) then {
@@ -27,5 +28,9 @@ if (hasInterface && !isServer) exitWith {
 if (hasInterface && !_notifySelf) exitWith { nil }; //local hosted case
 
 _msg remoteExecCall ["systemChat", GVAR(adminClient)];
+
+if (_alsoNotify) then {
+    ["Document", ["Admin Notification", _msg]] remoteExecCall ["BIS_fnc_showNotification",  GVAR(adminClient)];
+};
 
 nil
