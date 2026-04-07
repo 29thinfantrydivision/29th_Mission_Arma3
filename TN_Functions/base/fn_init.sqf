@@ -78,13 +78,11 @@ forEach allMissionObjects "All";
 
 //- Add Spectator & Animate Terminals -//
 {
-    if (USING_MODULE(spectator)) then {
-        _x addAction [
-            "<img image='\A3\Ui_f\data\GUI\Rsc\RscDisplayEGSpectator\Follow.paa'/><t color='#00ff00'>  Spectator</t>",
-            {[] call EFUNC(spectator,enter)},
-            nil, 6, false, true, "", "true", 4
-        ];
-    };
+    _x addAction [
+        "<img image='\A3\Ui_f\data\GUI\Rsc\RscDisplayEGSpectator\Follow.paa'/><t color='#00ff00'>  Spectator</t>",
+        {[] call EFUNC(spectator,enter)},
+        nil, 6, false, true, "", "true", 4
+    ];
 
     private _trg = createTrigger ["EmptyDetector", getPos _x, false];
     _trg setTriggerArea [0, 0, 0, false];

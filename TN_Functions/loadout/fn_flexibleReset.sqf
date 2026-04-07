@@ -73,9 +73,7 @@ if (_pointCount < 3) then {
             || (!isNull player && alive player)
     };
 
-    if (USING_MODULE(spectator)) then {
-        call EFUNC(spectator,exit);
-    };
+    call EFUNC(spectator,exit);
 
     GVAR(teleporting) = true;
 
