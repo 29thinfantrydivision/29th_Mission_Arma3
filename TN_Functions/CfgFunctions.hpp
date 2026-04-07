@@ -235,6 +235,7 @@ class TN_Training {
     class TrainingFunctions {
         file = "TN_Functions\training";
         class init {};
+        class initCommandsDiary {};
         class initDateAndWeather {};
         class initDefaultLoadouts {};
     };

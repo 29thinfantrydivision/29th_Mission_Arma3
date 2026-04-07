@@ -167,6 +167,17 @@ if (isServer) then {
     private _forcedOvercast = 0.1;
     private _forcedFog = [0.1, 0.01, 0];
     [_forcedDate, _forcedOvercast, _forcedFog] call FUNC(initDateAndWeather);
+
+    if (USING_MODULE(commands)) then
+    {
+        [
+            QGVAR(adminStateChanged), {
+                params ["_unit", "_loggedIn"];
+                if !(_loggedIn && !isNull _unit) exitWith {};
+                remoteExecCall [QFUNC(initCommandsDiary), _unit];
+            }
+        ] call CBA_fnc_addEventHandler;
+    };    
 };
 
 nil

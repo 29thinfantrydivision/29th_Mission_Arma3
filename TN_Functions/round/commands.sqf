@@ -128,8 +128,8 @@
         ["timer", "Sets countdown timer length, specified in minutes (E.G. '!timer 20' sets the timer length to 20 minutes)"],
         ["live", "Starts a countdown timer, specified by !timer"],
         ["addtime", "Adds time to the current timer, specified in minutes (negative values subtract)"],
-        ["quicktimer", "Starts a countdown timer, specified in minutes (E.G. '!quicktimer 20' creates a 20 minute timer)"],
-        ["game", "Calls game and ends any countdown"],
+        ["quicktimer", "Starts a round with specified time instantly, specified in minutes (E.G. '!quicktimer 20' creates a 20 minute round)"],
+        ["game", "Displays game notification and ends any currently running round"],
         ["ready", "Sets the player's side as ready, and begins the safe start if all player sides are ready"],
         ["unready", "Cancels the ready status for the player's side"],
         ["safe", "Forces safe start with a specified time in minutes, or unforce safe start if given 0 (E.G. '!safe 1' forces a 1 minute safe start)"]
