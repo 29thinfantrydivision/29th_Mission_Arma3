@@ -42,7 +42,7 @@ if (isServer) then {
 };
 
 /******* Timer ********/
-if (GVAR(hasTimer)) then {
+if (GVAR(useRoundSystem)) then {
     if (isServer) then {
         [QEGVAR(main,safeStartTime), GVAR(readySafeStart),
             nil, "server", false] call cba_settings_fnc_set;
@@ -59,7 +59,7 @@ if (GVAR(hasTimer)) then {
 
 /******* Win Conditions ********/
 if (GVAR(checkWinConditions) && isServer) then {
-    if (GVAR(hasTimer)) then {
+    if (GVAR(useRoundSystem)) then {
         [
             QEGVAR(round,started), {
                 call FUNC(checkWinCondition);
@@ -71,7 +71,7 @@ if (GVAR(checkWinConditions) && isServer) then {
 };
 
 /******* AliveCheck ********/
-if (GVAR(hasTimer) && {GVAR(hasAliveCheck)}) then {
+if (GVAR(useRoundSystem) && {GVAR(hasAliveCheck)}) then {
     if (isServer) then {
         [
             QEGVAR(round,started), {
@@ -81,7 +81,7 @@ if (GVAR(hasTimer) && {GVAR(hasAliveCheck)}) then {
     };
 };
 
-if (GVAR(hasTimer) && {GVAR(numberOfLives) > 0}) then {
+if (GVAR(useRoundSystem) && {GVAR(numberOfLives) > 0}) then {
     if (hasInterface) then {
         [
             QEGVAR(round,started),
@@ -98,7 +98,7 @@ if (GVAR(hasTimer) && {GVAR(numberOfLives) > 0}) then {
 
 /******* Time Acceleration ********/
 if (isServer) then {
-    if (GVAR(hasTimer)) then {
+    if (GVAR(useRoundSystem)) then {
         [
             QEGVAR(round,started), {
                 setTimeMultiplier GVAR(timeAcc);

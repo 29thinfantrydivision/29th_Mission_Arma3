@@ -2,14 +2,14 @@
 
 //Use the variables below to customize your event mission
 //For PvE, recommended to set 
-// hasTimer = false
+// useRoundSystem = false
 // numberOfLives = 0
 // hasAliveCheck = false
 // disableStatistics = false
 
 
-EGVAR(event,hasTimer) = true; //Use timer/ready system
-//=========== Only used if hasTimer = true ===========
+EGVAR(event,useRoundSystem) = true; //Use timer/ready system
+//=========== Only used if useRoundSystem = true ===========
 EGVAR(event,forcedSafeStart) = 15 * 60; //Safe start time before all teams ready up in seconds
 EGVAR(event,readySafeStart) = 30; //Safe start time after all teams ready up in seconds
 EGVAR(event,timerLength) = 45 * 60; //Length of round in seconds
@@ -33,8 +33,8 @@ EGVAR(event,spectateArea) = base_endFlag;   //Point where players will be telepo
 //====================================================
 
 EGVAR(event,timeAcc) = 1;   //Time acceleration multiplier for the event (1 = normal time, 2 = 2x faster, 0.5 = half speed, etc)
-                            //If hasTimer = true, only takes effect at start of round
-                            
+                            //If useRoundSystem = true, only takes effect at start of round
+
 EGVAR(event,arsenalRadius) = 20; //Radius around arsenal object where players can access the arsenal
 
 EGVAR(event,autoMarkObjects) = true; //Mark static editor placed objects on map for all players

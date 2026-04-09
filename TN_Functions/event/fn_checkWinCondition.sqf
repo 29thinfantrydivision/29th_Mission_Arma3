@@ -110,7 +110,7 @@ private _sideSettings =
     };
 } forEach _sideSettings;
 
-if (GVAR(hasTimer)) then {
+if (GVAR(useRoundSystem)) then {
     [
         QEGVAR(round,ended), {
             private _endChecks = _thisArgs;
@@ -131,7 +131,7 @@ if (isNil QGVAR(winCheckInterval)) then {
     GVAR(winCheckInterval) = 0.5;
 };
 
-private _exitCondition = if (GVAR(hasTimer)) then {
+private _exitCondition = if (GVAR(useRoundSystem)) then {
     {NOT_ROUND_LIVE}
 } else {
     {false}

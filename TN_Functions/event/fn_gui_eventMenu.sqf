@@ -82,7 +82,7 @@ private _fnc_buildActions = {
         } forEach _sides;
     };
 
-    if (GVAR(hasTimer)) then {
+    if (GVAR(useRoundSystem)) then {
         switch (EGVAR(round,state)) do {
             case 0: {
                 [

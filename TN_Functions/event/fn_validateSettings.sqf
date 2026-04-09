@@ -59,8 +59,8 @@ private _isNonNegNum = {
 };
 
 /******* Always-used toggles *******/
-["hasTimer", GVAR(hasTimer), T_BOOL,
-    GVAR(hasTimer) call _isBool] call _fnCheck;
+["useRoundSystem", GVAR(useRoundSystem), T_BOOL,
+    GVAR(useRoundSystem) call _isBool] call _fnCheck;
 ["hasAliveCheck", GVAR(hasAliveCheck), T_BOOL,
     GVAR(hasAliveCheck) call _isBool] call _fnCheck;
 ["checkWinConditions", GVAR(checkWinConditions), T_BOOL,
@@ -81,7 +81,7 @@ if (isNil QGVAR(arsenalRadius)) then {
 };
 
 /******* Timer-gated *******/
-if ((GVAR(hasTimer) isEqualType false) && {GVAR(hasTimer)}) then {
+if ((GVAR(useRoundSystem) isEqualType false) && {GVAR(useRoundSystem)}) then {
     ["forcedSafeStart", GVAR(forcedSafeStart), T_NONNEG,
         GVAR(forcedSafeStart) call _isNonNegNum] call _fnCheck;
     ["readySafeStart", GVAR(readySafeStart), T_NONNEG,
@@ -102,7 +102,7 @@ if ((GVAR(hasTimer) isEqualType false) && {GVAR(hasTimer)}) then {
 };
 
 /******* Spectate/respawn-gated (also requires timer) *******/
-private _timerOn = GVAR(hasTimer) isEqualType false && {GVAR(hasTimer)};
+private _timerOn = GVAR(useRoundSystem) isEqualType false && {GVAR(useRoundSystem)};
 private _needSpectate = _timerOn && {
     (GVAR(hasAliveCheck) isEqualType false && {GVAR(hasAliveCheck)})
     || {GVAR(numberOfLives) isEqualType 0 && {GVAR(numberOfLives) > 0}}
