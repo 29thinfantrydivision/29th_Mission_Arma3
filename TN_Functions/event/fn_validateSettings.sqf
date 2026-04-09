@@ -29,6 +29,7 @@ if (!hasInterface) exitWith {};
 #define T_NONNEG "a non-negative number"
 
 private _errors = [];
+private _infos = [];
 
 private _fnCheck = {
     params ["_name", "_value", "_typeStr", "_ok"];
@@ -36,6 +37,12 @@ private _fnCheck = {
         _errors pushBack format
             [PREFIX + "%1 is missing or not %2", _name, _typeStr];
     };
+};
+
+private _fnInfoDefault = {
+    params ["_name", "_default"];
+    _infos pushBack format
+        [PREFIX + "%1 not set, using default %2", _name, _default];
 };
 
 private _isNum = {
@@ -66,8 +73,12 @@ private _isNonNegNum = {
     GVAR(numberOfLives) call _isNonNegNum] call _fnCheck;
 ["timeAcc", GVAR(timeAcc), T_POSNUM,
     GVAR(timeAcc) call _isPosNum] call _fnCheck;
-["arsenalRadius", GVAR(arsenalRadius), T_POSNUM,
-    GVAR(arsenalRadius) call _isPosNum] call _fnCheck;
+if (isNil QGVAR(arsenalRadius)) then {
+    ["arsenalRadius", 75] call _fnInfoDefault;
+} else {
+    ["arsenalRadius", GVAR(arsenalRadius), T_POSNUM,
+        GVAR(arsenalRadius) call _isPosNum] call _fnCheck;
+};
 
 /******* Timer-gated *******/
 if ((GVAR(hasTimer) isEqualType false) && {GVAR(hasTimer)}) then {
@@ -113,8 +124,12 @@ if (GVAR(numberOfLives) isEqualType 0 && {GVAR(numberOfLives) > 0}) then {
 
 /******* Win-condition-gated *******/
 if (GVAR(checkWinConditions) isEqualType false && {GVAR(checkWinConditions)}) then {
-    ["winCheckInterval", GVAR(winCheckInterval), T_POSNUM,
-        GVAR(winCheckInterval) call _isPosNum] call _fnCheck;
+    if (isNil QGVAR(winCheckInterval)) then {
+        ["winCheckInterval", 0.5] call _fnInfoDefault;
+    } else {
+        ["winCheckInterval", GVAR(winCheckInterval), T_POSNUM,
+            GVAR(winCheckInterval) call _isPosNum] call _fnCheck;
+    };
 
     if (isNil QGVAR(score)
         || {!(GVAR(score) isEqualType [])}
@@ -155,5 +170,6 @@ if (GVAR(checkWinConditions) isEqualType false && {GVAR(checkWinConditions)}) th
 
 /******* Report *******/
 { systemChat _x } forEach _errors;
+{ systemChat _x } forEach _infos;
 
 nil
