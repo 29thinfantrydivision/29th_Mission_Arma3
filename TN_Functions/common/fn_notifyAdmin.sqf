@@ -13,7 +13,7 @@
  * Nothing
  *
  * Example:
- * ["Someone did something", true] call TN_common_fnc_notifyAdmin;
+ * ["Someone did something", true, false] call TN_common_fnc_notifyAdmin;
  */
 
 params [["_msg", "", [""]], ["_notifySelf", false, [true]], ["_alsoNotify", true, [true]]];

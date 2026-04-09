@@ -23,4 +23,5 @@ params [["_commands", [], [[]]], ["_helpInfo", [], [[]]], ["_adminNotificationLe
 GVAR(allCommands) append _commands;
 GVAR(helpInfo) append _helpInfo;
 GVAR(adminNotificationLevel) append _adminNotificationLevel;
+
 nil

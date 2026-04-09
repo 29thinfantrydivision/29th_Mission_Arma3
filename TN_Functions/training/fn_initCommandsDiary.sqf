@@ -1,14 +1,30 @@
 #include "script_component.hpp"
+/*
+ * Author: Bae [29th ID]
+ * Creates the "Useful Commands" diary entries on the local
+ * player. Intended to be remoteExec'd to the admin client
+ * when admin state changes. Waits for preload to finish if
+ * called too early, and is not created if it already exists.
+ *
+ * NOTE: Diary content must be manually updated if commands
+ * change.
+ *
+ * Arguments:
+ * None
+ *
+ * Return Value:
+ * Nothing
+ *
+ * Example:
+ * call TN_training_fnc_initCommandsDiary;
+ */
 
 if !(PRELOAD_FINISHED) exitWith {
-    [{PRELOAD_FINISHED}, FUNC(initCommandsDiary)] call CBA_fnc_waitUntilAndExecute;    
+    [{PRELOAD_FINISHED}, FUNC(initCommandsDiary)] call CBA_fnc_waitUntilAndExecute;
 };
 
 if (!isNil QGVAR(commandsDiaryCreated)) exitWith {};
 
-player createDiarySubject ["usefulCommands", "Useful Commands"];
-
-//Needs to be manually updated if commands change, very sad
 player createDiarySubject ["usefulCommands", "Useful Commands"];
 
 player createDiaryRecord [
