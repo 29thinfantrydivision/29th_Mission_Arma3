@@ -34,6 +34,7 @@ EGVAR(event,disableStatistics) = true; //Disable statistics tab in map diary
 
 //Win conditions
 //Leave "" for no win condition for that side
+EGVAR(event,checkWinConditions) = true; //Run win condition checks.
 EGVAR(event,score) = [0, 0, 0]; //Starting score for each side [OPFOR, BLUFOR, GRNFOR]
 EGVAR(event,bluforWinConditions) = ""; //Conditions for BLUFOR to win the game
 EGVAR(event,opforWinConditions) = ""; //Conditions for OPFOR to win the game

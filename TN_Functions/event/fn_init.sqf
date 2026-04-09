@@ -43,13 +43,18 @@ if (GVAR(hasTimer)) then {
             call FUNC(flagActions);
         }] call CBA_fnc_waitUntilAndExecute;
     };
+};
 
-    if (isServer) then {
+/******* Win Conditions ********/
+if (GVAR(checkWinConditions) && isServer) then {
+    if (GVAR(hasTimer)) then {
         [
             QEGVAR(round,started), {
                 call FUNC(checkWinCondition);
             }
         ] call CBA_fnc_addEventHandler;
+    } else {
+        call FUNC(checkWinCondition);
     };
 };
 

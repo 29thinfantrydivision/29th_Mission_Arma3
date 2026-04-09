@@ -118,23 +118,31 @@ private _sideSettings =
     };
 } forEach _sideSettings;
 
-[
-    QEGVAR(round,ended), {
-        private _endChecks = _thisArgs;
-        {
-            _x params ["_fnCheck", ["_args", []]];
-            if (_args call _fnCheck) exitWith {
-                private _winningSide = _forEachIndex call BIS_fnc_sideType;
-                [_winningSide] call FUNC(game);
-            };
-        } forEach _endChecks;
+if (GVAR(hasTimer)) then {
+    [
+        QEGVAR(round,ended), {
+            private _endChecks = _thisArgs;
+            {
+                _x params ["_fnCheck", ["_args", []]];
+                if (_args call _fnCheck) exitWith {
+                    private _winningSide = _forEachIndex call BIS_fnc_sideType;
+                    [_winningSide] call FUNC(game);
+                };
+            } forEach _endChecks;
 
-        [] call FUNC(game);
-    }, _endChecks
-] call CBA_fnc_addEventHandlerArgs;
+            [] call FUNC(game);
+        }, _endChecks
+    ] call CBA_fnc_addEventHandlerArgs;
+};
 
 if (isNil QGVAR(winCheckInterval)) then {
     GVAR(winCheckInterval) = 0.5;
+};
+
+private _exitCondition = if (GVAR(hasTimer)) then {
+    {NOT_ROUND_LIVE}
+} else {
+    {false}
 };
 
 [{
@@ -147,6 +155,6 @@ if (isNil QGVAR(winCheckInterval)) then {
             [_winningSide] call FUNC(game);
         };
     } forEach _loopChecks;
-}, GVAR(winCheckInterval), _loopChecks, {}, {}, {true}, {NOT_ROUND_LIVE}] call CBA_fnc_createPerFrameHandlerObject;
+}, GVAR(winCheckInterval), _loopChecks, {}, {}, {true}, _exitCondition] call CBA_fnc_createPerFrameHandlerObject;
 
 nil
