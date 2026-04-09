@@ -23,7 +23,6 @@ Overall Future Goals
   - Add ability to admin to add players to array?
   - Unit string indicators like sl, plt, etc...
   - Player profile string reading for Cpl, Sgt, etc?
-* FIX: BLUFOR Base right light unintentionally simulation disabled.
 
 ---
 v4.5.0
@@ -58,7 +57,8 @@ v4.5.0
   - Moved logic from oversized files into subfolders (`readyui`, `tracker/diary`).
   - Replaced `findIf` with `in`, `switch` with `select` for static literal cases, and `entityCreated` event handlers with `addClassEventHandlers`.
   - Ensured all void functions explicitly return nil.
-
+  - Fix BLUFOR Base right light unintentionally simulation disabled.
+  
 * Unscheduling Effort
   - Major pass to replace `spawn`/`waitUntil` patterns with unscheduled `call` and CBA alternatives (`perFrameHandler`, `waitAndExecute`).
     Scheduled environment is less predictable, so moving as much as possible to unscheduled.
