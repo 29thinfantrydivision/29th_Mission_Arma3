@@ -33,7 +33,12 @@ EGVAR(event,autoMarkObjects) = true; //Mark static editor placed objects on map 
 EGVAR(event,disableStatistics) = true; //Disable statistics tab in map diary
 
 //Win conditions
-//Leave "" for no win condition for that side
+//Format: [pointsRequired, atEnd]
+//  pointsRequired - Number of points the side needs to win
+//  atEnd - If true, only check at end of timer. If false, check throughout the round.
+//Leave "" for no win condition for that side.
+//Points can be increased/decreased by modifying the mission.sqm in editor, often by editing an object's init field.
+//See examples below.
 EGVAR(event,checkWinConditions) = true; //Run win condition checks.
 EGVAR(event,score) = [0, 0, 0]; //Starting score for each side [OPFOR, BLUFOR, GRNFOR]
 EGVAR(event,bluforWinConditions) = ""; //Conditions for BLUFOR to win the game
@@ -44,32 +49,28 @@ EGVAR(event,winCheckInterval) = 3; //Interval in seconds between win condition c
 /*
 Examples
 TN_event_bluforWinConditions = ""; //No win condition for BLUFOR (except only team standing at end if hasAliveCheck = true)
-TN_event_opforWinConditions = ["Points", 3, false]; //Win when OPFOR has 3 points at any time
-TN_event_grnforWinConditions = ["Points", 2, true]; //Win when GRNFOR has 2 points at the end of the timer
+TN_event_opforWinConditions = [3, false]; //Win when OPFOR has 3 points at any time
+TN_event_grnforWinConditions = [2, true]; //Win when GRNFOR has 2 points at the end of the timer
 
-Available Win Condition Functions:
-    "Points"
-        Win when team has a certain number of points
-        These points can be increased or decreased by modifying the mission.sqm in editor, often by editing an object's init field.
-        Put example code below in the init field of the relevant object
+Put example code below in the init field of the relevant object to award points.
 
-        Sector Example (gives _pointValue points to whoever is currently holding the sector):
+Sector Example (gives _pointValue points to whoever is currently holding the sector):
 
-        if !(isServer) exitWith {};
-        private _pointValue = 1;
-        this setVariable ["TN_pointValue", _pointValue];
+    if !(isServer) exitWith {};
+    private _pointValue = 1;
+    this setVariable ["TN_pointValue", _pointValue];
 
-        Kill/Destroy Example (gives _pointValue points to _awardTeam (in example BLUFOR) when object is killed/destroyed):
+Kill/Destroy Example (gives _pointValue points to _awardTeam (in example BLUFOR) when object is killed/destroyed):
 
-        if !(isServer) exitWith {};
-        private _pointValue = 1;
-        private _awardTeam = west;
+    if !(isServer) exitWith {};
+    private _pointValue = 1;
+    private _awardTeam = west;
 
-        this setVariable ["TN_pointValue", _pointValue];
-        this setVariable ["TN_awardTeam", _awardTeam];
+    this setVariable ["TN_pointValue", _pointValue];
+    this setVariable ["TN_awardTeam", _awardTeam];
 
-    NOTE: If multiple teams meet their win conditions at the same time, the tiebreaker will be OPFOR, BLUFOR, then GRNFOR.
-    Win conditions should be designed to avoid this where possible.
+NOTE: If multiple teams meet their win conditions at the same time, the tiebreaker will be OPFOR, BLUFOR, then GRNFOR.
+Win conditions should be designed to avoid this where possible.
 */
 
 /*** Do Not Edit Anything Below This Line ***/

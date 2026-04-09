@@ -96,20 +96,12 @@ private _sideSettings =
 {
     if (_x isEqualType "") then { continue };
 
-    _x params ["_winCon", "_winArgs", "_atEnd"];
-    _winCon = toLowerANSI _winCon;
+    _x params ["_pointsRequired", "_atEnd"];
 
-    private _checkFn = switch (_winCon) do {
-        case "points": {
-            [{
-                params ["_sideId", "_pointsRequired"];
-                GVAR(score) select _sideId >= _pointsRequired
-            }, [_forEachIndex, _winArgs]];
-        };
-        default {
-            [{ false }];
-        };
-    };
+    private _checkFn = [{
+        params ["_sideId", "_pointsRequired"];
+        GVAR(score) select _sideId >= _pointsRequired
+    }, [_forEachIndex, _pointsRequired]];
 
     if (_atEnd) then {
         _endChecks set [_forEachIndex, _checkFn];
