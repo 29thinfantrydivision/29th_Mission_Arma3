@@ -3,19 +3,30 @@
 /*
  * Author: Bae [29th ID]
  * Opens a GUI dialog that lets an admin adjust the remaining
- * safe-start countdown timer via a slider or direct text
- * input. The new time is applied via BIS_fnc_countdown and
- * broadcast to all clients via displayMsg.
+ * countdown timer via a slider or direct text input. The new
+ * time is applied via BIS_fnc_countdown and broadcast to all
+ * clients via displayMsg.
  *
  * Uses createDialog (TN_RscDisplaySafeStartTime, IDD 29141)
  * which overlays on display 46 — readyUI stays visible.
  *
  * Arguments:
- * None
+ * 0: Title label <STRING>
+ * 1: Confirmation message format, one %1 for formatted time <STRING>
+ * 2: Guard code, returns true if edits should be rejected <CODE>
  *
  * Return Value:
  * Nothing
+ *
+ * Example:
+ * [
+ *     "New Safe Start Time:",
+ *     "<t color='#ffffff' size='2.5'>Safe Start Time changed to %1!</t>",
+ *     { NOT_ROUND_SAFE }
+ * ] call TN_event_fnc_gui_setTime;
  */
+
+params ["_title", "_msgFormat", "_guard"];
 
 #define IDD_SAFE_START_TIME 29141
 #define IDC_BG 50000
@@ -38,6 +49,11 @@
 
 createDialog "TN_RscDisplaySafeStartTime";
 private _display = findDisplay IDD_SAFE_START_TIME;
+
+//stash params on display for the OK button handler
+_display setVariable [QGVAR(setTime_msgFormat), _msgFormat];
+_display setVariable [QGVAR(setTime_guard), _guard];
+
 //declare early to put in the back
 private _bg = _display ctrlCreate ["RscText", IDC_BG];
 private _timeCtrl = _display ctrlCreate ["TN_settings_Row_Time", IDC_TIME_ROW];
@@ -53,7 +69,7 @@ private _wSlider = getNumber (
 );
 
 private _ctrlSettingName = _timeCtrl controlsGroupCtrl IDC_NAME;
-_ctrlSettingName ctrlSetText "New Safe Start Time:";
+_ctrlSettingName ctrlSetText _title;
 
 //Annoying to center since name ctrl is oversized
 private _textWidth = ctrlTextWidth _ctrlSettingName;
@@ -106,15 +122,18 @@ _btnOK ctrlAddEventHandler [
         private _display = ctrlParent _ctrl;
         private _sliderCtrl = _display displayCtrl IDC_SLIDER;
 
-        if (NOT_ROUND_SAFE) then {
-            systemChat "Safe start has already ended! Input ignored.";
+        private _guard = _display getVariable QGVAR(setTime_guard);
+        private _msgFormat = _display getVariable QGVAR(setTime_msgFormat);
+
+        if (call _guard) then {
+            systemChat "Round state changed! Input ignored.";
         } else {
-            private _newtime = sliderPosition _sliderCtrl;
+            private _newTime = sliderPosition _sliderCtrl;
             [_newTime] call BIS_fnc_countdown;
 
             [
                 format [
-                    "<t color='#ffffff' size='2.5'>Safe Start Time changed to %1!</t>",
+                    _msgFormat,
                     (round _newTime) call EFUNC(round,formatTime)
                 ],
                 "PLAIN",

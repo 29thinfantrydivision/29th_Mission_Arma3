@@ -104,7 +104,11 @@ private _fnc_rebuild = {
                 "Change Safestart Time", {
                     params ["_ctrl"];
                     call FUNC(closeFlagMenu);
-                    call FUNC(gui_setSafeStartTime);
+                    [
+                        "New Safe Start Time:",
+                        "<t color='#ffffff' size='2.5'>Safe Start Time changed to %1!</t>",
+                        { NOT_ROUND_SAFE }
+                    ] call FUNC(gui_setTime);
                 },
                 [0.75, 0.25, 1, 1]
             ];
@@ -122,6 +126,19 @@ private _fnc_rebuild = {
         };
 
         case 2: {
+            _actions pushBack [
+                "Change Round Time", {
+                    params ["_ctrl"];
+                    call FUNC(closeFlagMenu);
+                    [
+                        "New Round Time:",
+                        "<t color='#ffffff' size='2.5'>Round Time changed to %1!</t>",
+                        { NOT_ROUND_LIVE }
+                    ] call FUNC(gui_setTime);
+                },
+                [0.75, 0.25, 1, 1]
+            ];
+
             _actions pushBack [
                 "Neutral Ending", {
                     params ["_ctrl"];

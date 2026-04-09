@@ -102,6 +102,7 @@ v4.5.0
     Care taken to ensure new ready UI system is not hidden when GUI is opened.
   - Event Menu now attached to player's admin object instead of the flags. Creates `fn_handleAdminEventMenu.sqf`.
   - New "Forced Safe Start" system implemented, admin can start long safe start and teams can ready to reduce to shorter safe start.
+  - Added changing round time remanining when round is live in Event Menu.
   - `fn_markEditorPlacedObjects`: fix wrong variable (`_x` -> `_obj`) in `boundingBox` call.
   - Rename `gameCalled` variable to `TN_event_missionEnded`.
   - Fix oversight where starting deaths were not tracked before round start.

@@ -58,7 +58,7 @@ class TN_Event {
         class flagActions {};
         class game {};
         class gui_eventMenu {};
-        class gui_setSafeStartTime {};
+        class gui_setTime {};
         class handleAdminEventMenu {};
         class init {};
         class markEditorPlacedObjects {};
