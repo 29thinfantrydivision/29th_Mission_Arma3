@@ -19,7 +19,7 @@
  * Nothing
  *
  * Example:
- * call TN_event_fnc_gui_flagMenu;
+ * call TN_event_fnc_gui_eventMenu;
  */
 
 // Prevent double-open
@@ -37,14 +37,14 @@ if (isNil QFUNC(closeFlagMenu)) then {
         {
             _x call CBA_fnc_removeEventHandler;
         } forEach (uiNamespace getVariable [
-            QGVAR(flagMenu_ehIds), []
+            QGVAR(eventMenu_ehIds), []
         ]);
 
         uiNamespace setVariable [
-            QGVAR(flagMenu_ehIds), nil
+            QGVAR(eventMenu_ehIds), nil
         ];
         uiNamespace setVariable [
-            QGVAR(flagMenu_rebuild), nil
+            QGVAR(eventMenu_rebuild), nil
         ];
 
         // Close the dialog — destroys all controls with it
@@ -60,7 +60,7 @@ private _fnc_rebuild = {
 
     /* Delete old menu controls */
     private _oldControls = uiNamespace getVariable [
-        QGVAR(flagMenu_controls), []
+        QGVAR(eventMenu_controls), []
     ];
     { ctrlDelete _x } forEach _oldControls;
 
@@ -244,14 +244,14 @@ private _fnc_rebuild = {
     } forEach _actions;
 
     uiNamespace setVariable [
-        QGVAR(flagMenu_controls), _controls
+        QGVAR(eventMenu_controls), _controls
     ];
 };
 
 /* --- Store rebuild fn in uiNamespace for CBA handlers --- */
 
 uiNamespace setVariable [
-    QGVAR(flagMenu_rebuild), _fnc_rebuild
+    QGVAR(eventMenu_rebuild), _fnc_rebuild
 ];
 
 /* --- Initial build --- */
@@ -274,7 +274,7 @@ private _ehIds = [];
         private _dlg = findDisplay 29140;
         if !(isNull _dlg) then {
             [_dlg] call (uiNamespace getVariable
-                QGVAR(flagMenu_rebuild));
+                QGVAR(eventMenu_rebuild));
         };
     }] call CBA_fnc_addEventHandler;
 
@@ -282,7 +282,7 @@ private _ehIds = [];
 } forEach _stateEvents;
 
 uiNamespace setVariable [
-    QGVAR(flagMenu_ehIds), _ehIds
+    QGVAR(eventMenu_ehIds), _ehIds
 ];
 
 /* --- Close on ESC --- */
@@ -306,17 +306,17 @@ _display displayAddEventHandler [
         {
             _x call CBA_fnc_removeEventHandler;
         } forEach (uiNamespace getVariable [
-            QGVAR(flagMenu_ehIds), []
+            QGVAR(eventMenu_ehIds), []
         ]);
 
         uiNamespace setVariable [
-            QGVAR(flagMenu_controls), nil
+            QGVAR(eventMenu_controls), nil
         ];
         uiNamespace setVariable [
-            QGVAR(flagMenu_ehIds), nil
+            QGVAR(eventMenu_ehIds), nil
         ];
         uiNamespace setVariable [
-            QGVAR(flagMenu_rebuild), nil
+            QGVAR(eventMenu_rebuild), nil
         ];
     }
 ];

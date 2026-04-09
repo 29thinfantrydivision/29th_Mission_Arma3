@@ -23,7 +23,7 @@ if (_loggedIn) exitWith {
     GVAR(adminMenuActionId) = player addAction [
         "<t color='#bf3eff'>"
             + "Event Menu (Admin)</t>",
-        FUNC(gui_flagMenu),
+        FUNC(gui_eventMenu),
         nil,
         1.5, false, true, "",
         "",

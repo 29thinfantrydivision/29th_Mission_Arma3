@@ -57,7 +57,7 @@ class TN_Event {
         class checkWinCondition {};
         class flagActions {};
         class game {};
-        class gui_flagMenu {};
+        class gui_eventMenu {};
         class gui_setSafeStartTime {};
         class handleAdminEventMenu {};
         class init {};
