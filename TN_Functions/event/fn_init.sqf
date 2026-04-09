@@ -98,11 +98,15 @@ if (GVAR(numberOfLives) > 0) then {
 
 /******* Time Acceleration ********/
 if (isServer) then {
-    [
-        QEGVAR(round,started), {
-            setTimeMultiplier GVAR(timeAcc);
-        }
-    ] call CBA_fnc_addEventHandler;
+    if (GVAR(hasTimer)) then {
+        [
+            QEGVAR(round,started), {
+                setTimeMultiplier GVAR(timeAcc);
+            }
+        ] call CBA_fnc_addEventHandler;
+    } else {
+        setTimeMultiplier GVAR(timeAcc);
+    };
 };
 
 /******* Auto Mark Editor Objects ********/
