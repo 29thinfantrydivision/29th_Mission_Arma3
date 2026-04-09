@@ -47,6 +47,6 @@ if (_customParadeIdx isEqualTo -1) then {
 };
 
 player call FUNC(setInsignia);
-systemChat (["Default parade loadout applied.", "Forced parade loadout applied."] select (_customParadeIdx isNotEqualTo -1));
+systemChat (["Default parade loadout applied.", "Custom parade loadout applied."] select (_customParadeIdx isNotEqualTo -1));
 
 nil
