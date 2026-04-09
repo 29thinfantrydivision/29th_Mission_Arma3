@@ -20,11 +20,13 @@ params ["_args", "_handle"];
 _args params ["_radiusSquared"];
 
 private _inZone = false;
-{
-    if ((getPosASL player) distanceSqr _x <= _radiusSquared) exitWith {
-        _inZone = true;
-    };
-} forEach GVAR(arsenalCenters);
+if (alive player) then {
+    {
+        if ((getPosASL player) distanceSqr _x <= _radiusSquared) exitWith {
+            _inZone = true;
+        };
+    } forEach GVAR(arsenalCenters);
+};
 
 if (_inZone) then {
     if !(GVAR(inArsenalZone)) then {

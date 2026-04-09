@@ -141,8 +141,8 @@ if (GVAR(arsenalCenters) isNotEqualTo []) then {
 };
 
 [
-    QGVAR(respawnArsenalActionId),
-    "Respawn", {
+    QGVAR(killedArsenalExit),
+    "Killed", {
         if (GVAR(inArsenalZone)) then {
             GVAR(inArsenalZone) = false;
             [QGVAR(exitedArsenalZone)] call CBA_fnc_localEvent;

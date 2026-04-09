@@ -169,6 +169,7 @@ v4.5.0
   - Deleting bodies at base on disconnect no longer occurs during round live to reduce lag spikes caused by disconnecting.
   - Moved deleting disconnecting bodies to round.
   - Admin now has a "Useful Commands" entry in his map diary.
+  - Now notify admin when all players on one side are all dead or in base.
 
 * Vehicle
   - Added workaround for ACE bug that left vehicle seats locked when uncon -> dead players were moved out of the seat via ACE interaction.

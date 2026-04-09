@@ -5,6 +5,7 @@ class TN_Base {
         file = "TN_Functions\base";
         class arsenalZoneCheck {};
         class init {};
+        class initPlayersInBase {};
     };
 };
 
@@ -238,6 +239,7 @@ class TN_Training {
         class initCommandsDiary {};
         class initDateAndWeather {};
         class initDefaultLoadouts {};
+        class initNotifyAdminAllDead {};
     };
 };
 
