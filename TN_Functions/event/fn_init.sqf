@@ -22,31 +22,29 @@
 /******** CONFIG ********/
 call compile preprocessFileLineNumbers "eventSettings.sqf";
 
+/******* Admin Event Menu ********/
+if (isServer) then {
+    [
+        QEGVAR(common,adminStateChanged), {
+            params ["_unit", "_loggedIn"];
+            if (isNull _unit) exitWith {};
+            [_loggedIn] remoteExecCall [
+                QFUNC(handleAdminEventMenu),
+                owner _unit
+            ];
+        }
+    ] call CBA_fnc_addEventHandler;
+};
+
 /******* Timer ********/
 if (GVAR(hasTimer)) then {
     if (hasInterface) then {
         [{!isNull player}, {
             call FUNC(flagActions);
-
-            if (IS_ADMIN) then {
-                [true]
-                    call FUNC(handleAdminEventMenu);
-            };
         }] call CBA_fnc_waitUntilAndExecute;
     };
 
     if (isServer) then {
-        [
-            QEGVAR(common,adminStateChanged), {
-                params ["_unit", "_loggedIn"];
-                if (isNull _unit) exitWith {};
-                [_loggedIn] remoteExecCall [
-                    QFUNC(handleAdminEventMenu),
-                    owner _unit
-                ];
-            }
-        ] call CBA_fnc_addEventHandler;
-
         [
             QEGVAR(round,started), {
                 call FUNC(checkWinCondition);

@@ -1,8 +1,8 @@
 class CfgDebriefing {
     class EndNeutral {
-        title = "Game Over!";
+        title = "Mission Complete!";
         subtitle = "";
-        description = "Game Over";
+        description = "Mission Complete";
         pictureBackground = "";
         picture = "";
         pictureColor[] = {0.0, 0.0, 0.0, 1};

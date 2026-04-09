@@ -9,7 +9,7 @@
  * Listens to CBA round-state events and rebuilds the menu
  * in-place whenever the state changes while the GUI is open.
  *
- * Uses createDialog (TN_RscDisplayFlagMenu, IDD 29140)
+ * Uses createDialog (TN_RscDisplayEventMenu, IDD 29140)
  * which overlays on display 46 -- readyUI stays visible.
  *
  * Arguments:
@@ -25,14 +25,14 @@
 // Prevent double-open
 if !(isNull (findDisplay 29140)) exitWith {};
 
-createDialog "TN_RscDisplayFlagMenu";
+createDialog "TN_RscDisplayEventMenu";
 private _display = findDisplay 29140;
 if (isNull _display) exitWith {};
 
 /* --- Close function (define once) --- */
 
-if (isNil QFUNC(closeFlagMenu)) then {
-    FUNC(closeFlagMenu) = {
+if (isNil QFUNC(closeEventMenu)) then {
+    FUNC(closeEventMenu) = {
         // Remove CBA event handlers
         {
             _x call CBA_fnc_removeEventHandler;
@@ -68,121 +68,130 @@ private _fnc_rebuild = {
 
     private _actions = [];
 
-    switch (EGVAR(round,state)) do {
-        case 0: {
-            _actions pushBack [
-                "Begin Safe Start", {
-                    params ["_ctrl"];
-                    [GVAR(forcedSafeStart), true]
-                        call EFUNC(round,initSafeStart);
-                    call FUNC(closeFlagMenu);
-                },
-                [0.75, 0.25, 1, 1]
-            ];
-        };
+    private _fnc_appendEndings = {
+        _actions pushBack [
+            "Neutral Ending", {
+                params ["_ctrl"];
+                [] call FUNC(game);
+                call FUNC(closeEventMenu);
+            },
+            [0.75, 0.25, 1, 1]
+        ];
 
-        case 1: {
+        private _allPlayers =
+            call BIS_fnc_listPlayers;
+        private _sides = [
+            [west, "BLUFOR",
+                [0.08, 0.36, 0.99, 1]],
+            [east, "OPFOR",
+                [0.70, 0.02, 0.02, 1]],
+            [resistance, "GRNFOR",
+                [0.03, 0.54, 0.03, 1]]
+        ];
 
-            _actions pushBack [
-                "Cancel Safestart", {
-                    params ["_ctrl"];
-                    [0] call EFUNC(round,changeForcedSafeStart);
-                    if (call EFUNC(round,checkAllSidesReady)) then {
-                        {
-                            [_x, false] call EFUNC(round,manageReady);
-                        }
-                        forEach [west, east, resistance];
-                        systemChat "Unreadied all sides!";
-                    };
-                    call FUNC(closeFlagMenu);
-                },
-                [0.75, 0.25, 1, 1]
+        {
+            _x params [
+                "_side", "_sideName", "_sideColor"
             ];
 
+            if (_allPlayers findIf
+                {side group _x isEqualTo _side} isNotEqualTo -1) then {
+                _actions pushBack [
+                    _sideName + " Victory", {
+                        params ["_ctrl"];
+                        private _side = _ctrl getVariable QGVAR(side);
+                        [_side] call FUNC(game);
+                        call FUNC(closeEventMenu);
+                    },
+                    _sideColor,
+                    _side
+                ];
+            };
+        } forEach _sides;
+    };
 
-            _actions pushBack [
-                "Change Safestart Time", {
-                    params ["_ctrl"];
-                    call FUNC(closeFlagMenu);
-                    [
-                        "New Safe Start Time:",
-                        "<t color='#ffffff' size='2.5'>Safe Start Time changed to %1!</t>",
-                        { NOT_ROUND_SAFE }
-                    ] call FUNC(gui_setTime);
-                },
-                [0.75, 0.25, 1, 1]
-            ];
+    if (GVAR(hasTimer)) then {
+        switch (EGVAR(round,state)) do {
+            case 0: {
+                _actions pushBack [
+                    "Begin Safe Start", {
+                        params ["_ctrl"];
+                        [GVAR(forcedSafeStart), true]
+                            call EFUNC(round,initSafeStart);
+                        call FUNC(closeEventMenu);
+                    },
+                    [0.75, 0.25, 1, 1]
+                ];
+            };
 
+            case 1: {
 
-            _actions pushBack [
-                "Force Live", {
-                    params ["_ctrl"];
-                    [GVAR(timerLength)]
-                        call EFUNC(round,start);
-                    call FUNC(closeFlagMenu);
-                },
-                [0.75, 0.25, 1, 1]
-            ];
-        };
-
-        case 2: {
-            _actions pushBack [
-                "Change Round Time", {
-                    params ["_ctrl"];
-                    call FUNC(closeFlagMenu);
-                    [
-                        "New Round Time:",
-                        "<t color='#ffffff' size='2.5'>Round Time changed to %1!</t>",
-                        { NOT_ROUND_LIVE }
-                    ] call FUNC(gui_setTime);
-                },
-                [0.75, 0.25, 1, 1]
-            ];
-
-            _actions pushBack [
-                "Neutral Ending", {
-                    params ["_ctrl"];
-                    [] call FUNC(game);
-                    call FUNC(closeFlagMenu);
-                },
-                [0.75, 0.25, 1, 1]
-            ];
-
-            private _allPlayers =
-                call BIS_fnc_listPlayers;
-            private _sides = [
-                [west, "BLUFOR",
-                    [0.08, 0.36, 0.99, 1]],
-                [east, "OPFOR",
-                    [0.70, 0.02, 0.02, 1]],
-                [resistance, "GRNFOR",
-                    [0.03, 0.54, 0.03, 1]]
-            ];
-
-            {
-                _x params [
-                    "_side", "_sideName", "_sideColor"
+                _actions pushBack [
+                    "Cancel Safestart", {
+                        params ["_ctrl"];
+                        [0] call EFUNC(round,changeForcedSafeStart);
+                        if (call EFUNC(round,checkAllSidesReady)) then {
+                            {
+                                [_x, false] call EFUNC(round,manageReady);
+                            }
+                            forEach [west, east, resistance];
+                            systemChat "Unreadied all sides!";
+                        };
+                        call FUNC(closeEventMenu);
+                    },
+                    [0.75, 0.25, 1, 1]
                 ];
 
-                if (_allPlayers findIf
-                    {side group _x isEqualTo _side} isNotEqualTo -1) then {
-                    _actions pushBack [
-                        _sideName + " Victory", {
-                            params ["_ctrl"];
-                            private _side = _ctrl getVariable QGVAR(side);
-                            [_side] call FUNC(game);
-                            call FUNC(closeFlagMenu);
-                        },
-                        _sideColor,
-                        _side
-                    ];
-                };
-            } forEach _sides;
+
+                _actions pushBack [
+                    "Change Safestart Time", {
+                        params ["_ctrl"];
+                        call FUNC(closeEventMenu);
+                        [
+                            "New Safe Start Time:",
+                            "<t color='#ffffff' size='2.5'>Safe Start Time changed to %1!</t>",
+                            { NOT_ROUND_SAFE }
+                        ] call FUNC(gui_setTime);
+                    },
+                    [0.75, 0.25, 1, 1]
+                ];
+
+
+                _actions pushBack [
+                    "Force Live", {
+                        params ["_ctrl"];
+                        [GVAR(timerLength)]
+                            call EFUNC(round,start);
+                        call FUNC(closeEventMenu);
+                    },
+                    [0.75, 0.25, 1, 1]
+                ];
+            };
+
+            case 2: {
+                _actions pushBack [
+                    "Change Round Time", {
+                        params ["_ctrl"];
+                        call FUNC(closeEventMenu);
+                        [
+                            "New Round Time:",
+                            "<t color='#ffffff' size='2.5'>Round Time changed to %1!</t>",
+                            { NOT_ROUND_LIVE }
+                        ] call FUNC(gui_setTime);
+                    },
+                    [0.75, 0.25, 1, 1]
+                ];
+
+                call _fnc_appendEndings;
+            };
         };
+    } else {
+        call _fnc_appendEndings;
     };
 
     if (_actions isEqualTo []) exitWith {
-        call FUNC(closeFlagMenu);
+        systemChat "Event Menu: no actions currently available.";
+        call FUNC(closeEventMenu);
     };
 
     /* --- Layout constants --- */
@@ -277,30 +286,32 @@ uiNamespace setVariable [
 
 /* --- Subscribe to round-state CBA events --- */
 
-private _stateEvents = [
-    QEGVAR(round,safeStartBegin),
-    QEGVAR(round,safeStartAborted),
-    QEGVAR(round,started),
-    QEGVAR(round,ended)
-];
+if (GVAR(hasTimer)) then {
+    private _stateEvents = [
+        QEGVAR(round,safeStartBegin),
+        QEGVAR(round,safeStartAborted),
+        QEGVAR(round,started),
+        QEGVAR(round,ended)
+    ];
 
-private _ehIds = [];
+    private _ehIds = [];
 
-{
-    private _id = [_x, {
-        private _dlg = findDisplay 29140;
-        if !(isNull _dlg) then {
-            [_dlg] call (uiNamespace getVariable
-                QGVAR(eventMenu_rebuild));
-        };
-    }] call CBA_fnc_addEventHandler;
+    {
+        private _id = [_x, {
+            private _dlg = findDisplay 29140;
+            if !(isNull _dlg) then {
+                [_dlg] call (uiNamespace getVariable
+                    QGVAR(eventMenu_rebuild));
+            };
+        }] call CBA_fnc_addEventHandler;
 
-    _ehIds pushBack [_x, _id];
-} forEach _stateEvents;
+        _ehIds pushBack [_x, _id];
+    } forEach _stateEvents;
 
-uiNamespace setVariable [
-    QGVAR(eventMenu_ehIds), _ehIds
-];
+    uiNamespace setVariable [
+        QGVAR(eventMenu_ehIds), _ehIds
+    ];
+};
 
 /* --- Close on ESC --- */
 
@@ -308,7 +319,7 @@ _display displayAddEventHandler [
     "KeyDown", {
         params ["_display", "_key"];
         if (_key isEqualTo 1) then {
-            call FUNC(closeFlagMenu);
+            call FUNC(closeEventMenu);
             true
         } else {
             false

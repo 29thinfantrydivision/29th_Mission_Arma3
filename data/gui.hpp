@@ -720,7 +720,7 @@ class RscDisplayMissionOptions {
 // Simple Dialogs
 // ============================================================================
 
-class TN_RscDisplayFlagMenu {
+class TN_RscDisplayEventMenu {
     idd = 29140;
     movingEnable = 0;
     enableSimulation = 1;
