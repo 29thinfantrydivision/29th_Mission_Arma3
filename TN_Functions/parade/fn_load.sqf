@@ -29,7 +29,7 @@ if (!isNil QEGVAR(loadout,settingLoadout)) exitWith {
 private _savedLoadouts = profileNamespace getVariable [
     "ace_arsenal_saved_loadouts", []
 ];
-private _customParadeIdx = _savedLoadouts findIf { _x select 0 == "Forced Parade" };
+private _customParadeIdx = _savedLoadouts findIf { _x select 0 isEqualTo "Forced Parade" };
 
 if (_customParadeIdx isEqualTo -1) then {
     // No custom parade loadout -- use default config.

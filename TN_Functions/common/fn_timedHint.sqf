@@ -33,7 +33,7 @@ if (_silent) then { hintSilent _msg } else { hint _msg };
 
 [{
     params ["_id"];
-    if (GVAR(timedHintId) == _id) then {
+    if (GVAR(timedHintId) isEqualTo _id) then {
         hintSilent "";
     };
 }, [_id], _duration] call CBA_fnc_waitAndExecute;
