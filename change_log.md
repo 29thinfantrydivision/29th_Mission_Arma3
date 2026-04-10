@@ -91,6 +91,8 @@ v4.5.0
   - Add `convertSide` utility function, simplifying side string-to-side conversion in ticket and loadout commands.
   - Add `notifyAdmin` function for sending systemChat messages to the current admin, with `notifySelf` parameter.
   - Admins notified via systemChat when another player uses a command.
+  - Created timedHint function to have a nice way to have hints time out quickly and prevent conflict between different callers of hint.
+    Replaced most calls (except spectator stuff) to it.
 
 * Curator
   - `fn_addPlayerEditable` generalized to `fn_addEditable`.

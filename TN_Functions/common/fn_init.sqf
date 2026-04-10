@@ -26,6 +26,8 @@ GVAR(sideToStrMap) set [west,       "BLUFOR"];
 GVAR(sideToStrMap) set [east,       "OPFOR"];
 GVAR(sideToStrMap) set [resistance, "GRNFOR"];
 
+GVAR(timedHintId) = 0;
+
 call FUNC(initAdminStateChanged);
 
 nil

@@ -44,7 +44,7 @@
                     systemChat "Resetting tickets to zero!";
                     GVAR(counts) = [0, 0, 0];
                     publicVariable QGVAR(counts);
-                    "All tickets reset to zero!" remoteExecCall ["hint"];
+                    ["All tickets reset to zero!"] remoteExecCall [QEFUNC(common,timedHint)];
                 };
 
                 if (_filterArg isEqualTo "disable") exitWith {

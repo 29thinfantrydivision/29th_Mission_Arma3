@@ -36,6 +36,6 @@ GVAR(counts) set [_sideID, _newTotal];
 publicVariable QGVAR(counts);
 
 private _sideName = [_side] call EFUNC(common,convertSide);
-format ["%1 tickets set to %2", _sideName, _newTotal] remoteExecCall ["hint"];
+[format ["%1 tickets set to %2", _sideName, _newTotal]] remoteExecCall [QEFUNC(common,timedHint)];
 
 nil

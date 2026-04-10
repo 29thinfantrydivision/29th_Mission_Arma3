@@ -24,7 +24,7 @@ private _countDead = count _dead;
 private _countAll = _countItems + _countDead;
 
 if (_countAll < 1) exitWith {
-    hintSilent "Nothing to delete.";
+    ["Nothing to delete."] call FUNC(timedHint);
     false
 };
 
@@ -32,5 +32,5 @@ if (_countAll < 1) exitWith {
 { deleteVehicle _x; } forEach _groundItems;
 
 private _text = format ["Cleaned:\n%1 Items\n%2 Dead Bodies", _countItems, _countDead];
-hintSilent _text;
+[_text] call FUNC(timedHint);
 true

@@ -160,7 +160,7 @@ private _fnc_buildActions = {
                                         "Round Time changed to %1!",
                                         (round _this) call EFUNC(round,formatTime)
                                     ]
-                                ] remoteExecCall ["hint"];
+                                ] remoteExecCall [QEFUNC(common,timedHint)];
                             }
                         ] call FUNC(gui_setTime);
                     },

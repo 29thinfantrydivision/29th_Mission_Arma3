@@ -48,7 +48,7 @@ if (isDedicated || !hasInterface) exitWith {
 
 // --- Spectator disabled by CBA setting ---
 if (GVARMAIN(limitSpectator) isEqualTo 2) exitWith {
-    hint "Spectator Disabled";
+    ["Spectator Disabled"] call EFUNC(common,timedHint);
     false
 };
 

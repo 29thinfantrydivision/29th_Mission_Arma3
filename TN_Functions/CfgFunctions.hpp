@@ -30,6 +30,7 @@ class TN_Common {
         class displayMsg {};
         class init {};
         class notifyAdmin {};
+        class timedHint {};
     };
     class InitFunctions {
         file = "TN_Functions\common\init";

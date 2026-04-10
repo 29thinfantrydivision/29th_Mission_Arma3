@@ -51,10 +51,10 @@ if (_tickets isEqualTo 0) then {
 
     if (_tickets isEqualTo 0) then {
         // Last ticket -- warn team and admin.
-        "Your team is out of tickets!" remoteExecCall ["hint", _playerSide];
+        ["Your team is out of tickets!", 10] remoteExecCall [QEFUNC(common,timedHint), _playerSide];
         format [
             "ADMIN: %1 is out of tickets!", _adminLabel
-        ] remoteExecCall ["hint", EGVAR(common,adminClient)];
+        ] remoteExecCall [QEFUNC(common,timedHint), EGVAR(common,adminClient)];
         [
             "<t color='#ffffff' size='2'>You are the last player allowed to leave spawn!</t>",
             "PLAIN",
@@ -65,7 +65,7 @@ if (_tickets isEqualTo 0) then {
         format [
             "Your team has %1 tickets remaining!",
             _tickets
-        ] remoteExecCall ["hintSilent", _playerSide];
+        ] remoteExecCall [QEFUNC(common,timedHint), _playerSide];
         [
             "<t color='#ffffff' size='2'>You may leave spawn!</t>",
             "PLAIN",

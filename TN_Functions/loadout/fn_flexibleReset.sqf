@@ -61,7 +61,7 @@ private _teleport = false;
 
 if (_pointCount < 3) then {
     if (_point isNotEqualTo []) then {
-        hint "TN_fnc_roundReset Error: Position Array wrong size!";
+        ["TN_fnc_roundReset Error: Position Array wrong size!"] call EFUNC(common,timedHint);
     };
 } else {
     // Wait up to 30 seconds for player to respawn if they died

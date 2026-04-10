@@ -30,6 +30,6 @@ private _hintMsg = format [
     "Added %1 minutes to the time limit!",
     _timeDelta / 60
 ];
-[_hintMsg] remoteExecCall ["hint"];
+[_hintMsg] remoteExecCall [QEFUNC(common,timedHint)];
 
 call FUNC(getTime)
