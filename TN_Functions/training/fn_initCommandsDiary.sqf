@@ -58,7 +58,7 @@ player createDiaryRecord [
         "Rearms, heals, and (optionally) teleports players to spawn.<br />" +
         "Use <font color='#00FF00'>!reset</font> to rearm, heal, and teleport.<br />" +
         "Use <font color='#00FF00'>!reset <font color='#00FFFF'>stay</font></font> to rearm and heal only.<br />" +
-        "Use <font color='#00FF00'>!reset <font color='#00FFFF'>[side]</font></font> (<font color='#00FFFF'>blufor</font>, <font color='#00FFFF'>opfor</font>, <font color='#00FFFF'>grnfor</font>) to target a specific side.<br /><br />" +
+        "Use <font color='#00FF00'>!reset</font> (<font color='#00FFFF'>blufor</font>, <font color='#00FFFF'>opfor</font>, <font color='#00FFFF'>grnfor</font>) to target a specific side.<br /><br />" +
 
         "<font color='#FF00FF'>!heal <font color='#00FFFF'>[side]</font></font><br />" +
         "ACE Heals players and removes hearing deafness.<br />" +

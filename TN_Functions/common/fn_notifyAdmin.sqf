@@ -27,7 +27,7 @@ if (hasInterface && !isServer) exitWith {
 
 if (hasInterface && !_notifySelf) exitWith { nil }; //local hosted case
 
-_msg remoteExecCall ["systemChat", GVAR(adminClient)];
+("[Admin] " + _msg) remoteExecCall ["systemChat", GVAR(adminClient)];
 
 if (_alsoNotify) then {
     ["Document", ["Admin Notification", _msg]] remoteExecCall ["BIS_fnc_showNotification",  GVAR(adminClient)];
