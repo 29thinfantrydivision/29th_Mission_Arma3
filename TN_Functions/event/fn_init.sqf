@@ -19,7 +19,7 @@
  * call TN_event_fnc_init;
  */
 
-/******** CONFIG ********/
+/******* Config ********/
 call compile preprocessFileLineNumbers "eventSettings.sqf";
 call FUNC(validateSettings);
 
@@ -27,8 +27,8 @@ call FUNC(validateSettings);
 [QEGVAR(main,addRadio), 0,
     nil, "server", false] call cba_settings_fnc_set;
 
-/******* Admin Event Menu ********/
 if (isServer) then {
+    // Admin Event Menu
     [
         QEGVAR(common,adminStateChanged), {
             params ["_unit", "_loggedIn"];
@@ -39,65 +39,39 @@ if (isServer) then {
             ];
         }
     ] call CBA_fnc_addEventHandler;
-};
 
-/******* Timer ********/
-if (GVAR(useRoundSystem)) then {
-    if (isServer) then {
+    // Timer
+    if (GVAR(useRoundSystem)) then {
         [QEGVAR(main,safeStartTime), GVAR(readySafeStart),
             nil, "server", false] call cba_settings_fnc_set;
         [QEGVAR(main,notifyFinalCheck), false,
             nil, "server", false] call cba_settings_fnc_set;
         [GVAR(timerLength)] call EFUNC(round,setTimer);
     };
-    if (hasInterface) then {
-        [{!isNull player}, {
-            call FUNC(flagActions);
-        }] call CBA_fnc_waitUntilAndExecute;
-    };
-};
 
-/******* Win Conditions ********/
-if (GVAR(checkWinConditions) && isServer) then {
-    if (GVAR(useRoundSystem)) then {
-        [
-            QEGVAR(round,started), {
-                call FUNC(checkWinCondition);
-            }
-        ] call CBA_fnc_addEventHandler;
-    } else {
-        call FUNC(checkWinCondition);
+    // Win Conditions
+    if (GVAR(checkWinConditions)) then {
+        if (GVAR(useRoundSystem)) then {
+            [
+                QEGVAR(round,started), {
+                    call FUNC(checkWinCondition);
+                }
+            ] call CBA_fnc_addEventHandler;
+        } else {
+            call FUNC(checkWinCondition);
+        };
     };
-};
 
-/******* AliveCheck ********/
-if (GVAR(useRoundSystem) && {GVAR(hasAliveCheck)}) then {
-    if (isServer) then {
+    // Alive Check
+    if (GVAR(useRoundSystem) && {GVAR(hasAliveCheck)}) then {
         [
             QEGVAR(round,started), {
                 call FUNC(aliveCheck);
             }
         ] call CBA_fnc_addEventHandler;
     };
-};
 
-if (GVAR(useRoundSystem) && {GVAR(numberOfLives) > 0}) then {
-    if (hasInterface) then {
-        [
-            QEGVAR(round,started),
-            { [true] call FUNC(respawn) }
-        ] call CBA_fnc_addEventHandler;
-
-        [
-            QGVAR(respawn),
-            "Respawn",
-            FUNC(respawn)
-        ] call CBA_fnc_addBISPlayerEventHandler;
-    };
-};
-
-/******* Time Acceleration ********/
-if (isServer) then {
+    // Time Acceleration
     if (GVAR(useRoundSystem)) then {
         [
             QEGVAR(round,started), {
@@ -109,22 +83,37 @@ if (isServer) then {
     };
 };
 
-/******* Auto Mark Editor Objects ********/
 if (hasInterface) then {
-    if (GVAR(autoMarkObjects)) then {
-        call FUNC(markEditorPlacedObjects);
-    };
-};
-
-/******* Everything else ********/
-if (hasInterface) then {
-    //Prevent error due to no saved respawn inventory
+    // Player init (respawn inventory + flag actions)
     [{!isNull player}, {
         [player, [missionNamespace, "Current Inventory"]] call BIS_fnc_saveInventory;
         [player, ["missionNamespace:Current Inventory"]] call BIS_fnc_setRespawnInventory;
+
+        if (GVAR(useRoundSystem)) then {
+            call FUNC(flagActions);
+        };
     }] call CBA_fnc_waitUntilAndExecute;
 
-    //Hide map markers belonging to opposing sides
+    // Respawn
+    if (GVAR(useRoundSystem) && {GVAR(numberOfLives) > 0}) then {
+        [
+            QEGVAR(round,started),
+            { [true] call FUNC(respawn) }
+        ] call CBA_fnc_addEventHandler;
+
+        [
+            QGVAR(respawn),
+            "Respawn",
+            FUNC(respawn)
+        ] call CBA_fnc_addBISPlayerEventHandler;
+    };
+
+    // Auto Mark Editor Objects
+    if (GVAR(autoMarkObjects)) then {
+        call FUNC(markEditorPlacedObjects);
+    };
+
+    // Hide map markers belonging to opposing sides
     private _sideStrings = [east, west, civilian, independent]
         apply { toLowerANSI str _x };
     private _playerSideStr = toLowerANSI str playerSide;
@@ -134,10 +123,11 @@ if (hasInterface) then {
         private _marker = _x;
         _sideStrings findIf { _x in _marker } > -1
         && {
-            !(_playerSideStr in _x)
+            !(_playerSideStr in _marker)
         }
     });
 
+    // Disable Statistics
     if (GVAR(disableStatistics)) then {
         [{PRELOAD_FINISHED}, {
             player removeDiarySubject "Statistics";

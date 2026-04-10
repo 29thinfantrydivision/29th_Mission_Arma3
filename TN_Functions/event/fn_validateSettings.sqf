@@ -22,9 +22,8 @@
 
 if (!hasInterface) exitWith {};
 
-#define PREFIX "eventSettings.sqf: "
+#define ERR_PREFIX "eventSettings.sqf: "
 #define T_BOOL "a boolean"
-#define T_NUM "a number"
 #define T_POSNUM "a positive number"
 #define T_NONNEG "a non-negative number"
 
@@ -32,21 +31,21 @@ private _errors = [];
 private _infos = [];
 
 private _fnCheck = {
-    params ["_name", "_value", "_typeStr", "_ok"];
+    params ["_name", "_typeStr", "_ok"];
     if (!_ok) then {
         _errors pushBack format
-            [PREFIX + "%1 is missing or not %2", _name, _typeStr];
+            [ERR_PREFIX + "%1 is missing or not %2", _name, _typeStr];
     };
 };
 
 private _fnInfoDefault = {
     params ["_name", "_default"];
     _infos pushBack format
-        [PREFIX + "%1 not set, using default %2", _name, _default];
+        [ERR_PREFIX + "%1 not set, using default %2", _name, _default];
 };
 
-private _isNum = {
-    !isNil "_this" && { _this isEqualType 0 }
+private _isTrue = {
+    _this isEqualType false && {_this}
 };
 private _isBool = {
     !isNil "_this" && { _this isEqualType false }
@@ -59,78 +58,78 @@ private _isNonNegNum = {
 };
 
 /******* Always-used toggles *******/
-["useRoundSystem", GVAR(useRoundSystem), T_BOOL,
+["useRoundSystem", T_BOOL,
     GVAR(useRoundSystem) call _isBool] call _fnCheck;
-["hasAliveCheck", GVAR(hasAliveCheck), T_BOOL,
+["hasAliveCheck", T_BOOL,
     GVAR(hasAliveCheck) call _isBool] call _fnCheck;
-["checkWinConditions", GVAR(checkWinConditions), T_BOOL,
+["checkWinConditions", T_BOOL,
     GVAR(checkWinConditions) call _isBool] call _fnCheck;
-["autoMarkObjects", GVAR(autoMarkObjects), T_BOOL,
+["autoMarkObjects", T_BOOL,
     GVAR(autoMarkObjects) call _isBool] call _fnCheck;
-["disableStatistics", GVAR(disableStatistics), T_BOOL,
+["disableStatistics", T_BOOL,
     GVAR(disableStatistics) call _isBool] call _fnCheck;
-["numberOfLives", GVAR(numberOfLives), T_NONNEG,
+["numberOfLives", T_NONNEG,
     GVAR(numberOfLives) call _isNonNegNum] call _fnCheck;
-["timeAcc", GVAR(timeAcc), T_POSNUM,
+["timeAcc", T_POSNUM,
     GVAR(timeAcc) call _isPosNum] call _fnCheck;
 if (isNil QGVAR(arsenalRadius)) then {
     ["arsenalRadius", 75] call _fnInfoDefault;
 } else {
-    ["arsenalRadius", GVAR(arsenalRadius), T_POSNUM,
+    ["arsenalRadius", T_POSNUM,
         GVAR(arsenalRadius) call _isPosNum] call _fnCheck;
 };
 
 /******* Timer-gated *******/
-if ((GVAR(useRoundSystem) isEqualType false) && {GVAR(useRoundSystem)}) then {
-    ["forcedSafeStart", GVAR(forcedSafeStart), T_NONNEG,
+if (GVAR(useRoundSystem) call _isTrue) then {
+    ["forcedSafeStart", T_NONNEG,
         GVAR(forcedSafeStart) call _isNonNegNum] call _fnCheck;
-    ["readySafeStart", GVAR(readySafeStart), T_NONNEG,
+    ["readySafeStart", T_NONNEG,
         GVAR(readySafeStart) call _isNonNegNum] call _fnCheck;
-    ["timerLength", GVAR(timerLength), T_POSNUM,
+    ["timerLength", T_POSNUM,
         GVAR(timerLength) call _isPosNum] call _fnCheck;
 
     if (isNil QGVAR(timerObjects) || {!(GVAR(timerObjects) isEqualType [])}) then {
-        _errors pushBack (PREFIX + "timerObjects is missing or not an array");
+        _errors pushBack (ERR_PREFIX + "timerObjects is missing or not an array");
     } else {
         {
             if (isNil "_x" || {!(_x isEqualType objNull)} || {isNull _x}) then {
                 _errors pushBack format
-                    [PREFIX + "timerObjects[%1] is missing or not a valid object", _forEachIndex];
+                    [ERR_PREFIX + "timerObjects[%1] is missing or not a valid object", _forEachIndex];
             };
         } forEach GVAR(timerObjects);
     };
 };
 
 /******* Spectate/respawn-gated (also requires timer) *******/
-private _timerOn = GVAR(useRoundSystem) isEqualType false && {GVAR(useRoundSystem)};
+private _timerOn = GVAR(useRoundSystem) call _isTrue;
 private _needSpectate = _timerOn && {
-    (GVAR(hasAliveCheck) isEqualType false && {GVAR(hasAliveCheck)})
+    (GVAR(hasAliveCheck) call _isTrue)
     || {GVAR(numberOfLives) isEqualType 0 && {GVAR(numberOfLives) > 0}}
 };
 if (_needSpectate) then {
     if (isNil QGVAR(spectateArea)
         || {!(GVAR(spectateArea) isEqualType objNull)}
         || {isNull GVAR(spectateArea)}) then {
-        _errors pushBack (PREFIX + "spectateArea is missing or not a valid object");
+        _errors pushBack (ERR_PREFIX + "spectateArea is missing or not a valid object");
     };
 };
 
-if (_timerOn && {GVAR(hasAliveCheck) isEqualType false && {GVAR(hasAliveCheck)}}) then {
-    ["spectateAreaRadius", GVAR(spectateAreaRadius), T_POSNUM,
+if (_timerOn && {GVAR(hasAliveCheck) call _isTrue}) then {
+    ["spectateAreaRadius", T_POSNUM,
         GVAR(spectateAreaRadius) call _isPosNum] call _fnCheck;
 };
 
 if (_timerOn && {GVAR(numberOfLives) isEqualType 0 && {GVAR(numberOfLives) > 0}}) then {
-    ["respawnDisarmPlayers", GVAR(respawnDisarmPlayers), T_BOOL,
+    ["respawnDisarmPlayers", T_BOOL,
         GVAR(respawnDisarmPlayers) call _isBool] call _fnCheck;
 };
 
 /******* Win-condition-gated *******/
-if (GVAR(checkWinConditions) isEqualType false && {GVAR(checkWinConditions)}) then {
+if (GVAR(checkWinConditions) call _isTrue) then {
     if (isNil QGVAR(winCheckInterval)) then {
         ["winCheckInterval", 0.5] call _fnInfoDefault;
     } else {
-        ["winCheckInterval", GVAR(winCheckInterval), T_POSNUM,
+        ["winCheckInterval", T_POSNUM,
             GVAR(winCheckInterval) call _isPosNum] call _fnCheck;
     };
 
@@ -138,31 +137,21 @@ if (GVAR(checkWinConditions) isEqualType false && {GVAR(checkWinConditions)}) th
         || {!(GVAR(score) isEqualType [])}
         || {count GVAR(score) != 3}
         || {(GVAR(score) findIf {!(_x isEqualType 0)}) != -1}) then {
-        _errors pushBack (PREFIX + "score must be an array of 3 numbers [OPFOR, BLUFOR, GRNFOR]");
+        _errors pushBack (ERR_PREFIX + "score must be an array of 3 numbers [OPFOR, BLUFOR, GRNFOR]");
     };
 
     {
-        private _name = _x;
-        private _val = missionNamespace getVariable [_name, nil];
-        private _bad = false;
-        if (isNil "_val") then {
-            _bad = true;
-        } else {
-            if (_val isEqualType "") then {
-                // "" is the only valid string; anything else is wrong
-                if (_val != "") then { _bad = true };
-            } else {
-                if (!(_val isEqualType [])
-                    || {count _val != 2}
-                    || {!(_val select 0 isEqualType 0)}
-                    || {!(_val select 1 isEqualType false)}) then {
-                    _bad = true;
-                };
-            };
+        private _val = missionNamespace getVariable [_x, nil];
+        private _ok = if (isNil "_val") then {false} else {
+            _val isEqualTo ""
+            || {_val isEqualType []
+                && {count _val isEqualTo 2}
+                && {_val select 0 isEqualType 0}
+                && {_val select 1 isEqualType false}}
         };
-        if (_bad) then {
+        if (!_ok) then {
             _errors pushBack format
-                [PREFIX + "%1 must be \"\" or [pointsRequired (number), atEnd (boolean)]", _name];
+                [ERR_PREFIX + "%1 must be \"\" or [pointsRequired (number), atEnd (boolean)]", _x];
         };
     } forEach [
         QGVAR(bluforWinConditions),
