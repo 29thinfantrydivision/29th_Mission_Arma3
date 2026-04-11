@@ -70,6 +70,8 @@ private _isNonNegNum = {
     GVAR(disableStatistics) call _isBool] call _fnCheck;
 ["numberOfLives", T_NONNEG,
     GVAR(numberOfLives) call _isNonNegNum] call _fnCheck;
+["stopTimeUntilLive", T_BOOL,
+    GVAR(stopTimeUntilLive) call _isBool] call _fnCheck;
 ["timeAcc", T_POSNUM,
     GVAR(timeAcc) call _isPosNum] call _fnCheck;
 if (isNil QGVAR(arsenalRadius)) then {
@@ -99,7 +101,6 @@ if (GVAR(useRoundSystem) call _isTrue) then {
         } forEach GVAR(timerObjects);
     };
 };
-
 
 /******* Win-condition-gated *******/
 if (GVAR(checkWinConditions) call _isTrue) then {

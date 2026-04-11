@@ -2,7 +2,7 @@
 
 /*
  * Author: Bae [29th ID]
- * Handles player respawn during a live round with limited lives.
+ * Handles player killed event during a live round with limited lives.
  * Decrements local lives counter and, when exhausted, transitions
  * the player into spectator mode.
  *
@@ -27,6 +27,8 @@ GVAR(livesLeft) = GVAR(livesLeft) - 1;
 if (GVAR(livesLeft) > 0) exitWith {};
 
 // --- Out of lives ---
+//Make sure player doesn't respawn before we are ready
+setPlayerRespawnTime 9999;
 //Don't show the respawn menu when we transition to spectator
 player setVariable ["BIS_fnc_showRespawnMenu_disable", true];
 //disable Respawn in Pause Menu if player is in it when dying for some reason

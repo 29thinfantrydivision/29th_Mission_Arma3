@@ -154,7 +154,7 @@ if (hasInterface) then {
             params ["_livesLeft"];
             GVAR(livesLeft) = _livesLeft;
             if (_livesLeft isEqualTo 0) then {
-                [player] call EFUNC(spectator,enter);
+                [player, true] call EFUNC(spectator,enter);
             };
         }] call CBA_fnc_addEventHandler;
 

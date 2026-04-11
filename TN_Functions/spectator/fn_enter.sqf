@@ -81,8 +81,7 @@ private _params = switch (GVARMAIN(limitSpectator)) do {
 
 ["Initialize", _params] call BIS_fnc_EGSpectator;
 
-if (!_forced) then
-{
+if (!_forced) then {
     // --- Per-frame exit checks ---
     private _startPos = getPosATL _unit;
 
