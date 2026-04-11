@@ -71,6 +71,44 @@ if (isServer) then {
         ] call CBA_fnc_addEventHandler;
     };
 
+    // Lives Tracking
+    if (GVAR(numberOfLives) > 0) then {
+        GVAR(trackingLives) = false;
+        publicVariable QGVAR(trackingLives);
+        GVAR(livesByUID) = createHashMap;
+
+        ["CAManBase", "Killed", {
+            params ["_unit"];
+            if (!GVAR(trackingLives)) exitWith {};
+            if (!isPlayer _unit) exitWith {};
+
+            private _uid = getPlayerUID _unit;
+            if (_uid isEqualTo "") exitWith {};
+
+            private _lives = GVAR(livesByUID) getOrDefault [
+                _uid, GVAR(numberOfLives)
+            ];
+            GVAR(livesByUID) set [_uid, _lives - 1];
+        }] call CBA_fnc_addClassEventHandler;
+
+        [QGVAR(checkJIPLives), {
+            params ["_player"];
+            private _lives = GVAR(livesByUID) getOrDefault [
+                getPlayerUID _player, GVAR(numberOfLives)
+            ];
+            [QGVAR(jipLivesResult), [_lives], _player]
+                call CBA_fnc_targetEvent;
+        }] call CBA_fnc_addEventHandler;
+
+        if (GVAR(useRoundSystem)) then {
+            [QEGVAR(round,started), {
+                GVAR(livesByUID) = createHashMap;
+                GVAR(trackingLives) = true;
+                publicVariable QGVAR(trackingLives);
+            }] call CBA_fnc_addEventHandler;
+        };
+    };
+
     // Time Acceleration
     if (GVAR(useRoundSystem)) then {
         [
@@ -94,18 +132,23 @@ if (hasInterface) then {
         };
     }] call CBA_fnc_waitUntilAndExecute;
 
-    // Respawn
-    if (GVAR(useRoundSystem) && {GVAR(numberOfLives) > 0}) then {
-        [
-            QEGVAR(round,started),
-            { [true] call FUNC(respawn) }
-        ] call CBA_fnc_addEventHandler;
+    // Respawn / Lives
+    if (GVAR(numberOfLives) > 0) then {
+        [QGVAR(respawn), "Respawn", FUNC(respawn)]
+            call CBA_fnc_addBISPlayerEventHandler;
 
-        [
-            QGVAR(respawn),
-            "Respawn",
-            FUNC(respawn)
-        ] call CBA_fnc_addBISPlayerEventHandler;
+        [QGVAR(jipLivesResult), {
+            params ["_livesLeft"];
+            GVAR(livesLeft) = _livesLeft;
+            if (_livesLeft isEqualTo 0) then {
+                [player] call EFUNC(spectator,enter);
+            };
+        }] call CBA_fnc_addEventHandler;
+
+        [{!isNull player}, {
+            [QGVAR(checkJIPLives), [player]]
+                call CBA_fnc_serverEvent;
+        }] call CBA_fnc_waitUntilAndExecute;
     };
 
     // Auto Mark Editor Objects

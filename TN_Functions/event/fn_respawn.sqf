@@ -1,104 +1,58 @@
 #include "script_component.hpp"
 
 /*
- * Author: Bae [29th ID], modified from Dott [29th ID]
- * Tracks player deaths during a live round and teleports
- * the player to the spectate area when they exhaust their
- * limited lives. Optionally strips weapons on final respawn.
+ * Author: Bae [29th ID]
+ * Handles player respawn during a live round with limited lives.
+ * Decrements local lives counter and, when exhausted, transitions
+ * the player into spectator mode.
+ *
+ * Called via CBA BIS "Respawn" player event handler.
  *
  * Arguments:
- * 0: When true, records the player's current death count and exits, used at round start to baseline <BOOL> (default: false)
+ * 0: New unit <OBJECT>
+ * 1: Old unit <OBJECT>
  *
  * Return Value:
  * Nothing
  *
  * Example:
- * [true] call TN_event_fnc_respawn;
+ * [] call TN_event_fnc_respawn;
  */
 
-params
-[
-    ["_storeDeaths", false, [false]]
+if (!hasInterface) exitWith {};
+if (GVAR(numberOfLives) isEqualTo 0) exitWith {};
+if (!GVAR(trackingLives)) exitWith {};
+
+GVAR(livesLeft) = GVAR(livesLeft) - 1;
+
+diag_log text format ["%1: Player respawned, %2 lives remaining",
+    QFUNC(respawn), GVAR(livesLeft)];
+
+if (GVAR(livesLeft) > 0) exitWith {};
+
+// --- Out of lives ---
+player allowDamage false;
+
+titleText [
+    "<t color='#ffffff' size='4'>Out of Lives!</t>",
+    "BLACK OUT", 0.5, true, true
 ];
 
-if (!hasInterface) exitWith {};
-
-//exit script if the number of lives setting should
-//permit unlimited respawns (just in case)
-if (GVAR(numberOfLives) isEqualTo 0) exitWith {};
-
-if (NOT_ROUND_LIVE) exitWith {};
-
-if (_storeDeaths) exitWith {
-    GVAR(liveDeaths) = getPlayerScores Player select 4;
+if (GVAR(respawnDisarmPlayers)) then {
+    removeAllWeapons player;
 };
 
-private _playerDeaths = getPlayerScores player select 4;
+[{
+    [player] call EFUNC(spectator,enter);
 
-if (isNil QGVAR(liveDeaths)) then {
-    GVAR(liveDeaths) = 0;
-};
-
-_playerDeaths = (_playerDeaths - GVAR(liveDeaths));
-
-if (_playerDeaths >= GVAR(numberOfLives)) then {
-    player setVariable [QGVAR(outOfLives), true, true];
-    _playerDeaths spawn {
-        private _point = getPosASL GVAR(spectateArea);
-
-        titleText [
-            "<t color='#ffffff' size='4'>Out of Lives!</t>",
-            "BLACK OUT", 0.5, true, true
-        ];
-        player allowDamage false;
-        sleep 0.2;
-
-        // Prevent death/accidents during teleport
-        player enableSimulationGlobal false;
-        sleep 0.3;
-
-        private _dir = random 360;
-        player SetPosASL [
-            (_point select 0) - 6 * sin(_dir),
-            (_point select 1) - 6 * cos(_dir),
-            (_point select 2)
-        ];
-        sleep 0.1;
-
-        player enableSimulationGlobal true;
-        sleep 0.4;
-
-        private _ground = isTouchingGround player;
-
-        if (!_ground) then {
-            private _curr = getPos player;
-            private _height = _curr select 2;
-
-            if (_height > 2) then {
-                player setPos [
-                    _curr select 0,
-                    _curr select 1,
-                    0
-                ];
-            }
-            //otherwise a little extra time to fall
-            else {
-                sleep 0.4;
-            };
-        };
-
-        sleep 0.2;
-
+    [{
         player allowDamage true;
-        titleText [
-            "<t color='#ffffff' size='4'>Out of Lives!</t>",
-            "BLACK IN", 0.5, true, true
-        ];
+    }, [], 1] call CBA_fnc_waitAndExecute;
 
-        if (GVAR(respawnDisarmPlayers)) then {
-            removeAllWeapons player;
-        };
-    };
-};
+    titleText [
+        "<t color='#ffffff' size='4'>Out of Lives!</t>",
+        "BLACK IN", 0.5, true, true
+    ];
+}, [], 0.5] call CBA_fnc_waitAndExecute;
 
 nil
