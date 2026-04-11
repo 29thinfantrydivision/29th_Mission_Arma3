@@ -1,7 +1,7 @@
 #include "script_macros.hpp"
 
-//Use the variables below to customize your event mission
-//For PvE, recommended to set 
+// Use the variables below to customize your event mission
+// For PvE, recommended to set 
 // useRoundSystem = false
 // numberOfLives = 0
 // hasAliveCheck = false
@@ -19,9 +19,11 @@ EGVAR(event,timerObjects) = [
     base_timerFlagGuer
 ]; //Objects players can interact with to ready up their team, default colored flags in editor
 EGVAR(event,stopTimeUntilLive) = true;      //Stop time so that time at round start is the same as mission start
-EGVAR(event,numberOfLives) = 1;             //0 for unlimited lives
 EGVAR(event,hasAliveCheck) = true;          //Automatically end mission if only one side has players alive with them as the winner
 //====================================================
+EGVAR(event,numberOfLives) = 1;         //0 for unlimited lives
+EGVAR(event,penalizeJIPLives) = true;   //If player JIP after round has started, reduce their number of lives by 1
+                                        //NOTE: Only used if numberOfLives > 0 AND useRoundSystem = true
 
 EGVAR(event,timeAcc) = 1;   //Time acceleration multiplier for the event (1 = normal time, 2 = 2x faster, 0.5 = half speed, etc)
                             //If useRoundSystem = true, only takes effect at start of round
@@ -32,14 +34,14 @@ EGVAR(event,autoMarkObjects) = true;    //Mark static editor placed objects on m
 
 EGVAR(event,disableStatistics) = true;  //Disable statistics tab in map diary
 
-//Win conditions
-//Format: [pointsRequired, atEnd]
-//  pointsRequired - Number of points the side needs to win
-//  atEnd - If true, only check at end of timer. If false, check throughout the round.
-//  atEnd = true can only be used if useRoundSystem = true
-//Leave [] for no win condition for that side.
-//Points can be increased/decreased by modifying the mission.sqm in editor, often by editing an object's init field.
-//See examples below.
+// Win conditions
+// Format: [pointsRequired, atEnd]
+// pointsRequired - Number of points the side needs to win
+// atEnd - If true, only check at end of timer. If false, check throughout the round.
+// NOTE: atEnd = true can only be used if useRoundSystem = true
+// Leave [] for no win condition for that side.
+// Points can be increased/decreased by modifying the mission.sqm in editor, often by editing an object's init field.
+// See examples below.
 EGVAR(event,checkWinConditions) = true; //Run win condition checks.
 //=========== Only used if checkWinConditions = true ===========
 EGVAR(event,score) = [0, 0, 0];         //Starting score for each side [OPFOR, BLUFOR, GRNFOR]
@@ -50,9 +52,9 @@ EGVAR(event,grnforWinConditions) = [];  //Conditions for GRNFOR to win the game
 
 /*
 Examples
-TN_event_bluforWinConditions = []; //No win condition for BLUFOR (except only team standing at end if hasAliveCheck = true)
-TN_event_opforWinConditions = [3, false]; //Win when OPFOR has 3 points at any time
-TN_event_grnforWinConditions = [2, true]; //Win when GRNFOR has 2 points at the end of the timer
+EGVAR(event,bluforWinConditions) = []; //No win condition for BLUFOR (except only team standing if hasAliveCheck = true)
+EGVAR(event,opforWinConditions) = [3, false]; //Win when OPFOR has 3 points at any time
+EGVAR(event,grnforWinConditions) = [2, true]; //Win when GRNFOR has 2 points at the end of the timer
 
 Put example code below in the init field of the relevant object to award points.
 

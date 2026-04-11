@@ -93,9 +93,14 @@ if (isServer) then {
 
         [QGVAR(checkJIPLives), {
             params ["_player"];
+            private _uid = getPlayerUID _player;
             private _lives = GVAR(livesByUID) getOrDefault [
-                getPlayerUID _player, GVAR(numberOfLives)
+                _uid, GVAR(numberOfLives)
             ];
+            if (GVAR(useRoundSystem) && {GVAR(penalizeJIPLives)} && {GVAR(trackingLives)}) then {
+                _lives = _lives - 1;
+                GVAR(livesByUID) set [_uid, _lives];
+            };
             [QGVAR(jipLivesResult), [_lives], _player]
                 call CBA_fnc_targetEvent;
         }] call CBA_fnc_addEventHandler;
