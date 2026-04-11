@@ -2,10 +2,10 @@
 
 /*
  * Author: Bae [29th ID]
- * Evaluates win conditions each tick during an active round.
- * Supports point-based victory via sector ownership and kill
- * tracking. Conditions can trigger mid-round (loopChecks) or
- * at round end (endChecks).
+ * Initializes win condition tracking. Sets up event handlers
+ * on sectors and killable objects to update scores and trigger
+ * win condition checks. Pre-builds condition arrays for
+ * evaluation by checkWinConditions.
  *
  * Arguments:
  * None
@@ -14,11 +14,11 @@
  * Nothing
  *
  * Example:
- * call TN_event_fnc_checkWinCondition;
+ * call TN_event_fnc_initWinConditions;
  */
 
-private _loopChecks = [[{ false }], [{ false }], [{ false }]];
-private _endChecks = [[{ false }], [{ false }], [{ false }]];
+GVAR(loopChecks) = [{ false }, { false }, { false }];
+GVAR(endChecks) = [{ false }, { false }, { false }];
 
 {
     private _pointValue = _x getVariable [QGVARMAIN(pointValue), 0];
@@ -53,6 +53,8 @@ private _endChecks = [[{ false }], [{ false }], [{ false }]];
                                 - _pointValue
                         ];
                     };
+
+                    [false] call FUNC(checkWinConditions);
                 }
             ] call BIS_fnc_addScriptedEventHandler;
 
@@ -81,6 +83,8 @@ private _endChecks = [[{ false }], [{ false }], [{ false }]];
                             + _pointValue
                     ];
                 };
+
+                [false] call FUNC(checkWinConditions);
             }];
         };
     };
@@ -98,55 +102,22 @@ private _sideSettings =
 
     _x params ["_pointsRequired", "_atEnd"];
 
-    private _checkFn = [{
-        params ["_sideId", "_pointsRequired"];
-        GVAR(score) select _sideId >= _pointsRequired
-    }, [_forEachIndex, _pointsRequired]];
+    private _checkFn = compile format
+        ["GVAR(score) select %1 >= %2", _forEachIndex, _pointsRequired];
 
     if (_atEnd) then {
-        _endChecks set [_forEachIndex, _checkFn];
+        GVAR(endChecks) set [_forEachIndex, _checkFn];
     } else {
-        _loopChecks set [_forEachIndex, _checkFn];
+        GVAR(loopChecks) set [_forEachIndex, _checkFn];
     };
 } forEach _sideSettings;
 
 if (GVAR(useRoundSystem)) then {
     [
         QEGVAR(round,ended), {
-            private _endChecks = _thisArgs;
-            {
-                _x params ["_fnCheck", ["_args", []]];
-                if (_args call _fnCheck) exitWith {
-                    private _winningSide = _forEachIndex call BIS_fnc_sideType;
-                    [_winningSide] call FUNC(game);
-                };
-            } forEach _endChecks;
-
-            [] call FUNC(game);
-        }, _endChecks
-    ] call CBA_fnc_addEventHandlerArgs;
+            [true] call FUNC(checkWinConditions);
+        }
+    ] call CBA_fnc_addEventHandler;
 };
-
-if (isNil QGVAR(winCheckInterval)) then {
-    GVAR(winCheckInterval) = 0.5;
-};
-
-private _exitCondition = if (GVAR(useRoundSystem)) then {
-    {NOT_ROUND_LIVE}
-} else {
-    {false}
-};
-
-[{
-    private _loopChecks = _this getVariable "params";
-
-    {
-        _x params ["_fnCheck", ["_args", []]];
-        if (_args call _fnCheck) exitWith {
-            private _winningSide = _forEachIndex call BIS_fnc_sideType;
-            [_winningSide] call FUNC(game);
-        };
-    } forEach _loopChecks;
-}, GVAR(winCheckInterval), _loopChecks, {}, {}, {true}, _exitCondition] call CBA_fnc_createPerFrameHandlerObject;
 
 nil

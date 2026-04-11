@@ -126,13 +126,6 @@ if (_timerOn && {GVAR(numberOfLives) isEqualType 0 && {GVAR(numberOfLives) > 0}}
 
 /******* Win-condition-gated *******/
 if (GVAR(checkWinConditions) call _isTrue) then {
-    if (isNil QGVAR(winCheckInterval)) then {
-        ["winCheckInterval", 0.5] call _fnInfoDefault;
-    } else {
-        ["winCheckInterval", T_POSNUM,
-            GVAR(winCheckInterval) call _isPosNum] call _fnCheck;
-    };
-
     if (isNil QGVAR(score)
         || {!(GVAR(score) isEqualType [])}
         || {count GVAR(score) != 3}

@@ -54,11 +54,11 @@ if (isServer) then {
         if (GVAR(useRoundSystem)) then {
             [
                 QEGVAR(round,started), {
-                    call FUNC(checkWinCondition);
+                    call FUNC(initWinConditions);
                 }
             ] call CBA_fnc_addEventHandler;
         } else {
-            call FUNC(checkWinCondition);
+            call FUNC(initWinConditions);
         };
     };
 
