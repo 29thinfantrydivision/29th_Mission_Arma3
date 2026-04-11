@@ -134,6 +134,8 @@ if (hasInterface) then {
 
     // Enable lives tracking system
     if (GVAR(numberOfLives) > 0) then {
+        GVAR(livesLeft) = GVAR(numberOfLives); //default to prevent nil
+
         [QGVAR(killed), "Killed", FUNC(killed)]
             call CBA_fnc_addBISPlayerEventHandler;
 
@@ -149,6 +151,17 @@ if (hasInterface) then {
             [QGVAR(checkJIPLives), [player]]
                 call CBA_fnc_serverEvent;
         }] call CBA_fnc_waitUntilAndExecute;
+
+        //disable Respawn button in Pause menu if out of lives
+        [   
+            QGVARMAIN(enteredPauseMenu),
+            { 
+                if (GVAR(livesLeft) <= 0) then {
+                    [{((findDisplay 49) displayCtrl 1010) ctrlEnable false}]
+                        call CBA_fnc_execNextFrame;
+                };
+            }
+        ] call CBA_fnc_addEventHandler;    
     };
 
     // Auto Mark Editor Objects

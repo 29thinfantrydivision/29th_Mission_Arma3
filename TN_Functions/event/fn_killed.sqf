@@ -9,8 +9,7 @@
  * Called via CBA BIS "Killed" player event handler.
  *
  * Arguments:
- * 0: New unit <OBJECT>
- * 1: Old unit <OBJECT>
+ * None
  *
  * Return Value:
  * Nothing
@@ -28,6 +27,11 @@ GVAR(livesLeft) = GVAR(livesLeft) - 1;
 if (GVAR(livesLeft) > 0) exitWith {};
 
 // --- Out of lives ---
+//Don't show the respawn menu when we transition to spectator
+player setVariable ["BIS_fnc_showRespawnMenu_disable", true];
+//disable Respawn in Pause Menu if player is in it when dying for some reason
+((findDisplay 49) displayCtrl 1010) ctrlEnable false; 
+
 [ 
     { 
         titleText [
@@ -57,6 +61,8 @@ if (GVAR(livesLeft) > 0) exitWith {};
             {alive player},
             {
                 [player, true] call EFUNC(spectator,enter);
+                //reenable respawn menu just in case
+                player setVariable ["BIS_fnc_showRespawnMenu_disable", false];
                 // Delay setPos to let spectator camera initialize
                 [{
                     (_this select 0) setPos [0,0,0];

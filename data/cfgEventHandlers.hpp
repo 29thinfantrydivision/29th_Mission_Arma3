@@ -8,6 +8,10 @@ class Extended_DisplayLoad_EventHandlers {
     class RscDisplayCurator {
         onLoad = "[""TN_enteredZeus"", []] call CBA_fnc_localEvent";
     };
+
+    class RscDisplayMPInterrupt {
+        onLoad = "[""TN_enteredPauseMenu"", []] call CBA_fnc_localEvent";
+    };    
 };
 
 class Extended_DisplayUnload_EventHandlers {
