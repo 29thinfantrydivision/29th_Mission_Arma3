@@ -119,6 +119,17 @@ if (isServer) then {
     } else {
         setTimeMultiplier GVAR(timeAcc);
     };
+
+    // Stop Time Until Live
+    if (GVAR(stopTimeUntilLive) && GVAR(useRoundSystem)) then {
+        setTimeMultiplier 0.1;
+        GVAR(startDate) = date;
+        [
+            QEGVAR(round,started), {
+                setDate GVAR(startDate);
+            }
+        ] call CBA_fnc_addEventHandler;
+    };
 };
 
 if (hasInterface) then {

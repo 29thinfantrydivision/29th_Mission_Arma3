@@ -18,20 +18,19 @@ EGVAR(event,timerObjects) = [
     base_timerFlagEast,
     base_timerFlagGuer
 ]; //Objects players can interact with to ready up their team, default colored flags in editor
-
+EGVAR(event,stopTimeUntilLive) = true;      //Stop time so that time at round start is the same as mission start
 EGVAR(event,numberOfLives) = 1;             //0 for unlimited lives
-
 EGVAR(event,hasAliveCheck) = true;          //Automatically end mission if only one side has players alive with them as the winner
 //====================================================
 
 EGVAR(event,timeAcc) = 1;   //Time acceleration multiplier for the event (1 = normal time, 2 = 2x faster, 0.5 = half speed, etc)
                             //If useRoundSystem = true, only takes effect at start of round
 
-EGVAR(event,arsenalRadius) = 20; //Radius around arsenal object where players can access the arsenal
+EGVAR(event,arsenalRadius) = 20;        //Radius around arsenal object where players can access the arsenal
 
-EGVAR(event,autoMarkObjects) = true; //Mark static editor placed objects on map for all players
+EGVAR(event,autoMarkObjects) = true;    //Mark static editor placed objects on map for all players
 
-EGVAR(event,disableStatistics) = true; //Disable statistics tab in map diary
+EGVAR(event,disableStatistics) = true;  //Disable statistics tab in map diary
 
 //Win conditions
 //Format: [pointsRequired, atEnd]
@@ -43,10 +42,10 @@ EGVAR(event,disableStatistics) = true; //Disable statistics tab in map diary
 //See examples below.
 EGVAR(event,checkWinConditions) = true; //Run win condition checks.
 //=========== Only used if checkWinConditions = true ===========
-EGVAR(event,score) = [0, 0, 0]; //Starting score for each side [OPFOR, BLUFOR, GRNFOR]
-EGVAR(event,bluforWinConditions) = []; //Conditions for BLUFOR to win the game
-EGVAR(event,opforWinConditions) = []; //Conditions for OPFOR to win the game
-EGVAR(event,grnforWinConditions) = []; //Conditions for GRNFOR to win the game
+EGVAR(event,score) = [0, 0, 0];         //Starting score for each side [OPFOR, BLUFOR, GRNFOR]
+EGVAR(event,bluforWinConditions) = [];  //Conditions for BLUFOR to win the game
+EGVAR(event,opforWinConditions) = [];   //Conditions for OPFOR to win the game
+EGVAR(event,grnforWinConditions) = [];  //Conditions for GRNFOR to win the game
 //==============================================================
 
 /*
