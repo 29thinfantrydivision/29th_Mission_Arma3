@@ -166,7 +166,50 @@ if (hasInterface) then {
             params ["_livesLeft"];
             GVAR(livesLeft) = _livesLeft;
             if (_livesLeft isEqualTo 0) then {
+                [player] call ACE_medical_treatment_fnc_fullHealLocal;
                 [player, true] call EFUNC(spectator,enter);
+                // Delay setPos to let spectator camera initialize
+                [{
+                    (_this select 0) setPos [0,0,0];
+                    (_this select 0) enableSimulation false;
+                }, [player], 0.5] call CBA_fnc_waitAndExecute;
+            };
+        }] call CBA_fnc_addEventHandler;
+
+        [QGVAR(adjustLives), {
+            params ["_livesLeft"];
+
+            if (_livesLeft isEqualto GVAR(livesLeft)) exitWith {};
+            private _oldLivesLeft = GVAR(livesLeft);
+            GVAR(livesLeft) = _livesLeft;
+            if (_livesLeft isEqualTo 0) then {
+                [player] call ACE_medical_treatment_fnc_fullHealLocal;
+                [player, true] call EFUNC(spectator,enter);
+                // Delay setPos to let spectator camera initialize
+                [{
+                    (_this select 0) setPos [0,0,0];
+                    (_this select 0) enableSimulation false;
+                }, [player], 0.5] call CBA_fnc_waitAndExecute;
+            };
+            if (_oldLivesLeft isEqualTo 0) then {
+                [player] call ACE_medical_treatment_fnc_fullHealLocal;
+                call EFUNC(spectator,exit);
+                private _respawnPosition = (player call BIS_fnc_getRespawnPositions) select 0;
+                if (count _respawnPosition isEqualTo 0) exit
+                _respawnPosition = switch (typeName _respawnPosition) do
+                {
+                    case ("STRING"): {
+                        getMarkerPos _respawnPosition;
+                    };
+                    case ("OBJECT"): {
+                        getPosATL _respawnPosition;
+                    };
+                    default {
+                        _respawnPosition;
+                    };
+                };
+                player setPosATL _respawnPosition;
+                player enableSimulation true;
             };
         }] call CBA_fnc_addEventHandler;
 

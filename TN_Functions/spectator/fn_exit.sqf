@@ -43,7 +43,11 @@ player allowDamage false;
 
 player switchCamera "internal";
 
-[GVAR(exitPFH)] call CBA_fnc_removePerFrameHandler;
+if (!isNil QGVAR(exitPFH)) then {
+    [GVAR(exitPFH)] call CBA_fnc_removePerFrameHandler;
+    GVAR(exitPFH) = nil;
+};
+
 
 if !(weaponLowered player) then {
     player action ["WeaponOnBack", player];

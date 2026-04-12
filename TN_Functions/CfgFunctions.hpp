@@ -54,6 +54,7 @@ class TN_Event {
     tag = "TN_event";
     class EventFunctions {
         file = "TN_Functions\event";
+        class adjustLives {};
         class checkWinConditions {};
         class initAliveCheck {};
         class initWinConditions {};
