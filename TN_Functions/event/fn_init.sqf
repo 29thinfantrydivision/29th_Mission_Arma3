@@ -49,6 +49,8 @@ if (isServer) then {
             nil, "server", false] call cba_settings_fnc_set;
         [QGVARMAIN(notifyFinalCheck), false,
             nil, "server", false] call cba_settings_fnc_set;
+        [QGVARMAIN(disableScoreboard), GVAR(disableScoreboard),
+            nil, "server", false] call cba_settings_fnc_set;         
         [GVAR(timerLength)] call EFUNC(round,setTimer);
     };
 

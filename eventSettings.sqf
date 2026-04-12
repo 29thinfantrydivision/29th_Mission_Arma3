@@ -7,17 +7,21 @@
 // numberOfLives = 0
 // hasAliveCheck = false
 // disableStatistics = false
+// disableScoreboard = false if useRoundSystem = true
 
 GVAR(useRoundSystem) = true; //Use timer/ready system
 //=========== Only used if useRoundSystem = true ===========
     GVAR(forcedSafeStart) = 15 * 60;    //Safe start time before all teams ready up in seconds
     GVAR(readySafeStart) = 30;          //Safe start time after all teams ready up in seconds
     GVAR(timerLength) = 45 * 60;        //Length of round in seconds
+    
     GVAR(timerObjects) = [              //Objects players can interact with to ready up their team, default colored flags in editor
         base_timerFlagWest,
         base_timerFlagEast,
         base_timerFlagGuer
     ];
+
+    GVAR(disableScoreboard) = true;     //Disable scoreboard during round
 
     GVAR(stopTimeUntilLive) = true;     //Stop time so that time at round start is the same as mission start
 

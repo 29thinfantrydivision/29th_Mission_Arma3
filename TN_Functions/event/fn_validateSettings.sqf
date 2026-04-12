@@ -75,7 +75,7 @@ if (isNil QGVAR(arsenalRadius)) then {
         GVAR(arsenalRadius) call _isPosNum] call _fnCheck;
 };
 
-/******* Timer-gated *******/
+/******* Round-gated *******/
 if (GVAR(useRoundSystem) call _isTrue) then {
     ["forcedSafeStart", T_NONNEG,
         GVAR(forcedSafeStart) call _isNonNegNum] call _fnCheck;
@@ -95,6 +95,8 @@ if (GVAR(useRoundSystem) call _isTrue) then {
         } forEach GVAR(timerObjects);
     };
 
+    ["disableScoreboard", T_BOOL,
+        GVAR(disableScoreboard) call _isBool] call _fnCheck;
     ["stopTimeUntilLive", T_BOOL,
         GVAR(stopTimeUntilLive) call _isBool] call _fnCheck;
     ["numberOfLives", T_NONNEG,
