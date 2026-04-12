@@ -38,7 +38,7 @@ private _checks = if (_gameEnded) then {
                 private _msg = format ["%1 has completed the necessary objectives!", _sideName];
                 _msg remoteExecCall ["hint"];
                 _msg remoteExecCall ["systemChat"];
-                [_winningSide, GVAR(endingDelay)] call FUNC(endMission);
+                [_winningSide, ENDING_DELAY] call FUNC(endMission);
             }, _winningSide, 5] call CBA_fnc_waitAndExecute;
         };
 
@@ -46,7 +46,7 @@ private _checks = if (_gameEnded) then {
 } forEach _checks;
 
 if (_gameEnded) then {
-    [nil, GVAR(endingDelay)] call FUNC(endMission);
+    [nil, ENDING_DELAY] call FUNC(endMission);
 };
 
 nil

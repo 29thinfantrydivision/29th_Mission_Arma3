@@ -74,8 +74,6 @@ if (isNil QGVAR(arsenalRadius)) then {
     ["arsenalRadius", T_POSNUM,
         GVAR(arsenalRadius) call _isPosNum] call _fnCheck;
 };
-["endingDelay", T_POSNUM,
-    GVAR(endingDelay) call _isPosNum] call _fnCheck;
 
 /******* Timer-gated *******/
 if (GVAR(useRoundSystem) call _isTrue) then {

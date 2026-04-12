@@ -49,7 +49,7 @@ FUNC(checkWinner) = {
             private _msg = format ["%1 is the only team left standing!", _sideName];
             _msg remoteExecCall ["hint"];
             _msg remoteExecCall ["systemChat"];
-            [_winningSide, GVAR(endingDelay)] call FUNC(endMission);
+            [_winningSide, ENDING_DELAY] call FUNC(endMission);
         }, _winningSide, 5] call CBA_fnc_waitAndExecute;
     };
 };

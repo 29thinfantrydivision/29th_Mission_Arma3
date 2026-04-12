@@ -8,7 +8,6 @@
 // hasAliveCheck = false
 // disableStatistics = false
 
-
 GVAR(useRoundSystem) = true; //Use timer/ready system
 //=========== Only used if useRoundSystem = true ===========
     GVAR(forcedSafeStart) = 15 * 60;    //Safe start time before all teams ready up in seconds
@@ -37,9 +36,6 @@ GVAR(arsenalRadius) = 20;           //Radius around arsenal object where players
 GVAR(autoMarkObjects) = true;       //Mark static editor placed objects on map for all players
 
 GVAR(disableStatistics) = true;     //Disable statistics tab in map diary
-
-GVAR(endingDelay) = 5;              //Delay before ending is called after hasAliveCheck/checkWinConditions notification
-                                    //or useRoundSystem time running out
 
 // Point Based Win Conditions
 /*
