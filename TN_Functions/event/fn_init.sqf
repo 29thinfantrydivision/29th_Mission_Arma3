@@ -178,8 +178,9 @@ if (hasInterface) then {
             QGVARMAIN(enteredPauseMenu),
             { 
                 if (GVAR(livesLeft) <= 0) then {
-                    [{((findDisplay 49) displayCtrl 1010) ctrlEnable false}]
-                        call CBA_fnc_execNextFrame;
+                    [{!isNull ((findDisplay 49) displayCtrl 1010)}, 
+                    {((findDisplay 49) displayCtrl 1010) ctrlEnable false}
+                    ] call CBA_fnc_waitUntilAndExecute;
                 };
             }
         ] call CBA_fnc_addEventHandler;    
