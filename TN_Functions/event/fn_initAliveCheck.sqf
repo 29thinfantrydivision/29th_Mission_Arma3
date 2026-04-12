@@ -36,8 +36,17 @@ FUNC(checkWinner) = {
     if (_numAlive > 1) exitWith {};
 
     if (_numAlive isEqualTo 0) exitWith {
-        ["All sides eliminated — admin should declare the winner.", true, true]
-            call EFUNC(common,notifyAdmin);
+        if (isNil QGVAR(notifiedAllDead)) then
+        {
+            GVAR(notifiedAllDead) = true;
+            [{
+                private _msg = "All teams eliminated!";
+                _msg remoteExecCall ["hint"];
+                _msg remoteExecCall ["systemChat"];
+            }, {}, 5] call CBA_fnc_waitAndExecute;
+            ["All sides eliminated — admin should declare the winner.", true, true]
+                call EFUNC(common,notifyAdmin);
+        };
     };
 
     private _winIdx = GVAR(aliveCounts) findIf { _x > 0 };
