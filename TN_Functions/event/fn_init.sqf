@@ -23,11 +23,11 @@
 call compile preprocessFileLineNumbers "eventSettings.sqf";
 call FUNC(validateSettings);
 
-/******* CBA Settings Overrides ********/
-[QGVARMAIN(addRadio), 0,
-    nil, "server", false] call cba_settings_fnc_set;
-
 if (isServer) then {
+    /******* CBA Settings Overrides ********/
+    [QGVARMAIN(addRadio), 0,
+        nil, "server", false] call cba_settings_fnc_set;
+
     // Admin Event Menu
     [
         QEGVAR(common,adminStateChanged), {
@@ -63,12 +63,8 @@ if (isServer) then {
     };
 
     // Alive Check
-    if (GVAR(useRoundSystem) && {GVAR(hasAliveCheck)}) then {
-        [
-            QEGVAR(round,started), {
-                call FUNC(aliveCheck);
-            }
-        ] call CBA_fnc_addEventHandler;
+    if (GVAR(useRoundSystem) && {GVAR(hasAliveCheck)} && {GVAR(numberOfLives) > 0}) then {
+        call FUNC(initAliveCheck);
     };
 
     // Lives Tracking
@@ -88,7 +84,11 @@ if (isServer) then {
             private _lives = GVAR(livesByUID) getOrDefault [
                 _uid, GVAR(numberOfLives)
             ];
-            GVAR(livesByUID) set [_uid, _lives - 1];
+            private _newLives = _lives - 1;
+            GVAR(livesByUID) set [_uid, _newLives];
+            if (_newLives isEqualTo 0) then {
+                [QGVAR(outOfLives), [_unit]] call CBA_fnc_localEvent;
+            };
         }] call CBA_fnc_addClassEventHandler;
 
         [QGVAR(checkJIPLives), {
@@ -101,6 +101,8 @@ if (isServer) then {
                 _lives = _lives - 1;
                 GVAR(livesByUID) set [_uid, _lives];
             };
+            [QGVAR(jipLivesResolved), [_player, _lives]]
+                call CBA_fnc_localEvent;
             [QGVAR(jipLivesResult), [_lives], _player]
                 call CBA_fnc_targetEvent;
         }] call CBA_fnc_addEventHandler;

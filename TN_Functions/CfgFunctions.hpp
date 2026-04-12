@@ -54,8 +54,8 @@ class TN_Event {
     tag = "TN_event";
     class EventFunctions {
         file = "TN_Functions\event";
-        class aliveCheck {};
         class checkWinConditions {};
+        class initAliveCheck {};
         class initWinConditions {};
         class flagActions {};
         class game {};

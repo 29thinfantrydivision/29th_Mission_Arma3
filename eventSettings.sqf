@@ -20,6 +20,7 @@ EGVAR(event,timerObjects) = [
 ]; //Objects players can interact with to ready up their team, default colored flags in editor
 EGVAR(event,stopTimeUntilLive) = true;      //Stop time so that time at round start is the same as mission start
 EGVAR(event,hasAliveCheck) = true;          //Automatically end mission if only one side has players alive with them as the winner
+                                            //NOTE: Only used if numberOfLives > 0
 //====================================================
 EGVAR(event,numberOfLives) = 1;         //0 for unlimited lives
 EGVAR(event,penalizeJIPLives) = true;   //If player JIP after round has started, reduce their number of lives by 1
