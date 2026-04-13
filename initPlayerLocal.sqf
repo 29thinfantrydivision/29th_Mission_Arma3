@@ -31,7 +31,7 @@ _unit addEventHandler ["HandleRating", {0}];
 }, [_unit]] call CBA_fnc_waitUntilAndExecute;
 
 // ====== Prevent respawn showing up on old unit for split second.==========
-["Man", "Init", {
+["CAManBase", "Init", {
     params ["_entity"];
     if (local _entity) exitWith {};
     _entity hideObject true;

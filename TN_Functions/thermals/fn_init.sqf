@@ -38,7 +38,7 @@ if (isServer) then {
     ["AllVehicles", "Init", {
         params ["_objectCreated"];
         _objectCreated disableTIEquipment GVARMAIN(disableTI);
-    }, true, ["Man"], true] call CBA_fnc_addClassEventHandler;
+    }, true, ["CAManBase"], true] call CBA_fnc_addClassEventHandler;
 };
 
 nil

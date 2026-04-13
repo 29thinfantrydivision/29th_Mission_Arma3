@@ -41,7 +41,7 @@ if (count _instigatorInfo > INSTIGATOR_TIME_INDEX) then {
 _instigatorInfo pushBack
     round(serverTime - GVAR(startTime));
 
-if (_hitEntity isKindOf "Man") exitWith {
+if (_hitEntity isKindOf "CAManBase") exitWith {
     [[_hitEntity], _instigatorInfo] remoteExecCall
         [QFUNC(sendHit), 2];
 };

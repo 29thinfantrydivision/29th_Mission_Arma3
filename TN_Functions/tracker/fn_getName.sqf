@@ -19,7 +19,7 @@ params ["_unit"];
 private _name = "?";
 if (isNull _unit) exitWith { _name };
 
-if (_unit isKindOf "Man") then {
+if (_unit isKindOf "CAManBase") then {
     if (alive _unit) then {
         _name = name _unit;
     } else {

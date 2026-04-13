@@ -27,7 +27,7 @@
 
         if (isServer) then {
             {
-                if !(_x isKindOf "Man") then {
+                if !(_x isKindOf "CAManBase") then {
                     _x disableTIEquipment _this;
                 };
             } forEach allMissionObjects "AllVehicles";

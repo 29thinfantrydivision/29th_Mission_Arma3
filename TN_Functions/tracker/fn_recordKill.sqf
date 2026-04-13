@@ -23,7 +23,7 @@ if (GVAR(startTime) isEqualTo -1) exitWith { false };
 private _timeStamp = round (serverTime - GVAR(startTime));
 
 private _eventType =
-    if (_unit isKindOf "Man")
+    if (_unit isKindOf "CAManBase")
         then { INFANTRY_KILL_NUM }
         else { VEHICLE_KILL_NUM };
 

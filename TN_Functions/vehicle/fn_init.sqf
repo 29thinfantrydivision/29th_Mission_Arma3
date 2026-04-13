@@ -40,6 +40,6 @@ if (isClass (configFile >> "CfgPatches" >> "ace_main")) then {
     clearMagazineCargoGlobal _objectCreated;
     clearItemCargoGlobal _objectCreated;
     clearBackpackCargoGlobal _objectCreated;
-}, true, ["Man"], true] call CBA_fnc_addClassEventHandler;
+}, true, ["CAManBase"], true] call CBA_fnc_addClassEventHandler;
 
 nil

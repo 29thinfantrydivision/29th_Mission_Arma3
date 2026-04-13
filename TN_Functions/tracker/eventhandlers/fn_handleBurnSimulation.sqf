@@ -74,7 +74,7 @@ if (!isNull _instigator) then {
 
         // Look for nearby burning people.
         if (isNull _instigator) then {
-            private _men = (position _unit) nearObjects ["Man", 5];
+            private _men = (position _unit) nearObjects ["CAManBase", 5];
             {
                 private _burnInstigator = _x getVariable [QGVAR(burnInstigator), objNull];
                 if (!isNull _burnInstigator) exitWith {

@@ -51,7 +51,7 @@ if (isServer) then {
     addMissionEventHandler ["EntityKilled", {
         params ["_unit", "_killer", "_instigator"];
         if !(isPlayer _unit
-            || (!(_unit isKindOf "Man")
+            || (!(_unit isKindOf "CAManBase")
                 && _unit isKindOf "AllVehicles"))
             exitWith {};
 
@@ -125,7 +125,7 @@ if (isServer) then {
     // Store name as it gets deleted automatically later.
     addMissionEventHandler ["EntityKilled", {
         params ["_unit"];
-        if (_unit isKindOf "Man") then {
+        if (_unit isKindOf "CAManBase") then {
 
             _unit setVariable [QGVAR(name), name _unit, true];
         };

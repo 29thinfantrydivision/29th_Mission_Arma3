@@ -16,7 +16,7 @@
 
 params ["_unit", "_killer", "_instigator"];
 if !(_unit isKindOf "AllVehicles") exitWith {};
-if (_unit isKindOf "Man") exitWith {};
+if (_unit isKindOf "CAManBase") exitWith {};
 // Delayed vehicle explosions seem to not have
 // instigator.
 if (isNull _instigator) then {
