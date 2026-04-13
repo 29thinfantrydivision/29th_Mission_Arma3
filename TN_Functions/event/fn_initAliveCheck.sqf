@@ -145,7 +145,7 @@ addMissionEventHandler ["HandleDisconnect", {
 }];
 
 // --- JIP player with lives ---
-[QGVAR(jipLivesResolved), {
+[QGVAR(playerJoinedLives), {
     params ["_player", "_lives"];
     if (NOT_ROUND_LIVE) exitWith {};
     if (_lives <= 0) exitWith {};

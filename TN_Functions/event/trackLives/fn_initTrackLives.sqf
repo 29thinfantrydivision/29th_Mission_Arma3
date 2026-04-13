@@ -46,6 +46,8 @@ if (isServer) then {
                 [QGVAR(adjustLivesServer), [_player, _lives]] call CBA_fnc_localEvent;
             };
         };
+        [QGVAR(playerJoinedLives), [ _player, _lives]]
+            call CBA_fnc_localEvent;        
         [QGVAR(adjustLivesClient), [_lives], _player]
             call CBA_fnc_targetEvent;
     }] call CBA_fnc_addEventHandler;
@@ -69,10 +71,12 @@ if (hasInterface) then {
         FUNC(handleAdjustLivesClient)
     ] call CBA_fnc_addEventHandler;
 
-    [{!isNull player}, {
-        [QGVAR(checkLivesJIP), [player]]
-            call CBA_fnc_serverEvent;
-    }] call CBA_fnc_waitUntilAndExecute;
+    if (didJIP) then {
+        [{!isNull player}, {
+            [QGVAR(checkLivesJIP), [player]]
+                call CBA_fnc_serverEvent;
+        }] call CBA_fnc_waitUntilAndExecute;
+    };
     
     //disable Respawn button in Pause menu if out of lives
     [   
