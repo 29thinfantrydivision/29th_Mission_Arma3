@@ -30,6 +30,8 @@ if (_oldLivesLeft isEqualTo 0) then {
     }] call CBA_fnc_waitUntilAndExecute;
 };
 
+systemChat format ["You now have %1 lives left.", _livesLeft];
+
 // --- Out of lives ---
 if (_livesLeft isEqualTo 0) then {
     if (!alive player) then {
