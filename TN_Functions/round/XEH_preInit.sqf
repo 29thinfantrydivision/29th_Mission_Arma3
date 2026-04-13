@@ -29,10 +29,13 @@
 
         if (hasInterface) then {
             if (!_this) exitWith {
-                removeMissionEventHandler [
-                    "Draw2D",
-                    disableRespawnScoreboard
-                ];
+                    if (!isNil QGVAR(disableRespawnScoreboard)) then {
+                        removeMissionEventHandler [
+                            "Draw2D",
+                            GVAR(disableRespawnScoreboard)
+                        ];
+                        GVAR(disableRespawnScoreboard) = nil;
+                    };
                 showScoretable -1;
             };
 
@@ -57,7 +60,7 @@
 
             if (alive player) exitWith {};
 
-            disableRespawnScoreboard = addMissionEventHandler [
+            GVAR(disableRespawnScoreboard) = addMissionEventHandler [
                 "Draw2D", {
                     if (
                         visibleScoretable

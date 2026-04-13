@@ -87,7 +87,7 @@ if (hasInterface) then {
     [
         QGVAR(scoreboardRespawnMenuStart),
         "Killed", {
-            disableRespawnScoreboard = addMissionEventHandler [
+            GVAR(disableRespawnScoreboard) = addMissionEventHandler [
                 "Draw2D", {
                     if (
                         visibleScoretable
@@ -113,7 +113,10 @@ if (hasInterface) then {
                     showScoretable 0;
                 }] call CBA_fnc_waitUntilAndExecute;
             };
-            removeMissionEventHandler ["Draw2D", disableRespawnScoreboard];
+            if (!isNil QGVAR(disableRespawnScoreboard)) then {
+                removeMissionEventHandler ["Draw2D", GVAR(disableRespawnScoreboard)];
+                GVAR(disableRespawnScoreboard) = nil;
+            };
         }
     ] call CBA_fnc_addBISPlayerEventHandler;
 
