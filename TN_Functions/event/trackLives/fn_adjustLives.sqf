@@ -37,3 +37,5 @@ if (_previousLives isEqualTo 0) then {
 
 [QGVAR(adjustLivesClient), [_newLives], _player] call CBA_fnc_targetEvent;
 [QGVAR(adjustLivesServer), [_player, _newLives]] call CBA_fnc_localEvent;
+
+nil

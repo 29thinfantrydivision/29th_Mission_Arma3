@@ -89,3 +89,5 @@ if (_livesLeft isEqualTo 0) then {
         3 + _extraDelay
     ] call CBA_fnc_waitAndExecute;
 };
+
+nil

@@ -13,6 +13,7 @@
  * Example:
  * call TN_event_fnc_initTrackLives;
  */
+
 if !(GVAR(useRoundSystem) && {GVAR(numberOfLives > 0)}) exitWith {};
 
 if (isServer) then {
@@ -62,31 +63,13 @@ if (isServer) then {
 };
 
 if (hasInterface) then {
-    GVAR(livesLeft) = GVAR(numberOfLives); //default to prevent nil
-
-    [QGVAR(killed), "Killed", FUNC(handleLivesOnKilled)]
-        call CBA_fnc_addBISPlayerEventHandler;
-
-    [QGVAR(adjustLivesClient), 
-        FUNC(handleAdjustLivesClient)
-    ] call CBA_fnc_addEventHandler;
-
-    if (didJIP) then {
-        [{!isNull player}, {
-            [QGVAR(checkLivesJIP), [player]]
-                call CBA_fnc_serverEvent;
-        }] call CBA_fnc_waitUntilAndExecute;
-    };
-    
-    //disable Respawn button in Pause menu if out of lives
-    [   
-        QGVARMAIN(enteredPauseMenu),
-        { 
-            if (GVAR(livesLeft) <= 0) then {
-                [{!isNull ((findDisplay 49) displayCtrl 1010)}, 
-                {((findDisplay 49) displayCtrl 1010) ctrlEnable false}
-                ] call CBA_fnc_waitUntilAndExecute;
-            };
+    [
+        {!isNull player},
+        {
+            if (playerSide isEqualTo civilian) exitWith {};
+            call FUNC(initTrackLivesClient);
         }
-    ] call CBA_fnc_addEventHandler;
+    ] call CBA_fnc_waitUntilAndExecute;
 };
+
+nil

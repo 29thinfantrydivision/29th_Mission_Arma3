@@ -72,6 +72,7 @@ class TN_Event {
         class handleAdjustLivesClient {};
         class handleLivesOnKilled {};
         class initTrackLives {};
+        class initTrackLivesClient {};        
     };    
 };
 
