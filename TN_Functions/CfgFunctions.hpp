@@ -69,6 +69,7 @@ class TN_Event {
     class TrackLivesFunctions {
         file = "TN_Functions\event\trackLives";
         class adjustLives {};
+        class handleAdjustLivesClient {};
         class handleLivesOnKilled {};
         class initTrackLives {};
     };    

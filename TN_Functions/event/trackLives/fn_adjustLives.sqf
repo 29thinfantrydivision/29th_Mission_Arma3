@@ -33,13 +33,7 @@ _msg remoteExecCall ["systemChat"];
 //Switching out of spectator for no life unit will cost a life
 if (_previousLives isEqualTo 0) then {
     if (GVAR(trackingLives)) then { _newLives = _newLives + 1 };
-    if (ROUND_LIVE) then {[QGVAR(backInAction), [_player]] call CBA_fnc_localEvent};
 };
 
-if (_newLives isEqualTo 0) then {
-     [QGVAR(outOfLives), [_player]] call CBA_fnc_localEvent;
-};
-
-GVAR(livesByUID) set [_uid, _newLives];
-
-[QGVAR(adjustLives), [_newLives], _player] call CBA_fnc_targetEvent;
+[QGVAR(adjustLivesClient), [_newLives], _player] call CBA_fnc_targetEvent;
+[QGVAR(adjustLivesServer), [_player, _newLives]] call CBA_fnc_localEvent;
