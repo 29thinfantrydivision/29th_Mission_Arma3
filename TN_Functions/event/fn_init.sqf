@@ -96,6 +96,21 @@ if (isServer) then {
 };
 
 if (hasInterface) then {
+    // Admin Event Menu
+    [QGVAR(eventMenuKilled), "Killed", 
+        {
+            [false] call FUNC(handleAdminEventMenu);
+        }
+    ] call CBA_fnc_addBISPlayerEventHandler;
+
+    [QGVAR(eventMenuRespawn), "Respawn", 
+        {
+            if (IS_ADMIN) then {
+                [true] call FUNC(handleAdminEventMenu);
+            };
+        }
+    ] call CBA_fnc_addBISPlayerEventHandler;
+
     // Player init (respawn inventory + flag actions)
     [{!isNull player}, {
         [player, [missionNamespace, "Current Inventory"]] call BIS_fnc_saveInventory;
