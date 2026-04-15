@@ -148,6 +148,8 @@ if (hasInterface) then {
     };
 };
 
-call FUNC(initTrackLives);
+if (GVAR(useRoundSystem) && {GVAR(numberOfLives) > 0}) then {
+    call FUNC(initTrackLives);
+};
 
 nil
