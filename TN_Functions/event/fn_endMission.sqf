@@ -8,7 +8,7 @@
  * TN_event_missionEnded guard.
  *
  * Arguments:
- * 0: Winning side or ending class, omit for neutral ending <SIDE|STRING> (default: sideUnknown)
+ * 0: Winning side or ending class, omit for neutral ending <SIDE|STRING> (default: "EndNeutral")
  * 1: Delay before calling game <NUMBER> (default: 0)
  *
  * Return Value:

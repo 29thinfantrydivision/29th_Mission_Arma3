@@ -15,7 +15,7 @@
  * Nothing
  *
  * Example:
- * [] call TN_event_fnc_adjustLives;
+ * [player, 2] call TN_event_fnc_adjustLives;
  */
 
 if !(isServer) exitWith {_this remoteExecCall [QFUNC(adjustLives), 2]};
