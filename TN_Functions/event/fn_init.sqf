@@ -25,7 +25,7 @@ call FUNC(validateSettings);
 
 if (isServer) then {
     GVAR(missionEnded) = false;
-    publicVariable QGVAR(gameCalled);
+    publicVariable QGVAR(missionEnded);
 
     /******* CBA Settings Overrides ********/
     [QGVARMAIN(addRadio), 0,

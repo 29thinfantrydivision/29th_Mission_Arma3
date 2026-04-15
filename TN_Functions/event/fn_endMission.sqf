@@ -39,7 +39,7 @@ if (!isServer) exitWith {
 // Prevents duplicate endings.
 if (GVAR(missionEnded)) exitWith {};
 GVAR(missionEnded) = true;
-publicVariable QGVAR(gameCalled);
+publicVariable QGVAR(missionEnded);
 [QGVAR(missionEnded), []] call CBA_fnc_globalEvent;
 
 if (_ending isEqualType sideUnknown) then {

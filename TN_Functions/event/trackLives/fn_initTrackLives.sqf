@@ -14,7 +14,7 @@
  * call TN_event_fnc_initTrackLives;
  */
 
-if !(GVAR(useRoundSystem) && {GVAR(numberOfLives > 0)}) exitWith {};
+if !(GVAR(useRoundSystem) && {GVAR(numberOfLives) > 0}) exitWith {};
 
 if (isServer) then {
     GVAR(trackingLives) = false;
