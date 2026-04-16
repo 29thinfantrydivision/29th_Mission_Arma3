@@ -32,6 +32,18 @@ if (isServer) then {
         };
     }] call CBA_fnc_addEventHandler;
 
+    [QGVAR(fetchLivesData), {
+        params ["_requestingPlayer"];
+        private _livesData = ((call BIS_fnc_listPlayers) select
+            { side group _x isNotEqualTo civilian }) apply {
+            private _uid = getPlayerUID _x;
+            private _lives = GVAR(livesByUID) getOrDefault [_uid, GVAR(numberOfLives)];
+            [_uid, name _x, _lives]
+        };
+        [QGVAR(livesDataResponse), [_livesData], _requestingPlayer]
+            call CBA_fnc_targetEvent;
+    }] call CBA_fnc_addEventHandler;
+
     [QGVAR(checkLivesJIP), {
         params ["_player"];
         private _uid = getPlayerUID _player;

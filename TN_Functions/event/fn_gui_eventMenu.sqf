@@ -144,6 +144,14 @@ private _fnc_buildActions = {
             };
 
             case 2: {
+                if (GVAR(trackingLives)) then {
+                    [
+                        "Adjust Player Lives",
+                        { [] call FUNC(gui_adjustLives) },
+                        COLOR_NEUTRAL
+                    ] call _fnc_add;
+                };
+
                 [
                     "Change Round Time",
                     {
