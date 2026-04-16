@@ -26,7 +26,7 @@ Overall Future Goals
 
 ---
 v4.5.0
-10 APR 2026
+16 APR 2026
 ---
 * General
   - All "DOTT" tags in functions and variables converted to "TN", `Dott_Functions` folder
@@ -58,7 +58,10 @@ v4.5.0
   - Replaced `findIf` with `in`, `switch` with `select` for static literal cases, and `entityCreated` event handlers with `addClassEventHandlers`.
   - Ensured all void functions explicitly return nil.
   - Fix BLUFOR Base right light unintentionally simulation disabled.
-  
+  - Renamed many event handler functions from `fn_handle*` to `fn_on*` prefix across all modules
+    (e.g. `fn_handleHit` → `fn_onHit`, `fn_handleFrequencyChanged` → `fn_onFrequencyChanged`, etc.).
+  - Replace `"Man"` with `"CAManBase"` for more precise unit class matching (excludes animals).
+    
 * Unscheduling Effort
   - Major pass to replace `spawn`/`waitUntil` patterns with unscheduled `call` and CBA alternatives (`perFrameHandler`, `waitAndExecute`).
     Scheduled environment is less predictable, so moving as much as possible to unscheduled.
@@ -94,6 +97,7 @@ v4.5.0
   - Admins notified via systemChat when another player uses a command.
   - Created timedHint function to have a nice way to have hints time out quickly and prevent conflict between different callers of hint.
     Replaced most calls (except spectator stuff) to it.
+  - Moved `fn_cleaner` from base to common as `fn_cleanup`. Ground item deletion made global.
 
 * Curator
   - `fn_addPlayerEditable` generalized to `fn_addEditable`.
@@ -115,9 +119,15 @@ v4.5.0
   - Rename `hasTimer` to `useRoundSystem` for clearer naming — it controls the entire round/ready system, not just a timer.
   - Expanded `useRoundSystem = false` support for PvE/non-competitive modes: time acceleration, win condition checks,
     and Event Menu endings all work without the round system.
-  - Expanded documentation on how settings in eventSettings interact with eaco ther.
-  - Add `eventSettings.sqf` validation (`fn_validateSettings.sqf`) with descriptive error messages for invalid settings.
-  - Generalize `fn_gui_setTime` to callback-based approach, reused for both safe start time and round time changes.
+  - Expanded documentation on how settings in eventSettings interact with each other.
+  - Added `eventSettings.sqf` validation (`fn_validateSettings.sqf`) with descriptive error messages for invalid settings.
+  - New lives system in `trackLives` subfolder: admin can adjust team lives mid-game via Event Menu GUI.
+    Players out of lives cannot respawn. Admin faction excluded. 
+  - New settings: `penalizeJIPLives`, `disableScoreboard`, `stopTimeUntilLive`.
+  - Reworked `fn_aliveCheck` into event-based `fn_initAliveCheck`. Split win condition loop into `fn_initWinConditions`
+    and `fn_checkWinConditions`. Both deduplicate notifications and add a delay before firing.
+  - `fn_game` renamed to `fn_endMission`.
+  - Removed `respawnDisarmPlayers`, `spectateArea`, `spectateAreaRadius`, and `endFlag` settings.
 
 * Loadout
   - Add additional failsafe for `flexibleReset` teleport, if player is not within 75 meters of teleport point
@@ -156,6 +166,8 @@ v4.5.0
     Now simply deletes all disconnecting bodies unless round is live.
   - Add instructions to systemChat safe start notification.
   - Removed overtime support.
+  - Add nil check for `disableRespawnScoreboard`.
+  - Don't reduce team score when `disableScoreboard` event setting is not enabled.
 
 * Settings
   - Add check to exclude non-global settings from GUI.
