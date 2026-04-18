@@ -30,10 +30,6 @@ if (_previousLives isEqualTo _newLives) exitWith {};
 private _msg = format ["%1 lives adjusted from %2 to %3.", name _player, _previousLives, _newLives];
 _msg remoteExecCall ["systemChat"];
 
-//Switching out of spectator for no life unit will cost a life
-if (_previousLives isEqualTo 0) then {
-    if (GVAR(trackingLives)) then { _newLives = _newLives + 1 };
-};
 
 [QGVAR(adjustLivesClient), [_newLives], _player] call CBA_fnc_targetEvent;
 [QGVAR(adjustLivesServer), [_player, _newLives]] call CBA_fnc_localEvent;
