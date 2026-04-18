@@ -15,12 +15,16 @@
  * call TN_spectator_fnc_updateMedicalDisplay
  */
 
-private _ctrl = uiNamespace getVariable [QGVAR(medicalCtrl), controlNull];
-if (isNull _ctrl) exitWith {};
+private _bgCtrl    = uiNamespace getVariable [QGVAR(medicalBgCtrl),    controlNull];
+private _labelCtrl = uiNamespace getVariable [QGVAR(medicalLabelCtrl), controlNull];
+private _valueCtrl = uiNamespace getVariable [QGVAR(medicalValueCtrl), controlNull];
+if (isNull _bgCtrl || {isNull _labelCtrl} || {isNull _valueCtrl}) exitWith {};
 private _unit = GVAR(medicalFocusedUnit);
 
 if (isNull _unit) exitWith {
-    _ctrl ctrlSetStructuredText parseText "";
+    _bgCtrl    ctrlShow false;
+    _labelCtrl ctrlShow false;
+    _valueCtrl ctrlShow false;
 };
 
 // Blood volume: 0-6 L, normal = 6.
@@ -34,7 +38,6 @@ private _bloodColor = switch (true) do {
 
 // Body part damage array: [head, body, leftArm, rightArm, leftLeg, rightLeg].
 private _bodyPartDamage = _unit getVariable ["ace_medical_bodyPartDamage", [0,0,0,0,0,0]];
-private _partNames = ["Head", "Body", "L.Arm", "R.Arm", "L.Leg", "R.Leg"];
 
 private _fnDamageColor = {
     params ["_dmg"];
@@ -44,20 +47,17 @@ private _fnDamageColor = {
     "#ff4444"
 };
 
-private _html = format [
-    "<t color='%1'>Blood: %2 / 6.0 L</t>",
-    _bloodColor,
-    _bloodVol toFixed 1
-];
+private _html = format ["<t color='%1'>%2</t>", _bloodColor, _bloodVol toFixed 2];
 
 {
     _html = _html + format [
-        "<br/><t color='%1'>%2: %3</t>",
+        "<br/><t color='%1'>%2</t>",
         [_x] call _fnDamageColor,
-        _partNames select _forEachIndex,
         _x toFixed 2
     ];
 } forEach _bodyPartDamage;
 
-_ctrl ctrlSetStructuredText parseText _html;
-_ctrl ctrlShow true;
+_valueCtrl ctrlSetStructuredText parseText _html;
+_bgCtrl    ctrlShow true;
+_labelCtrl ctrlShow true;
+_valueCtrl ctrlShow true;
