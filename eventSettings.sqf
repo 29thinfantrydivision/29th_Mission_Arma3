@@ -41,8 +41,7 @@ GVAR(autoMarkObjects) = true;       //Mark static editor placed objects on map f
 
 GVAR(disableStatistics) = true;     //Disable statistics tab in map diary
 
-// Point Based Win Conditions
-/*
+/* Point Based Win Conditions
 Format: [pointsRequired, atEnd]
 pointsRequired - Number of points the side needs to win.
 
@@ -50,10 +49,13 @@ atEnd - If true, only check at end of timer. If false, check throughout the roun
 NOTE: atEnd = true can only be used if useRoundSystem = true.
 
 Leave [] for no win condition for that side.
+
+Examples
+GVAR(bluforWinConditions) = []; //No win condition for BLUFOR (except only team standing if hasAliveCheck = true)
+GVAR(opforWinConditions) = [3, false]; //Win when OPFOR has 3 points at any time
+GVAR(grnforWinConditions) = [2, true]; //Win when GRNFOR has 2 points at the end of the timer
 */
 
-// Points can be increased/decreased by modifying the mission.sqm in editor, often by editing an object's init field.
-// See examples below.
 GVAR(checkWinConditions) = true; //Run win condition checks.
 //=========== Only used if checkWinConditions = true ===========
     GVAR(score) = [0, 0, 0];         //Starting score for each side [OPFOR, BLUFOR, GRNFOR]
@@ -63,10 +65,7 @@ GVAR(checkWinConditions) = true; //Run win condition checks.
 //==============================================================
 
 /*
-Examples
-GVAR(bluforWinConditions) = []; //No win condition for BLUFOR (except only team standing if hasAliveCheck = true)
-GVAR(opforWinConditions) = [3, false]; //Win when OPFOR has 3 points at any time
-GVAR(grnforWinConditions) = [2, true]; //Win when GRNFOR has 2 points at the end of the timer
+Points can be increased/decreased by modifying the mission.sqm in editor, often by editing an object's init field.
 
 Put example code below in the init field of the relevant object to award points.
 
