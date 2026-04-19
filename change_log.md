@@ -26,7 +26,7 @@ Overall Future Goals
 
 ---
 v4.5.0
-16 APR 2026
+18 APR 2026
 ---
 * General
   - All "DOTT" tags in functions and variables converted to "TN", `Dott_Functions` folder
@@ -157,7 +157,6 @@ v4.5.0
   - Add safe start time to the Round Ready UI.
   - Safe start timer now restores to the remaining forced duration when a team unreadies after all teams had readied up early,
     adjusted for time passed.
-  - Replace nil/true pattern for `safeStartActive` variable with false/true.
   - Replace `fn_isRoundActive` function and `TN_round_safeStartActive` variable with a single `TN_round_state` integer enum.
     New `data/roundState.hpp` provides `ROUND_IDLE`, `ROUND_SAFE`, `ROUND_LIVE` defines so code reads cleaner than comparing raw numbers.
   - Rename vague `data/defines.hpp` to `templates.hpp`.
@@ -171,6 +170,12 @@ v4.5.0
 
 * Settings
   - Add check to exclude non-global settings from GUI.
+
+* Spectator
+  - Swapped from BIS EGSpectator to ACE spectator (`ace_spectator_fnc_setSpectator`).
+    Falls back to BIS EGSpectator if ACE spectator is not available.
+  - New ACE medical overlay while in spectator mode. Shows ACE body part damage & blood of the
+    currently focused unit. Press H to toggle visibility.
 
 * Ticket
   - Cache current admin into `fn_init` to avoid repeated lookup in `fn_count`.
