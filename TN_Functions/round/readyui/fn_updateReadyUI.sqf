@@ -133,6 +133,22 @@ if (GVAR(readyUI_dirty)) then {
         ];
     } forEach SIDE_DEFS;
 
+    private _newUnreadyTints = [];
+    {
+        _x params ["_side", "_idx", "", "", "_pulseTint"];
+        if (
+            _side countSide allPlayers > 0
+            || {!(isNil QGVAR(readyUI_showAllSides))}
+        ) then {
+            if (_idx < count GVAR(sideReady)) then {
+                if !(GVAR(sideReady) select _idx) then {
+                    _newUnreadyTints pushBack _pulseTint;
+                };
+            };
+        };
+    } forEach SIDE_DEFS;
+    GVAR(readyUI_unreadyTints) = _newUnreadyTints;
+
     // Nothing to show (no players on any side)
     if (_lines isEqualTo []) then {
         _bg ctrlShow false;
@@ -180,27 +196,7 @@ private _flashActive = uiNamespace getVariable [QGVAR(readyUI_flashActive), fals
 // Flash overrides pulse — don't touch background color while shine is active
 if (!_flashActive) then {
     if (ROUND_SAFE) then {
-        // Collect pulse tint colors from unready teams with players
-        private _unreadyTints = [];
-        {
-            _x params [
-                "_side", "_idx", "", "", "_pulseTint"
-            ];
-            if (
-                _side countSide allPlayers > 0
-                || {!(isNil QGVAR(readyUI_showAllSides))}
-            ) then {
-                if (
-                    _idx < count GVAR(sideReady)
-                ) then {
-                    if !(
-                        GVAR(sideReady) select _idx
-                    ) then {
-                        _unreadyTints pushBack _pulseTint;
-                    };
-                };
-            };
-        } forEach SIDE_DEFS;
+        private _unreadyTints = GVAR(readyUI_unreadyTints);
 
         if (_unreadyTints isNotEqualTo []) then {
             // Cycle through unready teams — each gets one full breath

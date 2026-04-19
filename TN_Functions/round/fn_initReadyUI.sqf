@@ -47,6 +47,7 @@ FUNC(startReadyUIPFH) = {
     if !(isNil QGVAR(readyUI_pfhHandle)) exitWith {};
     GVAR(readyUI_dirty) = true;
     GVAR(readyUI_refreshCounter) = 0;
+    GVAR(readyUI_unreadyTints) = [];
     GVAR(readyUI_pfhHandle) = [
         FUNC(updateReadyUI), 0
     ] call CBA_fnc_addPerFrameHandler;
