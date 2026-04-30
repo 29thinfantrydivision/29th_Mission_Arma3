@@ -40,77 +40,75 @@ if (isServer) then {
     GVAR(recording) = false;
 
     //Dont start/pause recordings if autoStart is forced by server config
-    if (!OCAP_settings_autoStart && NEWER_OCAP) then {
-        FUNC(initializePlayer) = compile
-            preprocessFileLineNumbers
-            "TN_Functions\ocap\fn_initializePlayer.sqf";
+    #define SHOULD_SAVE_EVENTS \
+    ((missionNamespace getVariable ["ocap_recorder_recording", false]) \
+     && missionNamespace getVariable ["ocap_recorder_startTime", -1] > -1)
+    #define UPDATE_TIME [] call ocap_recorder_fnc_updateTime
+    #define START_RECORDING GVAR(recording) = true; UPDATE_TIME
+    #define STOP_RECORDING GVAR(recording) = false; UPDATE_TIME
 
-        // Trigger recording start to create captureLoop PFHObject
-        [{missionNamespace getVariable ["ocap_extension_sessionReady", false]}, {
+    [{missionNamespace getVariable ["ocap_extension_sessionReady", false]}, {
+        if (!OCAP_settings_autoStart && NEWER_OCAP) then {
+            FUNC(initializePlayer) = compile
+                preprocessFileLineNumbers
+                "TN_Functions\ocap\fn_initializePlayer.sqf";
+
             ocap_recorder_startTime = time;
-        }, [],
-        30,
-        { diag_log text "OCAP: Timed out waiting for ocap_extension_sessionReady"; }
-        ] call CBA_fnc_waitUntilAndExecute;
 
-        //hijack PFH to start and stop when we want while still saving other events
-        #define SHOULD_SAVE_EVENTS \
-        ((missionNamespace getVariable ["ocap_recorder_recording", false]) \
-         && missionNamespace getVariable ["ocap_recorder_startTime", -1] > -1)
-
-        [{!isNil "ocap_recorder_PFHObject"}, {
-            ocap_recorder_PFHObject setVariable
-                ["run_condition",
-                {SHOULD_SAVE_EVENTS && GVAR(recording)}];
-        }, [],
-        30,
-        { diag_log text "OCAP: Timed out waiting for ocap_recorder_PFHObject"; }
-        ] call CBA_fnc_waitUntilAndExecute;
-
-        //Add marker workarounds
-        [{!isNil "ocap_listener_markers"}, {
-            ["ocap_handleMarker", ocap_listener_markers]
-                call CBA_fnc_removeEventHandler;
-            call compile preprocessFileLineNumbers
-                "TN_Functions\ocap\handleMarkers.sqf"}, [],
+            //hijack PFH to start and stop when we want while still saving other events
+            [{!isNil "ocap_recorder_PFHObject"}, {
+                ocap_recorder_PFHObject setVariable
+                    ["run_condition",
+                    {SHOULD_SAVE_EVENTS && GVAR(recording)}];
+            }, [],
             30,
-            { diag_log text "OCAP: Timed out waiting for ocap_listener_markers"; }
+            { diag_log text "OCAP: Timed out waiting for ocap_recorder_PFHObject"; }
             ] call CBA_fnc_waitUntilAndExecute;
 
-        #define UPDATE_TIME [] call ocap_recorder_fnc_updateTime
-        #define START_RECORDING GVAR(recording) = true; UPDATE_TIME
-        #define STOP_RECORDING GVAR(recording) = false; UPDATE_TIME
+            //Add marker workarounds
+            [{!isNil "ocap_listener_markers"}, {
+                ["ocap_handleMarker", ocap_listener_markers]
+                    call CBA_fnc_removeEventHandler;
+                call compile preprocessFileLineNumbers
+                    "TN_Functions\ocap\handleMarkers.sqf"}, [],
+                30,
+                { diag_log text "OCAP: Timed out waiting for ocap_listener_markers"; }
+                ] call CBA_fnc_waitUntilAndExecute;
 
-        [
-            QEGVAR(round,safeStartBegin), {
-                START_RECORDING;
-            }
-        ] call CBA_fnc_addEventHandler;
+            [
+                QEGVAR(round,safeStartBegin), {
+                    START_RECORDING;
+                }
+            ] call CBA_fnc_addEventHandler;
 
-        [
-            QEGVAR(round,started), {
-                START_RECORDING;
-            }
-        ] call CBA_fnc_addEventHandler;
+            [
+                QEGVAR(round,started), {
+                    START_RECORDING;
+                }
+            ] call CBA_fnc_addEventHandler;
 
-        [
-            QEGVAR(round,safeStartAborted), {
-                STOP_RECORDING;
-            }
-        ] call CBA_fnc_addEventHandler;
+            [
+                QEGVAR(round,safeStartAborted), {
+                    STOP_RECORDING;
+                }
+            ] call CBA_fnc_addEventHandler;
 
-        [
-            QEGVAR(round,ended), {
-                STOP_RECORDING;
-            }
-        ] call CBA_fnc_addEventHandler;
-    } else {
-        call ocap_recorder_fnc_startRecording;
-    };
+            [
+                QEGVAR(round,ended), {
+                    STOP_RECORDING;
+                }
+            ] call CBA_fnc_addEventHandler;
+        } else {
+            call ocap_recorder_fnc_startRecording;
+        };
 
-    [OCAP_settings_autoStart] remoteExecCall
-        [QFUNC(initClient),
-        [0, -2] select isDedicated, true];
+        [OCAP_settings_autoStart] remoteExecCall
+            [QFUNC(initClient),
+            [0, -2] select isDedicated, true];
+    }, [],
+    30,
+    { diag_log text "OCAP: Timed out waiting for ocap_extension_sessionReady"; }
+    ] call CBA_fnc_waitUntilAndExecute;
 
     [
         QEGVAR(round,safeStartBegin), {
