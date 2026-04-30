@@ -41,12 +41,12 @@ _unit addEventHandler ["HandleRating", {0}];
     params ["_entity"];
     if (local _entity) exitWith {};
     _entity hideObject true;
-    _entity setVariable ["TN_initialHideStamp", diag_tickTime];
+    _entity setVariable [QGVARMAIN(respawnHideTime), diag_tickTime];
     [{
         params ["_e"];
         if (isNull _e) exitWith {};
         _e hideObject false;
-        _e setVariable ["TN_initialHideStamp", nil];
+        _e setVariable [QGVARMAIN(respawnHideTime), nil];
     }, [_entity], HIDE_ENTITY_DELAY] call CBA_fnc_waitAndExecute;
 }] call CBA_fnc_addClassEventHandler;
 
@@ -55,12 +55,12 @@ _unit addEventHandler ["HandleRating", {0}];
 // rapid respawn, the timer-based unhide can race with entity replication,
 // leaving a remote player stuck-hidden on this client with no recovery path.
 // Every HIDE_RECOVERY_INTERVAL seconds, scan remote players: if one is locally
-// hidden AND was hidden by our handler (TN_initialHideStamp set) AND the stamp
+// hidden AND was hidden by our handler (TN_respawnHideTime set) AND the stamp
 // is older than HIDE_RECOVERY_TIMEOUT, force-clear the hide. The stamp marker
 // ensures we never disturb intentional hides (spectator hideObjectGlobal etc.).
 [{
     {
-        private _stamp = _x getVariable ["TN_initialHideStamp", -1];
+        private _stamp = _x getVariable [QGVARMAIN(respawnHideTime), -1];
         if (
             !(local _x)
             && {alive _x}
@@ -69,8 +69,8 @@ _unit addEventHandler ["HandleRating", {0}];
             && {diag_tickTime - _stamp > HIDE_RECOVERY_TIMEOUT}
         ) then {
             _x hideObject false;
-            _x setVariable ["TN_initialHideStamp", nil];
-            diag_log format ["[TN_INVIS_RECOVERY] Cleared orphaned hide on %1 (stamp age %2s)", _x, diag_tickTime - _stamp];
+            _x setVariable [QGVARMAIN(respawnHideTime), nil];
+            systemChat format ["Fix: Unhid invisible player %1.", name _x];
         };
     } forEach (allPlayers - entities "HeadlessClient_F" - [player]);
 }, HIDE_RECOVERY_INTERVAL, []] call CBA_fnc_addPerFrameHandler;
