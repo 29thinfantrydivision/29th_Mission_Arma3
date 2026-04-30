@@ -50,6 +50,7 @@ _unit addEventHandler ["HandleRating", {0}];
     }, [_entity], HIDE_ENTITY_DELAY] call CBA_fnc_waitAndExecute;
 }] call CBA_fnc_addClassEventHandler;
 
+//NOTE: Below theorized by Claude, not confirmed.
 // ====== Safety sweep: recover from orphaned local hides ==========
 // Race-condition recovery for the handler above. Under server/network load or
 // rapid respawn, the timer-based unhide can race with entity replication,
