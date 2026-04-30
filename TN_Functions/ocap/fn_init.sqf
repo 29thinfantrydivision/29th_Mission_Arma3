@@ -33,7 +33,16 @@
 if (isServer) then {
     if !(isClass (configFile >> "CfgPatches" >> "OCAP_recorder")) exitWith {};
 
-    if (USING_MODULE(event) && {!EGVAR(event,useRoundSystem)}) exitWith {};
+    if (USING_MODULE(event) && {!EGVAR(event,useRoundSystem)}) exitWith {
+        [{missionNamespace getVariable ["ocap_extension_sessionReady", false]}, {
+            if (!OCAP_settings_autoStart) then {
+                ocap_recorder_startTime = time;
+            }
+        }, [],
+        30,
+        { diag_log text "OCAP: Timed out waiting for ocap_extension_sessionReady"; }
+        ] call CBA_fnc_waitUntilAndExecute;
+    };
 
     GVAR(roundNum) = 1;
 
