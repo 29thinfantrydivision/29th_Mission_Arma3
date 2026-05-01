@@ -54,6 +54,37 @@ player createDiaryRecord [
 player createDiaryRecord [
     "usefulCommands",
     [
+        "Tickets",
+        "Each ticket represents an additional respawn/life for a side.<br />" +
+        "When a player respawns during a live round, their side loses a ticket.<br />" +
+        "Players are notified on respawn if they are allowed back in combat or must stay in spawn.<br /><br />" +
+
+        "When the round is not live, changes set the starting tickets which are restored at the start of each round.<br />" +
+        "When the round is live, changes apply to the current round only.<br /><br />" +
+
+        "<font color='#FF00FF'>!tickets enable</font> / <font color='#FF00FF'>!tickets disable</font><br />" +
+        "Enables or disables the ticket system.<br />" +
+        "Enabling resets all ticket counts to zero.<br /><br />" +
+
+        "<font color='#FF00FF'>!tickets</font><br />" +
+        "Shows current ticket counts for all sides.<br /><br />" +
+
+        "<font color='#FF00FF'>!tickets <font color='#00FFFF'>[side]</font> <font color='#00FFFF'>[amount]</font></font><br />" +
+        "Sets a side's tickets to an exact amount.<br />" +
+        "Example: <font color='#00FF00'>!tickets blufor 10</font><br /><br />" +
+
+        "<font color='#FF00FF'>!tickets <font color='#00FFFF'>[side]</font> <font color='#00FFFF'>[+/-amount]</font></font><br />" +
+        "Adds or subtracts from the current ticket count.<br />" +
+        "Example: <font color='#00FF00'>!tickets blufor +5</font> or <font color='#00FF00'>!tickets opfor -3</font><br /><br />" +
+
+        "<font color='#FF00FF'>!tickets reset</font><br />" +
+        "Clears all tickets, including the starting values restored each round."
+    ]
+];
+
+player createDiaryRecord [
+    "usefulCommands",
+    [
         "Reset",
         "<font color='#FF00FF'>!reset <font color='#00FFFF'>[stay/side]</font></font><br />" +
         "Rearms, heals, and (optionally) teleports players to spawn.<br />" +
