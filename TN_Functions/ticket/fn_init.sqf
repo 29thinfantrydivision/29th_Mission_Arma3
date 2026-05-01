@@ -26,12 +26,25 @@ if (hasInterface) then {
     [
         QGVAR(respawnCount),
         "Respawn", {
-            if (GVAR(enabled)) then {
+            if (GVAR(enabled) && ROUND_LIVE) then {
                 private _playerSide = playerSide;
                 [_playerSide] remoteExecCall [QFUNC(count), 2];
             };
         }
     ] call CBA_fnc_addBISPlayerEventHandler;
+
+    [
+        QEGVAR(round,started),
+        {
+            if !(IS_ADMIN) exitWith {};
+            systemChat format [
+                "Current Tickets: Blu: %1, Opf: %2, Grn: %3",
+                GVAR(counts) select 1,
+                GVAR(counts) select 0,
+                GVAR(counts) select 2
+            ];
+        }
+    ] call CBA_fnc_addEventHandler;
 };
 
 nil

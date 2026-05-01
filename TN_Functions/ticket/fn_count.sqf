@@ -22,6 +22,7 @@ params
 ];
 
 if (!isServer) exitWith {};
+if (NOT_ROUND_LIVE) exitWith {};
 
 private _clientOwner = remoteExecutedOwner;
 
