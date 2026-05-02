@@ -103,7 +103,7 @@ private _sideSettings =
     _x params ["_pointsRequired", "_atEnd"];
 
     private _checkFn = compile format
-        ["GVAR(score) select %1 >= %2", _forEachIndex, _pointsRequired];
+        ['GVAR(score) select %1 >= %2', _forEachIndex, _pointsRequired];
 
     if (_atEnd) then {
         GVAR(endChecks) set [_forEachIndex, _checkFn];
