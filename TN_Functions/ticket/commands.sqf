@@ -75,7 +75,16 @@
                 [_side, _newTotal] call FUNC(set);
 
                 private _displayTotal = _newTotal max 0;
-                systemChat format ["Set %1 tickets to %2", toUpper _sideArg, _displayTotal];
+                private _sideName = toUpper _sideArg;
+                if (_isRelative) then {
+                    if (_amount >= 0) then {
+                        systemChat format ["Added %1 tickets to %2 (now %3)", _amount, _sideName, _displayTotal];
+                    } else {
+                        systemChat format ["Removed %1 tickets from %2 (now %3)", abs _amount, _sideName, _displayTotal];
+                    };
+                } else {
+                    systemChat format ["Set %1 tickets to %2", _sideName, _displayTotal];
+                };
             }
         ]
     ],
