@@ -62,22 +62,22 @@ player createDiaryRecord [
         "When the round is not live, changes set the starting tickets which are restored at the start of each round.<br />" +
         "When the round is live, changes apply to the current round only.<br /><br />" +
 
-        "<font color='#FF00FF'>!tickets enable</font> / <font color='#FF00FF'>!tickets disable</font><br />" +
+        "<font color='#FF00FF'>!t enable</font> / <font color='#FF00FF'>!t disable</font><br />" +
         "Enables or disables the ticket system.<br />" +
         "Enabling resets all ticket counts to zero.<br /><br />" +
 
-        "<font color='#FF00FF'>!tickets</font><br />" +
+        "<font color='#FF00FF'>!t</font><br />" +
         "Shows current ticket counts for all sides.<br /><br />" +
 
-        "<font color='#FF00FF'>!tickets <font color='#00FFFF'>[side]</font> <font color='#00FFFF'>[amount]</font></font><br />" +
+        "<font color='#FF00FF'>!t <font color='#00FFFF'>[side]</font> <font color='#00FFFF'>[amount]</font></font><br />" +
         "Sets a side's tickets to an exact amount.<br />" +
-        "Example: <font color='#00FF00'>!tickets blufor 10</font><br /><br />" +
+        "Example: <font color='#00FF00'>!t blufor 10</font><br /><br />" +
 
-        "<font color='#FF00FF'>!tickets <font color='#00FFFF'>[side]</font> <font color='#00FFFF'>[+/-amount]</font></font><br />" +
+        "<font color='#FF00FF'>!t <font color='#00FFFF'>[side]</font> <font color='#00FFFF'>[+/-amount]</font></font><br />" +
         "Adds or subtracts from the current ticket count.<br />" +
-        "Example: <font color='#00FF00'>!tickets blufor +5</font> or <font color='#00FF00'>!tickets opfor -3</font><br /><br />" +
+        "Example: <font color='#00FF00'>!t blufor +5</font> or <font color='#00FF00'>!t opfor -3</font><br /><br />" +
 
-        "<font color='#FF00FF'>!tickets reset</font><br />" +
+        "<font color='#FF00FF'>!t reset</font><br />" +
         "Clears all tickets, including the starting values restored each round."
     ]
 ];

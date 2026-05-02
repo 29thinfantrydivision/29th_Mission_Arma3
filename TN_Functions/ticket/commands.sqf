@@ -3,7 +3,7 @@
 [
     [
         [
-            "tickets", {
+            "t", {
                 private _argument = _this select 0;
                 _argument = toLower _argument;
 
@@ -16,7 +16,7 @@
                 };
 
                 if (!GVAR(enabled)) exitWith {
-                    systemChat "Error: You must enable the ticket system first with '!tickets enable'";
+                    systemChat "Error: You must enable the ticket system first with '!t enable'";
                 };
 
                 if (_argument isEqualTo "") exitWith {
@@ -50,7 +50,7 @@
                 };
 
                 if (count _parts < 2) exitWith {
-                    systemChat "Error: Missing ticket amount! E.G. '!tickets blufor 10'";
+                    systemChat "Error: Missing ticket amount! E.G. '!t blufor 10'";
                 };
 
                 private _amountArg = _parts select 1;
@@ -59,7 +59,7 @@
                 private _rest = _amountArg select [if (_isRelative) then {1} else {0}];
 
                 if (_rest isEqualTo "" || {_rest isNotEqualTo ([_rest, "0123456789"] call BIS_fnc_filterString)}) exitWith {
-                    systemChat "Error: Invalid number! E.G. '!tickets blufor 10' or '!tickets blufor +5'";
+                    systemChat "Error: Invalid number! E.G. '!t blufor 10' or '!t blufor +5'";
                 };
 
                 private _amount = parseNumber _amountArg;
@@ -90,13 +90,13 @@
     ],
     [
         [
-            "tickets",
-            "'!tickets enable'/'disable' to toggle the system. " +
-            "'!tickets' shows current values. " +
-            "'!tickets Blufor 10' sets Blufor to exactly 10 tickets. " +
+            "t",
+            "'!t enable'/'disable' to toggle the system. " +
+            "'!t' shows current values. " +
+            "'!t Blufor 10' sets Blufor to exactly 10 tickets. " +
             "Use + or - to add or subtract from the current count " +
-            "(e.g. '!tickets Blufor +5' to add 5, '!tickets Blufor -3' to remove 3). " +
-            "'!tickets reset' sets all tickets to zero. " +
+            "(e.g. '!t Blufor +5' to add 5, '!t Blufor -3' to remove 3). " +
+            "'!t reset' sets all tickets to zero. " +
             "When the round is not live, changes set the starting tickets which are restored each round. " +
             "When the round is live, changes apply to the current round only."
         ]
