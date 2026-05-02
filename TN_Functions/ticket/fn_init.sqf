@@ -43,8 +43,9 @@ if (hasInterface) then {
         QEGVAR(round,started),
         {
             if !(IS_ADMIN) exitWith {};
+            if !(GVAR(enabled)) exitWith {};
             systemChat format [
-                "Current Tickets: Blu: %1, Opf: %2, Grn: %3",
+                "Current Tickets: BLU: %1, OPF: %2, GRN: %3",
                 GVAR(startingCounts) select 1,
                 GVAR(startingCounts) select 0,
                 GVAR(startingCounts) select 2

@@ -22,7 +22,7 @@
                 if (_argument isEqualTo "") exitWith {
                     private _currentCounts = if (ROUND_LIVE) then {GVAR(counts)} else {GVAR(startingCounts)};
                     systemChat format [
-                        "Current Tickets: Blu: %1, Opf: %2, Grn: %3",
+                        "Current Tickets: BLU: %1, OPF: %2, GRN: %3",
                         _currentCounts select 1,
                         _currentCounts select 0,
                         _currentCounts select 2
