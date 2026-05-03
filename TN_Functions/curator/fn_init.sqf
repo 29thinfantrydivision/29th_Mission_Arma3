@@ -18,7 +18,7 @@
  *     "TN_exitedZeus"  - Fired when a player closes Zeus.
  *
  * Admin Login/Logout Handler:
- *     Subscribes to "TN_common_adminStateChanged" CBA event. On login,
+ *     Subscribes to "TN_common_adminStateChangedServer" CBA event. On login,
  *     the admin unit is assigned to zeus_admin (unassign first
  *     to handle edge cases). On logout, zeus_admin is unassigned
  *     and the unit's personal curator module is reassigned.
@@ -79,10 +79,10 @@ if (isServer) then {
     };
 
     [
-        QEGVAR(common,adminStateChanged), {
+        QEGVAR(common,adminStateChangedServer), {
             params ["_unit", "_loggedIn"];
             if (isNull _unit || isNil "zeus_admin") exitWith {};
-            [_unit, _loggedIn] call FUNC(onAdminStateChanged);
+            [_unit, _loggedIn] call FUNC(onAdminStateChangedServer);
         }
     ] call CBA_fnc_addEventHandler;
 

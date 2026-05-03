@@ -46,7 +46,7 @@ class TN_Curator {
         class createModule {};
         class excludeObjects {};
         class init {};
-        class onAdminStateChanged {};
+        class onAdminStateChangedServer {};
     };
 };
 

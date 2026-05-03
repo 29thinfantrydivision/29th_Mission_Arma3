@@ -2,16 +2,17 @@
 /*
  * Author: Bae [29th ID]
  * Registers a single OnUserAdminStateChanged mission event
- * handler that extracts the admin unit and fires a CBA event
- * ("TN_common_adminStateChanged") for all consumer modules.
- * Also sets up logic for keeping track of current admin machine network ID
- * (if admin is in mission).
+ * handler that extracts the admin unit and fires two CBA events:
  *
- * Consumers subscribe via:
- *     ["TN_common_adminStateChanged", { params ["_unit", "_loggedIn"]; ... }]
- *         call CBA_fnc_addEventHandler;
+ *   "TN_common_adminStateChangedServer" — fired on the server only.
+ *       Params: [_unit, _loggedIn]. _unit may be objNull.
+ *       Server consumers subscribe here.
  *
- * _unit may be objNull if user info was unavailable.
+ *   "TN_common_adminStateChangedClient" — relayed to the admin's
+ *       client machine via targetEvent.
+ *       Params: [_loggedIn]. No _unit (client is always player).
+ *       Client consumers subscribe here.
+ *
  *
  * Arguments:
  * None
@@ -28,14 +29,17 @@ if (isServer) then {
 
     //Case when player login in mission
     [
-        QGVAR(adminStateChanged), {
+        QGVAR(adminStateChangedServer), {
             params ["_unit", "_loggedIn"];
             if (_loggedIn && isNull _unit) exitWith {};
             GVAR(adminClient) = [2, owner _unit] select _loggedIn;
+            if (!isNull _unit) then {
+                [QGVAR(adminStateChangedClient), [_loggedIn], _unit] call CBA_fnc_targetEvent;
+            };
         }
     ] call CBA_fnc_addEventHandler;
 
-    //Create component adminStateChanged event
+    //Create component adminStateChangedServer event
     addMissionEventHandler [
         "OnUserAdminStateChanged", {
         params ["_networkId", "_loggedIn"];
@@ -44,7 +48,7 @@ if (isServer) then {
         private _unit = if (count _userInfo > 10) then
             { _userInfo select 10 } else { objNull };
 
-        [QGVAR(adminStateChanged), [_unit, _loggedIn]] call CBA_fnc_localEvent;
+        [QGVAR(adminStateChangedServer), [_unit, _loggedIn]] call CBA_fnc_localEvent;
     }];
 
     //Reset adminClient when admin disconnects
@@ -54,7 +58,7 @@ if (isServer) then {
         params ["", "", "", "", "_owner"];
 
         if (_owner isEqualTo GVAR(adminClient)) then {
-            [QGVAR(adminStateChanged), [objNull, false]] call CBA_fnc_localEvent;
+            [QGVAR(adminStateChangedServer), [objNull, false]] call CBA_fnc_localEvent;
         };
     }];
 };
@@ -65,10 +69,11 @@ if (hasInterface) then
     //Wait after mission start to ensure it is called after event handler is made server side
     [{!isNull player && time > 0}, {
         if (IS_ADMIN) then {
-            [QGVAR(adminStateChanged), [player, true]] call CBA_fnc_serverEvent;
+            [QGVAR(adminStateChangedServer), [player, true]] call CBA_fnc_serverEvent;
         };
     }] call CBA_fnc_waitUntilAndExecute;
 
+    //Don't call client event here, since server will send it to us
 };
 
 nil

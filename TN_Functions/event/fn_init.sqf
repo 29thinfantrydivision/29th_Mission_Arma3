@@ -31,18 +31,6 @@ if (isServer) then {
     [QGVARMAIN(addRadio), 0,
         nil, "server", false] call cba_settings_fnc_set;
 
-    // Admin Event Menu
-    [
-        QEGVAR(common,adminStateChanged), {
-            params ["_unit", "_loggedIn"];
-            if (isNull _unit) exitWith {};
-            [_loggedIn] remoteExecCall [
-                QFUNC(updateAdminEventMenu),
-                owner _unit
-            ];
-        }
-    ] call CBA_fnc_addEventHandler;
-
     // Timer
     if (GVAR(useRoundSystem)) then {
         [QGVARMAIN(safeStartTime), GVAR(readySafeStart),
@@ -97,7 +85,14 @@ if (isServer) then {
 
 if (hasInterface) then {
     // Admin Event Menu
-    [QGVAR(eventMenuKilled), "Killed", 
+    [
+        QEGVAR(common,adminStateChangedClient), {
+            params ["_loggedIn"];
+            [_loggedIn] call FUNC(updateAdminEventMenu);
+        }
+    ] call CBA_fnc_addEventHandler;
+
+    [QGVAR(eventMenuKilled), "Killed",
         {
             [false] call FUNC(updateAdminEventMenu);
         }

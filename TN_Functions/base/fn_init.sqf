@@ -178,9 +178,8 @@ if (USING_MODULE(parade) && !isNil "base_action_arsenal_blu") then {
     };
 
     [
-        QEGVAR(common,adminStateChanged), {
-            params ["_unit", "_loggedIn"];
-            if (_unit isNotEqualTo player) exitWith {};
+        QEGVAR(common,adminStateChangedClient), {
+            params ["_loggedIn"];
             if (_loggedIn) then {
                 [5] call FUNC(addForceParadeAction);
             } else {

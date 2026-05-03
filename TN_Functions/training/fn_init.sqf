@@ -158,6 +158,16 @@ if (hasInterface) then {
 
     call FUNC(initDefaultLoadouts);
 
+    if (USING_MODULE(commands)) then {
+        [
+            QEGVAR(common,adminStateChangedClient), {
+                params ["_loggedIn"];
+                if (!_loggedIn) exitWith {};
+                call FUNC(initCommandsDiary);
+            }
+        ] call CBA_fnc_addEventHandler;
+    };
+
     [{PRELOAD_FINISHED}, {
         player removeDiarySubject "Statistics";
     }] call CBA_fnc_waitUntilAndExecute;
@@ -170,16 +180,6 @@ if (isServer) then {
     private _forcedOvercast = 0.1;
     private _forcedFog = [0.1, 0.01, 0];
     [_forcedDate, _forcedOvercast, _forcedFog] call FUNC(initDateAndWeather);
-
-    if (USING_MODULE(commands)) then {
-        [
-            QEGVAR(common,adminStateChanged), {
-                params ["_unit", "_loggedIn"];
-                if !(_loggedIn && !isNull _unit) exitWith {};
-                remoteExecCall [QFUNC(initCommandsDiary), _unit];
-            }
-        ] call CBA_fnc_addEventHandler;
-    };
 };
 
 if (USING_MODULE(base)) then {
