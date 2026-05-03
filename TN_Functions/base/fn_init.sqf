@@ -192,7 +192,7 @@ if (USING_MODULE(parade) && !isNil "base_action_arsenal_blu") then {
     ] call CBA_fnc_addEventHandler;
 
     [
-        QGVAR(debrief), {
+        QEGVAR(loadout,debrief), {
             if (GVAR(forceParadeActionId) isEqualTo -1) exitWith {};
             [50] call FUNC(addForceParadeAction);
             [{

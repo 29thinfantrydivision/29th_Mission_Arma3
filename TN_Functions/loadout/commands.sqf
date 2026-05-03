@@ -137,7 +137,7 @@ FUNC(flexibleResetHelper) = {
                     ["", [true, true, _telePos], "Healing, rearming, and teleporting all players to you!"] call FUNC(flexibleResetHelper);
                 };
 
-                [QEGVAR(base,debrief)] call CBA_fnc_globalEvent;
+                [QGVAR(debrief)] call CBA_fnc_globalEvent;
             }
         ],
         [
