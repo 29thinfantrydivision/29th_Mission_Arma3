@@ -25,7 +25,7 @@
     if (local _vehicle) then {
         [_unit] call FUNC(saveUnconsciousSeat);
     };
-}, true, [], true] call CBA_fnc_addClassEventHandler;
+}] call CBA_fnc_addClassEventHandler;
 
 ["CAManBase", "GetOutMan", {
     params ["_unit", "", "_vehicle"];
@@ -33,7 +33,7 @@
     if (local _vehicle) then {
         DELAY_UNLOCK(_unit);
     };
-}, true, [], true] call CBA_fnc_addClassEventHandler;
+}] call CBA_fnc_addClassEventHandler;
 
 ["ace_unconscious", {
     params ["_unit", "_unconscious"];
