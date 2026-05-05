@@ -49,7 +49,15 @@ if (!_forced) then {
 };
 
 if (!isNil "ace_spectator_fnc_setSpectator") then {
-    [true, true, true] call ace_spectator_fnc_setSpectator;
+    [true, true, false] call ace_spectator_fnc_setSpectator;
+    //Manually hide the player instead of using ACE
+    //to avoid group leave
+    if (alive player) then {
+        player allowDamage false;
+        player setVariable ["ace_medical_allowDamage", false];
+        [player, "ace_spectator_isSet"] call ace_common_fnc_hideUnit;
+        [player, "ace_spectator_isSet"] call ace_common_fnc_muteUnit;      
+    };
 } else {
     [_unit, true] remoteExecCall ["hideObjectGlobal", 2];
     private _params = if (GVARMAIN(limitSpectator) isEqualTo 1) then {

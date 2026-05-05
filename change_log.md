@@ -25,6 +25,11 @@ Overall Future Goals
   - Player profile string reading for Cpl, Sgt, etc?
 
 ---
+v4.5.1
+4 MAY 2026
+---
+
+---
 v4.5.0
 1 MAY 2026
 ---
