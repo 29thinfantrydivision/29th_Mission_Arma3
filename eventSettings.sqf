@@ -1,65 +1,89 @@
-//Use the variables below to customize your event mission
+#define COMPONENT event
+#include "script_macros.hpp"
 
-DOTT_event_hasTimer = true; //Use timer/ready system
-DOTT_event_safeStart = 10*60; //Safe start time after all teams ready up in seconds
-DOTT_event_timerLength = 45*60; //Length of round in seconds
-DOTT_event_timerObjects = [base_timerFlagWest, base_timerFlagEast, base_timerFlagGuer]; //Objects players can interact with to ready up their team
-DOTT_event_endingObject = base_endFlag; //Object admin can interact with to force safestart/end mission early
+// Use the variables below to customize your event mission
+// For PvE, recommended to set 
+// useRoundSystem = false
+// numberOfLives = 0
+// hasAliveCheck = false
+// disableStatistics = false
+// disableScoreboard = false if useRoundSystem = true
 
-DOTT_event_numberOfLives = 1; //0 for unlimited lives
-DOTT_event_spectateArea = base_endFlag; //Point where players will be teleported to spectate from when out of lives. 
-DOTT_event_spectateAreaRadius = 200; //Radius around DOTT_event_spectateArea that is used to determine which players are spectating/lost all lives
-DOTT_event_respawnDisarmPlayers = true; //Disarm players when they are out of lives and teleported to spectateArea
+GVAR(useRoundSystem) = true; //Use timer/ready system
+//=========== Only used if useRoundSystem = true ===========
+    GVAR(forcedSafeStart) = 15 * 60;    //Safe start time before all teams ready up in seconds
+    GVAR(readySafeStart) = 30;          //Safe start time after all teams ready up in seconds
+    GVAR(timerLength) = 45 * 60;        //Length of round in seconds
+    
+    GVAR(timerObjects) = [              //Objects players can interact with to ready up their team, default colored flags in editor
+        base_timerFlagWest,
+        base_timerFlagEast,
+        base_timerFlagGuer
+    ];
 
-DOTT_event_timeAcc = 1; //Time acceleration multiplier for the event (1 = normal time, 2 = 2x faster, 0.5 = half speed, etc)
+    GVAR(disableScoreboard) = true;     //Disable scoreboard during round
 
-DOTT_event_hasAliveCheck = true; //Automatically end mission if only one side has players alive with them as the winner
+    GVAR(stopTimeUntilLive) = true;     //Stop time so that time at round start is the same as mission start
 
-DOTT_event_arsenalRadius = 20; //Radius around arsenal object where players can access the arsenal
+    GVAR(numberOfLives) = 1;            //0 for unlimited lives
+    //=========== Only used if numberOfLives > 0 ===========
+        GVAR(penalizeJIPLives) = true;  //If player JIP after round has started, reduce their number of lives by 1
+        GVAR(hasAliveCheck) = true;     //Automatically end mission if only one side has players alive with them as the winner
+    //====================================================
+    
+//====================================================
+GVAR(timeAcc) = 1;                  //Time acceleration multiplier for the event (1 = normal time, 2 = 2x faster, 0.5 = half speed, etc)
+                                    //If useRoundSystem = true, only takes effect at start of round
 
-DOTT_event_autoMarkObjects = true;
+GVAR(arsenalRadius) = 20;           //Radius around arsenal object where players can access the arsenal
 
-//Win conditions
-//Leave "" for no win condition for that side
-DOTT_event_score = [0, 0, 0]; //Starting score for each side [OPFOR, BLUFOR, GRNFOR]
-DOTT_event_bluforWinConditions = ""; //Conditions for BLUFOR to win the game
-DOTT_event_opforWinConditions = ""; //Conditions for OPFOR to win the game
-DOTT_event_grnforWinConditions = ""; //Conditions for GRNFOR to win the game
+GVAR(autoMarkObjects) = true;       //Mark static editor placed objects on map for all players
 
-DOTT_event_winCheckInterval = 3; //Interval in seconds between win condition checks
-/*
+GVAR(disableStatistics) = true;     //Disable statistics tab in map diary
+
+/* Point Based Win Conditions
+Format: [pointsRequired, atEnd]
+pointsRequired - Number of points the side needs to win.
+
+atEnd - If true, only check at end of timer. If false, check throughout the round.
+NOTE: atEnd = true can only be used if useRoundSystem = true.
+
+Leave [] for no win condition for that side.
+
 Examples
-DOTT_event_bluforWinConditions = ""; //No win condition for BLUFOR (except only team standing at end if hasAliveCheck = true)
-DOTT_event_opforWinConditions = ["Points", 3, false]; //Win when OPFOR has 3 points at any time
-DOTT_event_grnforWinConditions = ["Points", 2, true]; //Win when GRNFOR has 2 points at the end of the timer
-
-Available Win Condition Functions:
-	"Points" 
-		Win when team has a certain number of points
-		These points can be increased or decreased by modifying the mission.sqm in editor, often by editing an object's init field.
-		Put example code below in the init field of the relevant object
-
-		Sector Example (gives _pointValue points to whoever is currently holding the sector):
-
-		if !(isServer) exitWith {};
-		private _pointValue = 1;
-		this setVariable ["DOTT_pointValue", _pointValue];
-
-		Kill/Destroy Example (gives _pointValue points to _awardTeam (in example BLUFOR) when object is killed/destroyed):
-
-		if !(isServer) exitWith {};
-		private _pointValue = 1;
-		private _awardTeam = west;
-
-		this setVariable ["DOTT_pointValue", _pointValue];
-		this setVariable ["DOTT_awardTeam", _awardTeam];
-
-	NOTE: If multiple teams meet their win conditions at the same time, the tiebreaker will be OPFOR, BLUFOR, then GRNFOR.
-	Win conditions should be designed to avoid this where possible.
+GVAR(bluforWinConditions) = []; //No win condition for BLUFOR (except only team standing if hasAliveCheck = true)
+GVAR(opforWinConditions) = [3, false]; //Win when OPFOR has 3 points at any time
+GVAR(grnforWinConditions) = [2, true]; //Win when GRNFOR has 2 points at the end of the timer
 */
 
-/*** Do Not Edit Anything Below This Line ***/
-["TN_safeStartTime", DOTT_event_safeStart, nil, "server", false] call cba_settings_fnc_set;
-["TN_notifyFinalCheck", false, nil, "server", false] call cba_settings_fnc_set;
-["TN_addRadio", 0, nil, "server", false] call cba_settings_fnc_set;
-[DOTT_event_timerLength] call DOTT_round_fnc_setTimer;
+GVAR(checkWinConditions) = true; //Run win condition checks.
+//=========== Only used if checkWinConditions = true ===========
+    GVAR(score) = [0, 0, 0];         //Starting score for each side [OPFOR, BLUFOR, GRNFOR]
+    GVAR(bluforWinConditions) = [];  //Conditions for BLUFOR to win the game
+    GVAR(opforWinConditions) = [];   //Conditions for OPFOR to win the game
+    GVAR(grnforWinConditions) = [];  //Conditions for GRNFOR to win the game
+//==============================================================
+
+/*
+Points can be increased/decreased by modifying the mission.sqm in editor, often by editing an object's init field.
+
+Put example code below in the init field of the relevant object to award points.
+
+Sector Example (gives _pointValue points to whoever is currently holding the sector):
+
+    if !(isServer) exitWith {};
+    private _pointValue = 1;
+    this setVariable ["TN_pointValue", _pointValue];
+
+Kill/Destroy Example (gives _pointValue points to _awardTeam (in example BLUFOR) when object is killed/destroyed):
+
+    if !(isServer) exitWith {};
+    private _pointValue = 1;
+    private _awardTeam = west;
+
+    this setVariable ["TN_pointValue", _pointValue];
+    this setVariable ["TN_awardTeam", _awardTeam];
+
+NOTE: If multiple teams meet their win conditions at the same time, the tiebreaker will be OPFOR, BLUFOR, then GRNFOR.
+Win conditions should be designed to avoid this where possible.
+*/

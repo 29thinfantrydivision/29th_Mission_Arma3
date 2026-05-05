@@ -24,24 +24,196 @@ Overall Future Goals
   - Unit string indicators like sl, plt, etc...
   - Player profile string reading for Cpl, Sgt, etc?
 
-* Near Goals
-  - New hint system
-    - Using vanilla hint is limiting due to potential overwrites from different systems, 
-      which can also make how long we want a message to stay up inconsistent.
-    - Potentially take FNF notification system and tweak it.
-    - Potentially use CBA's.
-  - Finish event module
-    - Safestart related flag actions bugged.
-    - Potentially integrate new forced safe start feature
 ---
-TBD
-
+v4.5.0
+1 MAY 2026
 ---
+* General
+  - All "DOTT" tags in functions and variables converted to "TN", `Dott_Functions` folder
+    renamed to `TN_Functions` per 1Lt. Ericksen request. Months of muscle memory wasted.
+  - Swapped from Allman to K&R indentation style to match ACE 3 coding guidelines.
+  - Convert raw variable/function references to CBA macros (`GVAR`, `FUNC`, `QGVAR`, etc.) across the entire codebase.
+  - Add `SERVER_LOG` macro for logging messages to server RPT via `remoteExecCall`.
+  - Use `IS_ADMIN` / `IS_ADMIN_LOGGED` CBA macros to replace `serverCommandAvailable "#lock"` checks across the codebase.
+  - Add `USING_MODULE` macro to `script_macros.hpp`. Modules now check if dependent modules exist in
+    the template before initializing their features.
+  - Move `templates.hpp` include from individual files to `script_macros.hpp` so it's available globally.
+  - Standardize CBA event names across all modules. Replace event names in `cfgEventHandlers`
+    with `GVARMAIN` macro since they are called outside of function folders.
+  - Convert any `remoteExec` that does not need a scheduled environment into `remoteExecCall`.
+  - Expanded logging in `init.sqf` and `initPlayerLocal.sqf`. Each module now logs its run time during initialization.
+  - Removed duplicate `cfgNotifications` include in `description.ext`.
+  - Claude assisted codebase restructure:
+    Fixed spelling mistakes, standardized indentation, and removed commented out code and unnecessary brackets.
+    Deduplicated code and removed dead code. Reduced size of `gui.hpp` by using inheritance.
+    Reformatted function headers to ACE standard.
+  - HEMTT linting pass: remove redundant bool comparisons, use `in` over `find`, `isNotEqualTo` over negated `isEqualTo`,
+    replace `==`/`!=` with `isEqualTo`/`isNotEqualTo`, `toLower` to `toLowerANSI` for non-user-input strings,
+    remove redundant `_this` in call expressions, improve array emptiness checks, remove unnecessary short-circuit braces,
+    use `parseNumber`/`configOf`, convert variable declarations to `params`.
+  - Defined magic numbers and converted constant variables into `#define`.
+  - Renamed global variables for consistency, added module name prefix to base global variables.
+  - Moved code from oversized `addEventHandler` (incl. CBA) and `addMissionEventHandler` blocks into separate function files.
+  - Moved logic from oversized files into subfolders (`readyui`, `tracker/diary`).
+  - Replaced `findIf` with `in`, `switch` with `select` for static literal cases, and `entityCreated` event handlers with `addClassEventHandlers`.
+  - Ensured all void functions explicitly return nil.
+  - Fix BLUFOR Base right light unintentionally simulation disabled.
+  - Renamed many event handler functions from `fn_handle*` to `fn_on*` prefix across all modules
+    (e.g. `fn_handleHit` → `fn_onHit`, `fn_handleFrequencyChanged` → `fn_onFrequencyChanged`, etc.).
+  - Replace `"Man"` with `"CAManBase"` for more precise unit class matching (excludes animals).
+  - Attempt to fix rare bug where players are invisible
+    
+* Unscheduling Effort
+  - Major pass to replace `spawn`/`waitUntil` patterns with unscheduled `call` and CBA alternatives (`perFrameHandler`, `waitAndExecute`).
+    Scheduled environment is less predictable, so moving as much as possible to unscheduled.
+  - Round init, round events (via `perFrameHandler`), `checkWinCondition`, `aliveCheck` all now unscheduled.
+  - Spectator enter/exit no longer use scheduled environment.
+  - Tracker and parade init unscheduled.
+  - `setInsignia` and `fullSetUnitLoadout` now use `call` instead of `spawn`.
+  - `flexibleReset` partially unscheduled (still needs scheduled for sleep).
+  - `event/fn_respawn` refactored to be callable by moving the `spawn` into the calling code.
+  - `excludeObjects` loop replaced with `perFrameHandler`.
 
-* Tweaked "data\cfgNotifications.hpp"
-	- Included new class "FlagTaken"
-	- Included new class "FlagCaptured"
-	- Included new class "FlagReturned"
+* Base
+  - Arsenal zone check refactored to fire CBA events (`enteredArsenalZone`/`exitedArsenalZone`) instead of containing inline logic.
+  - Force parade action reworked: dynamically added/removed based on admin state via `adminStateChanged` event.
+  - Environment sound muting logic moved from base to training module.
+  - New `fn_initPlayersInBase` to track players in arsenal zones server-side, bridging client events to server for admin notification.
+
+* Commands
+  - Chat interception reverted back to waiting for display instead of event handler.
+    More overhead, but needed due to security concerns as this method does not send the hidden chat over network.
+    Modernized code by getting rid of conversion to array.
+  - Rename `pvpfw_chatIntercept` prefix to `TN_commands`.
+  - Move base `commands.sqf` initialization out of `XEH_preInit` into `fn_init` so it's no longer run on server.
+  - Rewrote arsenal command and moved logic into separate subfolder.
+    Arsenals created with this command are deleted automatically on round start.
+  - Defer HashMap finalization of command registry until global `initFinished` event fires.
+  - Executing a command as non-admin now sends admin a notification, with some exceptions.
+
+* Common (New Module)
+  - Deduplicate admin change event handlers by creating `TN_adminStateChanged` CBA event.
+  - Add `convertSide` utility function, simplifying side string-to-side conversion in ticket and loadout commands.
+  - Add `notifyAdmin` function for sending systemChat messages to the current admin, with `notifySelf` parameter.
+  - Admins notified via systemChat when another player uses a command.
+  - Created timedHint function to have a nice way to have hints time out quickly and prevent conflict between different callers of hint.
+    Replaced most calls (except spectator stuff) to it.
+  - Moved `fn_cleaner` from base to common as `fn_cleanup`. Ground item deletion made global.
+
+* Curator
+  - `fn_addPlayerEditable` generalized to `fn_addEditable`.
+  - Remove `roleDescription` param from `createModule`.
+  - No longer delete in `createModule` to reduce lag spikes, simply unassign and reassign.
+
+* Event
+  - Merged admin actions on flag into a single "Event Menu", which opens a GUI displaying actions that were formerly on the pole.
+    Care taken to ensure new ready UI system is not hidden when GUI is opened.
+  - Event Menu now attached to player's admin object instead of the flags. Creates `fn_handleAdminEventMenu.sqf`.
+  - New "Forced Safe Start" system implemented, admin can start long safe start and teams can ready to reduce to shorter safe start.
+  - Added changing round time remanining when round is live in Event Menu.
+  - `fn_markEditorPlacedObjects`: fix wrong variable (`_x` -> `_obj`) in `boundingBox` call.
+  - Rename `gameCalled` variable to `TN_event_missionEnded`.
+  - Fix oversight where starting deaths were not tracked before round start.
+  - Remove `_forceEnding` as a parameter from `fn_game`.
+  - Add `private` declarations for local variables in `fn_markEditorPlacedObjects`.
+  - Remove no longer used `endingObject` variable.
+  - Rename `hasTimer` to `useRoundSystem` for clearer naming — it controls the entire round/ready system, not just a timer.
+  - Expanded `useRoundSystem = false` support for PvE/non-competitive modes: time acceleration, win condition checks,
+    and Event Menu endings all work without the round system.
+  - Expanded documentation on how settings in eventSettings interact with each other.
+  - Added `eventSettings.sqf` validation (`fn_validateSettings.sqf`) with descriptive error messages for invalid settings.
+  - New lives system in `trackLives` subfolder: admin can adjust team lives mid-game via Event Menu GUI.
+    Players out of lives cannot respawn. Admin faction excluded. 
+  - New settings: `penalizeJIPLives`, `disableScoreboard`, `stopTimeUntilLive`.
+  - Reworked `fn_aliveCheck` into event-based `fn_initAliveCheck`. Split win condition loop into `fn_initWinConditions`
+    and `fn_checkWinConditions`. Both deduplicate notifications and add a delay before firing.
+  - `fn_game` renamed to `fn_endMission`.
+  - Removed `respawnDisarmPlayers`, `spectateArea`, `spectateAreaRadius`, and `endFlag` settings.
+
+* Loadout
+  - Add additional failsafe for `flexibleReset` teleport, if player is not within 75 meters of teleport point
+    5 seconds after teleport attempts, all players will be notified in chat.
+  - Remove `resetWeaponState` function. `fullSetUnitLoadout` now strips all gear, waits for weapon switch
+    to finish, then reapplies loadout as an alternate silent weapon bug fix approach.
+  - `setInsignia` moved from loadout module to parade module, since it requires the 29th mod.
+  - `fullSetUnitLoadout` fires `afterSetLoadout` CBA event when done (used by parade for insignia).
+
+* OCAP
+  - Updated folder to remove marker related workarounds to be compatible with OCAP Addon 2.1.0.
+  - Instead of replacing `startRecording` and `stopRecording`, hijack the PFHObject to run when an additional variable we create is true.
+  - Add timeout and logging if OCAP variables fail to initialize.
+
+* Radio
+  - Notify player in systemChat when their vehicle's long-range radio is adjusted to match faction default.
+
+* Parade
+  - Fix custom parade uniform not being applied on join by making the respawn loadout the same as the forced parade loadout.
+    This change has a side effect where this parade loadout is overwritten when leaving arsenal, but this should not be a problem.
+  - Uniform message now states if loadout is not the default.
+  - `checkNonCombatLoadout` now also recognizes Class A uniforms as non-combat.
+  - Now waits until fullSetUnitLoadout finishes before applying.
+
+* Round
+  - All players notified in systemChat when a side readies or unreadies.
+  - Add safe start time to the Round Ready UI.
+  - Safe start timer now restores to the remaining forced duration when a team unreadies after all teams had readied up early,
+    adjusted for time passed.
+  - Replace `fn_isRoundActive` function and `TN_round_safeStartActive` variable with a single `TN_round_state` integer enum.
+    New `data/roundState.hpp` provides `ROUND_IDLE`, `ROUND_SAFE`, `ROUND_LIVE` defines so code reads cleaner than comparing raw numbers.
+  - Rename vague `data/defines.hpp` to `templates.hpp`.
+  - Safe start helper now uses `perFrameHandler` instead of chained `waitAndExecute`.
+  - Deleting disconnected bodies moved here from training, which means it also applies to event variation.
+    Now simply deletes all disconnecting bodies unless round is live.
+  - Add instructions to systemChat safe start notification.
+  - Removed overtime support.
+  - Add nil check for `disableRespawnScoreboard`.
+  - Don't reduce team score when `disableScoreboard` event setting is not enabled.
+
+* Settings
+  - Add check to exclude non-global settings from GUI.
+
+* Spectator
+  - Swapped from BIS EGSpectator to ACE spectator (`ace_spectator_fnc_setSpectator`).
+    Falls back to BIS EGSpectator if ACE spectator is not available.
+  - New ACE medical overlay while in spectator mode. Shows ACE body part damage & blood of the
+    currently focused unit. Press H to toggle visibility.
+
+* Ticket
+  - Cache current admin into `fn_init` to avoid repeated lookup in `fn_count`.
+  - Refactor to use a single array to store tickets instead of 3 separate team variables.
+  - Deeper round system integration: dual-mode ticket tracking with `startingCounts` (persisted across
+    rounds) and `counts` (live round state). Starting counts restored each round start.
+  - New `fn_set` for setting absolute ticket values and `fn_reset` for resetting/enabling/disabling.
+    Removed `fn_add` — setting logic consolidated into `fn_set`.
+  - Admin sees starting ticket counts at round start.
+  - `!tickets` command shorthand changed to `!t`.
+
+* Tracker
+  - Optimize `sendHit` by not inadvertently creating a new HashMap even if it's not needed.
+  - Fix hit not overwriting potentially saved hit time if projectile has hit other valid objects.
+  - Batch vehicle and crew `sendHit` calls into a single `remoteExecCall` instead of one per unit by passing an array of objects.
+  - Fix `burnSimulation` EH searching for incendiary grenades around player instead of the burning unit when instigator is null.
+  - Move incendiary grenade find logic to separate function (`fn_findIncendiaryGrenade`).
+  - Optimize `burnSimulation` EH by skipping all `nearObjects` searches if the burn instigator was cached within the last 5 seconds.
+    The cache timestamp is reset whenever a new instigator is found, so the window stays fresh while the unit is actively burning.
+    After 5 seconds the searches resume, allowing re-attribution if the unit walks into a new fire source.
+  - Optimize `woundReceived` burn handler by removing a redundant `_fn_findSide` call in the null instigator path.
+    The result was always immediately overwritten by the same call that runs unconditionally after the if/else block.
+  - Temporary method of sending round history on join finally reworked, send all rounds in 1 `remoteExec` to new `receiveAll` function.
+  - New subfolder `eventHandlers` that holds related code.
+  - Removed params enabling or disabling system, move out disabling statistics diary entry to training and event.
+
+* Training
+  - Deleting bodies at base on disconnect no longer occurs during round live to reduce lag spikes caused by disconnecting.
+  - Moved deleting disconnecting bodies to round.
+  - Admin now has a "Useful Commands" entry in his map diary.
+  - Now notify admin when all players on one side are all dead or in base.
+
+* Vehicle
+  - Added workaround for ACE bug that left vehicle seats locked when uncon -> dead players were moved out of the seat via ACE interaction.
+    While ACE has a variable toggle to turn this feature off, doing so causes various bugs that can cause confusion to players, so a workaround
+    was the best choice. Waits 0.5 seconds after ACE's potential failed attempt to unlock vehicle and tries it when (assume network race conditions)
+    should no longer cause the bug.
 
 ---
 v4.4.2

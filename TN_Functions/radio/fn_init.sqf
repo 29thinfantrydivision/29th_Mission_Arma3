@@ -1,0 +1,73 @@
+#include "script_component.hpp"
+/*
+ * Author: Bae [29th ID]
+ * Initializes the radio module. Registers arsenal-close handlers
+ * to auto-add radios, a death handler to strip radios, a
+ * disconnect handler for the same, and sets up TFAR settings
+ * persistence. No-ops if TFAR Beta is not loaded.
+ * Should be initialized before loadout.
+ *
+ * Arguments:
+ * None
+ *
+ * Return Value:
+ * Nothing
+ *
+ * Example:
+ * call TN_radio_fnc_init;
+ */
+
+if !(isClass (configFile >> "CfgPatches" >> "tfar_core")) exitWith {};
+
+if (hasInterface) then {
+    // Re-add side-correct radio after closing vanilla arsenal.
+    [
+        missionNamespace,
+        "arsenalClosed", {
+            // Skip if Zeus is open (ZEN loadout editing).
+            if !(isNull (findDisplay 312)) exitWith {};
+            call FUNC(add);
+        }
+    ] call BIS_fnc_addScriptedEventHandler;
+
+    // Re-add side-correct radio after closing ACE arsenal.
+    if (isClass (configFile >> "CfgPatches" >> "ace_main")) then {
+        [
+            "ace_arsenal_displayClosed", {
+                // Skip if Zeus is open (ZEN loadout editing).
+                if !(isNull (findDisplay 312)) exitWith {};
+                call FUNC(add);
+            }
+        ] call CBA_fnc_addEventHandler;
+    };
+
+    // Strip radios on death when the setting is enabled.
+    [
+        QGVAR(removeOnDeath),
+        "Killed", {
+            if (GVARMAIN(removeRadiosOnDeath)) then {
+                call FUNC(remove);
+            };
+        }
+    ] call CBA_fnc_addBISPlayerEventHandler;
+
+    // Persist TFAR radio settings across respawn / loadout swap.
+    call FUNC(initTransferSettings);
+};
+
+if (isServer) then {
+    // Strip radios from disconnecting players' bodies.
+    addMissionEventHandler [
+        "HandleDisconnect", {
+            params ["_unit"];
+
+            if (isNull _unit) exitWith {};
+
+            if (GVARMAIN(removeRadiosOnDeath)) then {
+                _unit call FUNC(remove);
+            };
+        }
+    ];
+};
+
+nil

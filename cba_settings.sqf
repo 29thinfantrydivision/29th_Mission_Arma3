@@ -1,11 +1,11 @@
-#include "data\defines.hpp"
+#include "data\templates.hpp"
 
-#ifdef DOTT_TRAINING
-#define OCAP_SAVETAG  "Training"
+#ifdef TN_TRAINING
+    #define OCAP_SAVETAG "Training"
 #endif
 
-#ifdef DOTT_EVENT
-#define OCAP_SAVETAG "Event"
+#ifdef TN_EVENT
+    #define OCAP_SAVETAG "Event"
 #endif
 
 force OCAP_settings_autoStart = false;

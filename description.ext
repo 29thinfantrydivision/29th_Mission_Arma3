@@ -1,6 +1,6 @@
-#include "data\defines.hpp"
+#include "data\templates.hpp"
 
-#ifdef DOTT_EVENT
+#ifdef TN_EVENT
 
 OnLoadName = "YOUR MISSION NAME HERE"; //CHANGE THIS
 briefingName = "YOUR MISSION NAME HERE"; //CHANGE THIS
@@ -13,10 +13,10 @@ OverviewText = "YOUR DESCRIPTION HERE"; //CHANGE THIS
 
 /***** IGNORE BELOW THIS LINE FOR EVENT UNLESS YOU KNOW WHAT YOU ARE DOING *****/
 
-#ifdef DOTT_TRAINING
+#ifdef TN_TRAINING
 
-OnLoadName = "29th Training V4.4.2";
-briefingName = "29th Training V4.4.2";
+OnLoadName = "29th Training V4.5.0";
+briefingName = "29th Training V4.5.0";
 // =========================== Loading Screen
 Author = "29th Engineers";
 OnLoadMission = "<t align='center'><t size='1.5' color='#2A1ADC'>BLUFOR</t><t size='1.5' color='#FFFFFF'> | </t><t size='1.5' color='#B40404'>OPFOR</t><t size='1.5' color='#FFFFFF'> | </t><t size='1.5' color='#088A08'>GRNFOR</t><br/><t size='1.25' color='#A09FAB'> Training Sandbox</t><br/>Ever Forward!</t>";
@@ -26,13 +26,12 @@ OverviewText = "<t align='center'><t size='1.5' color='#2A1ADC'>BLUFOR</t><t siz
 
 dev = "29th Engineers";
 OnLoadMissionTime = 1;
-loadScreen =  "Pictures\116Inf InsigniaAlpha.paa";
-//OverviewPicture = "Pictures\116Inf InsigniaAlpha.paa"; //doesn't work on a dedicated server
+loadScreen = "Pictures\116Inf InsigniaAlpha.paa";
 
 class Header {
-  gameType = SANDBOX;
-  minPlayers = 1;
-  maxPlayers = 167; //Total number of playable units placed in the editor including virtual entities
+    gameType = SANDBOX;
+    minPlayers = 1;
+    maxPlayers = 167; //Total number of playable units placed in the editor including virtual entities
 };
 
 respawnOnStart = 0;
@@ -45,7 +44,6 @@ respawnTemplates[] = {"MenuPosition", "MenuInventory"};
 enableDebugConsole = 1;
 disabledAI = 1;
 forceRotorLibSimulation = 0;
-//disableChannels[] = {{0,false,false},{1,false,true},{2,true,true},{3,false,true},{4,false,true},{5,false,true},{6,false,false}};
 saving = 0;
 
 debriefing = 1;
@@ -64,33 +62,22 @@ allowFunctionsRecompile = 1;
 
 #include "data\cfgEventHandlers.hpp"
 
-class CfgNotifications 
-{
-	#include "data\cfgNotifications.hpp"
-};
-
-class Params
-{
-	#include "data\params.hpp"
+class CfgNotifications {
+    #include "data\cfgNotifications.hpp"
 };
 
 #include "data\gui.hpp"
 
-class CfgRespawnInventory
-{
-	#include "data\cfgInventories.hpp"
+class CfgRespawnInventory {
+    #include "data\cfgInventories.hpp"
 };
 
-class CfgRoles
-{
-	#include "data\cfgRoles.hpp"
+class CfgRoles {
+    #include "data\cfgRoles.hpp"
 };
 
-class CfgFunctions 
-{
-	#include "Dott_Functions\CfgFunctions.hpp"
+class CfgFunctions {
+    #include "TN_Functions\CfgFunctions.hpp"
 };
-
-#include "data\cfgNotifications.hpp"
 
 #include "data\CfgDebriefing.hpp"

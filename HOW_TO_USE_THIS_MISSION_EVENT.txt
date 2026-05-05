@@ -2,4 +2,5 @@ Using your favorite text editor, open
 1. eventSettings.sqf to change the mission's behavior and parameters
 2. description.ext to set the title, author, and description of the mission
 
-Finish creating your mission in eden editor.
+Finish creating your mission in eden editor. 
+The sqm in this template should contain enough information for you to start.
