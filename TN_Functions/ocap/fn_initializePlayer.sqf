@@ -50,7 +50,7 @@ if !(_player getVariable ["ocap_isInitialized", false]) then {
         30
     ] call CBA_fnc_waitUntilAndExecute;
 
-    [_player] spawn ocap_recorder_addUnitEventHandlers;
+    [_player] spawn ocap_recorder_fnc_addUnitEventHandlers;
 
     ocap_recorder_nextId = ocap_recorder_nextId + 1;
 
