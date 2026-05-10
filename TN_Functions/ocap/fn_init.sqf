@@ -158,13 +158,20 @@ if (isServer) then {
     ] call CBA_fnc_addEventHandler;
 
     //Curators created mid mission do not trigger OCAP 2 trackSectors
+    //due to curator dynamically creating zues modules mid-mission
     //So we must manually add sectors
-    if (missionNamespace getVariable ["ocap_settings_trackSectors", false]) then {
-        ["ModuleSector_F", "Init", {
-            params ["_entity"];
-            [_entity] call ocap_recorder_fnc_trackSectors;
-        }] call CBA_fnc_addClassEventHandler;
-    };
+    //trackSectors is idempotent so should be fine
+    [{missionNamespace getVariable ["ocap_extension_sessionReady", false]}, {
+        if (missionNamespace getVariable ["ocap_settings_trackSectors", false]) then {
+            ["ModuleSector_F", "Init", {
+                params ["_entity"];
+                [_entity] call ocap_recorder_fnc_trackSectors;
+            }] call CBA_fnc_addClassEventHandler;
+        };
+    }, [],
+    30,
+    { diag_log text "OCAP: Timed out waiting for ocap_extension_sessionReady"; }] 
+    call CBA_fnc_waitUntilAndExecute;
 };
 
 nil
