@@ -30,148 +30,135 @@
 
 #define NEWER_OCAP ocap_version isNotEqualTo "2.0.0"
 
-if (isServer) then {
-    if !(isClass (configFile >> "CfgPatches" >> "OCAP_recorder")) exitWith {};
+if (!isServer) exitWith {};
 
-    if (USING_MODULE(event) && {!EGVAR(event,useRoundSystem)}) exitWith {
-        [{missionNamespace getVariable ["ocap_extension_sessionReady", false]}, {
-            if (!OCAP_settings_autoStart) then {
-                ocap_recorder_startTime = time;
-            }
-        }, [],
-        30,
-        { diag_log text "OCAP: Timed out waiting for ocap_extension_sessionReady"; }
-        ] call CBA_fnc_waitUntilAndExecute;
-    };
+if !(isClass (configFile >> "CfgPatches" >> "OCAP_recorder")) exitWith {};
 
-    GVAR(roundNum) = 1;
-
-    GVAR(recording) = false;
-
-    //Dont start/pause recordings if autoStart is forced by server config
-    #define SHOULD_SAVE_EVENTS \
-    ((missionNamespace getVariable ["ocap_recorder_recording", false]) \
-     && missionNamespace getVariable ["ocap_recorder_startTime", -1] > -1)
-    #define UPDATE_TIME [] call ocap_recorder_fnc_updateTime
-    #define START_RECORDING GVAR(recording) = true; UPDATE_TIME
-    #define STOP_RECORDING GVAR(recording) = false; UPDATE_TIME
-
-    [{missionNamespace getVariable ["ocap_extension_sessionReady", false]}, {
-        if (!OCAP_settings_autoStart && NEWER_OCAP) then {
-            FUNC(initializePlayer) = compile
-                preprocessFileLineNumbers
-                "TN_Functions\ocap\fn_initializePlayer.sqf";
-
-            ocap_recorder_startTime = time;
-
-            //hijack PFH to start and stop when we want while still saving other events
-            [{!isNil "ocap_recorder_PFHObject"}, {
-                ocap_recorder_PFHObject setVariable
-                    ["run_condition",
-                    {SHOULD_SAVE_EVENTS && GVAR(recording)}];
-            }, [],
-            30,
-            { diag_log text "OCAP: Timed out waiting for ocap_recorder_PFHObject"; }
-            ] call CBA_fnc_waitUntilAndExecute;
-
-            //Add marker workarounds
-            [{!isNil "ocap_listener_markers"}, {
-                ["ocap_handleMarker", ocap_listener_markers]
-                    call CBA_fnc_removeEventHandler;
-                call compile preprocessFileLineNumbers
-                    "TN_Functions\ocap\handleMarkers.sqf"}, [],
-                30,
-                { diag_log text "OCAP: Timed out waiting for ocap_listener_markers"; }
-                ] call CBA_fnc_waitUntilAndExecute;
-
-            [
-                QEGVAR(round,safeStartBegin), {
-                    START_RECORDING;
-                }
-            ] call CBA_fnc_addEventHandler;
-
-            [
-                QEGVAR(round,started), {
-                    START_RECORDING;
-                }
-            ] call CBA_fnc_addEventHandler;
-
-            [
-                QEGVAR(round,safeStartAborted), {
-                    STOP_RECORDING;
-                }
-            ] call CBA_fnc_addEventHandler;
-
-            [
-                QEGVAR(round,ended), {
-                    STOP_RECORDING;
-                }
-            ] call CBA_fnc_addEventHandler;
-        } else {
-            call ocap_recorder_fnc_startRecording;
-        };
-
-        [OCAP_settings_autoStart] remoteExecCall
-            [QFUNC(initClient),
-            [0, -2] select isDedicated, true];
-    }, [],
+if !(missionNamespace getVariable ["ocap_extension_sessionReady", false]) exitWith {
+    [{missionNamespace getVariable ["ocap_extension_sessionReady", false]},
+    FUNC(init), [],
     30,
     { diag_log text "OCAP: Timed out waiting for ocap_extension_sessionReady"; }
     ] call CBA_fnc_waitUntilAndExecute;
+};
+
+if (USING_MODULE(event) && {!EGVAR(event,useRoundSystem)}) exitWith {
+    if (!OCAP_settings_autoStart) then {
+        ocap_recorder_startTime = time;
+    };
+};
+
+GVAR(roundNum) = 1;
+
+GVAR(recording) = false;
+
+//Dont start/pause recordings if autoStart is forced by server config
+#define SHOULD_SAVE_EVENTS \
+((missionNamespace getVariable ["ocap_recorder_recording", false]) \
+ && missionNamespace getVariable ["ocap_recorder_startTime", -1] > -1)
+#define UPDATE_TIME [] call ocap_recorder_fnc_updateTime
+#define START_RECORDING GVAR(recording) = true; UPDATE_TIME
+#define STOP_RECORDING GVAR(recording) = false; UPDATE_TIME
+
+if (!OCAP_settings_autoStart && NEWER_OCAP) then {
+    FUNC(initializePlayer) = compile
+        preprocessFileLineNumbers
+        "TN_Functions\ocap\fn_initializePlayer.sqf";
+
+    ocap_recorder_startTime = time;
+
+    [{!isNil "ocap_recorder_PFHObject"}, {
+        ocap_recorder_PFHObject setVariable
+            ["run_condition",
+            {SHOULD_SAVE_EVENTS && GVAR(recording)}];
+    }, [],
+    30,
+    { diag_log text "OCAP: Timed out waiting for ocap_recorder_PFHObject"; }
+    ] call CBA_fnc_waitUntilAndExecute;
+
+    [{!isNil "ocap_listener_markers"}, {
+        ["ocap_handleMarker", ocap_listener_markers]
+            call CBA_fnc_removeEventHandler;
+        call compile preprocessFileLineNumbers
+            "TN_Functions\ocap\handleMarkers.sqf"}, [],
+        30,
+        { diag_log text "OCAP: Timed out waiting for ocap_listener_markers"; }
+        ] call CBA_fnc_waitUntilAndExecute;
 
     [
         QEGVAR(round,safeStartBegin), {
-            ["ocap_customEvent",
-                ["generalEvent", "Safe start began!"]]
-                call CBA_fnc_serverEvent;
-        }
-    ] call CBA_fnc_addEventHandler;
-
-    [
-        QEGVAR(round,safeStartAborted), {
-            ["ocap_customEvent",
-                ["generalEvent", "Safe start aborted!"]]
-                call CBA_fnc_serverEvent;
+            START_RECORDING;
         }
     ] call CBA_fnc_addEventHandler;
 
     [
         QEGVAR(round,started), {
-            ["ocap_customEvent",
-                ["generalEvent",
-                format ["Round %1 started!",
-                    GVAR(roundNum)]]]
-                call CBA_fnc_serverEvent;
+            START_RECORDING;
+        }
+    ] call CBA_fnc_addEventHandler;
+
+    [
+        QEGVAR(round,safeStartAborted), {
+            STOP_RECORDING;
         }
     ] call CBA_fnc_addEventHandler;
 
     [
         QEGVAR(round,ended), {
-            ["ocap_customEvent",
-                ["generalEvent",
-                format ["Round %1 ended!",
-                    GVAR(roundNum)]]]
-                call CBA_fnc_serverEvent;
-
-            GVAR(roundNum) = GVAR(roundNum) + 1;
+            STOP_RECORDING;
         }
     ] call CBA_fnc_addEventHandler;
+} else {
+    call ocap_recorder_fnc_startRecording;
+};
 
-    //Curators created mid mission do not trigger OCAP 2 trackSectors
-    //due to curator dynamically creating zues modules mid-mission
-    //So we must manually add sectors
-    //trackSectors is idempotent so should be fine
-    [{missionNamespace getVariable ["ocap_extension_sessionReady", false]}, {
-        if (missionNamespace getVariable ["ocap_settings_trackSectors", false]) then {
-            ["ModuleSector_F", "Init", {
-                params ["_entity"];
-                [_entity] call ocap_recorder_fnc_trackSectors;
-            }] call CBA_fnc_addClassEventHandler;
-        };
-    }, [],
-    30,
-    { diag_log text "OCAP: Timed out waiting for ocap_extension_sessionReady"; }] 
-    call CBA_fnc_waitUntilAndExecute;
+[OCAP_settings_autoStart] remoteExecCall
+    [QFUNC(initClient),
+    [0, -2] select isDedicated, true];
+
+[
+    QEGVAR(round,safeStartBegin), {
+        ["ocap_customEvent",
+            ["generalEvent", "Safe start began!"]]
+            call CBA_fnc_serverEvent;
+    }
+] call CBA_fnc_addEventHandler;
+
+[
+    QEGVAR(round,safeStartAborted), {
+        ["ocap_customEvent",
+            ["generalEvent", "Safe start aborted!"]]
+            call CBA_fnc_serverEvent;
+    }
+] call CBA_fnc_addEventHandler;
+
+[
+    QEGVAR(round,started), {
+        ["ocap_customEvent",
+            ["generalEvent",
+            format ["Round %1 started!",
+                GVAR(roundNum)]]]
+            call CBA_fnc_serverEvent;
+    }
+] call CBA_fnc_addEventHandler;
+
+[
+    QEGVAR(round,ended), {
+        ["ocap_customEvent",
+            ["generalEvent",
+            format ["Round %1 ended!",
+                GVAR(roundNum)]]]
+            call CBA_fnc_serverEvent;
+
+        GVAR(roundNum) = GVAR(roundNum) + 1;
+    }
+] call CBA_fnc_addEventHandler;
+
+if (missionNamespace getVariable ["ocap_settings_trackSectors", false]) then {
+    ["ModuleSector_F", "Init", {
+        params ["_entity"];
+        [_entity] call ocap_recorder_fnc_trackSectors;
+    }] call CBA_fnc_addClassEventHandler;
 };
 
 nil
