@@ -48,10 +48,6 @@ if (USING_MODULE(event) && {!EGVAR(event,useRoundSystem)}) exitWith {
     };
 };
 
-GVAR(roundNum) = 1;
-
-GVAR(recording) = false;
-
 //Dont start/pause recordings if autoStart is forced by server config
 #define SHOULD_SAVE_EVENTS \
 ((missionNamespace getVariable ["ocap_recorder_recording", false]) \
@@ -65,25 +61,23 @@ if (!OCAP_settings_autoStart && NEWER_OCAP) then {
         preprocessFileLineNumbers
         "TN_Functions\ocap\fn_initializePlayer.sqf";
 
-    ocap_recorder_startTime = time;
+    call ocap_recorder_fnc_startRecording;
 
-    [{!isNil "ocap_recorder_PFHObject"}, {
+    [{ocap_recorder_captureFrameNo > 0}, {
+        GVAR(recording) = false;
+
         ocap_recorder_PFHObject setVariable
             ["run_condition",
             {SHOULD_SAVE_EVENTS && GVAR(recording)}];
-    }, [],
-    30,
-    { diag_log text "OCAP: Timed out waiting for ocap_recorder_PFHObject"; }
-    ] call CBA_fnc_waitUntilAndExecute;
 
-    [{!isNil "ocap_listener_markers"}, {
         ["ocap_handleMarker", ocap_listener_markers]
             call CBA_fnc_removeEventHandler;
         call compile preprocessFileLineNumbers
-            "TN_Functions\ocap\handleMarkers.sqf"}, [],
-        30,
-        { diag_log text "OCAP: Timed out waiting for ocap_listener_markers"; }
-        ] call CBA_fnc_waitUntilAndExecute;
+            "TN_Functions\ocap\handleMarkers.sqf";
+    }, [],
+    30,
+    { diag_log text "OCAP: Timed out waiting for first capture frame"; }
+    ] call CBA_fnc_waitUntilAndExecute;
 
     [
         QEGVAR(round,safeStartBegin), {
@@ -108,13 +102,13 @@ if (!OCAP_settings_autoStart && NEWER_OCAP) then {
             STOP_RECORDING;
         }
     ] call CBA_fnc_addEventHandler;
-} else {
-    call ocap_recorder_fnc_startRecording;
+
+    remoteExecCall
+        [QFUNC(initClient),
+        [0, -2] select isDedicated, true];
 };
 
-[OCAP_settings_autoStart] remoteExecCall
-    [QFUNC(initClient),
-    [0, -2] select isDedicated, true];
+GVAR(roundNum) = 1;
 
 [
     QEGVAR(round,safeStartBegin), {
@@ -155,10 +149,15 @@ if (!OCAP_settings_autoStart && NEWER_OCAP) then {
 ] call CBA_fnc_addEventHandler;
 
 if (missionNamespace getVariable ["ocap_settings_trackSectors", false]) then {
-    ["ModuleSector_F", "Init", {
-        params ["_entity"];
-        [_entity] call ocap_recorder_fnc_trackSectors;
-    }] call CBA_fnc_addClassEventHandler;
+    [{ocap_recorder_captureFrameNo > 0}, {
+        ["ModuleSector_F", "Init", {
+            params ["_entity"];
+            [_entity] call ocap_recorder_fnc_trackSectors;
+        }] call CBA_fnc_addClassEventHandler;
+    }, [],
+    30,
+    { diag_log text "OCAP: Timed out waiting for first capture frame (trackSectors)"; }
+    ] call CBA_fnc_waitUntilAndExecute;
 };
 
 nil
