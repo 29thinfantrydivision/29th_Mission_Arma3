@@ -26,7 +26,7 @@ if (GVAR(recording)) exitWith {};
 params ["_player"];
 
 if !(_player getVariable ["ocap_isInitialized", false]) then {
-    _player setVariable ["ocap_id", ocap_recorder_nextId];
+    _player setVariable ["ocap_id", ocap_recorder_nextId, true];
 
     private _newUnit = [
         ocap_recorder_captureFrameNo, //1
@@ -50,9 +50,11 @@ if !(_player getVariable ["ocap_isInitialized", false]) then {
         30
     ] call CBA_fnc_waitUntilAndExecute;
 
-    [_player] spawn ocap_recorder_addUnitEventHandlers;
+    [_player] spawn ocap_recorder_fnc_addUnitEventHandlers;
 
     ocap_recorder_nextId = ocap_recorder_nextId + 1;
+
+    ocap_recorder_trackedUnits set [_player getVariable ["ocap_id", -1], _player];
 
     _player setVariable ["ocap_isInitialized", true, true];
 };
